@@ -26,7 +26,7 @@ public class RunClass extends Application {
     public void start(Stage primaryStage) throws IOException {
         FXMLLoader load = new FXMLLoader(this.getClass().getResource("FXML/AuditTest.fxml"));
         Parent parent= load.load();
-        Scene scene = new Scene(parent);
+        Scene scene = new Scene(parent,900,300);
         primaryStage.setScene(scene);
         primaryStage.show();
     }

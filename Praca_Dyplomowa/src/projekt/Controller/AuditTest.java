@@ -7,131 +7,344 @@ package projekt.Controller;
 
 import java.io.StringWriter;
 import java.net.URL;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.ResourceBundle;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
+import javafx.scene.control.Button;
+import javafx.scene.control.Label;
+import javafx.scene.control.RadioButton;
 import javafx.scene.control.ToggleGroup;
-import javax.swing.JOptionPane;
 import jess.JessException;
 import jess.Rete;
 
 /**
  * FXML Controller class
  *
- * @author Admin
+ * @author Andrrzej Kierepka
  */
 public class AuditTest implements Initializable {
+    @FXML
+    private Label question;
+    @FXML
+    private RadioButton answer1;
+    @FXML
+    private ToggleGroup tg;
+    @FXML
+    private RadioButton answer2;
+    @FXML
+    private RadioButton answer3;
+    @FXML
+    private RadioButton answer4;
+    @FXML
+    private RadioButton answer5;
+    @FXML
+    private Button next;
+    private int index;
+    private boolean end=false;// kiedy klikneliśmy na koniec(wystaw diagnozę)
+    List<String> qList= new ArrayList<>();// lista pytań
+    List<String> a1List= new ArrayList<>();
+    List<String> a2List= new ArrayList<>();
+    List<String> a3List= new ArrayList<>();
+    List<String> a4List= new ArrayList<>();
+    List<String> a5List= new ArrayList<>();// lista odpowiedzi na 5 pytanie
+    List<Integer> pList= new ArrayList<>();// ilość punktów przyznanych za każdą odpowiedź
 
-    @FXML
-    private ToggleGroup pyt1;
-    @FXML
-    private ToggleGroup pyt2;
-    @FXML
-    private ToggleGroup pyt3;
-    public int one1=0,one2=0,one3=0;
-    /**
-     * Initializes the controller class.
-     */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        // TODO
-    }    
-
-    @FXML
-    private void zeroPoint(ActionEvent event) {
-        one1=0;
-    }
-
-    @FXML
-    private void OnePoint(ActionEvent event) {
-        one1=1;
-    }
-
-    @FXML
-    private void TwouPoint(ActionEvent event) {
-        one1=2;
-    }
-
-    @FXML
-    private void ThreePoint(ActionEvent event) {
-        one1=3;
-    }
-
-    @FXML
-    private void FourPoint(ActionEvent event) {
-        one1=4;
-    }
-
-    @FXML
-    private void Zero2Point(ActionEvent event) {
-        one2=0;
-    }
-
-    @FXML
-    private void One2Point(ActionEvent event) {
-        one2=1;
-    }
-
-    @FXML
-    private void Two2Point(ActionEvent event) {
-        one2=2;
-    }
-
-    @FXML
-    private void Three2Point(ActionEvent event) {
-        one2=3;
-    }
-
-    @FXML
-    private void Four2Point(ActionEvent event) {
-        one2=4;
-    }
-
-    @FXML
-    private void Zero3Point(ActionEvent event) {
-        one3=0;
-    }
-
-    @FXML
-    private void One3Points(ActionEvent event) {
-        one3=1;
-    }
-
-    @FXML
-    private void Two3Point(ActionEvent event) {
-        one3=2;
-    }
-
-    @FXML
-    private void Three3Point(ActionEvent event) {
-        one3=3;
-    }
-
-    @FXML
-    private void Four3Points(ActionEvent event) {
-        one3=4;
-    }
-
-    @FXML
-    private void wykonaj(ActionEvent event) throws JessException {
-        int suma = one1+one2+one3;
-        String s= new String("( assert ( Punkty ( pkt "+suma+") ))");
-        Rete engine = new Rete();
-        engine.reset();
-        StringWriter o = new StringWriter();
-        engine.addOutputRouter("t", o);
-        String result = "";
-        // Load the pricing rules
-        engine.batch("projekt/JESS/audit.clp");
-        engine.eval(s);
-        engine.run();
-        result = o.toString();
-        engine.clear();
-        if (result == null ? "" == null : result.equals("")) {
-            result = "Brak diagnozy";
+        index=0;
+        qList.add("1. Jak często pije Pan(i) napoje alkoholowe?");
+        qList.add("2. Jak dużo porcji napojów alkoholowych wypija Pan(i) typowego dnia, kiedy Pan(i) pije?");
+        qList.add("3. Jak często wypija Pan(i) 6 lub więcej drinków za jednym razem?");
+        qList.add("4. Jak często w ciągu minionego roku okazywało się, że nie był(a) Pan(i) w stanie przerwać picia, gdy juz Pan(i) już zaczął/zaczęła?");
+        qList.add("5. Jak często w minionym roku z powodu picia nie zrobił(a) Pan(i) czegoś, co normalnie powinien/powinna Pan(i) zrobić?");
+        qList.add("6. Jak często w minionym roku musiał(a) Pan(i) rano napić się, aby dojść do siebie po spożyciu zncznej ilości alkoholu poprzedniego dnia?");
+        qList.add("7. Jak często w minionym roku musiał(a) Pan(i) poczucie winy lub wyrzuty sumienia po piciu?");
+        qList.add("8. Jak często w minionym roku nie pamiętał(a) Pan(i) wydarzeń z poprzedniej nocu z powodu picia?");
+        qList.add("9. Czy Pan(i) lub ktokolwiek inny doznał urazu z powod Pan/Pani picia?");
+        qList.add("10. Czy krewny, przyjaciel, lekarz lub inny pracownik medyczny martwił się Pana/Pani piciem lub sugeroawł Panu/Pani zaprzestanie picia?");
+        for(int i=0;i<8;i++){
+            if(i==1){
+               a1List.add(" 1 lub 2"); 
+            }
+            else{
+              a1List.add(" Nigdy");  
+            }
+            
         }
-        JOptionPane.showMessageDialog(null, result);
+        for(int i=0;i<2;i++){
+           a1List.add(" Nie");  
+        }
+        a2List.add(" Raz w miesiącu lub rzadziej ");
+        a2List.add(" 3 lub 4");
+        for(int i=0;i<6;i++){
+            a2List.add(" Rzadziej niż raz w miesiącu");
+        }
+        for(int i=0;i<2;i++){
+           a2List.add(" Tak, ale nie w minionym roku");  
+        }
+        a3List.add(" 2-4 razy w miesiącu");
+        a3List.add(" 5 lub 6");
+        for(int i=0;i<6;i++){
+            a3List.add(" Raz w miesiącu");
+        }
+        for(int i=0;i<2;i++){
+            a3List.add(" Tak, w mionym roku");
+        }
+        a4List.add(" 2-3 razy w tygodniu");
+        a4List.add(" od 7 do 9");
+        for(int i=0;i<8;i++){
+            a4List.add(" Raz w tygodniu ");
+        }
+        a5List.add(" 4 lub więcej razy w tygodniu");
+        a5List.add(" 10 lub więcej");
+        for(int i=0;i<8;i++){
+            a5List.add(" Codziennie lub prawie codziennie ");
+        }
+        for(int i=0;i<10;i++){
+            pList.add(0);
+        }
+        question.setText(qList.get(0));
+        answer1.setText(a1List.get(0));
+        answer2.setText(a2List.get(0));
+        answer3.setText(a3List.get(0));
+        answer4.setText(a4List.get(0));
+        answer5.setText(a5List.get(0));
+
+    }    
+    
+    public void setIndex(int index) {
+        this.index = index;
+    }
+
+    public int getIndex() {
+        return index;
+    }
+    public void makeDiagnostic(String s){
+        try {
+            Rete engine = new Rete();
+            engine.reset();
+            StringWriter o = new StringWriter();
+            engine.addOutputRouter("t", o);
+            String result = new String();
+            // Load the pricing rules
+            engine.batch("projekt/JESS/audit.clp");
+            engine.eval(s);
+            engine.run();
+            result = o.toString();
+            engine.clear();
+            if (result == null ? "" == null : result.equals("")) {
+                result = "Brak diagnozy";            
+            }
+            showOutputMessage(result);
+        } catch (JessException ex) {
+            Logger.getLogger(AuditTest.class.getName()).log(Level.SEVERE, null, ex);
+        }
+ 
+    }
+
+    @FXML
+    private void next(ActionEvent event) {
+        if(getIndex()+1<10){// jeżeli możemy przejść do następnego pytanie (od 0 do 9 = 10)
+            index++;
+        }
+        if(getIndex()+1>8){
+         answer4.setVisible(false);
+         answer5.setVisible(false);           
+        }
+        else{
+          answer4.setVisible(true);
+          answer5.setVisible(true);               
+        }
+        if(end){// jezeli kliknięto nA KLAWISZ zakończ
+            makeAllDiagnose();
+        }
+        question.setText(qList.get(getIndex()));
+        answer1.setText(a1List.get(getIndex()));
+        answer2.setText(a2List.get(getIndex()));
+        answer3.setText(a3List.get(getIndex()));
+        answer4.setText(a4List.get(getIndex()));
+        answer5.setText(a5List.get(getIndex()));
+        if(getIndex()<8){
+        if(pList.get(getIndex())==0){
+            answer1.setSelected(true);
+        }
+        if(pList.get(getIndex())==1){
+            answer2.setSelected(true);
+        }
+        if(pList.get(getIndex())==2){
+            answer3.setSelected(true);
+        }
+        if(pList.get(getIndex())==3){
+            
+            answer4.setSelected(true);
+        }
+        if(pList.get(getIndex())==4){
+            answer5.setSelected(true);
+        }
+        }
+        else{
+            if(pList.get(getIndex())==0){
+            answer1.setSelected(true);
+            }
+            if(pList.get(getIndex())==2){
+            answer2.setSelected(true);
+            }
+            if(pList.get(getIndex())==4){
+            answer3.setSelected(true);
+            }
+        }
+        if(getIndex()+1==10){
+            next.setText("Zakończ");
+            end=true;
+        }   
+    }
+
+    @FXML
+    private void back(ActionEvent event) {
+        end=false;
+        next.setText("Dalej >");
+        if(getIndex()-1>=0){
+            index--;
+        }
+        if(getIndex()+1>8){
+         answer4.setVisible(false);
+         answer5.setVisible(false);           
+        }
+        else{
+          answer4.setVisible(true);
+          answer5.setVisible(true);               
+        }
+        question.setText(qList.get(getIndex()));
+        answer1.setText(a1List.get(getIndex()));
+        answer2.setText(a2List.get(getIndex()));
+        answer3.setText(a3List.get(getIndex()));
+        answer4.setText(a4List.get(getIndex()));
+        answer5.setText(a5List.get(getIndex()));
+        if(getIndex()<8){
+        if(pList.get(getIndex())==0){
+            answer1.setSelected(true);
+        }
+        if(pList.get(getIndex())==1){
+            answer2.setSelected(true);
+        }
+        if(pList.get(getIndex())==2){
+            answer3.setSelected(true);
+        }
+        if(pList.get(getIndex())==3){
+            
+            answer4.setSelected(true);
+        }
+        if(pList.get(getIndex())==4){
+            answer5.setSelected(true);
+        }
+        }
+        else{
+            if(pList.get(getIndex())==0){
+            answer1.setSelected(true);
+            }
+            if(pList.get(getIndex())==2){
+            answer2.setSelected(true);
+            }
+            if(pList.get(getIndex())==4){
+            answer3.setSelected(true);
+            }
+        }
+
+    }
+    
+    @FXML
+    private void answer1Action(ActionEvent event) {
+        
+        pList.set(getIndex(),0);
+    }
+
+    @FXML
+    private void answer2Action(ActionEvent event) {
+        if(getIndex()<8){
+           pList.set(getIndex(),1); 
+        }
+        else{
+           pList.set(getIndex(),2) ; 
+        }
+    }
+
+    @FXML
+    private void answer3Action(ActionEvent event) {
+        //pList.set(getIndex(),2);
+        if(getIndex()<8){
+           pList.set(getIndex(),4); 
+        }
+        else{
+           pList.set(getIndex(),4) ; 
+        }
+    }
+
+    @FXML
+    private void answer4Action(ActionEvent event) {
+        pList.set(getIndex(),3);
+    }
+
+    @FXML
+    private void answer5Action(ActionEvent event) {
+        pList.set(getIndex(),4);
+    }
+    
+    @Override
+    /**
+     ** Metoda ktora zwraca w postaci ciągu znaków wyrażenie które będzie potrzebne wykonania wniskowania 
+     * @rerurn wyrażenie potrzebne do wykonania wniskowania
+     */
+    public String toString(){
+        StringBuilder tmp= new StringBuilder("( assert ( Point");
+        for(int i=0;i<pList.size();i++){
+            tmp.append("( answer").append(i+1).append(" ").append(pList.get(i)).append(") ");
+        }
+        tmp.append(") )");
+        return tmp.toString();
+    }
+    /**
+     ** wyświetla wyniki diagnozy  
+     * @param message rezultat diagnozy
+     */
+    public void showOutputMessage(String message){
+        Alert alert = new Alert(AlertType.INFORMATION);
+        alert.setTitle("Wynik diagnozy");
+        alert.setHeaderText("Otrzymane rezulataty");
+        alert.setContentText(message);
+        alert.showAndWait();
+    }
+    /**
+     ** Wykonyje diagnoze,wyświetla dignoze i czyści wartości zmiennych.
+     */
+    public void makeAllDiagnose(){
+            makeDiagnostic(toString());
+            //System.out.println(toString());
+            index=0;
+            for(int i=0;i<pList.size();i++){
+                pList.set(i, 0);
+            }
+             index=0;
+             end=false;
+             next.setText("Dalej >");
+             question.setText(qList.get(getIndex()));
+             answer1.setText(a1List.get(getIndex()));
+             answer2.setText(a2List.get(getIndex()));
+             answer3.setText(a3List.get(getIndex()));
+             answer4.setText(a4List.get(getIndex()));
+             answer5.setText(a5List.get(getIndex()));
+             answer4.setVisible(true);
+             answer5.setVisible(true);
+    }
+    @FXML
+    private void fastDiagnose(ActionEvent event) {
+        makeAllDiagnose();
     }
     
 }

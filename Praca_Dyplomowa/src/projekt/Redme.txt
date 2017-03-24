@@ -1,0 +1,4 @@
+Wersja 0.0.0
+Dodano :
+Formularz test audit
+Dodano regu³y fo pliku audit.clp 
