@@ -279,7 +279,7 @@ public class AuditTest implements Initializable {
     private void answer3Action(ActionEvent event) {
         //pList.set(getIndex(),2);
         if(getIndex()<8){
-           pList.set(getIndex(),4); 
+           pList.set(getIndex(),2); 
         }
         else{
            pList.set(getIndex(),4) ; 
@@ -325,7 +325,7 @@ public class AuditTest implements Initializable {
      */
     public void makeAllDiagnose(){
             makeDiagnostic(toString());
-            //System.out.println(toString());
+            System.out.println(toString());
             index=0;
             for(int i=0;i<pList.size();i++){
                 pList.set(i, 0);
