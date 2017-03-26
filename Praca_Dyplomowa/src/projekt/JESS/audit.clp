@@ -20,10 +20,16 @@
         (assert (Sum3 (+ ?answer1 ?answer2 ?answer3 )))
 )
 
-(defrule Sum1-3and7-10
-( Point (answer1 ?answer1 )(answer2 ?answer2 )(answer3 ?answer3 ) (answer7 ?answer7 ) (answer8 ?answer8 ) (answer9 ?answer9 ) (answer10 ?answer10 ) )
+(defrule Sum1-4and7-10
+( Point (answer1 ?answer1 )(answer2 ?answer2 )(answer3 ?answer3 ) (answer4 ?answer4 ) (answer7 ?answer7 ) (answer8 ?answer8 ) (answer9 ?answer9 ) (answer10 ?answer10 ) )
 	=>
-        (assert (Sum6 (+ ?answer1 ?answer2 ?answer3 ?answer7 ?answer8 ?answer9 ?answer10 )))
+        (assert (Sum7 (+ ?answer1 ?answer2 ?answer3 ?answer4 ?answer7 ?answer8 ?answer9 ?answer10 )))
+)
+
+(defrule Sum1-10
+( Point (answer1 ?answer1 )(answer2 ?answer2 )(answer3 ?answer3 ) (answer4 ?answer4 ) (answer5 ?answer5 ) (answer6 ?answer6 ) (answer7 ?answer7 ) (answer8 ?answer8 ) (answer9 ?answer9 ) (answer10 ?answer10 ) )
+	=>
+        (assert (Sum10 (+ ?answer1 ?answer2 ?answer3 ?answer4 ?answer5 ?answer6   ?answer7 ?answer8 ?answer9 ?answer10 )))
 )
 
 (defrule Low-Level-Risc
@@ -39,16 +45,15 @@
 )
 
 (defrule Harmful-drinking-alcohol
-	(Sum6 ?sum6 )(and(test (> ?sum6 15))(test (< ?sum6 20)) ) 
+	(Sum7 ?sum7 )(and(test (> ?sum7 15))(test (< ?sum7 20)) ) 
 	=>
     ( printout t "Szkodliwe spożywanie alkoholu" crlf)
 )
 
 (defrule Addiction
-	(Sum6 ?sum6 )(test (> ?sum6 19))  
+	(Sum10 ?sum10 )(test (> ?sum10 19))  
 	=>
     ( printout t "Podejżenie uzależnienia alkoholowego" crlf)
 )
-
 (facts)
 (run)

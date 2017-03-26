@@ -1,4 +1,7 @@
+Wersja 0.0.1
+Dodano :
+Zmieniono reguły w  pliku audit.clp 
 Wersja 0.0.0
 Dodano :
 Formularz test audit
-Dodano regu�y fo pliku audit.clp 
+Dodano reguły do  pliku audit.clp 
