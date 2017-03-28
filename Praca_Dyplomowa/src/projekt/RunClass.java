@@ -7,14 +7,11 @@ package projekt;
 
 import java.io.IOException;
 import javafx.application.Application;
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
+import javafx.stage.StageStyle;
 
 /**
  *
@@ -24,11 +21,13 @@ public class RunClass extends Application {
     
     @Override
     public void start(Stage primaryStage) throws IOException {
-        FXMLLoader load = new FXMLLoader(this.getClass().getResource("FXML/AuditTest.fxml"));
+        FXMLLoader load = new FXMLLoader(this.getClass().getResource("FXML/FirstWindow.fxml"));
         Parent parent= load.load();
-        Scene scene = new Scene(parent,900,300);
+        Scene scene = new Scene(parent);
         primaryStage.setScene(scene);
+        primaryStage.initStyle(StageStyle.UNDECORATED);
         primaryStage.show();
+        primaryStage.setResizable(false);
     }
 
     /**

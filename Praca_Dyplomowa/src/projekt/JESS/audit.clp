@@ -37,11 +37,10 @@
 	=>
     ( printout t "Niski poziom ryzyka" crlf)
 )
-
 (defrule Risc-Level-Risc
 	(Sum3 ?sum3 )(and(test (> ?sum3 7))(test (< ?sum3 15)) ) 
 	=>
-    ( printout t "Rysykowne spożywanie alkoholu" crlf)
+    ( printout t "Ryzykowne spożywanie alkoholu" crlf)
 )
 
 (defrule Harmful-drinking-alcohol

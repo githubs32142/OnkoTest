@@ -1,3 +1,5 @@
+Wersja 0.0.2 28.03.17
+Dodano formularz wprowadzania danych.
 Wersja 0.0.1
 Dodano :
 Zmieniono reguły w  pliku audit.clp 

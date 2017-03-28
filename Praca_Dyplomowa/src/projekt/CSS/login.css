@@ -1,18 +1,18 @@
 
+
 .label {
-    -fx-padding: 5 22 5 22;   
+    -fx-padding: 5 22 5 22 ;  
     -fx-border-style: none; 
-	-fx-background-color: #2c62b5;
     -fx-background-radius: 0;
+    -fx-background-color: #2c62b5;
     -fx-background-insets: 0;
     -fx-border-insets: 0;
-    -fx-font-family: "Segoe UI Semibold";
-    -fx-font-size: 14px;
     -fx-text-fill: white;
 }
+
 .page1{
-    -fx-border-color:#2c62b5;
-    -fx-background-color: white;
+    -fx-border-color:transparent;
+    -fx-background-color: #2b579a;
 }
 
 .test{
@@ -107,7 +107,7 @@
 }
  
 .table-view .column-header .label{
-    -fx-text-fill: #2b579a;
+    -fx-text-fill: #636363;
     -fx-alignment: CENTER_LEFT;
 }
 
@@ -164,51 +164,68 @@
  *                                                                             *
  ******************************************************************************/
  
-.btn {
+.button {
     -fx-padding: 5 22 5 22;   
     -fx-border-style: none; 
     -fx-background-radius: 0;
-    -fx-border-color : transparent;
-/*    -fx-border-width:2;*/
-    -fx-background-color: #299bb4;
+    -fx-border-color : #f4f4f4;
+    -fx-border-width:2;
+    -fx-background-color: #2b579a;
     -fx-background-insets: 0;
     -fx-border-insets: 0;
     -fx-font-family: "Segoe UI Semibold";
-    -fx-font-size: 12px;
+    -fx-font-size: 14px;
     -fx-text-fill: white;
 }
  
-.btn:hover{
-    -fx-background-color: #699ca7;
+.button:hover{
+    -fx-background-color: #3659b3;
 }
  
-.btn:pressed, .btn:default:hover:pressed
+.button:pressed, .button:default:hover:pressed
 {
-  -fx-background-color: black;
-  -fx-text-fill: white;
+    -fx-padding: 5 22 5 22;   
+    -fx-border-style: none; 
+    -fx-background-radius: 0;
+    -fx-border-color : #f4f4f4;
+    -fx-border-width:2;
+    -fx-background-color: #2b579a;
+    -fx-background-insets: 0;
+    -fx-border-insets: 0;
+    -fx-font-family: "Segoe UI Semibold";
+    -fx-font-size: 14px;
+    -fx-text-fill: white;
 }
  
-.btn:focused
+.button:focused
 {
-    -fx-border-color: black;
-    -fx-border-width: 1;
-    -fx-background-insets: 0 0 0 0, 0, 1, 2;   
+    -fx-padding: 5 22 5 22;   
+    -fx-border-style: none; 
+    -fx-background-radius: 0;
+    -fx-border-color : #f4f4f4;
+    -fx-border-width:2;
+    -fx-background-color: #2b579a;
+    -fx-background-insets: 0;
+    -fx-border-insets: 0;
+    -fx-font-family: "Segoe UI Semibold";
+    -fx-font-size: 14px;
+    -fx-text-fill: white; 
 }
  
-.btn:disabled, .btn:default:disabled
+.button:disabled, .button:default:disabled
 {
     -fx-opacity: 0.4;
     -fx-background-color: #cccccc;
     -fx-text-fill: #212121;
 }
  
-.btn:default
+.button:default
 {
     -fx-background-color: #5585be;
     -fx-text-fill: #ffffff;
 }
  
-.btn:default:hover{
+.button:default:hover{
     -fx-background-color: #219297;
 }
  
@@ -564,13 +581,15 @@
 .text-input{
     -fx-background-radius: 0, 0;
     -fx-background-color: white;
-    -fx-border-color: gray;
+    -fx-border-color: white;
     -fx-background-insets: 0;
-
     -fx-prompt-text-fill: #818181;
-
     -fx-highlight-fill: #008287; /* TODO: this probably is the "active" color" */
     -fx-highlight-text-fill: white;
+    -fx-text-fill: black;
+    -fx-font-family: "Segoe UI";
+    -fx-font-size: 14px;
+    
 }
 
 .text-input:hover{
@@ -835,7 +854,31 @@
     -fx-background-color: transparent, transparent, white;
 }
 
+.list-view {
+    -fx-background-color: #909090, -fx-control-inner-background;
+    -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,0) , 8, 0.0 , 0 , 0 );
+}
 
+/*.list-view .list-cell:hover{
+    -fx-background-color: #dedede;
+    -fx-text-fill: #1d1d1d;
+}
+
+.list-view .list-cell:filled:selected:hover {
+    -fx-background-color: #299bb4;
+    -fx-text-fill: white;
+}
+
+.list-cell:empty {
+    -fx-background-color: #f8f8f8;
+    -fx-base: transparent;
+    -fx-control-inner-background: transparent;
+    -fx-padding: 0;
+}*/
+  
+
+
+ 
 /* ------- ARROW* ------- */
 .combo-box-base .arrow {
     -fx-padding: 0.333333em 0.333333em 0.333333em 0.333333em; /* 4 4 4 4 */
@@ -1050,20 +1093,19 @@
     -fx-indeterminate-bar-length: 90;
     -fx-indeterminate-bar-escape: true;
     -fx-indeterminate-bar-flip: false;
-    -fx-indeterminate-bar-animation-time: 0;
+    -fx-indeterminate-bar-animation-time: 2;
     -fx-focus-traversable: true;
     -fx-border-color: white;
-    
 }
 
 .progress-bar .bar {
-    -fx-background-color: #cccccc;
+    -fx-background-color: #299bb4;
     -fx-padding: 0.416667em; /* 5 */
-    -fx-border-color: transparent;
+    -fx-border-color: white;
 }
 
 .progress-bar:indeterminate .bar {
-    -fx-background-color: white;
+    -fx-background-color: #299bb4;
 }
 
 .progress-bar .track {
@@ -1074,4 +1116,3 @@
 .progress-bar:disabled {
     -fx-opacity: 1.0
 }
-
