@@ -1,3 +1,7 @@
+
+Wersja 0.0.3 29.03.17
+Dodano formularz Czynników ryzyka.
+Utworzono nową klasę Person
 Wersja 0.0.2 28.03.17
 Dodano formularz wprowadzania danych.
 Wersja 0.0.1
