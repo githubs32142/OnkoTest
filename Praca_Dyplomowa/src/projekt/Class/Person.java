@@ -17,6 +17,13 @@ public class Person {
         bmi= weight/((height/100)*(height/100));
         this.height = height;
     }
+
+    public Person() {
+    }
+
+    public String getSurName() {
+        return surName;
+    }
     
     public Double getAge() {
         return age;
@@ -62,4 +69,9 @@ public class Person {
         this.name = name;
     }
 
+    @Override
+    public String toString() {
+        return name.toString(); //To change body of generated methods, choose Tools | Templates.
+    }
+    
 }

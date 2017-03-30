@@ -36,7 +36,7 @@ import projekt.Class.Person;
  * @author Andrzej Kierepka
  */
 public class FirstWindowController implements Initializable {
-    ObservableList<String > sexList = FXCollections.observableArrayList("Kobieta", "Mężczyzna");
+        ObservableList<String > sexList = FXCollections.observableArrayList("Kobieta", "Mężczyzna");
     @FXML
     private TextField name;
     @FXML
@@ -63,14 +63,26 @@ public class FirstWindowController implements Initializable {
     private Button next;
     @FXML
     private Button close;
-
+    @FXML
+    private TextField height;
+    @FXML
+    private Label lbllheight;
+    
     /**
      * Initializes the controller class.
      */
     
     public FirstWindowController() {
-    }    
+    } 
     
+    public FirstWindowController(Person p) {
+        name.setText(p.getName());
+        surname.setText(p.getSurName());
+        weight.setText(String.valueOf(p.getWeight()));
+        height.setText(String.valueOf(p.getHeight()));
+        age.setText(String.valueOf(p.getAge()));
+        
+    } 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         Platform.runLater(() -> {
@@ -94,27 +106,30 @@ public class FirstWindowController implements Initializable {
 
     @FXML
     private void nextWindow(ActionEvent event) {
-        //if(!name.getText().isEmpty() && !surname.getText().isEmpty() ){
+        if(!name.getText().isEmpty() && !surname.getText().isEmpty() ){
             try{
-               // Double w=Double.valueOf(weight.getText());
+                Double w=Double.valueOf(weight.getText());
+                Double h=Double.valueOf(height.getText());
+                Double a=Double.valueOf(age.getText());
+                Person p = new Person(name.getText(), surname.getText(), h, a, sex.getValue(), h);
                 FXMLLoader load = new FXMLLoader(this.getClass().getResource("/projekt/FXML/FactorWindow.fxml"));
-                
-                FactorWindowController cnt= new FactorWindowController();
-                cnt=load.getController();
+                FactorWindowController cnt= new FactorWindowController(p);   
                 Parent parent= load.load();
+                cnt=load.getController();
+                cnt.setPerson(p);
                 Scene scene = new Scene(parent);
                 Stage primaryStage = new Stage();
                 primaryStage.setScene(scene);
                 primaryStage.show();
-                // Hide this current window (if this is what you want)
-                ((Node)(event.getSource())).getScene().getWindow().hide();
-                
+                Stage stage;
+                stage = (Stage) ((Node)(event.getSource())).getScene().getWindow();
+                stage.close();
             }
             catch(Exception e){
                  Logger logger = Logger.getLogger(getClass().getName());
                 logger.log(Level.SEVERE, "Failed to create new Window.", e);
             }
-        //}
+        }
     }
 
     @FXML
@@ -126,5 +141,11 @@ public class FirstWindowController implements Initializable {
     private void mouseClosed(MouseEvent event) {
         Platform.exit();
     }
-    
+    public void setPerson(Person p){
+        name.setText(p.getName());
+        surname.setText(p.getSurName());
+        weight.setText(String.valueOf(p.getWeight()));
+        height.setText(String.valueOf(p.getHeight()));
+        age.setText(String.valueOf(p.getAge()));
+    }
 }

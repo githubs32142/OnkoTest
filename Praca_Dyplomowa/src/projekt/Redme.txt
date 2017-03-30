@@ -1,4 +1,6 @@
-
+Wersja 0.0.4 30.03.17
+Połączono formularze FirstWindow i FactorWindow
+Dodano pliki html który pozwala na wyświetlanie objawów
 Wersja 0.0.3 29.03.17
 Dodano formularz Czynników ryzyka.
 Utworzono nową klasę Person

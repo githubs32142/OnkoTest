@@ -26,8 +26,9 @@ public class RunClass extends Application {
         Scene scene = new Scene(parent);
         primaryStage.setScene(scene);
         primaryStage.initStyle(StageStyle.UNDECORATED);
-        primaryStage.show();
         primaryStage.setResizable(false);
+        primaryStage.show();
+        
     }
 
     /**
