@@ -5,6 +5,7 @@
  */
 package projekt.Controller;
 
+import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
@@ -13,12 +14,14 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Button;
 import javafx.scene.control.ListView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.web.WebEngine;
@@ -39,13 +42,14 @@ public class FactorWindowController implements Initializable {
     WebEngine webEngine ;
     List <Factor> fact= new ArrayList<>();
     ObservableList<String> data = FXCollections.observableArrayList(
-            "chocolate", "salmon", "gold", "coral", "darkorchid",
-            "darkgoldenrod", "lightsalmon", "black", "rosybrown", "blue",
-            "blueviolet", "brown");
+            "Alkoholizm","Otyłość","Promieniowanie jonizujące");
+    private int index;
     @FXML
     private ListView<String> factors;
     @FXML
     private WebView webView;
+    @FXML
+    private Button test;
     public FactorWindowController(Person person) {
         this.person=person;
     }    
@@ -56,11 +60,15 @@ public class FactorWindowController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        fact.add(new Factor("Alkoholizm", "/projekt/HTML/alkoholizm.html", true));
+        fact.add(new Factor("Alkoholizm", "/projekt/HTML/alkoholizm.html", true,"/projekt/FXML/AuditTest.fxml"));
+        fact.add(new Factor("Otyłość", "/projekt/HTML/otylosc.html", false,""));
+        fact.add(new Factor("Promieniowanie jonizujące", "/projekt/HTML/promieniowanie.html", false,""));
         webEngine = webView.getEngine();
-        final URL urlGoogleMaps = getClass().getResource("/projekt/HTML/alkoholizm.html");
-        webEngine.load(urlGoogleMaps.toExternalForm());
+       // final URL urlFactor = getClass().getResource("/projekt/HTML/alkoholizm.html");
+       // webEngine.load(urlFactor.toExternalForm());
         factors.setItems(data);
+        test.setVisible(false);
+        index=-1;
     }    
     /**
      ** Metoda która powoduje, że wchodzimy do poprzedniego okna okna głównego 
@@ -100,7 +108,48 @@ public class FactorWindowController implements Initializable {
 
     @FXML
     private void factorClicked(MouseEvent event) {
-        System.out.println(factors.getItems().get(factors.getSelectionModel().getSelectedIndex()));
+        //System.out.println(factors.getItems().get(factors.getSelectionModel().getSelectedIndex()));
+        String clickedFact= factors.getItems().get(factors.getSelectionModel().getSelectedIndex());
+        int tmpindex=ifFact(clickedFact);
+        index=tmpindex;
+        if(tmpindex>=0){
+            final URL urlFactor = getClass().getResource(fact.get(tmpindex).getSymptom());
+            webEngine.load(urlFactor.toExternalForm());
+            if(fact.get(tmpindex).isTest()){
+                test.setVisible(true);
+            }
+            else{
+                test.setVisible(false);
+            }
+        }
     }
-    
+    public int ifFact(String facts){
+         for(int i=0;i<fact.size();i++){
+         if(fact.get(i).getFactor().equals(facts)){
+             return i;
+         }   
+        }
+         return -1;
+    }
+
+    @FXML
+    private void makeTest(ActionEvent event) {
+        if(index>=0){
+            if(fact.get(index).isTest()){
+                FXMLLoader load = new FXMLLoader(this.getClass().getResource(fact.get(index).getUrlTest()));
+                Parent parent = null;
+                try {
+                    parent = load.load();
+                } catch (IOException ex) {
+                    Logger.getLogger(FactorWindowController.class.getName()).log(Level.SEVERE, null, ex);
+                }
+                Scene scene = new Scene(parent);
+                Stage primaryStage = new Stage();
+                primaryStage.setScene(scene);          
+                //primaryStage.initStyle(StageStyle.UNDECORATED);
+                primaryStage.setResizable(false);
+                primaryStage.show();
+            }
+        }
+    }
 }

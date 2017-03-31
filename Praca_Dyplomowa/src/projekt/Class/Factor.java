@@ -8,10 +8,12 @@ public class Factor {
     private String factor;
     private String symptom;
     private boolean test;
-    public Factor(String factor, String symptom, boolean test) {
+    private String urlTest;
+    public Factor(String factor, String symptom, boolean test,String urlTest) {
         this.factor = factor;
         this.symptom = symptom;
         this.test = test;
+        this.urlTest=urlTest;
     }
     /**
      ** Metoda która sprwdza, czy podany objaw już jest 
@@ -32,6 +34,10 @@ public class Factor {
 
     public boolean isTest() {
         return test;
+    }
+
+    public String getUrlTest() {
+        return urlTest;
     }
     
 }

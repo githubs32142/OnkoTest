@@ -1,3 +1,5 @@
+Wersja 0.0.5 31.03.17
+Wykonano wyświetlanie objawu po kliknięciu na objaw.
 Wersja 0.0.4 30.03.17
 Połączono formularze FirstWindow i FactorWindow
 Dodano pliki html który pozwala na wyświetlanie objawów
