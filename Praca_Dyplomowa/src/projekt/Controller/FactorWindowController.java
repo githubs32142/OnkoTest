@@ -34,7 +34,7 @@ import projekt.Class.Person;
 /**
  * FXML Controller class
  *
- * @author Admin
+ * @author Andrzej Kierepka
  */
 public class FactorWindowController implements Initializable {
     
@@ -42,7 +42,8 @@ public class FactorWindowController implements Initializable {
     WebEngine webEngine ;
     List <Factor> fact= new ArrayList<>();
     ObservableList<String> data = FXCollections.observableArrayList(
-            "Alkoholizm","Otyłość","Promieniowanie jonizujące");
+            "Alkoholizm","Otyłość","Promieniowanie jonizujące","Radioterapia","Lampy solarium","Palenie papierosów",
+            "Brak aktywności fizycznej","Niewłaściwa dieta" );
     private int index;
     @FXML
     private ListView<String> factors;
@@ -63,6 +64,14 @@ public class FactorWindowController implements Initializable {
         fact.add(new Factor("Alkoholizm", "/projekt/HTML/alkoholizm.html", true,"/projekt/FXML/AuditTest.fxml"));
         fact.add(new Factor("Otyłość", "/projekt/HTML/otylosc.html", false,""));
         fact.add(new Factor("Promieniowanie jonizujące", "/projekt/HTML/promieniowanie.html", false,""));
+        fact.add(new Factor("Radioterapia", "/projekt/HTML/radioterapia.html", false,""));
+        fact.add(new Factor("Lampy solarium", "/projekt/HTML/solarium.html", false,""));
+        fact.add(new Factor("Palenie papierosów", "/projekt/HTML/papierosy.html", false,""));
+        fact.add(new Factor("Brak aktywności fizycznej", "/projekt/HTML/aktywnosc_fizyczna.html", false,""));
+        fact.add(new Factor("Niewłaściwa dieta", "/projekt/HTML/brak_owocow.html", false,""));
+        fact.add(new Factor("Brak naturalnych antyoksydantów", "/projekt/HTML/brak_naturalnych_antyoksydantow.html", false,""));
+        fact.add(new Factor("???+ otyłość", "/projekt/HTML/wzrost_bmi.html", false,""));
+        fact.add(new Factor("Brak błonnika", "/projekt/HTML/brak_naturalnych_antyoksydantow.html", false,""));
         webEngine = webView.getEngine();
        // final URL urlFactor = getClass().getResource("/projekt/HTML/alkoholizm.html");
        // webEngine.load(urlFactor.toExternalForm());

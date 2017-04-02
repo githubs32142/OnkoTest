@@ -1,3 +1,6 @@
+Wersja 0.0.6 02.04.17
+Dodano czynniki ryzyka 11 czynników.
+Zmieniono reguły w  pliku audit.clp (Podzielono na kategorie )
 Wersja 0.0.5 31.03.17
 Wykonano wyświetlanie objawu po kliknięciu na objaw.
 Wersja 0.0.4 30.03.17
