@@ -59,16 +59,23 @@ public class AuditTest implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         index=0;
-        qList.add("1. Jak często pije Pan(i) napoje alkoholowe?");
-        qList.add("2. Jak dużo porcji napojów alkoholowych wypija Pan(i) typowego dnia, kiedy Pan(i) pije?");
-        qList.add("3. Jak często wypija Pan(i) 6 lub więcej drinków za jednym razem?");
-        qList.add("4. Jak często w ciągu minionego roku okazywało się, że nie był(a) Pan(i) w stanie przerwać picia, gdy juz Pan(i) już zaczął/zaczęła?");
-        qList.add("5. Jak często w minionym roku z powodu picia nie zrobił(a) Pan(i) czegoś, co normalnie powinien/powinna Pan(i) zrobić?");
-        qList.add("6. Jak często w minionym roku musiał(a) Pan(i) rano napić się, aby dojść do siebie po spożyciu zncznej ilości alkoholu poprzedniego dnia?");
-        qList.add("7. Jak często w minionym roku musiał(a) Pan(i) poczucie winy lub wyrzuty sumienia po piciu?");
-        qList.add("8. Jak często w minionym roku nie pamiętał(a) Pan(i) wydarzeń z poprzedniej nocu z powodu picia?");
-        qList.add("9. Czy Pan(i) lub ktokolwiek inny doznał urazu z powod Pan/Pani picia?");
-        qList.add("10. Czy krewny, przyjaciel, lekarz lub inny pracownik medyczny martwił się Pana/Pani piciem lub sugeroawł Panu/Pani zaprzestanie picia?");
+        qList.add("1. Czy kiedykolwiek miał(a) Pan(i) poczucie, że powinien/powinna Pan(i) ograniczyć picie?");
+        qList.add("2. Czy zdarzyło się, że ktoś Pana/Panią zdenerwował, krytykując Pana/Pani picie?");
+        qList.add("3. Czy czuł(a) się Pan(i) źle lub miał(a) poczucie winy z powodu swojego picia?");
+        qList.add("4. Czy rozpoczynał(a) Pan(i) dzień od wypicia rana alkoholu dla uspokojenia lub dla złagodzenia kaca?");
+        qList.add("5. Jak często pije Pan(i) napoje alkoholowe?");
+        qList.add("6. Jak dużo porcji napojów alkoholowych wypija Pan(i) typowego dnia, kiedy Pan(i) pije?");
+        qList.add("7. Jak często wypija Pan(i) 6 lub więcej drinków za jednym razem?");
+        qList.add("8. Jak często w ciągu minionego roku okazywało się, że nie był(a) Pan(i) w stanie przerwać picia, gdy juz Pan(i) już zaczął/zaczęła?");
+        qList.add("9. Jak często w minionym roku z powodu picia nie zrobił(a) Pan(i) czegoś, co normalnie powinien/powinna Pan(i) zrobić?");
+        qList.add("10. Jak często w minionym roku musiał(a) Pan(i) rano napić się, aby dojść do siebie po spożyciu zncznej ilości alkoholu poprzedniego dnia?");
+        qList.add("11. Jak często w minionym roku musiał(a) Pan(i) poczucie winy lub wyrzuty sumienia po piciu?");
+        qList.add("12. Jak często w minionym roku nie pamiętał(a) Pan(i) wydarzeń z poprzedniej nocu z powodu picia?");
+        qList.add("13. Czy Pan(i) lub ktokolwiek inny doznał urazu z powod Pan/Pani picia?");
+        qList.add("14. Czy krewny, przyjaciel, lekarz lub inny pracownik medyczny martwił się Pana/Pani piciem lub sugeroawł Panu/Pani zaprzestanie picia?");
+        for(int i=0;i<4;i++){
+            a1List.add(" Nie");
+        }
         for(int i=0;i<8;i++){
             if(i==1){
                a1List.add(" 1 lub 2"); 
@@ -81,6 +88,10 @@ public class AuditTest implements Initializable {
         for(int i=0;i<2;i++){
            a1List.add(" Nie");  
         }
+        
+        for(int i=0;i<4;i++){
+            a2List.add(" Tak");
+        }
         a2List.add(" Raz w miesiącu lub rzadziej ");
         a2List.add(" 3 lub 4");
         for(int i=0;i<6;i++){
@@ -88,6 +99,10 @@ public class AuditTest implements Initializable {
         }
         for(int i=0;i<2;i++){
            a2List.add(" Tak, ale nie w minionym roku");  
+        }
+        
+        for(int i=0;i<4;i++){
+            a3List.add(" -");
         }
         a3List.add(" 2-4 razy w miesiącu");
         a3List.add(" 5 lub 6");
@@ -97,17 +112,23 @@ public class AuditTest implements Initializable {
         for(int i=0;i<2;i++){
             a3List.add(" Tak, w mionym roku");
         }
+        for(int i=0;i<4;i++){
+            a4List.add(" -");
+        }        
         a4List.add(" 2-3 razy w tygodniu");
         a4List.add(" od 7 do 9");
         for(int i=0;i<8;i++){
             a4List.add(" Raz w tygodniu ");
+        }
+        for(int i=0;i<4;i++){
+            a5List.add(" -");
         }
         a5List.add(" 4 lub więcej razy w tygodniu");
         a5List.add(" 10 lub więcej");
         for(int i=0;i<8;i++){
             a5List.add(" Codziennie lub prawie codziennie ");
         }
-        for(int i=0;i<10;i++){
+        for(int i=0;i<14;i++){
             pList.add(0);
         }
         question.setText(qList.get(0));
@@ -116,7 +137,9 @@ public class AuditTest implements Initializable {
         answer3.setText(a3List.get(0));
         answer4.setText(a4List.get(0));
         answer5.setText(a5List.get(0));
-
+        answer3.setVisible(false);
+        answer4.setVisible(false);
+        answer5.setVisible(false);
     }    
     
     public void setIndex(int index) {
@@ -151,19 +174,28 @@ public class AuditTest implements Initializable {
 
     @FXML
     private void next(ActionEvent event) {
-        if(getIndex()+1<10){// jeżeli możemy przejść do następnego pytanie (od 0 do 9 = 10)
+        if(getIndex()+1<14){// jeżeli możemy przejść do następnego pytanie (od 0 do 12 = 13)
             index++;
         }
-        if(getIndex()+1>8){
+        if(getIndex()+1>12 || getIndex()<4){
+         if(getIndex()<4){
+            answer3.setVisible(false); 
+         }
+         else{
+             answer3.setVisible(true); 
+         }
          answer4.setVisible(false);
          answer5.setVisible(false);           
         }
         else{
+          answer3.setVisible(true);
           answer4.setVisible(true);
           answer5.setVisible(true);               
         }
         if(end){// jezeli kliknięto nA KLAWISZ zakończ
             makeAllDiagnose();
+           // System.out.println("Koniec");
+            System.out.println(toString());
         }
         question.setText(qList.get(getIndex()));
         answer1.setText(a1List.get(getIndex()));
@@ -171,7 +203,7 @@ public class AuditTest implements Initializable {
         answer3.setText(a3List.get(getIndex()));
         answer4.setText(a4List.get(getIndex()));
         answer5.setText(a5List.get(getIndex()));
-        if(getIndex()<8){
+        if(getIndex()<12 ){
         if(pList.get(getIndex())==0){
             answer1.setSelected(true);
         }
@@ -200,24 +232,31 @@ public class AuditTest implements Initializable {
             answer3.setSelected(true);
             }
         }
-        if(getIndex()+1==10){
+        if(getIndex()+1==14){
             next.setText("Zakończ");
             end=true;
         }   
     }
 
     @FXML
-    private void back(ActionEvent event) {
+    private void back(ActionEvent event) {// klikneliśmy wstecz
         end=false;
         next.setText("Dalej >");
         if(getIndex()-1>=0){
             index--;
         }
-        if(getIndex()+1>8){
+        if(getIndex()+1>12 || getIndex()<4){
+         if(getIndex()<4){
+            answer3.setVisible(false); 
+         }
+         else{
+             answer3.setVisible(true); 
+         }
          answer4.setVisible(false);
          answer5.setVisible(false);           
         }
         else{
+          answer3.setVisible(true);
           answer4.setVisible(true);
           answer5.setVisible(true);               
         }
@@ -227,7 +266,7 @@ public class AuditTest implements Initializable {
         answer3.setText(a3List.get(getIndex()));
         answer4.setText(a4List.get(getIndex()));
         answer5.setText(a5List.get(getIndex()));
-        if(getIndex()<8){
+        if(getIndex()<12){
         if(pList.get(getIndex())==0){
             answer1.setSelected(true);
         }
@@ -267,7 +306,7 @@ public class AuditTest implements Initializable {
 
     @FXML
     private void answer2Action(ActionEvent event) {
-        if(getIndex()<8){
+        if(getIndex()<12){
            pList.set(getIndex(),1); 
         }
         else{
@@ -278,7 +317,7 @@ public class AuditTest implements Initializable {
     @FXML
     private void answer3Action(ActionEvent event) {
         //pList.set(getIndex(),2);
-        if(getIndex()<8){
+        if(getIndex()<12){
            pList.set(getIndex(),2); 
         }
         else{
@@ -325,7 +364,7 @@ public class AuditTest implements Initializable {
      */
     public void makeAllDiagnose(){
             makeDiagnostic(toString());
-            System.out.println(toString());
+           // System.out.println(toString());
             index=0;
             for(int i=0;i<pList.size();i++){
                 pList.set(i, 0);
@@ -339,8 +378,9 @@ public class AuditTest implements Initializable {
              answer3.setText(a3List.get(getIndex()));
              answer4.setText(a4List.get(getIndex()));
              answer5.setText(a5List.get(getIndex()));
-             answer4.setVisible(true);
-             answer5.setVisible(true);
+             answer3.setVisible(false);
+             answer4.setVisible(false);
+             answer5.setVisible(false);
     }
     @FXML
     private void fastDiagnose(ActionEvent event) {

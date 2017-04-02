@@ -12,47 +12,62 @@
 (slot answer8 )
 (slot answer9 )
 (slot answer10 )
+(slot answer11 )
+(slot answer12 )
+(slot answer13 )
+(slot answer14 )
 )
 
-(defrule Sum1-3
-( Point (answer1 ?answer1 )(answer2 ?answer2 )(answer3 ?answer3 ) )
+(defrule Sum1-4
+( Point (answer1 ?answer1 )(answer2 ?answer2 )(answer3 ?answer3 ) (answer4 ?answer4 ) )
 	=>
-        (assert (Sum3 (+ ?answer1 ?answer2 ?answer3 )))
+        (assert (Sum4 (+ ?answer1 ?answer2 ?answer3 ?answer4 )))
 )
 
-(defrule Sum1-4and7-10
-( Point (answer1 ?answer1 )(answer2 ?answer2 )(answer3 ?answer3 ) (answer4 ?answer4 ) (answer7 ?answer7 ) (answer8 ?answer8 ) (answer9 ?answer9 ) (answer10 ?answer10 ) )
+(defrule Sum5-7
+( Point (answer5 ?answer5 )(answer6 ?answer6 )(answer7 ?answer7 ) )
 	=>
-        (assert (Sum7 (+ ?answer1 ?answer2 ?answer3 ?answer4 ?answer7 ?answer8 ?answer9 ?answer10 )))
+        (assert (Sum3 (+ ?answer5 ?answer6 ?answer7  )))
 )
-
-(defrule Sum1-10
-( Point (answer1 ?answer1 )(answer2 ?answer2 )(answer3 ?answer3 ) (answer4 ?answer4 ) (answer5 ?answer5 ) (answer6 ?answer6 ) (answer7 ?answer7 ) (answer8 ?answer8 ) (answer9 ?answer9 ) (answer10 ?answer10 ) )
+(defrule Sum8-14
+( Point (answer8 ?answer8 )(answer9 ?answer9 )(answer10 ?answer10 ) (answer11 ?answer11 ) (answer12 ?answer12 ) (answer13 ?answer13 ) (answer14 ?answer14 ))
 	=>
-        (assert (Sum10 (+ ?answer1 ?answer2 ?answer3 ?answer4 ?answer5 ?answer6   ?answer7 ?answer8 ?answer9 ?answer10 )))
+        (assert (Sum7  (+ ?answer8 ?answer9 ?answer10 ?answer11 ?answer12 ?answer13  )  ) ) 
 )
 
-(defrule Low-Level-Risc
+(defrule CAGE1
+	(Sum4 ?sum4 )(test (> ?sum4 0))
+	=>
+    ( printout t "Test CAGE: Prawdopodobieństwo istnienia uzależnienia od alkoholu. " crlf)
+)
+(defrule CAGE2
+	(Sum4 ?sum4 )(test (= ?sum4 0))
+	=>
+    ( printout t "Test CAGE: Brak diagnozy. " crlf)
+)
+
+(defrule AUDIT1
+	(Sum3 ?sum3 )(test (> ?sum3 7))
+	=>
+    ( printout t "Test AUDIT: Zagrożenie zdrowia spozywaniem alkoholu. " crlf)
+)
+(defrule AUDIT2
 	(Sum3 ?sum3 )(test (< ?sum3 8))
 	=>
-    ( printout t "Niski poziom ryzyka" crlf)
-)
-(defrule Risc-Level-Risc
-	(Sum3 ?sum3 )(and(test (> ?sum3 7))(test (< ?sum3 15)) ) 
-	=>
-    ( printout t "Ryzykowne spożywanie alkoholu" crlf)
+    ( printout t "Test AUDIT: Brak diagnozy " crlf)
 )
 
-(defrule Harmful-drinking-alcohol
-	(Sum7 ?sum7 )(and(test (> ?sum7 15))(test (< ?sum7 20)) ) 
+(defrule Screener1 
+	(Sum7 ?sum7 )(test (> ?sum7 14 ))
 	=>
-    ( printout t "Szkodliwe spożywanie alkoholu" crlf)
+    ( printout t "Test Przesiewowy: Ryzykowne picie. " crlf)
 )
 
-(defrule Addiction
-	(Sum10 ?sum10 )(test (> ?sum10 19))  
+(defrule Screener2 
+	(Sum7 ?sum7 )(test (< ?sum7 15))
 	=>
-    ( printout t "Podejżenie uzależnienia alkoholowego" crlf)
+    ( printout t "Test Przesiewowy: Brak diagnozy. " crlf)
 )
+
 (facts)
 (run)
