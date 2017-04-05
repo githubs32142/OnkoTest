@@ -1,3 +1,5 @@
+Wersja 0.0.7 05.04.17
+Dodano fxml-a Czynniki w rodzienie.
 Wersja 0.0.6 02.04.17
 Dodano czynniki ryzyka 11 czynników.
 Zmieniono reguły w  pliku audit.clp (Podzielono na kategorie )
