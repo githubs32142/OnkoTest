@@ -8,6 +8,8 @@ package projekt.Controller;
 import herudi.animations.FadeInLeftTransition;
 import herudi.animations.FadeInRightTransition;
 import herudi.animations.FadeInUpTransition;
+import herudi.animations.FadeOutUpTransition;
+import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
@@ -23,6 +25,7 @@ import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.CheckBox;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
@@ -36,11 +39,12 @@ import projekt.Class.Person;
  * @author Andrzej Kierepka
  */
 public class FirstWindowController implements Initializable {
-        ObservableList<String > sexList = FXCollections.observableArrayList("Kobieta", "Mężczyzna");
+    ObservableList<String > sexList = FXCollections.observableArrayList("Kobieta", "Mężczyzna");
+    private boolean mail=false;
     @FXML
-    private TextField name;
+    public TextField name;
     @FXML
-    private TextField surname;
+    public TextField surname;
     @FXML
     private TextField weight;
     @FXML
@@ -48,11 +52,11 @@ public class FirstWindowController implements Initializable {
     @FXML
     private ChoiceBox<String> sex;
     @FXML
-    private Label toplbl;
+    public Label toplbl;
     @FXML
-    private Label lblname;
+    public Label lblname;
     @FXML
-    private Label lblsurname;
+    public Label lblsurname;
     @FXML
     private Label lblweight;
     @FXML
@@ -67,6 +71,8 @@ public class FirstWindowController implements Initializable {
     private TextField height;
     @FXML
     private Label lbllheight;
+    @FXML
+    private CheckBox eMail;
     
     /**
      * Initializes the controller class.
@@ -97,16 +103,43 @@ public class FirstWindowController implements Initializable {
             new FadeInLeftTransition(lblage).play();
             new FadeInLeftTransition(lblname).play();
             new FadeInLeftTransition(lblsex).play();
+            new FadeInLeftTransition(lbllheight).play();
             new FadeInUpTransition(toplbl).play();
             new FadeInUpTransition(next).play();
             new FadeInUpTransition(close).play();
+            new FadeInUpTransition(height).play();
+            new FadeInUpTransition(eMail).play();
         });
         sex.setItems(sexList);
     }    
 
     @FXML
-    private void nextWindow(ActionEvent event) {
-        if(!name.getText().isEmpty() && !surname.getText().isEmpty() ){
+    private void nextWindow(ActionEvent event) throws IOException {
+        if(mail){
+            if(!surname.getText().isEmpty()){
+                Double w=Double.valueOf(weight.getText());
+                Double h=Double.valueOf(height.getText());
+                Double a=Double.valueOf(age.getText());
+                Person p = new Person(surname.getText(), h, a, sex.getValue(), h);
+                FXMLLoader load = new FXMLLoader(this.getClass().getResource("/projekt/FXML/FactorWindow.fxml"));
+                FactorWindowController cnt= new FactorWindowController(p);   
+                Parent parent= load.load();
+                cnt=load.getController();
+                cnt.setPerson(p);
+                if(p.getBmi()>25){
+                   cnt.changeFactToRight("Otyłość"); 
+                }    
+                Scene scene = new Scene(parent);
+                Stage primaryStage = new Stage();
+                primaryStage.setScene(scene);
+                primaryStage.show();
+                Stage stage;
+                stage = (Stage) ((Node)(event.getSource())).getScene().getWindow();
+                stage.close();
+            }
+        }
+        else{
+            if(!name.getText().isEmpty() && !surname.getText().isEmpty() ){
             try{
                 Double w=Double.valueOf(weight.getText());
                 Double h=Double.valueOf(height.getText());
@@ -117,6 +150,9 @@ public class FirstWindowController implements Initializable {
                 Parent parent= load.load();
                 cnt=load.getController();
                 cnt.setPerson(p);
+                if(p.getBmi()>25){
+                   cnt.changeFactToRight("Otyłość"); 
+                }
                 Scene scene = new Scene(parent);
                 Stage primaryStage = new Stage();
                 primaryStage.setScene(scene);
@@ -130,6 +166,8 @@ public class FirstWindowController implements Initializable {
                 logger.log(Level.SEVERE, "Failed to create new Window.", e);
             }
         }
+        }
+        
     }
 
     @FXML
@@ -148,4 +186,34 @@ public class FirstWindowController implements Initializable {
         height.setText(String.valueOf(p.getHeight()));
         age.setText(String.valueOf(p.getAge()));
     }
+
+    @FXML
+    private void eMailClicked(ActionEvent event) {
+    mail=!mail;
+    if(mail){
+        lblname.setVisible(false);
+        name.setVisible(false);
+        lblsurname.setText("E-mail:");
+        toplbl.setLayoutX(186);
+        toplbl.setLayoutY(50);
+    }
+    else{
+        toplbl.setLayoutY(10);
+        lblname.setVisible(true);
+        name.setVisible(true);
+        lblsurname.setText("Nazwisko:");
+    }
+    }
+
+    public void setMail(boolean mail) {
+        this.mail = mail;
+       
+            eMail.setSelected(mail);
+        
+    }
+
+    public CheckBox geteMail() {
+        return eMail;
+    }
+    
 }

@@ -7,6 +7,7 @@ public class Person {
     private String sex;
     private Double bmi;
     private Double height;
+    private String email;
 
     public Person(String name, String surName, Double weight, Double age, String sex,  Double height) {
         this.name = name;
@@ -16,8 +17,18 @@ public class Person {
         this.sex = sex;
         bmi= weight/((height/100)*(height/100));
         this.height = height;
+        email="";
     }
-
+        public Person( String email, Double weight, Double age, String sex,  Double height) {
+        this.name = "";
+        this.surName = "";
+        this.weight = weight;
+        this.age = age;
+        this.sex = sex;
+        bmi= weight/((height/100)*(height/100));
+        this.height = height;
+        this.email = email;
+    }
     public Person() {
     }
 
@@ -72,6 +83,14 @@ public class Person {
     @Override
     public String toString() {
         return name.toString(); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
     }
     
 }

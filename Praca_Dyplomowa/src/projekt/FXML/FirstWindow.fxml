@@ -2,6 +2,7 @@
 
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
+<?import javafx.scene.control.CheckBox?>
 <?import javafx.scene.control.ChoiceBox?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TextField?>
@@ -10,21 +11,21 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="448.0" prefWidth="600.0" style="-fx-background-color: #2c62b5;" stylesheets="@../CSS/login.css" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="projekt.Controller.FirstWindowController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="462.0" prefWidth="609.0" style="-fx-background-color: #2c62b5;" stylesheets="@../CSS/login.css" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="projekt.Controller.FirstWindowController">
    <children>
-      <Label fx:id="toplbl" layoutX="182.0" prefHeight="74.0" prefWidth="237.0" text="Wprowadź dane:">
+      <Label fx:id="toplbl" layoutX="186.0" layoutY="10.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="74.0" prefWidth="237.0" text="Wprowadź dane:">
          <font>
             <Font name="Segoe UI Semibold Italic" size="25.0" />
          </font>
       </Label>
-      <Button fx:id="next" layoutX="115.0" layoutY="386.0" mnemonicParsing="false" onAction="#nextWindow" prefHeight="35.0" prefWidth="117.0" styleClass="btn" text="Dalej &gt;&gt;" />
-      <Button fx:id="close" layoutX="286.0" layoutY="386.0" mnemonicParsing="false" onAction="#close" prefHeight="35.0" prefWidth="117.0" styleClass="btn" text="Zamknij" />
+      <Button fx:id="next" layoutX="301.0" layoutY="407.0" mnemonicParsing="false" onAction="#nextWindow" prefHeight="35.0" prefWidth="117.0" styleClass="btn" text="Dalej &gt;&gt;" />
+      <Button fx:id="close" layoutX="114.0" layoutY="407.0" mnemonicParsing="false" onAction="#close" prefHeight="35.0" prefWidth="117.0" styleClass="btn" text="Zamknij" />
       <Label layoutX="539.0" layoutY="-2.0" onMouseClicked="#mouseClosed" text="X">
          <font>
             <Font name="Segoe UI Semibold" size="27.0" />
          </font>
       </Label>
-      <VBox layoutX="93.0" layoutY="81.0" prefHeight="252.0" prefWidth="351.0">
+      <VBox layoutX="93.0" layoutY="81.0" prefHeight="306.0" prefWidth="347.0">
          <children>
             <HBox prefHeight="31.0" prefWidth="218.0">
                <children>
@@ -42,7 +43,7 @@
             </HBox>
             <HBox prefHeight="42.0" prefWidth="218.0">
                <children>
-                  <Label fx:id="lblsurname" text="Nazwisko:">
+                  <Label fx:id="lblsurname" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="42.0" prefWidth="138.0" text="Nazwisko:">
                      <font>
                         <Font name="Segoe UI Semilight Italic" size="22.0" />
                      </font>
@@ -68,20 +69,6 @@
                   </TextField>
                </children>
             </HBox>
-            <HBox prefHeight="34.0" prefWidth="218.0">
-               <children>
-                  <Label fx:id="lblage" text="Wiek:">
-                     <font>
-                        <Font name="Segoe UI Semilight Italic" size="22.0" />
-                     </font>
-                  </Label>
-                  <TextField fx:id="age" prefHeight="30.0" prefWidth="175.0">
-                     <HBox.margin>
-                        <Insets left="44.0" top="5.0" />
-                     </HBox.margin>
-                  </TextField>
-               </children>
-            </HBox>
             <HBox prefHeight="39.0" prefWidth="218.0">
                <children>
                   <Label fx:id="lbllheight" text="Wzrost:">
@@ -92,6 +79,20 @@
                   <TextField fx:id="height" prefHeight="30.0" prefWidth="175.0">
                      <HBox.margin>
                         <Insets left="24.0" top="5.0" />
+                     </HBox.margin>
+                  </TextField>
+               </children>
+            </HBox>
+            <HBox prefHeight="34.0" prefWidth="218.0">
+               <children>
+                  <Label fx:id="lblage" text="Wiek:">
+                     <font>
+                        <Font name="Segoe UI Semilight Italic" size="22.0" />
+                     </font>
+                  </Label>
+                  <TextField fx:id="age" prefHeight="30.0" prefWidth="175.0">
+                     <HBox.margin>
+                        <Insets left="44.0" top="5.0" />
                      </HBox.margin>
                   </TextField>
                </children>
@@ -108,6 +109,18 @@
                         <Insets left="51.0" top="5.0" />
                      </HBox.margin>
                   </ChoiceBox>
+               </children>
+            </HBox>
+            <HBox prefHeight="100.0" prefWidth="200.0">
+               <children>
+                  <CheckBox fx:id="eMail" mnemonicParsing="false" onAction="#eMailClicked" prefHeight="48.0" prefWidth="271.0" text="E-mail">
+                     <HBox.margin>
+                        <Insets left="117.0" />
+                     </HBox.margin>
+                     <font>
+                        <Font name="Segoe UI Semibold" size="22.0" />
+                     </font>
+                  </CheckBox>
                </children>
             </HBox>
          </children>

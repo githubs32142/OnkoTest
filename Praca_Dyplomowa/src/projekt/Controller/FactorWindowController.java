@@ -43,9 +43,8 @@ public class FactorWindowController implements Initializable {
     public Person person= new Person();
     WebEngine webEngine ;
     List <Factor> fact= new ArrayList<>();
-    ObservableList<String> data = FXCollections.observableArrayList(
-            "Alkoholizm","Otyłość","Promieniowanie jonizujące","Radioterapia","Lampy solarium","Palenie papierosów",
-            "Brak aktywności fizycznej","Niewłaściwa dieta","Brak naturalnych antyoksydantów","???+ otyłość","Brak błonnika" );
+    ObservableList<String> data = FXCollections.observableArrayList("Alkoholizm","Otyłość","Promieniowanie jonizujące","Radioterapia","Lampy solarium","Palenie papierosów",
+            "Brak aktywności fizycznej","Niewłaściwa dieta","Brak naturalnych antyoksydantów","Menopauza + otyłość","Brak błonnika" );
     ObservableList<String> dataRight = FXCollections.observableArrayList();
     private int index;
     @FXML
@@ -74,16 +73,21 @@ public class FactorWindowController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
+        // dodano
         fact.add(new Factor("Alkoholizm", "/projekt/HTML/alkoholizm.html", true,"/projekt/FXML/AuditTest.fxml"));
+        // doadaje automatycznie (program sam oblicza BMI  i jak >25 dodaje)
         fact.add(new Factor("Otyłość", "/projekt/HTML/otylosc.html", false,""));
         fact.add(new Factor("Promieniowanie jonizujące", "/projekt/HTML/promieniowanie.html", false,""));
         fact.add(new Factor("Radioterapia", "/projekt/HTML/radioterapia.html", false,""));
         fact.add(new Factor("Lampy solarium", "/projekt/HTML/solarium.html", false,""));
+        // znalezniono test 
         fact.add(new Factor("Palenie papierosów", "/projekt/HTML/papierosy.html", false,""));
         fact.add(new Factor("Brak aktywności fizycznej", "/projekt/HTML/aktywnosc_fizyczna.html", false,""));
+       // piramida zywieniowa i z niej pytania
         fact.add(new Factor("Niewłaściwa dieta", "/projekt/HTML/brak_owocow.html", false,""));
         fact.add(new Factor("Brak naturalnych antyoksydantów", "/projekt/HTML/brak_naturalnych_antyoksydantow.html", false,""));
-        fact.add(new Factor("???+ otyłość", "/projekt/HTML/wzrost_bmi.html", false,""));
+        fact.add(new Factor("Menopauza + otyłość", "/projekt/HTML/wzrost_bmi.html", false,""));
+        // opracowywanie!
         fact.add(new Factor("Brak błonnika", "/projekt/HTML/brak_naturalnych_antyoksydantow.html", false,""));
         webEngine = webView.getEngine();
        // final URL urlFactor = getClass().getResource("/projekt/HTML/alkoholizm.html");
@@ -107,6 +111,15 @@ public class FactorWindowController implements Initializable {
                 Parent parent= load.load();
                 cnt=load.getController();
                 cnt.setPerson(person);
+                if(person.getName().equals("")){
+                    cnt.lblname.setVisible(false);
+                    cnt.name.setVisible(false);
+                    cnt.lblsurname.setText("E-mail:");
+                    cnt.toplbl.setLayoutX(186);
+                    cnt.toplbl.setLayoutY(50);
+                    cnt.surname.setText(person.getEmail());
+                    cnt.setMail(true);
+                }
                 Scene scene = new Scene(parent);
                 Stage primaryStage = new Stage();
                 primaryStage.setScene(scene);          
@@ -128,6 +141,7 @@ public class FactorWindowController implements Initializable {
      */
     public void setPerson(Person person) {
         this.person = person;
+        
     }
 
     @FXML
@@ -173,10 +187,12 @@ public class FactorWindowController implements Initializable {
                 }
                 Scene scene = new Scene(parent);
                 Stage primaryStage = new Stage();
-                primaryStage.setScene(scene);          
+                primaryStage.setScene(scene); 
+                
                 //primaryStage.initStyle(StageStyle.UNDECORATED);
                 primaryStage.setResizable(false);
                 primaryStage.show();
+                
             }
         }
     }
@@ -217,5 +233,19 @@ public class FactorWindowController implements Initializable {
             remove.setVisible(true);
         }
     }
-
+    /**
+     ** Metoda która przenosi podaną jako parametr fakt na listę czynników użytkowanika 
+     * @param fact podany fakt
+     */
+    public void changeFactToRight(String fact){
+        for(int i=0;i<data.size();i++){
+            if(data.get(i).equals(fact)){
+                dataRight.add(fact);
+                data.remove(i);
+                factors.setItems(data);
+                addedFactor.setItems(dataRight);
+                return ;
+            }
+        }
+    }
 }
