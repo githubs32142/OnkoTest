@@ -80,8 +80,8 @@ public class FactorWindowController implements Initializable {
         fact.add(new Factor("Promieniowanie jonizujące", "/projekt/HTML/promieniowanie.html", false,""));
         fact.add(new Factor("Radioterapia", "/projekt/HTML/radioterapia.html", false,""));
         fact.add(new Factor("Lampy solarium", "/projekt/HTML/solarium.html", false,""));
-        // znalezniono test 
-        fact.add(new Factor("Palenie papierosów", "/projekt/HTML/papierosy.html", false,""));
+        // znalezniono test do opracowania
+        fact.add(new Factor("Palenie papierosów", "/projekt/HTML/papierosy.html", true,"/projekt/FXML/SmokingTest.fxml"));
         fact.add(new Factor("Brak aktywności fizycznej", "/projekt/HTML/aktywnosc_fizyczna.html", false,""));
        // piramida zywieniowa i z niej pytania
         fact.add(new Factor("Niewłaściwa dieta", "/projekt/HTML/brak_owocow.html", false,""));
@@ -188,7 +188,11 @@ public class FactorWindowController implements Initializable {
                 Scene scene = new Scene(parent);
                 Stage primaryStage = new Stage();
                 primaryStage.setScene(scene); 
-                
+                if(fact.get(index).getFactor().equals("Alkoholizm")){
+                AuditTest cnt= new AuditTest();
+                cnt=load.getController();
+                cnt.setWindow(this); 
+                }
                 //primaryStage.initStyle(StageStyle.UNDECORATED);
                 primaryStage.setResizable(false);
                 primaryStage.show();

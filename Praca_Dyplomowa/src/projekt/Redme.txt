@@ -1,3 +1,5 @@
+Wersja 0.0.9 07.04.17
+Dodanie testu Palenie papierosów czyli SmokingTest i smoking.clp .
 Wersja 0.0.8 06.04.17
 Podstawowe zmiany wykonane na formularzu firstWindow .
 Wersja 0.0.7 05.04.17

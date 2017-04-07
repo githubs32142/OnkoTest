@@ -38,12 +38,12 @@
 (defrule CAGE1
 	(Sum4 ?sum4 )(test (> ?sum4 0))
 	=>
-    ( printout t "Test CAGE: Prawdopodobieństwo istnienia uzależnienia od alkoholu. " crlf)
+    ( printout t "Test CAGE: Prawdopodobieństwo istnienia uzależnienia od alkoholu." crlf)
 )
 (defrule CAGE2
 	(Sum4 ?sum4 )(test (= ?sum4 0))
 	=>
-    ( printout t "Test CAGE: Brak diagnozy. " crlf)
+    ( printout t "Test CAGE: Brak diagnozy." crlf)
 )
 
 (defrule AUDIT1

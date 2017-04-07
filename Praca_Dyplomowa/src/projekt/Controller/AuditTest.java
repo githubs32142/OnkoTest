@@ -30,6 +30,7 @@ import jess.Rete;
  * @author Andrrzej Kierepka
  */
 public class AuditTest implements Initializable {
+    private FactorWindowController window;
     @FXML
     private Label question;
     @FXML
@@ -163,9 +164,25 @@ public class AuditTest implements Initializable {
             result = o.toString();
             engine.clear();
             if (result == null ? "" == null : result.equals("")) {
-                result = "Brak diagnozy";            
+                result = "Brak diagnozy";
+            }
+                List<String> results= new ArrayList<>();
+                String tmp="";
+                for(int i=0;i<result.length();i++){
+                    if(result.charAt(i)==10){
+                        results.add(tmp);
+                        tmp="";
+                    }
+                    else{
+                        tmp+=result.charAt(i);
+                    }
+                } 
+            if(results.get(2).equals("Test CAGE: Prawdopodobieństwo istnienia uzależnienia od alkoholu.")){
+              //  System.out.println("hhhh");
+                window.changeFactToRight("Alkoholizm");
             }
             showOutputMessage(result);
+
         } catch (JessException ex) {
             Logger.getLogger(AuditTest.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -385,6 +402,10 @@ public class AuditTest implements Initializable {
     @FXML
     private void fastDiagnose(ActionEvent event) {
         makeAllDiagnose();
+    }
+
+    public void setWindow(FactorWindowController window) {
+        this.window = window;
     }
     
 }
