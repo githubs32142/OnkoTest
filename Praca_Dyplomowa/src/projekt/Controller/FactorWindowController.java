@@ -77,17 +77,23 @@ public class FactorWindowController implements Initializable {
         fact.add(new Factor("Alkoholizm", "/projekt/HTML/alkoholizm.html", true,"/projekt/FXML/AuditTest.fxml"));
         // doadaje automatycznie (program sam oblicza BMI  i jak >25 dodaje)
         fact.add(new Factor("Otyłość", "/projekt/HTML/otylosc.html", false,""));
+        
         fact.add(new Factor("Promieniowanie jonizujące", "/projekt/HTML/promieniowanie.html", false,""));
+        // nie można opisać
         fact.add(new Factor("Radioterapia", "/projekt/HTML/radioterapia.html", false,""));
+        //
         fact.add(new Factor("Lampy solarium", "/projekt/HTML/solarium.html", false,""));
         // znalezniono test do opracowania
         fact.add(new Factor("Palenie papierosów", "/projekt/HTML/papierosy.html", true,"/projekt/FXML/SmokingTest.fxml"));
+        //
         fact.add(new Factor("Brak aktywności fizycznej", "/projekt/HTML/aktywnosc_fizyczna.html", false,""));
        // piramida zywieniowa i z niej pytania
         fact.add(new Factor("Niewłaściwa dieta", "/projekt/HTML/brak_owocow.html", false,""));
+        
         fact.add(new Factor("Brak naturalnych antyoksydantów", "/projekt/HTML/brak_naturalnych_antyoksydantow.html", false,""));
+        // zrobiony 
         fact.add(new Factor("Menopauza + otyłość", "/projekt/HTML/wzrost_bmi.html", false,""));
-        // opracowywanie!
+        // !
         fact.add(new Factor("Brak błonnika", "/projekt/HTML/brak_naturalnych_antyoksydantow.html", false,""));
         webEngine = webView.getEngine();
        // final URL urlFactor = getClass().getResource("/projekt/HTML/alkoholizm.html");
