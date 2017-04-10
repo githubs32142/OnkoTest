@@ -151,13 +151,14 @@ public class AuditTest implements Initializable {
         return index;
     }
     public void makeDiagnostic(String s){
+        boolean add=false;
+        StringBuilder text= new StringBuilder();
         try {
             Rete engine = new Rete();
             engine.reset();
             StringWriter o = new StringWriter();
             engine.addOutputRouter("t", o);
             String result = new String();
-            // Load the pricing rules
             engine.batch("projekt/JESS/audit.clp");
             engine.eval(s);
             engine.run();
@@ -166,22 +167,21 @@ public class AuditTest implements Initializable {
             if (result == null ? "" == null : result.equals("")) {
                 result = "Brak diagnozy";
             }
-                List<String> results= new ArrayList<>();
-                String tmp="";
                 for(int i=0;i<result.length();i++){
-                    if(result.charAt(i)==10){
-                        results.add(tmp);
-                        tmp="";
+                if(result.charAt(i)==10){
+                        text.append("\n");
                     }
-                    else{
-                        tmp+=result.charAt(i);
-                    }
-                } 
-            if(results.get(2).equals("Test CAGE: Prawdopodobieństwo istnienia uzależnienia od alkoholu.")){
-              //  System.out.println("hhhh");
+                if(result.charAt(i)=='1'){
+                    add=true;
+                }
+                else{
+                    text.append(result.charAt(i));
+                }
+                }
+                if(add){
                 window.changeFactToRight("Alkoholizm");
-            }
-            showOutputMessage(result);
+                }
+            showOutputMessage(text.toString());
 
         } catch (JessException ex) {
             Logger.getLogger(AuditTest.class.getName()).log(Level.SEVERE, null, ex);
@@ -211,8 +211,6 @@ public class AuditTest implements Initializable {
         }
         if(end){// jezeli kliknięto nA KLAWISZ zakończ
             makeAllDiagnose();
-           // System.out.println("Koniec");
-            System.out.println(toString());
         }
         question.setText(qList.get(getIndex()));
         answer1.setText(a1List.get(getIndex()));

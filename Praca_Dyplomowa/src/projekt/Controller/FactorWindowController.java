@@ -77,17 +77,17 @@ public class FactorWindowController implements Initializable {
         fact.add(new Factor("Alkoholizm", "/projekt/HTML/alkoholizm.html", true,"/projekt/FXML/AuditTest.fxml"));
         // doadaje automatycznie (program sam oblicza BMI  i jak >25 dodaje)
         fact.add(new Factor("Otyłość", "/projekt/HTML/otylosc.html", false,""));
-        
+        // 
         fact.add(new Factor("Promieniowanie jonizujące", "/projekt/HTML/promieniowanie.html", false,""));
         // nie można opisać
         fact.add(new Factor("Radioterapia", "/projekt/HTML/radioterapia.html", false,""));
-        //
+        // zobione
         fact.add(new Factor("Lampy solarium", "/projekt/HTML/solarium.html", false,""));
         // znalezniono test do opracowania
         fact.add(new Factor("Palenie papierosów", "/projekt/HTML/papierosy.html", true,"/projekt/FXML/SmokingTest.fxml"));
-        //
+        // po co opisywać
         fact.add(new Factor("Brak aktywności fizycznej", "/projekt/HTML/aktywnosc_fizyczna.html", false,""));
-       // piramida zywieniowa i z niej pytania
+       // zrobione
         fact.add(new Factor("Niewłaściwa dieta", "/projekt/HTML/brak_owocow.html", false,""));
         
         fact.add(new Factor("Brak naturalnych antyoksydantów", "/projekt/HTML/brak_naturalnych_antyoksydantow.html", false,""));
@@ -136,9 +136,9 @@ public class FactorWindowController implements Initializable {
                 stage = (Stage) ((Node)(event.getSource())).getScene().getWindow();
                 stage.close();
             }
-            catch(Exception e){
+            catch(IOException e){
                  Logger logger = Logger.getLogger(getClass().getName());
-                logger.log(Level.SEVERE, "Failed to create new Window.", e);
+                 logger.log(Level.SEVERE, "Failed to create new Window.", e);
             }
     }
     /**
@@ -152,16 +152,13 @@ public class FactorWindowController implements Initializable {
 
     @FXML
     private void factorClicked(MouseEvent event) {
-        //System.out.println(factors.getItems().get(factors.getSelectionModel().getSelectedIndex()));
         String clickedFact= factors.getItems().get(factors.getSelectionModel().getSelectedIndex());
-        int tmpindex=ifFact(clickedFact);
-        index=tmpindex;
-        if(tmpindex>=0){
+        index=ifFact(clickedFact);
+        if(index>=0){
             leftSelected=factors.getSelectionModel().getSelectedIndex();
-            System.out.println(leftSelected);
-            final URL urlFactor = getClass().getResource(fact.get(tmpindex).getSymptom());
+            final URL urlFactor = getClass().getResource(fact.get(index).getSymptom());
             webEngine.load(urlFactor.toExternalForm());
-            if(fact.get(tmpindex).isTest()){
+            if(fact.get(index).isTest()){
                 test.setVisible(true);
             }
             else{
@@ -196,6 +193,11 @@ public class FactorWindowController implements Initializable {
                 primaryStage.setScene(scene); 
                 if(fact.get(index).getFactor().equals("Alkoholizm")){
                 AuditTest cnt= new AuditTest();
+                cnt=load.getController();
+                cnt.setWindow(this); 
+                }
+                if(fact.get(index).getFactor().equals("Palenie papierosów")){
+                SmokingTestController cnt= new SmokingTestController();
                 cnt=load.getController();
                 cnt.setWindow(this); 
                 }

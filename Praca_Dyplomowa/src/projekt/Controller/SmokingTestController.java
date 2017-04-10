@@ -1,8 +1,4 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package projekt.Controller;
 
 import java.io.StringWriter;
@@ -26,9 +22,10 @@ import jess.Rete;
 /**
  * FXML Controller class
  *
- * @author Admin
+ * @author Andrzej
  */
 public class SmokingTestController implements Initializable {
+    private FactorWindowController window;
     private boolean end=false;// kiedy klikneliśmy na koniec(wystaw diagnozę)
     private int index;
     @FXML
@@ -52,11 +49,9 @@ public class SmokingTestController implements Initializable {
     List<String> a4List= new ArrayList<>();
     List<String> a5List= new ArrayList<>();// lista odpowiedzi na 5 pytanie
     List<Integer> pList= new ArrayList<>();// ilość punktów przyznanych za każdą odpowiedź
-    /**
-     * Initializes the controller class.
-     * @param url
-     * @param rb
-     */
+    public SmokingTestController() {
+    }    
+
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         index=0;
@@ -234,7 +229,7 @@ public class SmokingTestController implements Initializable {
      ** wyświetla wyniki diagnozy  
      * @param message rezultat diagnozy
      */
-    public void showOutputMessage(String message){
+    private void showOutputMessage(String message){
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
         alert.setTitle("Wynik diagnozy");
         alert.setHeaderText("Otrzymane rezulataty");
@@ -244,9 +239,8 @@ public class SmokingTestController implements Initializable {
     /**
      ** Wykonyje diagnoze,wyświetla dignoze i czyści wartości zmiennych.
      */
-    public void makeAllDiagnose(){
+    private void makeAllDiagnose(){
             makeDiagnostic(toString());
-           // System.out.println(toString());
             index=0;
             for(int i=0;i<pList.size();i++){
                 pList.set(i, 0);
@@ -262,6 +256,8 @@ public class SmokingTestController implements Initializable {
 
     }
         public void makeDiagnostic(String s){
+            boolean add=false;
+            StringBuilder text= new StringBuilder();
         try {
             Rete engine = new Rete();
             engine.reset();
@@ -277,15 +273,25 @@ public class SmokingTestController implements Initializable {
             if (result == null ? "" == null : result.equals("")) {
                 result = "Brak diagnozy";
             }
-            //if(results.get(2).equals("Test CAGE: Prawdopodobieństwo istnienia uzależnienia od alkoholu.")){
-              //  System.out.println("hhhh");
-                //window.changeFactToRight("Alkoholizm");
-           // }
+            for(int i=0;i<result.length();i++){
+                if(result.charAt(i)=='1'){
+                    add=true;
+                }
+                else{
+                    text.append(result.charAt(i));
+                }
+            }
+            if(add){
+                
+            }
             showOutputMessage(result);
 
         } catch (JessException ex) {
             Logger.getLogger(SmokingTestController.class.getName()).log(Level.SEVERE, null, ex);
         }
  
+    }
+    public void setWindow(FactorWindowController window) {
+        this.window = window;
     }
 }

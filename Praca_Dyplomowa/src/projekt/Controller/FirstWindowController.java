@@ -120,7 +120,7 @@ public class FirstWindowController implements Initializable {
                 Double w=Double.valueOf(weight.getText());
                 Double h=Double.valueOf(height.getText());
                 Double a=Double.valueOf(age.getText());
-                Person p = new Person(surname.getText(), h, a, sex.getValue(), h);
+                Person p = new Person(surname.getText(), w, a, sex.getValue(), h);
                 FXMLLoader load = new FXMLLoader(this.getClass().getResource("/projekt/FXML/FactorWindow.fxml"));
                 FactorWindowController cnt= new FactorWindowController(p);   
                 Parent parent= load.load();
@@ -144,7 +144,7 @@ public class FirstWindowController implements Initializable {
                 Double w=Double.valueOf(weight.getText());
                 Double h=Double.valueOf(height.getText());
                 Double a=Double.valueOf(age.getText());
-                Person p = new Person(name.getText(), surname.getText(), h, a, sex.getValue(), h);
+                Person p = new Person(name.getText(), surname.getText(),w, a, sex.getValue(), h);
                 FXMLLoader load = new FXMLLoader(this.getClass().getResource("/projekt/FXML/FactorWindow.fxml"));
                 FactorWindowController cnt= new FactorWindowController(p);   
                 Parent parent= load.load();

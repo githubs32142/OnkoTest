@@ -15,7 +15,7 @@ public class Person {
         this.weight = weight;
         this.age = age;
         this.sex = sex;
-        bmi= weight/((height/100)*(height/100));
+        bmi= weight/(height*height);
         this.height = height;
         email="";
     }

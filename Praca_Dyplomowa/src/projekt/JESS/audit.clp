@@ -34,11 +34,10 @@
 	=>
         (assert (Sum7  (+ ?answer8 ?answer9 ?answer10 ?answer11 ?answer12 ?answer13  )  ) ) 
 )
-
 (defrule CAGE1
 	(Sum4 ?sum4 )(test (> ?sum4 0))
 	=>
-    ( printout t "Test CAGE: Prawdopodobieństwo istnienia uzależnienia od alkoholu." crlf)
+    ( printout t "1Test CAGE: Prawdopodobieństwo istnienia uzależnienia od alkoholu." crlf)
 )
 (defrule CAGE2
 	(Sum4 ?sum4 )(test (= ?sum4 0))
@@ -49,7 +48,7 @@
 (defrule AUDIT1
 	(Sum3 ?sum3 )(test (> ?sum3 7))
 	=>
-    ( printout t "Test AUDIT: Zagrożenie zdrowia spozywaniem alkoholu. " crlf)
+    ( printout t "1Test AUDIT: Zagrożenie zdrowia spozywaniem alkoholu. " crlf)
 )
 (defrule AUDIT2
 	(Sum3 ?sum3 )(test (< ?sum3 8))
@@ -60,7 +59,7 @@
 (defrule Screener1 
 	(Sum7 ?sum7 )(test (> ?sum7 14 ))
 	=>
-    ( printout t "Test Przesiewowy: Ryzykowne picie. " crlf)
+    ( printout t "1Test Przesiewowy: Ryzykowne picie. " crlf)
 )
 
 (defrule Screener2 

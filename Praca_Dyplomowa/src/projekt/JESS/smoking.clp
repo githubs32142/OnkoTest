@@ -18,7 +18,7 @@
 (defrule rule1
 	(Sum6 ?sum6 )(test (> ?sum6 6))
 	=>
-    ( printout t " Jesteś osobą silnie uzależnioną od palenia." crlf)
+    ( printout t "1Jesteś osobą silnie uzależnioną od palenia." crlf)
 )
 (defrule rule2
 	(Sum6 ?sum6 )(and(test (> ?sum6 1))(test (< ?sum6 7)) ) 
