@@ -1,4 +1,8 @@
-
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
 package projekt.Controller;
 
 import java.io.StringWriter;
@@ -11,22 +15,24 @@ import java.util.logging.Logger;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.Node;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.RadioButton;
 import javafx.scene.control.ToggleGroup;
+import javafx.stage.Stage;
 import jess.JessException;
 import jess.Rete;
 
 /**
  * FXML Controller class
  *
- * @author Andrzej
+ * @author Admin
  */
-public class SmokingTestController implements Initializable {
+public class IonizingRadiationTestController implements Initializable {
     private FactorWindowController window;
-    private boolean end=false;// kiedy klikneliśmy na koniec(wystaw diagnozę)
+    private boolean end=false;// kiedy klikneliśmy na koniec(wystaw diagnozę)    
     private int index;
     @FXML
     private Label question;
@@ -37,66 +43,28 @@ public class SmokingTestController implements Initializable {
     @FXML
     private RadioButton answer2;
     @FXML
-    private RadioButton answer3;
-    @FXML
-    private RadioButton answer4;
-    @FXML
     private Button next;
     List<String> qList= new ArrayList<>();// lista pytań
     List<String> a1List= new ArrayList<>();
     List<String> a2List= new ArrayList<>();
-    List<String> a3List= new ArrayList<>();
-    List<String> a4List= new ArrayList<>();
-    List<String> a5List= new ArrayList<>();// lista odpowiedzi na 5 pytanie
     List<Integer> pList= new ArrayList<>();// ilość punktów przyznanych za każdą odpowiedź
-    public SmokingTestController() {
-    }    
-
+    /**
+     * Initializes the controller class.
+     */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        index=0;
-        qList.add("1.Jak szybko po przebudzeniu zapala Pani/ Pan pierwszego  papierosa?");
-        qList.add("2. Czy ma Pan/i trudności z powstrzymaniem się od palenia w miejscach, gdzie to jest zakazane?");
-        qList.add("3. Z którego papierosa jest Pani/u najtrudniej zrezygnować?");
-        qList.add("4. Ile papierosów wypala Pan/i w ciągu dnia?");
-        qList.add("5. Czy częściej pali Pan/i papierosy w ciągu pierwszych godzin po przebudzeniu niż w pozostałej części dnia?");
-        qList.add("6. Czy pali Pan/i papierosy nawet wtedy, gdy jest Pan/i tak chora(y), że musi leżeć w łóżku?");
-         
-        a1List.add(" Więcej niż 60 min lub wcale");
-        a1List.add(" Nie");
-        a1List.add(" Z każdego innego");
-        a1List.add(" Mniej niż 10");
-        a1List.add(" Nie");
-        a1List.add(" Nie");
-        
-        a2List.add(" 31-60 minut");
-        a2List.add(" Tak");
-        a2List.add(" Z pierwszego rano");
-        a2List.add(" 11-20");
-        a2List.add(" Tak");
-        a2List.add(" Tak");
-        
-        a3List.add(" 6-30 minut");
-        a3List.add(" -");
-        a3List.add(" -");
-        a3List.add(" 21-30");
-        a3List.add(" -");
-        a3List.add(" -");
-        
-        a4List.add(" do 5 minut");
-        a4List.add(" -");
-        a4List.add(" -");
-        a4List.add(" 31 i więcej");
-        a4List.add(" -");
-        a4List.add(" -");       
-        for(int i=0;i<6;i++){
+       qList.add("Czy w ostatnim roku miałeś wykonanych więcej niż 2 badania tomografi komputerowej?");
+       qList.add("Czy w ostatnim roku miałeś wykonane więcej niż 4 badania RTG?");
+       a1List.add("Nie");
+       a1List.add("Nie");
+       a2List.add("Tak");
+       a2List.add("Tak");
+       for(int i=0;i<2;i++){
             pList.add(0);
         }
         question.setText(qList.get(0));
         answer1.setText(a1List.get(0));
         answer2.setText(a2List.get(0));
-        answer3.setText(a3List.get(0));
-        answer4.setText(a4List.get(0));
         answer1.setSelected(true);
     }    
 
@@ -111,102 +79,53 @@ public class SmokingTestController implements Initializable {
     }
 
     @FXML
-    private void answer3Action(ActionEvent event) {
-        pList.set(index,2);
-    }
-
-    @FXML
-    private void answer4Action(ActionEvent event) {
-        pList.set(index,3);
-    }
-    @FXML
     private void next(ActionEvent event) {
-        if(index<=6){
+        if(index<=2){
         index++;
         }
-        if(index==6){
-            // koniec
+        if(index==2){
             makeAllDiagnose();
-            next.setText("Dalej>");
-            index=0;
-            for(int i=0;i<6;i++){
-            pList.set(i,0);
-            }
         }
-        if(index<6){
-            if(index==5){
+        if(index<2){
+            if(index==1){
                 next.setText("Zakończ");
             }
         question.setText(qList.get(index));
         answer1.setText(a1List.get(index));
         answer2.setText(a2List.get(index));
-        if(a3List.get(index).equals(" -")){
-            answer3.setVisible(false);
-            answer4.setVisible(false);
-        }
-        else{
-            
-            answer3.setVisible(true);
-            answer4.setVisible(true);
-        }
-        answer3.setText(a3List.get(index));
-        answer4.setText(a4List.get(index));
         if(pList.get(index)==0){
             answer1.setSelected(true);
         }
         if(pList.get(index)==1){
             answer2.setSelected(true);
         }
-        if(pList.get(index)==2){
-            answer3.setSelected(true);
-        }
-        if(pList.get(index)==3){
-            answer4.setSelected(true);
-        }
-        }
+        }        
     }
-
 
     @FXML
     private void back(ActionEvent event) {
-        if(index>0){
+            if(index>0){
             index--;
         }
         if(index>=0){
         question.setText(qList.get(index));
         answer1.setText(a1List.get(index));
         answer2.setText(a2List.get(index));
-        if(a3List.get(index).equals(" -")){
-            answer3.setVisible(false);
-            answer4.setVisible(false);
-        }
-        else{
-            
-            answer3.setVisible(true);
-            answer4.setVisible(true);
-        }
-        answer3.setText(a3List.get(index));
-        answer4.setText(a4List.get(index));
         if(pList.get(index)==0){
             answer1.setSelected(true);
         }
         if(pList.get(index)==1){
             answer2.setSelected(true);
         }
-        if(pList.get(index)==2){
-            answer3.setSelected(true);
-        }
-        if(pList.get(index)==3){
-            answer4.setSelected(true);
-        }
         }
     }
 
     @FXML
-    private void fastDiagnose(ActionEvent event) {
-        makeAllDiagnose();
+    private void closeWindow(ActionEvent event) {
+        Stage stage;
+        stage = (Stage) ((Node)(event.getSource())).getScene().getWindow();
+        stage.close();
     }
-
     public int getIndex() {
         return index;
     }
@@ -251,8 +170,6 @@ public class SmokingTestController implements Initializable {
              question.setText(qList.get(getIndex()));
              answer1.setText(a1List.get(getIndex()));
              answer2.setText(a2List.get(getIndex()));
-             answer3.setText(a3List.get(getIndex()));
-             answer4.setText(a4List.get(getIndex()));
 
     }
         public void makeDiagnostic(String s){
@@ -265,7 +182,7 @@ public class SmokingTestController implements Initializable {
             engine.addOutputRouter("t", o);
             String result = new String();
             // Load the pricing rules
-            engine.batch("projekt/JESS/smoking.clp");
+            engine.batch("projekt/JESS/ionizingradiation.clp");
             engine.eval(s);
             engine.run();
             result = o.toString();
@@ -281,9 +198,9 @@ public class SmokingTestController implements Initializable {
                     text.append(result.charAt(i));
                 }
             }
-            if(add){
-                window.changeFactToRight("Palenie papierosów");
-            }
+            //if(add){
+              //  window.changeFactToRight("Palenie papierosów");
+            //}
             showOutputMessage(text.toString());
 
         } catch (JessException ex) {

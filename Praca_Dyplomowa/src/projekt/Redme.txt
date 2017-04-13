@@ -1,3 +1,5 @@
+Wersja 0.1.1 13.04.17
+Dodano 2 nowe testy Radioterapia oraz Promieniowanie jonizujące
 Wersja 0.1.0 07.04.17
 Niewielkie zmiany w plikach html.
 Wersja 0.0.9 07.04.17

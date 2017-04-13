@@ -1,5 +1,5 @@
 
-/**9
+/**
  * 
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
@@ -43,7 +43,7 @@ public class FactorWindowController implements Initializable {
     public Person person= new Person();
     WebEngine webEngine ;
     List <Factor> fact= new ArrayList<>();
-    ObservableList<String> data = FXCollections.observableArrayList("Alkoholizm","Otyłość","Promieniowanie jonizujące","Radioterapia","Lampy solarium","Palenie papierosów",
+    ObservableList<String> data = FXCollections.observableArrayList("Spożywanie alkoholu","Otyłość","Promieniowanie jonizujące","Radioterapia","Lampy solarium","Palenie papierosów",
             "Brak aktywności fizycznej","Niewłaściwa dieta","Brak naturalnych antyoksydantów","Menopauza + otyłość","Brak błonnika" );
     ObservableList<String> dataRight = FXCollections.observableArrayList();
     private int index;
@@ -74,13 +74,13 @@ public class FactorWindowController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         // dodano
-        fact.add(new Factor("Alkoholizm", "/projekt/HTML/alkoholizm.html", true,"/projekt/FXML/AuditTest.fxml"));
+        fact.add(new Factor("Spożywanie alkoholu", "/projekt/HTML/alkoholizm.html", true,"/projekt/FXML/AuditTest.fxml"));
         // doadaje automatycznie (program sam oblicza BMI  i jak >25 dodaje)
         fact.add(new Factor("Otyłość", "/projekt/HTML/otylosc.html", false,""));
-        // 
-        fact.add(new Factor("Promieniowanie jonizujące", "/projekt/HTML/promieniowanie.html", false,""));
-        // nie można opisać
-        fact.add(new Factor("Radioterapia", "/projekt/HTML/radioterapia.html", false,""));
+        // IonizingRadiation
+        fact.add(new Factor("Promieniowanie jonizujące", "/projekt/HTML/promieniowanie.html", true,"/projekt/FXML/IonizingRadiation.fxml"));
+        // nie można opisać Radiotherapy
+        fact.add(new Factor("Radioterapia", "/projekt/HTML/radioterapia.html", true,"/projekt/FXML/Radiotherapy.fxml"));
         // zobione
         fact.add(new Factor("Lampy solarium", "/projekt/HTML/solarium.html", false,""));
         // znalezniono test do opracowania
@@ -191,13 +191,18 @@ public class FactorWindowController implements Initializable {
                 Scene scene = new Scene(parent);
                 Stage primaryStage = new Stage();
                 primaryStage.setScene(scene); 
-                if(fact.get(index).getFactor().equals("Alkoholizm")){
+                if(fact.get(index).getFactor().equals("Spożywanie alkoholu")){
                 AuditTest cnt= new AuditTest();
                 cnt=load.getController();
                 cnt.setWindow(this); 
                 }
                 if(fact.get(index).getFactor().equals("Palenie papierosów")){
                 SmokingTestController cnt= new SmokingTestController();
+                cnt=load.getController();
+                cnt.setWindow(this); 
+                }
+                if(fact.get(index).getFactor().equals("Radioterapia")){
+                RadiotherapyTestController cnt= new RadiotherapyTestController();
                 cnt=load.getController();
                 cnt.setWindow(this); 
                 }
