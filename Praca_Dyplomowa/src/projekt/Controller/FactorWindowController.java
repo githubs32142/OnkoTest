@@ -73,26 +73,26 @@ public class FactorWindowController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        // dodano
+        //AuditTest
         fact.add(new Factor("Spożywanie alkoholu", "/projekt/HTML/alkoholizm.html", true,"/projekt/FXML/AuditTest.fxml"));
-        // doadaje automatycznie (program sam oblicza BMI  i jak >25 dodaje)
+        // Samo dodaje
         fact.add(new Factor("Otyłość", "/projekt/HTML/otylosc.html", false,""));
         // IonizingRadiation
         fact.add(new Factor("Promieniowanie jonizujące", "/projekt/HTML/promieniowanie.html", true,"/projekt/FXML/IonizingRadiation.fxml"));
-        // nie można opisać Radiotherapy
+        //  Radiotherapy
         fact.add(new Factor("Radioterapia", "/projekt/HTML/radioterapia.html", true,"/projekt/FXML/Radiotherapy.fxml"));
-        // zobione
+        // 
         fact.add(new Factor("Lampy solarium", "/projekt/HTML/solarium.html", false,""));
-        // znalezniono test do opracowania
+        // Smoking
         fact.add(new Factor("Palenie papierosów", "/projekt/HTML/papierosy.html", true,"/projekt/FXML/SmokingTest.fxml"));
-        // po co opisywać
+        // 
         fact.add(new Factor("Brak aktywności fizycznej", "/projekt/HTML/aktywnosc_fizyczna.html", false,""));
-       // zrobione
+       // 
         fact.add(new Factor("Niewłaściwa dieta", "/projekt/HTML/brak_owocow.html", false,""));
-        
+        //
         fact.add(new Factor("Brak naturalnych antyoksydantów", "/projekt/HTML/brak_naturalnych_antyoksydantow.html", false,""));
-        // zrobiony 
-        fact.add(new Factor("Menopauza + otyłość", "/projekt/HTML/wzrost_bmi.html", false,""));
+        // Menopause 
+        fact.add(new Factor("Menopauza + otyłość", "/projekt/HTML/wzrost_bmi.html",true,"/projekt/FXML/Menopause.fxml"));
         // !
         fact.add(new Factor("Brak błonnika", "/projekt/HTML/brak_naturalnych_antyoksydantow.html", false,""));
         webEngine = webView.getEngine();
@@ -206,6 +206,17 @@ public class FactorWindowController implements Initializable {
                 cnt=load.getController();
                 cnt.setWindow(this); 
                 }
+                if(fact.get(index).getFactor().equals("Promieniowanie jonizujące")){
+                IonizingRadiationTestController cnt= new IonizingRadiationTestController ();
+                cnt=load.getController();
+                cnt.setWindow(this); 
+                }
+                if(fact.get(index).getFactor().equals("Menopauza + otyłość")){
+                MenopauseTestController cnt= new MenopauseTestController();
+                cnt=load.getController();
+                cnt.setWindow(this); 
+                }
+                //"Menopauza + otyłość"
                 //primaryStage.initStyle(StageStyle.UNDECORATED);
                 primaryStage.setResizable(false);
                 primaryStage.show();
@@ -237,7 +248,6 @@ public class FactorWindowController implements Initializable {
         index=tmpindex;
         if(tmpindex>=0){
             rightSeleted=addedFactor.getSelectionModel().getSelectedIndex();
-            System.out.println(leftSelected);
             final URL urlFactor = getClass().getResource(fact.get(tmpindex).getSymptom());
             webEngine.load(urlFactor.toExternalForm());
             if(fact.get(tmpindex).isTest()){
@@ -264,5 +274,9 @@ public class FactorWindowController implements Initializable {
                 return ;
             }
         }
+    }
+
+    @FXML
+    private void nextWindow(ActionEvent event) {
     }
 }

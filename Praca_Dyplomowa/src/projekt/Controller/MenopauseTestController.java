@@ -30,9 +30,9 @@ import jess.Rete;
  *
  * @author Admin
  */
-public class IonizingRadiationTestController implements Initializable {
+public class MenopauseTestController implements Initializable {
     private FactorWindowController window;
-    private boolean end=false;// kiedy klikneliśmy na koniec(wystaw diagnozę)    
+    private boolean end=false;// kiedy klikneliśmy na koniec(wystaw diagnozę)
     private int index;
     @FXML
     private Label question;
@@ -44,22 +44,30 @@ public class IonizingRadiationTestController implements Initializable {
     private RadioButton answer2;
     @FXML
     private Button next;
-    List<String> qList= new ArrayList<>();// lista pytań
+        List<String> qList= new ArrayList<>();// lista pytań
     List<String> a1List= new ArrayList<>();
     List<String> a2List= new ArrayList<>();
+    List<String> a3List= new ArrayList<>();
+    List<String> a4List= new ArrayList<>();
+    List<String> a5List= new ArrayList<>();// lista odpowiedzi na 5 pytanie
     List<Integer> pList= new ArrayList<>();// ilość punktów przyznanych za każdą odpowiedź
     /**
      * Initializes the controller class.
+     * @param url
+     * @param rb
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-       qList.add("Czy w ostatnim roku miałeś wykonanych więcej niż 2 badania tomografi komputerowej?");
-       qList.add("Czy w ostatnim roku miałeś wykonane więcej niż 4 badania RTG?");
-       a1List.add("Nie");
-       a1List.add("Nie");
-       a2List.add("Tak");
-       a2List.add("Tak");
-       for(int i=0;i<2;i++){
+        index=0;
+        qList.add("1. Czy jesteś w okresie menopauzy?");
+        qList.add("2. Czy jesteś osobą z badwagą?");
+        qList.add("3. Czy w ostatnim półroczu twoje BMI wzrosło o 1 punkt?");
+        qList.add("4. Czy w ostatnim półroczu wzrost masy ciała o 0.5 kg?");
+        for(int i=0;i<4;i++){
+            a1List.add("Nie");
+            a2List.add("Tak");
+        }
+       for(int i=0;i<4;i++){
             pList.add(0);
         }
         question.setText(qList.get(0));
@@ -80,14 +88,14 @@ public class IonizingRadiationTestController implements Initializable {
 
     @FXML
     private void next(ActionEvent event) {
-        if(index<=2){
+        if(index<=4){
         index++;
         }
-        if(index==2){
+        if(index==4){
             makeAllDiagnose();
         }
-        if(index<2){
-            if(index==1){
+        if(index<4){
+            if(index==3){
                 next.setText("Zakończ");
             }
         question.setText(qList.get(index));
@@ -99,7 +107,7 @@ public class IonizingRadiationTestController implements Initializable {
         if(pList.get(index)==1){
             answer2.setSelected(true);
         }
-        }        
+        }    
     }
 
     @FXML
@@ -126,7 +134,7 @@ public class IonizingRadiationTestController implements Initializable {
         stage = (Stage) ((Node)(event.getSource())).getScene().getWindow();
         stage.close();
     }
-    public int getIndex() {
+     public int getIndex() {
         return index;
     }
     
@@ -182,7 +190,7 @@ public class IonizingRadiationTestController implements Initializable {
             engine.addOutputRouter("t", o);
             String result = new String();
             // Load the pricing rules
-            engine.batch("projekt/JESS/ionizingradiation.clp");
+            engine.batch("projekt/JESS/menopause.clp");
             engine.eval(s);
             engine.run();
             result = o.toString();
@@ -199,7 +207,7 @@ public class IonizingRadiationTestController implements Initializable {
                 }
             }
             if(add){
-                window.changeFactToRight("Promieniowanie jonizujące");
+                window.changeFactToRight("Menopauza + otyłość");
             }
             showOutputMessage(text.toString());
 

@@ -35,6 +35,6 @@
       <Label layoutX="143.0" layoutY="14.0" prefHeight="24.0" prefWidth="173.0" text="Opis czynnika:" />
       <WebView fx:id="webView" layoutX="150.0" layoutY="39.0" prefHeight="183.0" prefWidth="699.0" />
       <Button fx:id="test" layoutX="426.0" layoutY="233.0" mnemonicParsing="false" onAction="#makeTest" styleClass="btn" text="Wykonaj test" />
-      <Button fx:id="next" layoutX="438.0" layoutY="581.0" mnemonicParsing="false" onAction="#makeTest" styleClass="btn" text="Dalej &gt;&gt;" />
+      <Button fx:id="next" layoutX="438.0" layoutY="581.0" mnemonicParsing="false" onAction="#nextWindow" styleClass="btn" text="Dalej &gt;&gt;" />
    </children>
 </AnchorPane>
