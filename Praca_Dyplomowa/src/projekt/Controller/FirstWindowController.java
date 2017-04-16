@@ -31,7 +31,9 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
+import projekt.Class.ListFibre;
 import projekt.Class.Person;
+import projekt.Class.Product;
 
 /**
  * FXML Controller class
@@ -111,10 +113,12 @@ public class FirstWindowController implements Initializable {
             new FadeInUpTransition(eMail).play();
         });
         sex.setItems(sexList);
+        
     }    
 
     @FXML
     private void nextWindow(ActionEvent event) throws IOException {
+        
         if(mail){
             if(!surname.getText().isEmpty()){
                 Double w=Double.valueOf(weight.getText());

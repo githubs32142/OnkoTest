@@ -93,8 +93,8 @@ public class FactorWindowController implements Initializable {
         fact.add(new Factor("Brak naturalnych antyoksydantów", "/projekt/HTML/brak_naturalnych_antyoksydantow.html", false,""));
         // Menopause 
         fact.add(new Factor("Menopauza + otyłość", "/projekt/HTML/wzrost_bmi.html",true,"/projekt/FXML/Menopause.fxml"));
-        // !
-        fact.add(new Factor("Brak błonnika", "/projekt/HTML/brak_naturalnych_antyoksydantow.html", false,""));
+        // wykonuje się
+        fact.add(new Factor("Brak błonnika", "/projekt/HTML/brak_naturalnych_antyoksydantow.html", true,"/projekt/FXML/Fibre.fxml"));
         webEngine = webView.getEngine();
        // final URL urlFactor = getClass().getResource("/projekt/HTML/alkoholizm.html");
        // webEngine.load(urlFactor.toExternalForm());
@@ -277,6 +277,19 @@ public class FactorWindowController implements Initializable {
     }
 
     @FXML
-    private void nextWindow(ActionEvent event) {
+    private void nextWindow(ActionEvent event) throws IOException {
+         FXMLLoader load = new FXMLLoader(this.getClass().getResource("/projekt/FXML/SymptomWindow.fxml"));
+                SymptomWindowController cnt= new SymptomWindowController();   
+                Parent parent= load.load();
+                cnt=load.getController();
+                cnt.setPerson(person);
+                cnt.setFactor(dataRight);
+                Scene scene = new Scene(parent);
+                Stage primaryStage = new Stage();
+                primaryStage.setScene(scene);
+                primaryStage.show();
+                Stage stage;
+                stage = (Stage) ((Node)(event.getSource())).getScene().getWindow();
+                stage.close();
     }
 }
