@@ -1,4 +1,8 @@
-
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
 package projekt.Controller;
 
 import java.io.StringWriter;
@@ -22,9 +26,9 @@ import jess.Rete;
 /**
  * FXML Controller class
  *
- * @author Andrzej
+ * @author Admin
  */
-public class SmokingTestController implements Initializable {
+public class SolariumTestController implements Initializable {
     private FactorWindowController window;
     private boolean end=false;// kiedy klikneliśmy na koniec(wystaw diagnozę)
     private int index;
@@ -47,49 +51,40 @@ public class SmokingTestController implements Initializable {
     List<String> a2List= new ArrayList<>();
     List<String> a3List= new ArrayList<>();
     List<String> a4List= new ArrayList<>();
-    List<String> a5List= new ArrayList<>();// lista odpowiedzi na 5 pytanie
     List<Integer> pList= new ArrayList<>();// ilość punktów przyznanych za każdą odpowiedź
-    public SmokingTestController() {
-    }    
-
+    /**
+     * Initializes the controller class.
+     * @param url
+     * @param rb
+     */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         index=0;
-        qList.add("1.Jak szybko po przebudzeniu zapala Pani/ Pan pierwszego  papierosa?");
-        qList.add("2. Czy ma Pan/i trudności z powstrzymaniem się od palenia w miejscach, gdzie to jest zakazane?");
-        qList.add("3. Z którego papierosa jest Pani/u najtrudniej zrezygnować?");
-        qList.add("4. Ile papierosów wypala Pan/i w ciągu dnia?");
-        qList.add("5. Czy częściej pali Pan/i papierosy w ciągu pierwszych godzin po przebudzeniu niż w pozostałej części dnia?");
-        qList.add("6. Czy pali Pan/i papierosy nawet wtedy, gdy jest Pan/i tak chora(y), że musi leżeć w łóżku?");
+        qList.add("1. Czy używasz specjalnych kosmetyków opalania w solarium?");
+        qList.add("2. Czy używasz kosmetyków UV podczas opalani?");
+        qList.add("3. Jak długo trwa opalanie na solarium?");
+        qList.add("4. Jak często korzystasz z solarium?");
          
-        a1List.add(" Więcej niż 60 min lub wcale");
-        a1List.add(" Nie");
-        a1List.add(" Z każdego innego");
-        a1List.add(" Mniej niż 10");
-        a1List.add(" Nie");
-        a1List.add(" Nie");
+        a1List.add(" Tak");
+        a1List.add(" Tak");
+        a1List.add(" 1-5 min");
+        a1List.add(" 1-2 razy w tygodniu");
         
-        a2List.add(" 31-60 minut");
-        a2List.add(" Tak");
-        a2List.add(" Z pierwszego rano");
-        a2List.add(" 11-20");
-        a2List.add(" Tak");
-        a2List.add(" Tak");
+        a2List.add(" Nie");
+        a2List.add(" Nie");
+        a2List.add(" 5-10 min");
+        a2List.add(" 3-4 razy w tygodniu");
         
-        a3List.add(" 6-30 minut");
         a3List.add(" -");
         a3List.add(" -");
-        a3List.add(" 21-30");
-        a3List.add(" -");
-        a3List.add(" -");
+        a3List.add(" 10-20 min");
+        a3List.add(" 5-6 razy w tygodniu");
         
-        a4List.add(" do 5 minut");
         a4List.add(" -");
         a4List.add(" -");
-        a4List.add(" 31 i więcej");
-        a4List.add(" -");
-        a4List.add(" -");       
-        for(int i=0;i<6;i++){
+        a4List.add(" 30 lub więcej");
+        a4List.add(" codzniennie");
+        for(int i=0;i<qList.size();i++){
             pList.add(0);
         }
         question.setText(qList.get(0));
@@ -97,12 +92,21 @@ public class SmokingTestController implements Initializable {
         answer2.setText(a2List.get(0));
         answer3.setText(a3List.get(0));
         answer4.setText(a4List.get(0));
+                if(a3List.get(index).equals(" -")){
+            answer3.setVisible(false);
+            answer4.setVisible(false);
+        }
+        else{
+            
+            answer3.setVisible(true);
+            answer4.setVisible(true);
+        }
         answer1.setSelected(true);
     }    
 
     @FXML
     private void answer1Action(ActionEvent event) {
-        pList.set(index,0);
+         pList.set(index,0);
     }
 
     @FXML
@@ -119,22 +123,23 @@ public class SmokingTestController implements Initializable {
     private void answer4Action(ActionEvent event) {
         pList.set(index,3);
     }
+
     @FXML
     private void next(ActionEvent event) {
-        if(index<=6){
+        if(index<=qList.size()){
         index++;
         }
-        if(index==6){
+        if(index==qList.size()){
             // koniec
             makeAllDiagnose();
             next.setText("Dalej>");
             index=0;
-            for(int i=0;i<6;i++){
+            for(int i=0;i<qList.size();i++){
             pList.set(i,0);
             }
         }
-        if(index<6){
-            if(index==5){
+        if(index<qList.size()){
+            if(index==qList.size()-1){
                 next.setText("Zakończ");
             }
         question.setText(qList.get(index));
@@ -165,7 +170,7 @@ public class SmokingTestController implements Initializable {
         }
         }
     }
-    
+
     @FXML
     private void back(ActionEvent event) {
         if(index>0){
@@ -205,11 +210,10 @@ public class SmokingTestController implements Initializable {
     private void fastDiagnose(ActionEvent event) {
         makeAllDiagnose();
     }
-
+    
     public int getIndex() {
         return index;
     }
-    
     /**
      ** Metoda ktora zwraca w postaci ciągu znaków wyrażenie które będzie potrzebne wykonania wniskowania 
      * @return 
@@ -264,7 +268,7 @@ public class SmokingTestController implements Initializable {
             engine.addOutputRouter("t", o);
             String result = new String();
             // Load the pricing rules
-            engine.batch("projekt/JESS/smoking.clp");
+            engine.batch("projekt/JESS/solarium.clp");
             engine.eval(s);
             engine.run();
             result = o.toString();
@@ -281,7 +285,7 @@ public class SmokingTestController implements Initializable {
                 }
             }
             if(add){
-                window.changeFactToRight("Palenie papierosów");
+                window.changeFactToRight("Lampy solarium");
             }
             showOutputMessage(text.toString());
 
@@ -292,5 +296,5 @@ public class SmokingTestController implements Initializable {
     }
     public void setWindow(FactorWindowController window) {
         this.window = window;
-    }
+    }    
 }

@@ -58,9 +58,34 @@ static String readInput(String path) {
     public int size(){
         return listFibre.size();
     }
+
+    public int searchProduct(String name){
+        for(int i=0;i<listFibre.size();i++){
+            if(listFibre.get(i).getNameProduct().equals(name)){
+                return i;
+            }
+        }
+        return -1;
+    }
+    public String getNameProduct(int i) {
+        return listFibre.get(i).getNameProduct();
+    }
+    public void setNameProduct(int i,String nameProduct) {
+        listFibre.get(i).setNameProduct(nameProduct);
+    }
+    
     public ProductFibre getFibre(int i){
         return listFibre.get(i);
     }
+    public void setFibre(int i,Double fibre) {
+        listFibre.get(i).setFibre(fibre);
+    }
     
+    public Double getWeight(int i) {
+        return listFibre.get(i).getWeight();
+    }
+    public void setWeight(int i,Double weight) {
+        listFibre.get(i).setWeight(weight);
+    }
 }
 //pr.readData("src/projekt/Data/jeżyna.txt");

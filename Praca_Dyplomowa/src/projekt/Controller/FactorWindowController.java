@@ -81,8 +81,8 @@ public class FactorWindowController implements Initializable {
         fact.add(new Factor("Promieniowanie jonizujące", "/projekt/HTML/promieniowanie.html", true,"/projekt/FXML/IonizingRadiation.fxml"));
         //  Radiotherapy
         fact.add(new Factor("Radioterapia", "/projekt/HTML/radioterapia.html", true,"/projekt/FXML/Radiotherapy.fxml"));
-        // 
-        fact.add(new Factor("Lampy solarium", "/projekt/HTML/solarium.html", false,""));
+        // Solarium
+        fact.add(new Factor("Lampy solarium", "/projekt/HTML/solarium.html", true,"/projekt/FXML/Solarium.fxml"));
         // Smoking
         fact.add(new Factor("Palenie papierosów", "/projekt/HTML/papierosy.html", true,"/projekt/FXML/SmokingTest.fxml"));
         // 
@@ -213,6 +213,11 @@ public class FactorWindowController implements Initializable {
                 }
                 if(fact.get(index).getFactor().equals("Menopauza + otyłość")){
                 MenopauseTestController cnt= new MenopauseTestController();
+                cnt=load.getController();
+                cnt.setWindow(this); 
+                }
+                if(fact.get(index).getFactor().equals("Lampy solarium")){
+                SolariumTestController cnt= new SolariumTestController();
                 cnt=load.getController();
                 cnt.setWindow(this); 
                 }

@@ -1,4 +1,6 @@
-Wersja 0.1.3 14.04.17
+Wersja 0.1.4 17.04.17
+Dodano test Solarium.
+Wersja 0.1.3 16.04.17
 Dodano test Brak błonnika (prototyp).
 Poprawiono błędy.
 Wersja 0.1.2 14.04.17

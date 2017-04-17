@@ -179,7 +179,7 @@ public class AuditTest implements Initializable {
                 }
                 }
                 if(add){
-                window.changeFactToRight("Alkoholizm");
+                window.changeFactToRight("Spożywanie alkoholu");
                 }
             showOutputMessage(text.toString());
 

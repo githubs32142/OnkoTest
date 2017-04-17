@@ -12,6 +12,7 @@ import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.ListView;
+import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
 import projekt.Class.ListFibre;
 
@@ -24,9 +25,13 @@ public class FibreTest implements Initializable {
     ListFibre listFibre;
     ObservableList<String> data = FXCollections.observableArrayList();
     @FXML
-    private ListView<String> factors;
+    private ListView<String> product;
     @FXML
-    private ListView<String> addedFactor;
+    private ListView<?> addedProduct;
+    @FXML
+    private TextField weight;
+    @FXML
+    private TextField productName;
 
     /**
      * Initializes the controller class.
@@ -38,16 +43,19 @@ public class FibreTest implements Initializable {
         for(int i=0;i<listFibre.size();i++){
             data.add(listFibre.getFibre(i).toString());
         }
-        factors.setItems(data);
+        product.setItems(data);
     }    
 
     @FXML
-    private void factorClicked(MouseEvent event) {
-        
+    private void productClicked(MouseEvent event) {
+        int index = product.getSelectionModel().getSelectedIndex();
+        if(index>=0){
+            weight.setText(String.valueOf(listFibre.getWeight(index)));
+            productName.setText(listFibre.getNameProduct(index));
+        }
     }
-
     @FXML
-    private void addedFactorRemove(MouseEvent event) {
+    private void addedFactor(MouseEvent event) {
     }
     
 }
