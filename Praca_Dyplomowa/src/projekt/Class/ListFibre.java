@@ -27,12 +27,12 @@ static String readInput(String path) {
     try {
         FileInputStream fis = new FileInputStream(path);
         InputStreamReader isr = new InputStreamReader(fis,"UTF8");
-        Reader in = new BufferedReader(isr);
-        int ch;
-        while ((ch = in.read()) > -1) {
-            buffer.append((char)ch);
+        try (Reader in = new BufferedReader(isr)) {
+            int ch;
+            while ((ch = in.read()) > -1) {
+                buffer.append((char)ch);
+            }
         }
-        in.close();
         return buffer.toString();
     } 
     catch (IOException e) {
@@ -40,9 +40,10 @@ static String readInput(String path) {
         return null;
     }
     }
+
     public void readData(String path){
         String line= readInput(path);
-        StringTokenizer st = new StringTokenizer(line, "-;");
+        StringTokenizer st = new StringTokenizer(line, "-\n");
         boolean count=true;
         while(st.hasMoreElements()){
             if(count){
@@ -61,6 +62,7 @@ static String readInput(String path) {
 
     public int searchProduct(String name){
         for(int i=0;i<listFibre.size();i++){
+            System.out.println(listFibre.get(i).getNameProduct());
             if(listFibre.get(i).getNameProduct().equals(name)){
                 return i;
             }
@@ -86,6 +88,83 @@ static String readInput(String path) {
     }
     public void setWeight(int i,Double weight) {
         listFibre.get(i).setWeight(weight);
+    }
+    public void addFibre(String productName, Double weight, Double fibre){
+        listFibre.add(new ProductFibre(productName, fibre));
+        listFibre.get(listFibre.size()-1).setWeight(weight);
+    }
+    public void addFibre(ProductFibre product){
+        listFibre.add(new ProductFibre(product));
+    }
+    /**
+     ** Metoda która wykonuje sortowanie metodą bąbelkową
+     * @param type typ sortowania:<br/> 1- Według nazw rosnąco<br/>2- Według nazw malejąco
+     * <br/>3- Według wartości błonnika rosnąco<br/>4- Według wartości błonnika malejąco
+     */
+    public void sort(int type){
+        for(int i=0;i<listFibre.size();i++){
+            for(int j=i;j<listFibre.size();j++){
+                if(type==1){
+                    if(!sortWord(listFibre.get(i).getNameProduct(), listFibre.get(j).getNameProduct())){
+                        ProductFibre tmp = listFibre.get(j);
+                        listFibre.set(j, listFibre.get(i));
+                        listFibre.set(i, tmp);
+                    }
+                }
+                if(type==2){
+                    if(sortWord(listFibre.get(i).getNameProduct(), listFibre.get(j).getNameProduct())){
+                        ProductFibre tmp = listFibre.get(j);
+                        listFibre.set(j, listFibre.get(i));
+                        listFibre.set(i, tmp);
+                    }
+                }
+                if(type==3){
+                    if(listFibre.get(i).getFibre()>listFibre.get(j).getFibre()){
+                        ProductFibre tmp = listFibre.get(j);
+                        listFibre.set(j, listFibre.get(i));
+                        listFibre.set(i, tmp);
+                    }
+                }
+                if(type==4){
+                    if(listFibre.get(i).getFibre()<listFibre.get(j).getFibre()){
+                        ProductFibre tmp = listFibre.get(j);
+                        listFibre.set(j, listFibre.get(i));
+                        listFibre.set(i, tmp);
+                    }
+                }
+            }
+        }
+    }
+    /**
+     ** Metoda która sprawdza, czy słowo 1 jest wyżej w alfabecie niż słowo 2 
+     * @param word1
+     * @param word2
+     * @return 
+     */
+    private boolean sortWord(String word1, String word2){
+        for(int i=0;i<word2.length();i++){
+            if(word1.length()-1==i){
+                return true;
+            }
+            if(word1.charAt(i)<word2.charAt(i)){
+                return true;
+            }
+            if(word1.charAt(i)>word2.charAt(i)){
+                return false;
+            }
+        }
+        return false;
+    }
+    /**
+     * 
+     * @return 
+     */
+    public double getSumFibre(){
+        double sum=0;
+        for(int i=0;i<listFibre.size();i++){
+            sum+=((Double)(listFibre.get(i).getWeight()/100)*listFibre.get(i).getFibre());
+        }
+        return sum;
     }
 }
 //pr.readData("src/projekt/Data/jeżyna.txt");

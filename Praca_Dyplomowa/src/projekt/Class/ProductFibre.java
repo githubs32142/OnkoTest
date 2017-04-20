@@ -17,7 +17,11 @@ public class ProductFibre {
         this.nameProduct = nameProduct;
         this.fibre = fibre;
     }
-
+    public ProductFibre(ProductFibre product){
+        this.nameProduct=product.nameProduct;
+        this.fibre=product.fibre;
+        this.weight=product.weight;
+    }
     public ProductFibre() {
         fibre=new Double(0);
         nameProduct= new String();
@@ -47,11 +51,13 @@ public class ProductFibre {
     public Double getWeight() {
         return weight;
     }
-
+    /**
+     ** Metoda stworzona po to aby wyświetlć ile błonnika przyjęto 
+     * @return 
+     */
     @Override
     public String toString() {
-        return nameProduct + " w "+ getWeight() +"g zawiera "+getFibre()+"g błonnika";
+        return nameProduct + " w "+ getWeight() +"g zawiera "+getFibre()*(getWeight()/100)+"g błonnika";
                 
     }
-    
 }
