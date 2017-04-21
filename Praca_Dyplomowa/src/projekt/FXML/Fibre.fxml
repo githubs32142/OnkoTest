@@ -21,7 +21,7 @@
             </ImageView>
          </children></VBox>
       <ListView fx:id="product" layoutX="114.0" layoutY="147.0" onMouseClicked="#productClicked" prefHeight="464.0" prefWidth="343.0" styleClass="box" />
-      <ListView fx:id="addedProduct" layoutX="536.0" layoutY="147.0" onMouseClicked="#addedFactor" prefHeight="464.0" prefWidth="343.0" styleClass="box" />
+      <ListView fx:id="addedProduct" layoutX="536.0" layoutY="147.0" onMouseClicked="#addedProductClicked" prefHeight="464.0" prefWidth="343.0" styleClass="box" />
       <Label layoutX="114.0" layoutY="109.0" prefHeight="30.0" prefWidth="173.0" text="Lista produktów" />
       <Label layoutX="579.0" layoutY="109.0" text="Dodane przez Ciebie:" />
       <TextField fx:id="weight" layoutX="243.0" layoutY="27.0" prefHeight="27.0" prefWidth="163.0" />
@@ -32,6 +32,6 @@
       <Label layoutX="389.0" layoutY="31.0" prefHeight="30.0" prefWidth="34.0" text="g" />
       <ComboBox fx:id="sort" layoutX="250.0" layoutY="112.0" onAction="#sortProduct" prefWidth="150.0" />
       <Button layoutX="443.0" layoutY="110.0" mnemonicParsing="false" onAction="#makeTest" styleClass="btn" text="Sprawdź" />
-      <Button layoutX="453.0" layoutY="17.0" mnemonicParsing="false" onAction="#removeFibre" styleClass="btn" text="Usuń" />
+      <Button fx:id="removeButton" layoutX="453.0" layoutY="17.0" mnemonicParsing="false" onAction="#removeFibre" styleClass="btn" text="Usuń" />
    </children>
 </AnchorPane>

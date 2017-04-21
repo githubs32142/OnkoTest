@@ -25,10 +25,10 @@
             </ImageView>
          </children>
       </VBox>
-      <ListView fx:id="factors" layoutX="133.0" layoutY="262.0" onMouseClicked="#factorClicked" prefHeight="378.0" prefWidth="289.0" styleClass="box" />
+      <ListView fx:id="factors" layoutX="133.0" layoutY="262.0" onDragDetected="#factorsDragDetected" onDragDropped="#factorDragDropped" onDragEntered="#factorsDragEntered" onDragExited="#factorsDragExited" onDragOver="#factorsDragOver" onMouseClicked="#factorClicked" prefHeight="378.0" prefWidth="289.0" styleClass="box" />
       <Button fx:id="add" layoutX="454.0" layoutY="480.0" mnemonicParsing="false" onAction="#addFactor" prefHeight="37.0" prefWidth="63.0" styleClass="btn" text="&gt;&gt;" />
       <Button fx:id="remove" layoutX="454.0" layoutY="525.0" mnemonicParsing="false" onAction="#removeFactor" prefHeight="37.0" prefWidth="63.0" styleClass="btn" text="&lt;&lt;" />
-      <ListView fx:id="addedFactor" layoutX="558.0" layoutY="262.0" onMouseClicked="#addedFactorRemove" prefHeight="378.0" prefWidth="289.0" styleClass="box" />
+      <ListView fx:id="addedFactor" layoutX="558.0" layoutY="262.0" onDragDetected="#addedDragDetected" onDragDropped="#addedFactorDragDropped" onDragEntered="#addedFactorDragEntered" onDragExited="#addedFactorDragExited" onDragOver="#addedFactorDragOver" onMouseClicked="#addedFactorRemove" prefHeight="378.0" prefWidth="289.0" styleClass="box" />
       <Label layoutX="191.0" layoutY="233.0" prefHeight="30.0" prefWidth="173.0" text="Czynniki ryzyka:" />
       <Label layoutX="616.0" layoutY="233.0" prefHeight="30.0" prefWidth="173.0" text="Wybrane czynniki:" />
       <Separator layoutX="140.0" layoutY="14.0" orientation="VERTICAL" prefHeight="209.0" prefWidth="6.0" />

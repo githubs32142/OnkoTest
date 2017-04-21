@@ -26,15 +26,15 @@ public class SymptomWindowController implements Initializable {
     private Person person;
     private List<String> factor = new ArrayList<>();
     @FXML
-    private ListView<?> factors;
-    @FXML
     private Button add;
     @FXML
     private Button remove;
     @FXML
-    private ListView<?> addedFactor;
-    @FXML
     private Button next;
+    @FXML
+    private ListView<?> symptoms;
+    @FXML
+    private ListView<?> addedSymptoms;
 
     /**
      * Initializes the controller class.
@@ -50,9 +50,6 @@ public class SymptomWindowController implements Initializable {
     private void undoClick(MouseEvent event) {
     }
 
-    @FXML
-    private void factorClicked(MouseEvent event) {
-    }
 
     @FXML
     private void addFactor(ActionEvent event) {
@@ -62,9 +59,6 @@ public class SymptomWindowController implements Initializable {
     private void removeFactor(ActionEvent event) {
     }
 
-    @FXML
-    private void addedFactorRemove(MouseEvent event) {
-    }
 
     @FXML
     private void nextWindow(ActionEvent event) {
@@ -82,6 +76,14 @@ public class SymptomWindowController implements Initializable {
 
     public void setFactor(List<String> factor) {
         this.factor = factor;
+    }
+
+    @FXML
+    private void symptomsClicked(MouseEvent event) {
+    }
+
+    @FXML
+    private void addedSymptomsClicked(MouseEvent event) {
     }
     
 }

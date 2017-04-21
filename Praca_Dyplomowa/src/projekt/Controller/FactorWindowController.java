@@ -25,7 +25,12 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ListView;
+import javafx.scene.effect.BlendMode;
+import javafx.scene.input.ClipboardContent;
+import javafx.scene.input.DragEvent;
+import javafx.scene.input.Dragboard;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.input.TransferMode;
 import javafx.scene.web.WebEngine;
 import javafx.scene.web.WebView;
 import javafx.stage.Stage;
@@ -93,7 +98,7 @@ public class FactorWindowController implements Initializable {
         fact.add(new Factor("Brak naturalnych antyoksydantów", "/projekt/HTML/brak_naturalnych_antyoksydantow.html", false,""));
         // Menopause 
         fact.add(new Factor("Menopauza + otyłość", "/projekt/HTML/wzrost_bmi.html",true,"/projekt/FXML/Menopause.fxml"));
-        // wykonuje się
+        // Fibre
         fact.add(new Factor("Brak błonnika", "/projekt/HTML/brak_naturalnych_antyoksydantow.html", true,"/projekt/FXML/Fibre.fxml"));
         webEngine = webView.getEngine();
        // final URL urlFactor = getClass().getResource("/projekt/HTML/alkoholizm.html");
@@ -284,17 +289,82 @@ public class FactorWindowController implements Initializable {
     @FXML
     private void nextWindow(ActionEvent event) throws IOException {
          FXMLLoader load = new FXMLLoader(this.getClass().getResource("/projekt/FXML/SymptomWindow.fxml"));
-                SymptomWindowController cnt= new SymptomWindowController();   
-                Parent parent= load.load();
-                cnt=load.getController();
-                cnt.setPerson(person);
-                cnt.setFactor(dataRight);
-                Scene scene = new Scene(parent);
-                Stage primaryStage = new Stage();
-                primaryStage.setScene(scene);
-                primaryStage.show();
-                Stage stage;
-                stage = (Stage) ((Node)(event.getSource())).getScene().getWindow();
-                stage.close();
+         SymptomWindowController cnt= new SymptomWindowController();   
+         Parent parent= load.load();
+         cnt=load.getController();
+         cnt.setPerson(person);
+         cnt.setFactor(dataRight);
+         Scene scene = new Scene(parent);
+         Stage primaryStage = new Stage();
+         primaryStage.setScene(scene);
+         primaryStage.show();
+         Stage stage;
+         stage = (Stage) ((Node)(event.getSource())).getScene().getWindow();
+         stage.close();
+    }
+    @FXML
+    private void factorsDragEntered(DragEvent event) {
+        factors.setBlendMode(BlendMode.SRC_ATOP);
+    }
+
+    @FXML
+    private void factorsDragDetected(MouseEvent event) {
+      Dragboard dragBoard = factors.startDragAndDrop(TransferMode.MOVE);
+      ClipboardContent content = new ClipboardContent();
+      content.putString(String.valueOf(factors.getSelectionModel().getSelectedIndex()));
+      dragBoard.setContent(content);  
+    }
+
+    @FXML
+    private void factorsDragExited(DragEvent event) {
+        factors.setBlendMode(null);
+    }
+
+    @FXML
+    private void factorsDragOver(DragEvent event) {
+        event.acceptTransferModes(TransferMode.MOVE); 
+    }
+
+    @FXML
+    private void addedFactorDragEntered(DragEvent event) {
+        addedFactor.setBlendMode(BlendMode.SRC_ATOP);
+    }
+
+    @FXML
+    private void addedFactorDragExited(DragEvent event) {
+        addedFactor.setBlendMode(null);
+    }
+
+    @FXML
+    private void addedFactorDragOver(DragEvent event) {
+    event.acceptTransferModes(TransferMode.MOVE);    
+    }
+
+    @FXML
+    private void addedFactorDragDropped(DragEvent event) {
+        int tmp = Integer.parseInt(event.getDragboard().getString());
+        String aadd= factors.getItems().get(tmp);
+        data.remove(tmp);
+        dataRight.add(aadd);
+        factors.setItems(data);
+        addedFactor.setItems(dataRight);
+    }
+
+    @FXML
+    private void factorDragDropped(DragEvent event) {
+        int tmp = Integer.parseInt(event.getDragboard().getString());
+        String aadd= addedFactor.getItems().get(tmp);
+        dataRight.remove(tmp);
+        data.add(aadd);
+        factors.setItems(data);
+        addedFactor.setItems(dataRight);
+    }
+
+    @FXML
+    private void addedDragDetected(MouseEvent event) {
+      Dragboard dragBoard = addedFactor.startDragAndDrop(TransferMode.MOVE);
+      ClipboardContent content = new ClipboardContent();
+      content.putString(String.valueOf(addedFactor.getSelectionModel().getSelectedIndex()));
+      dragBoard.setContent(content); 
     }
 }

@@ -59,7 +59,6 @@ static String readInput(String path) {
     public int size(){
         return listFibre.size();
     }
-
     public int searchProduct(String name){
         for(int i=0;i<listFibre.size();i++){
             System.out.println(listFibre.get(i).getNameProduct());
@@ -156,8 +155,8 @@ static String readInput(String path) {
         return false;
     }
     /**
-     * 
-     * @return 
+     ** Metoda która zwraca ilość błonnika którą spożyliśmy  
+     * @return suma błonnika wyrażona w gramach.
      */
     public double getSumFibre(){
         double sum=0;
@@ -165,6 +164,19 @@ static String readInput(String path) {
             sum+=((Double)(listFibre.get(i).getWeight()/100)*listFibre.get(i).getFibre());
         }
         return sum;
+    }
+    /**
+     ** Metoda która usuwa produkt z listy 
+     * @param index index
+     ** assert index>0 && index<listFibre.size() 
+     */
+    public void remove(int index){
+        if(index>=0 && index<listFibre.size()){
+            listFibre.remove(index);
+        }
+        else{
+            System.err.println("Błąd nie właściwy index");
+        }
     }
 }
 //pr.readData("src/projekt/Data/jeżyna.txt");

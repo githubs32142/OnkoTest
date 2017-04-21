@@ -10,12 +10,14 @@ import java.net.URL;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Alert;
+import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
@@ -46,6 +48,8 @@ public class FibreTest implements Initializable {
     private TextField productName;
     @FXML
     private ComboBox<String> sort;
+    @FXML
+    private Button removeButton;
 
     /**
      * Initializes the controller class.
@@ -66,7 +70,7 @@ public class FibreTest implements Initializable {
         optionSort.add("Według wartości błonnika rosnąco");
         optionSort.add("Według wartości błonnika malejąco");
         sort.setItems(optionSort);
-        
+        removeButton.setVisible(false);
     }    
 
     @FXML
@@ -76,9 +80,7 @@ public class FibreTest implements Initializable {
             weight.setText(String.valueOf(listFibre.getWeight(index)));
             productName.setText(listFibre.getNameProduct(index));
         }
-    }
-    @FXML
-    private void addedFactor(MouseEvent event) {
+        removeButton.setVisible(false);
     }
 
     @FXML
@@ -88,6 +90,7 @@ public class FibreTest implements Initializable {
         addFibre.setWeight(addFibre.size()-1, Double.parseDouble(weight.getText()));
         addData.add(addFibre.getFibre(addFibre.size()-1).toString());
         addedProduct.setItems(addData);
+        
     }
 
     public int getIndex() {
@@ -97,7 +100,6 @@ public class FibreTest implements Initializable {
     public void setIndex(int index) {
         this.index = index;
     }
-
     @FXML
     private void sortProduct(ActionEvent event) {
         listFibre.sort(sort.getSelectionModel().getSelectedIndex()+1);
@@ -110,6 +112,7 @@ public class FibreTest implements Initializable {
 
     @FXML
     private void closeWindow(MouseEvent event) {
+        Platform.exit();
     }
 
     @FXML
@@ -131,6 +134,7 @@ public class FibreTest implements Initializable {
      ** Metoda ktora zwraca w postaci ciągu znaków wyrażenie które będzie potrzebne wykonania wniskowania 
      * @rerurn wyrażenie potrzebne do wykonania wniskowania
      */
+    @Override
     public String toString(){
         StringBuilder tmp= new StringBuilder("( assert ( Point ( sum ");
         tmp.append(addFibre.getSumFibre()).append(" ) ) )");
@@ -144,12 +148,13 @@ public class FibreTest implements Initializable {
             engine.reset();
             StringWriter o = new StringWriter();
             engine.addOutputRouter("t", o);
-            String result = new String();
+            String result;
             engine.batch("projekt/JESS/fibre.clp");
             engine.eval(s);
             engine.run();
             result = o.toString();
             engine.clear();
+            System.out.println(result);
             if (result == null ? "" == null : result.equals("")) {
                 result = "Brak diagnozy";
             }
@@ -177,5 +182,17 @@ public class FibreTest implements Initializable {
 
     @FXML
     private void removeFibre(ActionEvent event) {
+        if(index<addData.size()){
+            addData.remove(index);
+            addFibre.remove(index);
+            addedProduct.setItems(addData);
+        }
+        
+    }
+    
+    @FXML
+    private void addedProductClicked(MouseEvent event) {
+        removeButton.setVisible(true);
+        index= addedProduct.getSelectionModel().getSelectedIndex();
     }
 }
