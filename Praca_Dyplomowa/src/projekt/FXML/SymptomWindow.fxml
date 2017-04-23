@@ -23,10 +23,10 @@
             </ImageView>
          </children>
       </VBox>
-      <ListView fx:id="symptoms" layoutX="114.0" layoutY="147.0" onMouseClicked="#symptomsClicked" prefHeight="475.0" prefWidth="300.0" styleClass="box" />
+      <ListView fx:id="symptoms" layoutX="114.0" layoutY="147.0" onDragDetected="#symptomsDragDetected" onDragDropped="#symptomsDragDropped" onDragEntered="#symptomsDragEntered" onDragExited="#symptomsDragExited" onDragOver="#symptomsDragOver" onMouseClicked="#symptomsClicked" prefHeight="475.0" prefWidth="300.0" styleClass="box" />
       <Button fx:id="add" layoutX="470.0" layoutY="299.0" mnemonicParsing="false" onAction="#addFactor" prefHeight="37.0" prefWidth="37.0" styleClass="btn" text="&gt;" />
       <Button fx:id="remove" layoutX="470.0" layoutY="348.0" mnemonicParsing="false" onAction="#removeFactor" prefHeight="37.0" prefWidth="7.0" styleClass="btn" text="&lt;" />
-      <ListView fx:id="addedSymptoms" layoutX="579.0" layoutY="147.0" onMouseClicked="#addedSymptomsClicked" prefHeight="475.0" prefWidth="300.0" styleClass="box" />
+      <ListView fx:id="addedSymptoms" layoutX="579.0" layoutY="147.0" onDragDetected="#addedSymptomsDragDetected" onDragDropped="#addedSymptomsDragDropped" onDragEntered="#addedSymptomsDragEntered" onDragExited="#addedSymptomsDragExited" onDragOver="#addedSymptomsDragOver" onMouseClicked="#addedSymptomsClicked" prefHeight="475.0" prefWidth="300.0" styleClass="box" />
       <Label layoutX="203.0" layoutY="54.0" prefHeight="30.0" prefWidth="494.0" text="Wybierz objawy które występują u Ciebie przez conajmniej 3 miesiące!" textAlignment="CENTER" />
       <Label layoutX="114.0" layoutY="109.0" prefHeight="30.0" prefWidth="173.0" text="Lista objawów:" />
       <Button fx:id="next" layoutX="450.0" layoutY="581.0" mnemonicParsing="false" onAction="#nextWindow" styleClass="btn" text="Dalej &gt;&gt;" />
