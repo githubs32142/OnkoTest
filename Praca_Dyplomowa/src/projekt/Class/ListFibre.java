@@ -55,13 +55,13 @@ static String readInput(String path) {
             }
             count=!count;
         }
+        
     }
     public int size(){
         return listFibre.size();
     }
     public int searchProduct(String name){
         for(int i=0;i<listFibre.size();i++){
-            System.out.println(listFibre.get(i).getNameProduct());
             if(listFibre.get(i).getNameProduct().equals(name)){
                 return i;
             }
@@ -161,7 +161,7 @@ static String readInput(String path) {
     public double getSumFibre(){
         double sum=0;
         for(int i=0;i<listFibre.size();i++){
-            sum+=((Double)(listFibre.get(i).getWeight()/100)*listFibre.get(i).getFibre());
+            sum+=((listFibre.get(i).getWeight()/100)*listFibre.get(i).getFibre());
         }
         return sum;
     }

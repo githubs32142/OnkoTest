@@ -19,6 +19,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
+import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
@@ -50,6 +51,8 @@ public class FibreTest implements Initializable {
     private ComboBox<String> sort;
     @FXML
     private Button removeButton;
+    @FXML
+    private Label sum;
 
     /**
      * Initializes the controller class.
@@ -90,7 +93,7 @@ public class FibreTest implements Initializable {
         addFibre.setWeight(addFibre.size()-1, Double.parseDouble(weight.getText()));
         addData.add(addFibre.getFibre(addFibre.size()-1).toString());
         addedProduct.setItems(addData);
-        
+        sum.setText("Suma: "+addFibre.getSumFibre());
     }
 
     public int getIndex() {
@@ -186,6 +189,7 @@ public class FibreTest implements Initializable {
             addData.remove(index);
             addFibre.remove(index);
             addedProduct.setItems(addData);
+            sum.setText("Suma: "+addFibre.getSumFibre());
         }
         
     }

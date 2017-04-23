@@ -21,12 +21,12 @@ public class RunClass extends Application {
     
     @Override
     public void start(Stage primaryStage) throws IOException {
-        FXMLLoader load = new FXMLLoader(this.getClass().getResource("FXML/FirstWindow.fxml"));
-        //FXMLLoader load = new FXMLLoader(this.getClass().getResource("FXML/FactorWindow.fxml"));
+        //FXMLLoader load = new FXMLLoader(this.getClass().getResource("FXML/FirstWindow.fxml"));
+        FXMLLoader load = new FXMLLoader(this.getClass().getResource("FXML/FactorWindow.fxml"));
         Parent parent= load.load();
         Scene scene = new Scene(parent);
         primaryStage.setScene(scene);
-        primaryStage.initStyle(StageStyle.UNDECORATED);
+        //primaryStage.initStyle(StageStyle.UNDECORATED);
         primaryStage.setResizable(false);
         primaryStage.show();
         

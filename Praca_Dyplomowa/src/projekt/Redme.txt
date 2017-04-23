@@ -1,4 +1,6 @@
-Wersja 0.1.7 21.04.17
+Wersja 0.1.8 23.04.17
+Poprawiono błędy w regułasz, poprawiono wyświetlanie danych.
+Wersja 0.1.7 23.04.17
 Poprawiono błędy w odczycie danych
 Wersja 0.1.6 21.04.17
 Poprawiono Reguły (Brak błonnika)

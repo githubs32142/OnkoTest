@@ -15,7 +15,7 @@
 	=>
     ( printout t "1Zbyt małe spożywanie błonnika." crlf)
 )
-(defrule rule2
+(defrule rule3
 	(Point {sum >= 20 && sum <= 40} )
 	=>
     ( printout t "Poprawne spożywanie błonnika." crlf)
