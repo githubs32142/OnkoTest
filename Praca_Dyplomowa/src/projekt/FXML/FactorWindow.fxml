@@ -11,7 +11,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.web.WebView?>
 
-<AnchorPane id="AnchorPane" prefHeight="650.0" prefWidth="900.0" styleClass="background" stylesheets="@../CSS/Factor.css" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="projekt.Controller.FactorWindowController">
+<AnchorPane id="AnchorPane" prefHeight="650.0" prefWidth="900.0" styleClass="background" stylesheets="@../CSS/Fact.css" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="projekt.Controller.FactorWindowController">
    <children>
       <VBox layoutY="-1.0" prefHeight="658.0" prefWidth="100.0" style="-fx-background-color: #2c62b5;">
          <children>
@@ -26,15 +26,13 @@
          </children>
       </VBox>
       <ListView fx:id="factors" layoutX="133.0" layoutY="262.0" onDragDetected="#factorsDragDetected" onDragDropped="#factorDragDropped" onDragEntered="#factorsDragEntered" onDragExited="#factorsDragExited" onDragOver="#factorsDragOver" onMouseClicked="#factorClicked" prefHeight="378.0" prefWidth="289.0" styleClass="box" />
-      <Button fx:id="add" layoutX="454.0" layoutY="480.0" mnemonicParsing="false" onAction="#addFactor" prefHeight="37.0" prefWidth="63.0" styleClass="btn" text="&gt;&gt;" />
-      <Button fx:id="remove" layoutX="454.0" layoutY="525.0" mnemonicParsing="false" onAction="#removeFactor" prefHeight="37.0" prefWidth="63.0" styleClass="btn" text="&lt;&lt;" />
-      <ListView fx:id="addedFactor" layoutX="558.0" layoutY="262.0" onDragDetected="#addedDragDetected" onDragDropped="#addedFactorDragDropped" onDragEntered="#addedFactorDragEntered" onDragExited="#addedFactorDragExited" onDragOver="#addedFactorDragOver" onMouseClicked="#addedFactorRemove" prefHeight="378.0" prefWidth="289.0" styleClass="box" />
-      <Label layoutX="191.0" layoutY="233.0" prefHeight="30.0" prefWidth="173.0" text="Czynniki ryzyka:" />
-      <Label layoutX="616.0" layoutY="233.0" prefHeight="30.0" prefWidth="173.0" text="Wybrane czynniki:" />
+      <ListView fx:id="addedFactor" layoutX="569.0" layoutY="262.0" onDragDetected="#addedDragDetected" onDragDropped="#addedFactorDragDropped" onDragEntered="#addedFactorDragEntered" onDragExited="#addedFactorDragExited" onDragOver="#addedFactorDragOver" onMouseClicked="#addedFactorRemove" prefHeight="378.0" prefWidth="263.0" styleClass="box" />
+      <Label layoutX="143.0" layoutY="228.0" prefHeight="40.0" prefWidth="263.0" styleClass="lbl" text="Czynniki ryzyka:" />
+      <Label layoutX="579.0" layoutY="228.0" prefHeight="40.0" prefWidth="210.0" styleClass="lbl" text="Wybrane czynniki:" />
       <Separator layoutX="140.0" layoutY="14.0" orientation="VERTICAL" prefHeight="209.0" prefWidth="6.0" />
-      <Label layoutX="143.0" layoutY="14.0" prefHeight="24.0" prefWidth="173.0" text="Opis czynnika:" />
+      <Label layoutX="143.0" layoutY="7.0" prefHeight="40.0" prefWidth="204.0" styleClass="lbl" text="Opis czynnika:" />
       <WebView fx:id="webView" layoutX="150.0" layoutY="39.0" prefHeight="183.0" prefWidth="699.0" />
-      <Button fx:id="test" layoutX="426.0" layoutY="233.0" mnemonicParsing="false" onAction="#makeTest" styleClass="btn" text="Wykonaj test" />
-      <Button fx:id="next" layoutX="438.0" layoutY="581.0" mnemonicParsing="false" onAction="#nextWindow" styleClass="btn" text="Dalej &gt;&gt;" />
+      <Button fx:id="test" layoutX="438.0" layoutY="234.0" mnemonicParsing="false" onAction="#makeTest" styleClass="btn" text="Wykonaj test" />
+      <Button fx:id="next" layoutX="450.0" layoutY="281.0" mnemonicParsing="false" onAction="#nextWindow" styleClass="btn" text="Dalej &gt;&gt;" />
    </children>
 </AnchorPane>

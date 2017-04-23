@@ -61,10 +61,6 @@ public class FactorWindowController implements Initializable {
     @FXML
     private ListView<String> addedFactor;
     @FXML
-    private Button add;
-    @FXML
-    private Button remove;
-    @FXML
     private Button next;
     public FactorWindowController(Person person) {
         this.leftSelected = 0;
@@ -106,8 +102,6 @@ public class FactorWindowController implements Initializable {
         factors.setItems(data);
         test.setVisible(false);
         index=-1;
-        add.setVisible(false);
-        remove.setVisible(false);
     }    
     /**
      ** Metoda która powoduje, że wchodzimy do poprzedniego okna okna głównego 
@@ -169,8 +163,6 @@ public class FactorWindowController implements Initializable {
             else{
                 test.setVisible(false);
             }
-            add.setVisible(true);
-            remove.setVisible(false);
         }
     }
     public int ifFact(String facts){
@@ -236,24 +228,9 @@ public class FactorWindowController implements Initializable {
     }
 
     @FXML
-    private void addFactor(ActionEvent event) {
-        String tmp=data.remove(leftSelected);
-        dataRight.add(tmp);
-        factors.setItems(data);
-        addedFactor.setItems(dataRight);
-    }
-
-    @FXML
-    private void removeFactor(ActionEvent event) {
-        String tmp=dataRight.remove(rightSeleted);
-        data.add(tmp);
-        addedFactor.setItems(dataRight);
-        factors.setItems(data);
-    }
-
-    @FXML
     private void addedFactorRemove(MouseEvent event) {
         String clickedFact= addedFactor.getItems().get(addedFactor.getSelectionModel().getSelectedIndex());
+        System.out.println(clickedFact);
         int tmpindex=ifFact(clickedFact);
         index=tmpindex;
         if(tmpindex>=0){
@@ -266,8 +243,6 @@ public class FactorWindowController implements Initializable {
             else{
                 test.setVisible(false);
             }
-            add.setVisible(false);
-            remove.setVisible(true);
         }
     }
     /**

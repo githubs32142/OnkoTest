@@ -82,6 +82,8 @@ public class SymptomWindowController implements Initializable {
                 for(int i=0;i<factor.size();i++){
                     cnt.changeFactToRight(factor.get(i));
                 }
+                cnt.setPerson(person);
+                
                 Scene scene = new Scene(parent);
                 Stage primaryStage = new Stage();
                 primaryStage.setScene(scene);          
