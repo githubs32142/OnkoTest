@@ -2,14 +2,15 @@
 
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.Label?>
-<?import javafx.scene.control.ListView?>
+<?import javafx.scene.control.TableView?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.VBox?>
 
-<AnchorPane id="AnchorPane" prefHeight="650.0" prefWidth="900.0" styleClass="background" stylesheets="@../CSS/Factor.css" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="projekt.Controller.CancerInFamillyController">
+<AnchorPane id="AnchorPane" prefHeight="650.0" prefWidth="900.0" styleClass="background" stylesheets="@../CSS/Fact.css" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="projekt.Controller.CancerInFamillyController">
    <children>
       <VBox layoutY="-1.0" prefHeight="658.0" prefWidth="100.0" style="-fx-background-color: #2c62b5;">
          <children>
@@ -23,13 +24,12 @@
             </ImageView>
          </children>
       </VBox>
-      <ListView fx:id="factors" layoutX="133.0" layoutY="248.0" onMouseClicked="#factorClicked" prefHeight="174.0" prefWidth="289.0" styleClass="box" />
-      <Button fx:id="add" layoutX="454.0" layoutY="433.0" mnemonicParsing="false" onAction="#addFactor" prefHeight="37.0" prefWidth="63.0" styleClass="btn" text="&gt;&gt;" />
-      <Button fx:id="remove" layoutX="455.0" layoutY="474.0" mnemonicParsing="false" onAction="#removeFactor" prefHeight="37.0" prefWidth="63.0" styleClass="btn" text="&lt;&lt;" />
-      <ListView fx:id="addedFactor" layoutX="558.0" layoutY="255.0" onMouseClicked="#addedFactorRemove" prefHeight="378.0" prefWidth="289.0" styleClass="box" />
-      <Label layoutX="191.0" layoutY="218.0" prefHeight="30.0" prefWidth="173.0" text="Czynniki ryzyka:" />
-      <Label layoutX="616.0" layoutY="218.0" prefHeight="30.0" prefWidth="173.0" text="Wybrane czynniki:" />
-      <Button fx:id="test" layoutX="426.0" layoutY="233.0" mnemonicParsing="false" onAction="#makeTest" styleClass="btn" text="Wykonaj test" />
-      <Button fx:id="next" layoutX="438.0" layoutY="569.0" mnemonicParsing="false" onAction="#makeTest" styleClass="btn" text="Dalej &gt;&gt;" />
+      <Label layoutX="115.0" layoutY="36.0" styleClass="lbl" text="Nowotwór w rodzinie:" />
+      <Label layoutX="130.0" layoutY="96.0" styleClass="lbl2" text="Nowotwór:" />
+      <Label layoutX="333.0" layoutY="96.0" styleClass="lbl2" text="Pokrewieństwo:" />
+      <ComboBox layoutX="353.0" layoutY="141.0" prefWidth="150.0" />
+      <ComboBox layoutX="149.0" layoutY="141.0" prefWidth="150.0" />
+      <Button layoutX="570.0" layoutY="140.0" mnemonicParsing="false" styleClass="btn" text="Dodaj" />
+      <TableView fx:id="table" layoutX="138.0" layoutY="229.0" prefHeight="419.0" prefWidth="532.0" />
    </children>
 </AnchorPane>
