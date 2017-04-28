@@ -86,9 +86,9 @@ public class FactorWindowController implements Initializable {
         fact.add(new Factor("Lampy solarium", "/projekt/HTML/solarium.html", true,"/projekt/FXML/Solarium.fxml"));
         // Smoking
         fact.add(new Factor("Palenie papierosów", "/projekt/HTML/papierosy.html", true,"/projekt/FXML/SmokingTest.fxml"));
-        // 
+        //  da się zrobić
         fact.add(new Factor("Brak aktywności fizycznej", "/projekt/HTML/aktywnosc_fizyczna.html", false,""));
-       // 
+       // zrpbione??
         fact.add(new Factor("Niewłaściwa dieta", "/projekt/HTML/brak_owocow.html", false,""));
         //
         fact.add(new Factor("Brak naturalnych antyoksydantów", "/projekt/HTML/brak_naturalnych_antyoksydantow.html", false,""));
@@ -139,14 +139,6 @@ public class FactorWindowController implements Initializable {
                  Logger logger = Logger.getLogger(getClass().getName());
                  logger.log(Level.SEVERE, "Failed to create new Window.", e);
             }
-    }
-    /**
-     ** Metoda która ustawia dane osoby  
-     * @param person 
-     */
-    public void setPerson(Person person) {
-        this.person = person;
-        
     }
 
     @FXML
@@ -341,5 +333,13 @@ public class FactorWindowController implements Initializable {
       ClipboardContent content = new ClipboardContent();
       content.putString(String.valueOf(addedFactor.getSelectionModel().getSelectedIndex()));
       dragBoard.setContent(content); 
+    }
+     /**
+     ** Metoda która ustawia dane osoby  
+     * @param person 
+     */
+    public void setPerson(Person person) {
+        this.person = person;
+        
     }
 }

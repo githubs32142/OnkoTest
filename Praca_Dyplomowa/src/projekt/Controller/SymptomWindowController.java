@@ -83,7 +83,6 @@ public class SymptomWindowController implements Initializable {
                     cnt.changeFactToRight(factor.get(i));
                 }
                 cnt.setPerson(person);
-                
                 Scene scene = new Scene(parent);
                 Stage primaryStage = new Stage();
                 primaryStage.setScene(scene);          
@@ -109,9 +108,21 @@ public class SymptomWindowController implements Initializable {
 
 
     @FXML
-    private void nextWindow(ActionEvent event) {
-        System.out.println(person.getAge());
-        System.out.println(factor.size());
+    private void nextWindow(ActionEvent event) throws IOException {
+         FXMLLoader load = new FXMLLoader(this.getClass().getResource("/projekt/FXML/CancerInFamilly.fxml"));
+         CancerInFamillyController cnt= new CancerInFamillyController();   
+         Parent parent= load.load();
+         cnt=load.getController();
+         cnt.setPerson(person);
+         cnt.setFactor(factor);
+         cnt.setSymptoms(dataRight);
+         Scene scene = new Scene(parent);
+         Stage primaryStage = new Stage();
+         primaryStage.setScene(scene);
+         primaryStage.show();
+         Stage stage;
+         stage = (Stage) ((Node)(event.getSource())).getScene().getWindow();
+         stage.close();
     }
 
     public Person getPerson() {
