@@ -14,7 +14,9 @@ import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Alert;
 import javafx.scene.control.ComboBox;
+import javafx.scene.control.MenuItem;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
@@ -39,10 +41,13 @@ public class CancerInFamillyController implements Initializable {
     private ObservableList<String> listCancer;
     private ObservableList<String> listFamilly;
     private ComboBox<String> famillyCancer;
+    private int index;
     @FXML
     private ComboBox<String> cancerCombo;
     @FXML
     private ComboBox<String> famillyCombo;
+    @FXML
+    private MenuItem delete;
     /**
      * Initializes the controller class.
      * @param url
@@ -51,8 +56,8 @@ public class CancerInFamillyController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
             data =FXCollections.observableArrayList();
-            listCancer =FXCollections.observableArrayList();
-            listFamilly =FXCollections.observableArrayList("Brat","Siostra");
+            listCancer =FXCollections.observableArrayList("Rak płuc","Rak jelita grubrgo","Rak piersi","Rak jąder","Rak gruczołu krokowego","Guz mózgu","Rak szyjki macicy","Rak płuc","Rak trzustki","Rak żołądka","Rak macicy","Rak krtani");
+            listFamilly =FXCollections.observableArrayList("Brat","Siostra","Ojciec","Matka","Dziadek","Babcia","Wujek","Ciotka");
             cancer = new TableColumn("Rak w rodzinie");
             cancer.setMinWidth(266);
             cancer.setCellValueFactory(
@@ -66,6 +71,7 @@ public class CancerInFamillyController implements Initializable {
             symptoms= new ArrayList<>();
             famillyCombo.setItems(listFamilly);
             cancerCombo.setItems(listCancer);
+            index=-1;
     }    
 
     @FXML
@@ -98,6 +104,37 @@ public class CancerInFamillyController implements Initializable {
 
     @FXML
     private void addToTable(ActionEvent event) {
+        if(cancerCombo.getSelectionModel().getSelectedIndex()>=0  && famillyCombo.getSelectionModel().getSelectedIndex()>=0 ){
+            data.add(new CancerFamilly(cancerCombo.getSelectionModel().getSelectedItem(), famillyCombo.getSelectionModel().getSelectedItem()));
+            table.setItems(data);
+        }
+        else{
+            showOutputMessage("Nie można wprowadzić danych");
+        }
+     
     }
-    
+
+    @FXML
+    private void deleteCancerInFamilly(ActionEvent event) {
+        index=table.getSelectionModel().getSelectedIndex();
+        if(index>=0 && index<data.size()){
+            data.remove(index);
+        }
+    }
+
+    @FXML
+    private void tableClicked(MouseEvent event) {
+        
+    }
+        /**
+     ** wyświetla KOMUNIKAT O BŁĘDZIE 
+     * @param message rezultat diagnozy
+     */
+    public void showOutputMessage(String message){
+        Alert alert = new Alert(Alert.AlertType.ERROR);
+        alert.setTitle("Błąd");
+        alert.setHeaderText("Treść błędu");
+        alert.setContentText(message);
+        alert.showAndWait();
+    }
 }

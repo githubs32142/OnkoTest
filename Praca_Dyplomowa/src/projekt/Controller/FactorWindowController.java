@@ -210,6 +210,11 @@ public class FactorWindowController implements Initializable {
                 cnt=load.getController();
                 cnt.setWindow(this); 
                 }
+                if(fact.get(index).getFactor().equals("Brak błonnika")){
+                FibreTest cnt= new FibreTest();
+                cnt=load.getController();
+                cnt.setWindow(this); 
+                }
                 //"Menopauza + otyłość"
                 //primaryStage.initStyle(StageStyle.UNDECORATED);
                 primaryStage.setResizable(false);

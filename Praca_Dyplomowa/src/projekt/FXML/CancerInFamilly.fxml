@@ -3,7 +3,9 @@
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.ContextMenu?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.MenuItem?>
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
@@ -30,6 +32,13 @@
       <ComboBox fx:id="famillyCombo" layoutX="353.0" layoutY="141.0" prefWidth="150.0" />
       <ComboBox fx:id="cancerCombo" layoutX="149.0" layoutY="141.0" prefWidth="150.0" />
       <Button layoutX="570.0" layoutY="140.0" mnemonicParsing="false" onAction="#addToTable" styleClass="btn" text="Dodaj" />
-      <TableView fx:id="table" layoutX="138.0" layoutY="229.0" prefHeight="419.0" prefWidth="532.0" />
+      <TableView fx:id="table" layoutX="138.0" layoutY="229.0" onMouseClicked="#tableClicked" prefHeight="419.0" prefWidth="532.0">
+         <contextMenu>
+            <ContextMenu>
+              <items>
+                <MenuItem fx:id="delete" mnemonicParsing="false" onAction="#deleteCancerInFamilly" text="Usuń" />
+              </items>
+            </ContextMenu>
+         </contextMenu></TableView>
    </children>
 </AnchorPane>

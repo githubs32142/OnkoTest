@@ -1,4 +1,6 @@
 Wersja 0.2.1 28.04.17
+Poprawiono działanie systemu, uzupełnono braki
+Wersja 0.2.1 28.04.17
 Dodano opcje w oknie rak w rodzinie
 Wersja 0.2.0 27.04.17
 Dodano okno rak w rodzinie

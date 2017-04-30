@@ -16,13 +16,16 @@ import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.Node;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
+import javafx.scene.control.MenuItem;
 import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
+import javafx.stage.Stage;
 import jess.JessException;
 import jess.Rete;
 import projekt.Class.ListFibre;
@@ -33,6 +36,7 @@ import projekt.Class.ListFibre;
  * @author Admin
  */
 public class FibreTest implements Initializable {
+    private FactorWindowController window;
     int index;
     ListFibre listFibre;
     ListFibre addFibre;
@@ -115,7 +119,9 @@ public class FibreTest implements Initializable {
 
     @FXML
     private void closeWindow(MouseEvent event) {
-        Platform.exit();
+                Stage stage;
+                stage = (Stage) ((Node)(event.getSource())).getScene().getWindow();
+                stage.close();
     }
 
     @FXML
@@ -173,7 +179,7 @@ public class FibreTest implements Initializable {
                 }
                 }
                 if(add){
-                //window.changeFactToRight("Spożywanie alkoholu");
+                window.changeFactToRight("Brak błonnika");
                 }
             showOutputMessage(text.toString());
 
@@ -198,5 +204,19 @@ public class FibreTest implements Initializable {
     private void addedProductClicked(MouseEvent event) {
         removeButton.setVisible(true);
         index= addedProduct.getSelectionModel().getSelectedIndex();
+    }
+
+    @FXML
+    private void remove(ActionEvent event) {
+        index= addedProduct.getSelectionModel().getSelectedIndex();    
+        if(index<addData.size()){
+            addData.remove(index);
+            addFibre.remove(index);
+            addedProduct.setItems(addData);
+            sum.setText("Suma: "+addFibre.getSumFibre());
+        }
+    }
+        public void setWindow(FactorWindowController window) {
+        this.window = window;
     }
 }
