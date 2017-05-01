@@ -12,10 +12,15 @@ import java.util.regex.Pattern;
  *
  * @author Andrzej Kierepka
  */
-public class CheckEMail {
+public class CheckReg {
     public static boolean checkEmail(String mail){
         Pattern  p=  Pattern.compile("[a-zA-Z0-9-_.]+@[a-z0-9-.]+.[a-z0-9]{1,4}");
-        Matcher matcher = p.matcher("cdsa@o2.pl");
+        Matcher matcher = p.matcher(mail);
+        return matcher.matches(); //zwraca true lub false
+    }
+        public static boolean checkWord(String word){
+        Pattern  p=  Pattern.compile("[A-Z]{1}[a-z]+");
+        Matcher matcher = p.matcher(word);
         return matcher.matches(); //zwraca true lub false
     }
 }

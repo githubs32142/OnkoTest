@@ -1,4 +1,7 @@
-Wersja 0.2.1 28.04.17
+Wersja 0.2.3 01.05.17
+Dodno test na dietę(bez reguł).
+Użyto wyrażeń reguralnych w celu sprawdzenia e-mail oraz imienia i nazwiska
+Wersja 0.2.2 30.04.17
 Poprawiono działanie systemu, uzupełnono braki
 Wersja 0.2.1 28.04.17
 Dodano opcje w oknie rak w rodzinie

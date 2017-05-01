@@ -88,8 +88,8 @@ public class FactorWindowController implements Initializable {
         fact.add(new Factor("Palenie papierosów", "/projekt/HTML/papierosy.html", true,"/projekt/FXML/SmokingTest.fxml"));
         //  da się zrobić
         fact.add(new Factor("Brak aktywności fizycznej", "/projekt/HTML/aktywnosc_fizyczna.html", false,""));
-       // zrpbione??
-        fact.add(new Factor("Niewłaściwa dieta", "/projekt/HTML/brak_owocow.html", false,""));
+       // Diet bez reguł//
+        fact.add(new Factor("Niewłaściwa dieta", "/projekt/HTML/brak_owocow.html", true,"/projekt/FXML/Diet.fxml"));
         //
         fact.add(new Factor("Brak naturalnych antyoksydantów", "/projekt/HTML/brak_naturalnych_antyoksydantow.html", false,""));
         // Menopause 

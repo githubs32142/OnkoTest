@@ -24,6 +24,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.ChoiceBox;
@@ -31,6 +32,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
+import projekt.Class.CheckReg;
 import projekt.Class.ListFibre;
 import projekt.Class.Person;
 import projekt.Class.Product;
@@ -120,11 +122,13 @@ public class FirstWindowController implements Initializable {
     private void nextWindow(ActionEvent event) throws IOException {
         
         if(mail){
-            if(!surname.getText().isEmpty()){
+            if(!surname.getText().isEmpty() && !sex.getValue().isEmpty() ){
+                try{
                 Double w=Double.valueOf(weight.getText());
                 Double h=Double.valueOf(height.getText());
                 Double a=Double.valueOf(age.getText());
                 Person p = new Person(surname.getText(), w, a, sex.getValue(), h);
+                if(CheckReg.checkEmail(surname.getText())){
                 FXMLLoader load = new FXMLLoader(this.getClass().getResource("/projekt/FXML/FactorWindow.fxml"));
                 FactorWindowController cnt= new FactorWindowController(p);   
                 Parent parent= load.load();
@@ -140,11 +144,23 @@ public class FirstWindowController implements Initializable {
                 Stage stage;
                 stage = (Stage) ((Node)(event.getSource())).getScene().getWindow();
                 stage.close();
+                }
+                else{   
+                showOutputMessage("Wprowadzony adres e-mail jest nieprawidłowy");
+                }
+                }
+                catch(IOException | NumberFormatException e){
+                    showOutputMessage(e.toString());
+                }
+            }
+            else{
+                showOutputMessage("Wypełnij odpowiednie pola");
             }
         }
         else{
-            if(!name.getText().isEmpty() && !surname.getText().isEmpty() ){
+            if(!name.getText().isEmpty() && !surname.getText().isEmpty() && !sex.getValue().isEmpty()  ){
             try{
+                if(CheckReg.checkWord(name.getText()) && CheckReg.checkWord(surname.getText()) ){
                 Double w=Double.valueOf(weight.getText());
                 Double h=Double.valueOf(height.getText());
                 Double a=Double.valueOf(age.getText());
@@ -163,13 +179,16 @@ public class FirstWindowController implements Initializable {
                 primaryStage.show();
                 Stage stage;
                 stage = (Stage) ((Node)(event.getSource())).getScene().getWindow();
-                stage.close();
+                stage.close();    
+                }
             }
-            catch(Exception e){
-                 Logger logger = Logger.getLogger(getClass().getName());
-                logger.log(Level.SEVERE, "Failed to create new Window.", e);
+            catch(IOException | NumberFormatException e){
+                showOutputMessage(e.toString());
             }
         }
+        else{
+               showOutputMessage("Wypełnij odpowiednie pola");
+            }
         }
         
     }
@@ -218,6 +237,17 @@ public class FirstWindowController implements Initializable {
 
     public CheckBox geteMail() {
         return eMail;
+    }
+        /**
+     ** wyświetla okno dialogowe 
+     * @param message wiadomość
+     */
+    private void showOutputMessage(String message){
+        Alert alert = new Alert(Alert.AlertType.ERROR);
+        alert.setTitle("Powiadomienie");
+        alert.setHeaderText("Treść komunikatu:");
+        alert.setContentText(message);
+        alert.showAndWait();
     }
     
 }
