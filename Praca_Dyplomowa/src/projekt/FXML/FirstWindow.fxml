@@ -29,7 +29,7 @@
          <children>
             <HBox prefHeight="31.0" prefWidth="218.0">
                <children>
-                  <Label fx:id="lblname" text="Imie:">
+                  <Label fx:id="lblname" text="Imię:">
                      <font>
                         <Font name="Segoe UI Semilight Italic" size="22.0" />
                      </font>

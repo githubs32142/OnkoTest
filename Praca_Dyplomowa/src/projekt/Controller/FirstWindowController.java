@@ -115,12 +115,12 @@ public class FirstWindowController implements Initializable {
             new FadeInUpTransition(eMail).play();
         });
         sex.setItems(sexList);
-        
+        sex.getSelectionModel().selectFirst();
     }    
 
     @FXML
     private void nextWindow(ActionEvent event) throws IOException {
-        
+        System.out.println(CheckReg.checkHeightMetr(weight.getText()));
         if(mail){
             if(!surname.getText().isEmpty() && !sex.getValue().isEmpty() ){
                 try{

@@ -23,4 +23,14 @@ public class CheckReg {
         Matcher matcher = p.matcher(word);
         return matcher.matches(); //zwraca true lub false
     }
+        public static boolean checkHeightMetr(String word){
+        Pattern  p=  Pattern.compile("[0-2]{1}[.]{1}[0-9]{2}");
+        Matcher matcher = p.matcher(word);
+        return matcher.matches(); //zwraca true lub false
+    }
+        public static boolean checkHeightCent(String word){
+        Pattern  p=  Pattern.compile("[1-9]{1}[0-9]{2}");
+        Matcher matcher = p.matcher(word);
+        return matcher.matches(); //zwraca true lub false
+    }
 }
