@@ -1,3 +1,5 @@
+Wersja 0.2.5 02.05.17
+Dodano Zmieniono wygląd drugiego okna (licząc od logowania).
 Wersja 0.2.4 02.05.17
 Dodano splash screen.
 Wersja 0.2.3 01.05.17

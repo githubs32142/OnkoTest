@@ -14,12 +14,14 @@ import java.util.List;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.geometry.Rectangle2D;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -33,6 +35,7 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.input.TransferMode;
 import javafx.scene.web.WebEngine;
 import javafx.scene.web.WebView;
+import javafx.stage.Screen;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 import projekt.Class.Factor;
@@ -52,6 +55,9 @@ public class FactorWindowController implements Initializable {
             "Brak aktywności fizycznej","Niewłaściwa dieta","Brak naturalnych antyoksydantów","Menopauza + otyłość","Brak błonnika" );
     ObservableList<String> dataRight = FXCollections.observableArrayList();
     private int index;
+    Stage stage;
+    Rectangle2D rec2;
+    Double w,h;
     @FXML
     private ListView<String> factors;
     @FXML
@@ -74,6 +80,9 @@ public class FactorWindowController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
+        rec2 = Screen.getPrimary().getVisualBounds(); 
+        w = 0.1;
+        h = 0.1;
         //AuditTest
         fact.add(new Factor("Spożywanie alkoholu", "/projekt/HTML/alkoholizm.html", true,"/projekt/FXML/AuditTest.fxml"));
         // Samo dodaje
@@ -227,7 +236,6 @@ public class FactorWindowController implements Initializable {
     @FXML
     private void addedFactorRemove(MouseEvent event) {
         String clickedFact= addedFactor.getItems().get(addedFactor.getSelectionModel().getSelectedIndex());
-        System.out.println(clickedFact);
         int tmpindex=ifFact(clickedFact);
         index=tmpindex;
         if(tmpindex>=0){
@@ -346,5 +354,59 @@ public class FactorWindowController implements Initializable {
     public void setPerson(Person person) {
         this.person = person;
         
+    }
+
+    @FXML
+    private void fullScreen(ActionEvent event) {
+         stage = (Stage) ((Node)(event.getSource())).getScene().getWindow();
+        if (stage.isFullScreen()) {
+            stage.setFullScreen(false);
+        }else{
+            stage.setFullScreen(true);
+        }
+    }
+
+    @FXML
+    private void minimalizeSscreen(ActionEvent event) {
+                stage = (Stage) ((Node)(event.getSource())).getScene().getWindow();
+        if (stage.isMaximized()) {
+            w = rec2.getWidth();
+            h = rec2.getHeight();
+            stage.setMaximized(false);
+            stage.setHeight(h);
+            stage.setWidth(w);
+            stage.centerOnScreen();
+            Platform.runLater(() -> {
+                stage.setIconified(true);
+            });
+        }else{
+            stage.setIconified(true);
+        }    
+    }
+
+    @FXML
+    private void maximalizeSscreen(ActionEvent event) {
+        stage = (Stage) ((Node)(event.getSource())).getScene().getWindow();
+        if (stage.isMaximized()) {
+            if (w == rec2.getWidth() && h == rec2.getHeight()) {
+                stage.setMaximized(false);
+                stage.setHeight(600);
+                stage.setWidth(800);
+                stage.centerOnScreen();
+            }else{
+                stage.setMaximized(false);
+
+            }
+            
+        }else{
+            stage.setMaximized(true);
+            stage.setHeight(rec2.getHeight());
+        }
+    }
+
+    @FXML
+    private void closeeSscreen(ActionEvent event) {
+        Platform.exit();
+        System.exit(0);
     }
 }

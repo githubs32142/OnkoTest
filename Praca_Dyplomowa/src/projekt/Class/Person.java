@@ -3,30 +3,32 @@ public class Person {
     private String name;
     private String surName;
     private Double weight;
-    private Double age;
+    private int age;
     private String sex;
     private Double bmi;
-    private Double height;
+    private int height;
     private String email;
 
-    public Person(String name, String surName, Double weight, Double age, String sex,  Double height) {
+    public Person(String name, String surName, Double weight, int age, String sex,  int height) {
         this.name = name;
         this.surName = surName;
         this.weight = weight;
         this.age = age;
         this.sex = sex;
-        bmi= weight/(height*height);
+        double tmp = height;
+        bmi= weight/(((tmp/100)*(tmp/100)));
         this.height = height;
         email="";
     }
-        public Person( String email, Double weight, Double age, String sex,  Double height) {
+        public Person( String email, Double weight, int age, String sex,  int height) {
         this.name = "";
         this.surName = "";
         this.weight = weight;
         this.age = age;
         this.sex = sex;
-        bmi= weight/((height/100)*(height/100));
         this.height = height;
+        double tmp = height;
+        bmi= weight/(((tmp/100)*(tmp/100)));
         this.email = email;
     }
     public Person() {
@@ -36,7 +38,7 @@ public class Person {
         return surName;
     }
     
-    public Double getAge() {
+    public int getAge() {
         return age;
     }
 
@@ -56,7 +58,7 @@ public class Person {
         return bmi;
     }
 
-    public void setAge(Double age) {
+    public void setAge(int age) {
         this.age = age;
     }
 
@@ -64,11 +66,11 @@ public class Person {
         this.bmi = bmi;
     }
 
-    public Double getHeight() {
+    public int getHeight() {
         return height;
     }
 
-    public void setHeight(Double height) {
+    public void setHeight(int height) {
         this.height = height;
     }
 

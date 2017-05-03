@@ -32,6 +32,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
+import javafx.stage.StageStyle;
 import projekt.Class.CheckReg;
 import projekt.Class.ListFibre;
 import projekt.Class.Person;
@@ -120,13 +121,26 @@ public class FirstWindowController implements Initializable {
 
     @FXML
     private void nextWindow(ActionEvent event) throws IOException {
-        System.out.println(CheckReg.checkHeightMetr(weight.getText()));
+        Double w= new Double(0.0);
+        int h = 0;
+        int a = 0;
         if(mail){
             if(!surname.getText().isEmpty() && !sex.getValue().isEmpty() ){
                 try{
-                Double w=Double.valueOf(weight.getText());
-                Double h=Double.valueOf(height.getText());
-                Double a=Double.valueOf(age.getText());
+                if(CheckReg.checkHeightCent(height.getText()) || CheckReg.checkHeightMetr(height.getText()) ){
+                  w=Double.valueOf(height.getText());
+                  if(CheckReg.checkHeightMetr(height.getText())){
+                  w*=100;    
+                  }
+                  h = w.intValue();
+                  w=0.0;
+                  }
+                  else{
+                    showOutputMessage("Nie poprawnie wprowadzono wzrost");
+                    return ;
+                }    
+                w=Double.valueOf(weight.getText()); 
+                a= Integer.parseInt(age.getText());
                 Person p = new Person(surname.getText(), w, a, sex.getValue(), h);
                 if(CheckReg.checkEmail(surname.getText())){
                 FXMLLoader load = new FXMLLoader(this.getClass().getResource("/projekt/FXML/FactorWindow.fxml"));
@@ -134,6 +148,7 @@ public class FirstWindowController implements Initializable {
                 Parent parent= load.load();
                 cnt=load.getController();
                 cnt.setPerson(p);
+                System.out.println(p.getBmi());
                 if(p.getBmi()>25){
                    cnt.changeFactToRight("Otyłość"); 
                 }    
@@ -161,9 +176,20 @@ public class FirstWindowController implements Initializable {
             if(!name.getText().isEmpty() && !surname.getText().isEmpty() && !sex.getValue().isEmpty()  ){
             try{
                 if(CheckReg.checkWord(name.getText()) && CheckReg.checkWord(surname.getText()) ){
-                Double w=Double.valueOf(weight.getText());
-                Double h=Double.valueOf(height.getText());
-                Double a=Double.valueOf(age.getText());
+                if(CheckReg.checkHeightCent(height.getText()) || CheckReg.checkHeightMetr(height.getText()) ){
+                  w=Double.valueOf(height.getText());
+                  if(CheckReg.checkHeightMetr(height.getText())){
+                  w*=100;    
+                  }
+                  h = w.intValue();
+                  w=0.0;
+                  }
+                  else{
+                    showOutputMessage("Nie poprawnie wprowadzono wzrost");
+                    return ;
+                }
+                w=Double.valueOf(weight.getText());
+                a= Integer.parseInt(age.getText());
                 Person p = new Person(name.getText(), surname.getText(),w, a, sex.getValue(), h);
                 FXMLLoader load = new FXMLLoader(this.getClass().getResource("/projekt/FXML/FactorWindow.fxml"));
                 FactorWindowController cnt= new FactorWindowController(p);   
@@ -175,6 +201,7 @@ public class FirstWindowController implements Initializable {
                 }
                 Scene scene = new Scene(parent);
                 Stage primaryStage = new Stage();
+                primaryStage.initStyle(StageStyle.UNDECORATED);
                 primaryStage.setScene(scene);
                 primaryStage.show();
                 Stage stage;
