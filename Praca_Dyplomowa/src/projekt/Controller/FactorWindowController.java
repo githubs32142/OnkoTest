@@ -276,6 +276,7 @@ public class FactorWindowController implements Initializable {
          cnt.setFactor(dataRight);
          Scene scene = new Scene(parent);
          Stage primaryStage = new Stage();
+         primaryStage.initStyle(StageStyle.UNDECORATED);
          primaryStage.setScene(scene);
          primaryStage.show();
          Stage stage;

@@ -17,12 +17,14 @@ import java.util.ResourceBundle;
 import java.util.StringTokenizer;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.geometry.Rectangle2D;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -35,6 +37,7 @@ import javafx.scene.input.Dragboard;
 import javafx.scene.input.MouseDragEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.input.TransferMode;
+import javafx.stage.Screen;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 import projekt.Class.Person;
@@ -45,6 +48,9 @@ import projekt.Class.ProductFibre;
  * @author Admin
  */
 public class SymptomWindowController implements Initializable {
+    Stage stage;
+    Rectangle2D rec2;
+    Double w,h;
     private Person person;
     private List<String> factor = new ArrayList<>();
     ObservableList<String> data = FXCollections.observableArrayList();
@@ -67,6 +73,9 @@ public class SymptomWindowController implements Initializable {
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
+        rec2 = Screen.getPrimary().getVisualBounds(); 
+        w = 0.1;
+        h = 0.1;
         readData("src/projekt/Data/symptoms.txt");
         symptoms.setItems(data);
     }    
@@ -86,9 +95,8 @@ public class SymptomWindowController implements Initializable {
                 Scene scene = new Scene(parent);
                 Stage primaryStage = new Stage();
                 primaryStage.setScene(scene);          
-                primaryStage.setResizable(false);
+                primaryStage.initStyle(StageStyle.UNDECORATED);
                 primaryStage.show();
-                Stage stage;
                 stage = (Stage) ((Node)(event.getSource())).getScene().getWindow();
                 stage.close();
             }
@@ -238,5 +246,59 @@ public class SymptomWindowController implements Initializable {
     @FXML
     private void addedSymptomsDragEntered(DragEvent event) {
         addedSymptoms.setBlendMode(BlendMode.SRC_ATOP);
+    }
+
+    @FXML
+    private void fullScreen(ActionEvent event) {
+        stage = (Stage) ((Node)(event.getSource())).getScene().getWindow();
+        if (stage.isFullScreen()) {
+            stage.setFullScreen(false);
+        }else{
+            stage.setFullScreen(true);
+        }
+    }
+
+    @FXML
+    private void minimalizeSscreen(ActionEvent event) {
+        stage = (Stage) ((Node)(event.getSource())).getScene().getWindow();
+        if (stage.isMaximized()) {
+            w = rec2.getWidth();
+            h = rec2.getHeight();
+            stage.setMaximized(false);
+            stage.setHeight(h);
+            stage.setWidth(w);
+            stage.centerOnScreen();
+            Platform.runLater(() -> {
+                stage.setIconified(true);
+            });
+        }else{
+            stage.setIconified(true);
+        }
+    }
+
+    @FXML
+    private void maximalizeSscreen(ActionEvent event) {
+         stage = (Stage) ((Node)(event.getSource())).getScene().getWindow();
+        if (stage.isMaximized()) {
+            if (w == rec2.getWidth() && h == rec2.getHeight()) {
+                stage.setMaximized(false);
+                stage.setHeight(600);
+                stage.setWidth(800);
+                stage.centerOnScreen();
+            }else{
+                stage.setMaximized(false);
+
+            }
+            
+        }else{
+            stage.setMaximized(true);
+            stage.setHeight(rec2.getHeight());
+        }
+    }
+
+    @FXML
+    private void closeeSscreen(ActionEvent event) {
+        Platform.exit();
+        System.exit(0);
     }
 }
