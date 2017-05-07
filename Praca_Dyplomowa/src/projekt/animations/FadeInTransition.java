@@ -1,4 +1,4 @@
-package herudi.animations;
+package projekt.animations;
 
 import javafx.animation.KeyFrame;
 import javafx.animation.KeyValue;

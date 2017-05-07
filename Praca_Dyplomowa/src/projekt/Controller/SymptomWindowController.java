@@ -66,6 +66,9 @@ public class SymptomWindowController implements Initializable {
     @FXML
     private ListView<String> addedSymptoms;
 
+    public SymptomWindowController() {
+    }
+
     /**
      * Initializes the controller class.
      * @param url
@@ -127,6 +130,7 @@ public class SymptomWindowController implements Initializable {
          Scene scene = new Scene(parent);
          Stage primaryStage = new Stage();
          primaryStage.setScene(scene);
+         primaryStage.initStyle(StageStyle.UNDECORATED);
          primaryStage.show();
          Stage stage;
          stage = (Stage) ((Node)(event.getSource())).getScene().getWindow();
@@ -300,5 +304,20 @@ public class SymptomWindowController implements Initializable {
     private void closeeSscreen(ActionEvent event) {
         Platform.exit();
         System.exit(0);
+    }
+     /**
+     ** Metoda która przenosi podaną jako parametr symptom na listę symptomów użytkowanika 
+     * @param symptom podany symptom
+     */
+    public void changeSymptomToRight(String symptom){
+        for(int i=0;i<data.size();i++){
+            if(data.get(i).equals(symptom)){
+                dataRight.add(symptom);
+                data.remove(i);
+                symptoms.setItems(data);
+                addedSymptoms.setItems(dataRight);
+                return ;
+            }
+        }
     }
 }

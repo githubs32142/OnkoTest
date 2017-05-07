@@ -1,4 +1,6 @@
-Wersja 0.2.5 04.05.17
+Wersja 0.2.7 04.05.17
+Dodano nowe funkcjonalności.
+Wersja 0.2.6 04.05.17
  Zmieniono wygląd trzeciego okna (licząc od logowania).
 Wersja 0.2.5 03.05.17
  Zmieniono wygląd drugiego okna (licząc od logowania).

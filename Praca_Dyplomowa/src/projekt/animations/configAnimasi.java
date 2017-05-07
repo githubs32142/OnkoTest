@@ -2,7 +2,7 @@
     Animation For JavaFX.
 */
 
-package herudi.animations;
+package projekt.animations;
 
 import javafx.animation.Interpolator;
 import javafx.animation.Timeline;

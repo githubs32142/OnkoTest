@@ -5,10 +5,7 @@
  */
 package projekt.Controller;
 
-import herudi.animations.FadeInLeftTransition;
-import herudi.animations.FadeInRightTransition;
-import herudi.animations.FadeInUpTransition;
-import herudi.animations.FadeOutUpTransition;
+
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -37,6 +34,9 @@ import projekt.Class.CheckReg;
 import projekt.Class.ListFibre;
 import projekt.Class.Person;
 import projekt.Class.Product;
+import projekt.animations.FadeInLeftTransition;
+import projekt.animations.FadeInRightTransition;
+import projekt.animations.FadeInUpTransition;
 
 /**
  * FXML Controller class
