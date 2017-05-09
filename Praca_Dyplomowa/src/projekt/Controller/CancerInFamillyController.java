@@ -89,7 +89,7 @@ public class CancerInFamillyController implements Initializable {
             famillyCombo.setItems(listFamilly);
             cancerCombo.setItems(listCancer);
             index=-1;
-             data.add(new CancerFamilly("", ""));
+            data.add(new CancerFamilly("", ""));
             table.setItems(data);
            
     }    

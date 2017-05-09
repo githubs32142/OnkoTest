@@ -58,7 +58,7 @@ public class DietTestController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
        index=0;
-       qList.add("1. Jak często dostarczasz do swojego organizmu?");
+       qList.add("1. Jak często dostarczasz posiłki do swojego organizmu?");
        qList.add("2. Jak dużo pijesz napojów dziennie?");
        qList.add("3. Jak często zjadasz produkty zawierające mąkę pszenną (białe pieczywo, makaron)?");
        qList.add("4. Jak często zjadasz produkty pełnoziarniste (chleb razowy, bułka grahamka)?");

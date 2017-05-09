@@ -12,7 +12,7 @@
 
 <AnchorPane id="AnchorPane" prefHeight="650.0" prefWidth="900.0" styleClass="background" stylesheets="@../CSS/Factor.css" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="projekt.Controller.SymptomWindowController">
    <children>
-      <VBox layoutY="-1.0" prefHeight="658.0" prefWidth="100.0" style="-fx-background-color: #2c62b5;" AnchorPane.bottomAnchor="0.0">
+      <VBox layoutY="-1.0" prefHeight="658.0" prefWidth="100.0" style="-fx-background-color: #2c62b5;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
             <ImageView fitHeight="66.0" fitWidth="63.0" onMouseClicked="#undoClick" pickOnBounds="true" preserveRatio="true">
                <image>
@@ -25,12 +25,12 @@
          </children>
       </VBox>
       <ListView fx:id="symptoms" layoutX="114.0" layoutY="147.0" onDragDetected="#symptomsDragDetected" onDragDropped="#symptomsDragDropped" onDragEntered="#symptomsDragEntered" onDragExited="#symptomsDragExited" onDragOver="#symptomsDragOver" onMouseClicked="#symptomsClicked" prefHeight="475.0" prefWidth="300.0" styleClass="box" AnchorPane.bottomAnchor="36.0" AnchorPane.leftAnchor="114.0" />
-      <Button fx:id="add" layoutX="470.0" layoutY="299.0" mnemonicParsing="false" onAction="#addFactor" prefHeight="37.0" prefWidth="37.0" styleClass="btn" text="&gt;" AnchorPane.leftAnchor="470.0" AnchorPane.rightAnchor="375.0" />
-      <Button fx:id="remove" layoutX="470.0" layoutY="348.0" mnemonicParsing="false" onAction="#removeFactor" prefHeight="37.0" prefWidth="7.0" styleClass="btn" text="&lt;" AnchorPane.leftAnchor="470.0" AnchorPane.rightAnchor="375.0" />
-      <ListView fx:id="addedSymptoms" layoutX="579.0" layoutY="147.0" onDragDetected="#addedSymptomsDragDetected" onDragDropped="#addedSymptomsDragDropped" onDragEntered="#addedSymptomsDragEntered" onDragExited="#addedSymptomsDragExited" onDragOver="#addedSymptomsDragOver" onMouseClicked="#addedSymptomsClicked" prefHeight="475.0" prefWidth="300.0" styleClass="box" AnchorPane.bottomAnchor="36.0" />
-      <Label layoutX="251.0" layoutY="57.0" prefHeight="30.0" prefWidth="494.0" text="Wybierz objawy które występują u Ciebie przez conajmniej 3 miesiące!" textAlignment="CENTER" AnchorPane.leftAnchor="251.0" AnchorPane.rightAnchor="155.0" AnchorPane.topAnchor="57.0" />
+      <Button fx:id="add" layoutX="470.0" layoutY="334.0" mnemonicParsing="false" onAction="#addFactor" prefHeight="37.0" prefWidth="72.0" styleClass="btn" text="&gt;&gt;" AnchorPane.bottomAnchor="279.0" AnchorPane.leftAnchor="470.0" AnchorPane.rightAnchor="358.0" />
+      <Button fx:id="remove" layoutX="470.0" layoutY="391.0" mnemonicParsing="false" onAction="#removeFactor" prefHeight="37.0" prefWidth="72.0" styleClass="btn" text="&lt;&lt;" AnchorPane.leftAnchor="470.0" AnchorPane.rightAnchor="358.0" />
+      <ListView fx:id="addedSymptoms" layoutX="579.0" layoutY="147.0" onDragDetected="#addedSymptomsDragDetected" onDragDropped="#addedSymptomsDragDropped" onDragEntered="#addedSymptomsDragEntered" onDragExited="#addedSymptomsDragExited" onDragOver="#addedSymptomsDragOver" onMouseClicked="#addedSymptomsClicked" prefHeight="426.0" prefWidth="300.0" styleClass="box" AnchorPane.bottomAnchor="85.0" AnchorPane.rightAnchor="21.0" />
+      <Label layoutX="251.0" layoutY="57.0" prefHeight="30.0" prefWidth="494.0" text="Wybierz objawy, które występują u Ciebie przez co najmniej 3 miesiące!" textAlignment="CENTER" AnchorPane.leftAnchor="251.0" AnchorPane.rightAnchor="155.0" AnchorPane.topAnchor="57.0" />
       <Label layoutX="117.0" layoutY="109.0" prefHeight="30.0" prefWidth="173.0" text="Lista objawów:" AnchorPane.leftAnchor="117.0" />
-      <Button fx:id="next" layoutX="450.0" layoutY="581.0" mnemonicParsing="false" onAction="#nextWindow" styleClass="btn" text="Dalej &gt;&gt;" AnchorPane.bottomAnchor="48.0" AnchorPane.leftAnchor="450.0" AnchorPane.rightAnchor="356.0" />
+      <Button fx:id="next" layoutX="675.0" layoutY="585.0" mnemonicParsing="false" onAction="#nextWindow" styleClass="btn" text="Dalej &gt;&gt;" AnchorPane.bottomAnchor="36.0" AnchorPane.leftAnchor="675.0" AnchorPane.rightAnchor="131.0" />
       <Label layoutX="587.0" layoutY="109.0" text="Twoje objawy:" AnchorPane.rightAnchor="178.0" />
       <HBox layoutX="763.0" layoutY="2.0" prefHeight="0.0" prefWidth="140.0" stylesheets="@../CSS/winDec.css" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="2.0">
          <children>

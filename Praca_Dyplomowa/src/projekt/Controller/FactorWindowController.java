@@ -410,4 +410,19 @@ public class FactorWindowController implements Initializable {
         Platform.exit();
         System.exit(0);
     }
+
+    @FXML
+    private void addToRightFact(ActionEvent event) {
+        changeFactToRight(factors.getSelectionModel().getSelectedItem());
+        
+    }
+
+    @FXML
+    private void addToLeftFact(ActionEvent event) {
+        index=addedFactor.getSelectionModel().getSelectedIndex();
+        String tmp= dataRight.remove(index);
+        data.add(tmp);
+        addedFactor.setItems(dataRight);
+        factors.setItems(data);
+    }
 }

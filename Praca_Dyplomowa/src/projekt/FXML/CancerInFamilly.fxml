@@ -33,7 +33,7 @@
       <ComboBox fx:id="famillyCombo" layoutX="353.0" layoutY="141.0" prefWidth="150.0" AnchorPane.leftAnchor="353.0" />
       <ComboBox fx:id="cancerCombo" layoutX="149.0" layoutY="141.0" prefWidth="150.0" AnchorPane.leftAnchor="149.0" />
       <Button layoutX="570.0" layoutY="140.0" mnemonicParsing="false" onAction="#addToTable" styleClass="btn" text="Dodaj" />
-      <TableView fx:id="table" disable="true" layoutX="138.0" layoutY="229.0" onMouseClicked="#tableClicked" prefHeight="419.0" prefWidth="532.0" AnchorPane.bottomAnchor="10.0" AnchorPane.rightAnchor="230.0">
+      <TableView fx:id="table" layoutX="138.0" layoutY="229.0" onMouseClicked="#tableClicked" prefHeight="419.0" prefWidth="532.0" AnchorPane.bottomAnchor="10.0" AnchorPane.rightAnchor="230.0">
          <contextMenu>
             <ContextMenu>
               <items>
