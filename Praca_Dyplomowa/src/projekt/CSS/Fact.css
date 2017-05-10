@@ -1067,12 +1067,12 @@
     -fx-indeterminate-bar-flip: false;
     -fx-indeterminate-bar-animation-time: 0;
     -fx-focus-traversable: true;
-    -fx-border-color: white;
+    -fx-border-color: #cccccc ;
     
 }
 
 .progress-bar .bar {
-    -fx-background-color: #cccccc;
+    -fx-background-color: #299bb4;
     -fx-padding: 0.416667em; /* 5 */
     -fx-border-color: transparent;
 }

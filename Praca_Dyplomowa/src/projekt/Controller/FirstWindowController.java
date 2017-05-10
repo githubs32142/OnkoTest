@@ -244,6 +244,7 @@ public class FirstWindowController implements Initializable {
         lblname.setVisible(false);
         name.setVisible(false);
         lblsurname.setText("E-mail:");
+        surname.setPromptText("Podaj swój e-mail");
         toplbl.setLayoutX(186);
         toplbl.setLayoutY(50);
     }
@@ -252,6 +253,7 @@ public class FirstWindowController implements Initializable {
         lblname.setVisible(true);
         name.setVisible(true);
         lblsurname.setText("Nazwisko:");
+        surname.setPromptText("Podaj swóje nazwisko");
     }
     }
 
