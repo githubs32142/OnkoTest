@@ -208,6 +208,9 @@ public class FirstWindowController implements Initializable {
                 stage = (Stage) ((Node)(event.getSource())).getScene().getWindow();
                 stage.close();    
                 }
+                else{
+                    showOutputMessage("Wprowadź imie lub nazwisko");
+                }
             }
             catch(IOException | NumberFormatException e){
                 showOutputMessage(e.toString());

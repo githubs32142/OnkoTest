@@ -15,11 +15,13 @@ import java.util.logging.Logger;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.Node;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.RadioButton;
 import javafx.scene.control.ToggleGroup;
+import javafx.stage.Stage;
 import jess.JessException;
 import jess.Rete;
 
@@ -61,26 +63,21 @@ public class SolariumTestController implements Initializable {
     public void initialize(URL url, ResourceBundle rb) {
         index=0;
         qList.add("1. Czy używasz specjalnych kosmetyków opalania w solarium?");
-        qList.add("2. Czy używasz kosmetyków UV podczas opalani?");
-        qList.add("3. Jak długo trwa opalanie na solarium?");
-        qList.add("4. Jak często korzystasz z solarium?");
+        qList.add("2. Jak długo trwa opalanie na solarium?");
+        qList.add("3. Jak często korzystasz z solarium?");
          
-        a1List.add(" Tak");
         a1List.add(" Tak");
         a1List.add(" 1-5 min");
         a1List.add(" 1-2 razy w tygodniu");
         
         a2List.add(" Nie");
-        a2List.add(" Nie");
         a2List.add(" 5-10 min");
         a2List.add(" 3-4 razy w tygodniu");
         
         a3List.add(" -");
-        a3List.add(" -");
         a3List.add(" 10-20 min");
         a3List.add(" 5-6 razy w tygodniu");
         
-        a4List.add(" -");
         a4List.add(" -");
         a4List.add(" 30 lub więcej");
         a4List.add(" codzniennie");
@@ -137,6 +134,9 @@ public class SolariumTestController implements Initializable {
             for(int i=0;i<qList.size();i++){
             pList.set(i,0);
             }
+            Stage stage;
+            stage = (Stage) ((Node)(event.getSource())).getScene().getWindow();
+            stage.close();
         }
         if(index<qList.size()){
             if(index==qList.size()-1){
@@ -206,7 +206,6 @@ public class SolariumTestController implements Initializable {
         }
     }
 
-    @FXML
     private void fastDiagnose(ActionEvent event) {
         makeAllDiagnose();
     }

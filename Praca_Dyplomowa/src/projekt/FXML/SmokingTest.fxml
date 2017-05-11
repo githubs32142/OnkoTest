@@ -11,7 +11,7 @@
 
 <VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="288.0" prefWidth="916.0" styleClass="background" stylesheets="@../CSS/Metro-UI.css" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="projekt.Controller.SmokingTestController">
    <children>
-      <Label fx:id="question" prefHeight="60.0" prefWidth="1000.0" text="Label" />
+      <Label fx:id="question" prefHeight="60.0" prefWidth="1000.0" styleClass="lbl" text="Label" />
       <RadioButton fx:id="answer1" mnemonicParsing="false" onAction="#answer1Action" prefHeight="39.0" prefWidth="318.0" selected="true" text="RadioButton">
          <font>
             <Font name="Times New Roman Italic" size="20.0" />
@@ -51,7 +51,6 @@
          <children>
             <Button fx:id="next" layoutX="494.0" layoutY="2.0" mnemonicParsing="false" onAction="#next" prefHeight="32.0" prefWidth="117.0" styleClass="btn" text="Dalej &gt;" />
             <Button layoutX="389.0" layoutY="2.0" mnemonicParsing="false" onAction="#back" prefHeight="32.0" prefWidth="99.0" styleClass="btn" text="&lt; Wstecz" />
-            <Button layoutX="243.0" layoutY="2.0" mnemonicParsing="false" onAction="#fastDiagnose" prefHeight="32.0" prefWidth="139.0" styleClass="btn" text="Szybka diagnoza" />
          </children>
       </Pane>
    </children>

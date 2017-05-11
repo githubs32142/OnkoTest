@@ -5,14 +5,12 @@
 (slot answer1 )
 (slot answer2 )
 (slot answer3 )
-(slot answer4 )
-
 )
 
 (defrule Sum
-( Point (answer1 ?answer1 )(answer2 ?answer2 )(answer3 ?answer3 )(answer4 ?answer4 ))
+( Point (answer1 ?answer1 )(answer2 ?answer2 )(answer3 ?answer3 ))
 	=>
-        (assert (Sum (+ ?answer1 ?answer2 ?answer3 ?answer4  )))
+        (assert (Sum (+ ?answer1 ?answer2 ?answer3  )))
 )
 
 (defrule rule1
@@ -23,7 +21,8 @@
 (defrule rule2
 	(Sum ?sum )(test (< ?sum 2))
 	=>
-    ( printout t "Brak diagnozy." crlf)
+    ( printout t "Brak prawdopodobieństwa nowotworu skóry." crlf)
 )
+
 (facts)
 (run)

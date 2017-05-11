@@ -11,7 +11,7 @@
 
 <VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="288.0" prefWidth="763.0" styleClass="background" stylesheets="@../CSS/Metro-UI.css" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="projekt.Controller.RadiotherapyTestController">
    <children>
-      <Label fx:id="question" prefHeight="60.0" prefWidth="1000.0" text="Czy w przeciągu ostatnich 5-u lat była u Pana/i prowadzona radioterapia w chorobie nowotworowej? " />
+      <Label fx:id="question" prefHeight="60.0" prefWidth="1000.0" styleClass="lbl" text="Czy w przeciągu ostatnich 5-u lat była u Pana/i prowadzona radioterapia w chorobie nowotworowej? " />
       <RadioButton fx:id="answer1" mnemonicParsing="false" onAction="#answer1Action" prefHeight="39.0" prefWidth="318.0" selected="true" text="Nie">
          <font>
             <Font name="Times New Roman Italic" size="20.0" />

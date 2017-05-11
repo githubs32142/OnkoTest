@@ -201,7 +201,6 @@ public class SmokingTestController implements Initializable {
         }
     }
 
-    @FXML
     private void fastDiagnose(ActionEvent event) {
         makeAllDiagnose();
     }

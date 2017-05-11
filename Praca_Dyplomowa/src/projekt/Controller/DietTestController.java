@@ -156,6 +156,7 @@ public class DietTestController implements Initializable {
             for(int i=0;i<qList.size();i++){
             pList.set(i,0);
             }
+            
         }
         if(index<qList.size()){
             if(index==qList.size()-1){

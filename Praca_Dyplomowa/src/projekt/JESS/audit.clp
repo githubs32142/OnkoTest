@@ -42,7 +42,7 @@
 (defrule CAGE2
 	(Sum4 ?sum4 )(test (= ?sum4 0))
 	=>
-    ( printout t "Test CAGE: Brak diagnozy." crlf)
+    ( printout t "Test CAGE: Brak prawdopodobieństwa uzależnienia od alkoholu." crlf)
 )
 
 (defrule AUDIT1
@@ -53,7 +53,7 @@
 (defrule AUDIT2
 	(Sum3 ?sum3 )(test (< ?sum3 8))
 	=>
-    ( printout t "Test AUDIT: Brak diagnozy " crlf)
+    ( printout t "Test AUDIT: Brak prawdopodobieństwa uzależnienia od alkoholu." crlf)
 )
 
 (defrule Screener1 
@@ -65,7 +65,7 @@
 (defrule Screener2 
 	(Sum7 ?sum7 )(test (< ?sum7 15))
 	=>
-    ( printout t "Test Przesiewowy: Brak diagnozy. " crlf)
+    ( printout t "Test Przesiewowy: Brak prawdopodobieństwa uzależnienia od alkoholu. " crlf)
 )
 
 (facts)

@@ -1,5 +1,14 @@
-
-.label {
+.lbl2 {
+    -fx-padding: 5 22 5 22;   
+    -fx-border-style: none; 
+    -fx-background-radius: 0;
+    -fx-background-insets: 0;
+    -fx-border-insets: 0;
+    -fx-font-family: "Segoe UI Semibold";
+    -fx-font-size: 16px;
+    -fx-text-fill: #2c62b5;
+}
+.lbl {
     -fx-padding: 5 22 5 22;   
     -fx-border-style: none; 
 	-fx-background-color: #2c62b5;
@@ -1042,6 +1051,7 @@
     -fx-text-fill: #ffffff;
 }
 
+
 .progress-bar {
     -fx-background-color:
         -fx-box-border,
@@ -1052,12 +1062,12 @@
     -fx-indeterminate-bar-flip: false;
     -fx-indeterminate-bar-animation-time: 0;
     -fx-focus-traversable: true;
-    -fx-border-color: white;
+    -fx-border-color: #cccccc ;
     
 }
 
 .progress-bar .bar {
-    -fx-background-color: #cccccc;
+    -fx-background-color: #299bb4;
     -fx-padding: 0.416667em; /* 5 */
     -fx-border-color: transparent;
 }
@@ -1074,4 +1084,5 @@
 .progress-bar:disabled {
     -fx-opacity: 1.0
 }
+
 

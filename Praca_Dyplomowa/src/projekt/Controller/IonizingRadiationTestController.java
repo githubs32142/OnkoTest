@@ -85,6 +85,9 @@ public class IonizingRadiationTestController implements Initializable {
         }
         if(index==2){
             makeAllDiagnose();
+            Stage stage;
+            stage = (Stage) ((Node)(event.getSource())).getScene().getWindow();
+            stage.close();
         }
         if(index<2){
             if(index==1){

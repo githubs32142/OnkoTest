@@ -15,12 +15,15 @@ import java.util.logging.Logger;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.Node;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.ProgressBar;
 import javafx.scene.control.RadioButton;
 import javafx.scene.control.ToggleGroup;
+import javafx.stage.Stage;
 import jess.JessException;
 import jess.Rete;
 
@@ -30,6 +33,7 @@ import jess.Rete;
  * @author Andrrzej Kierepka
  */
 public class AuditTest implements Initializable {
+    double pr;
     private FactorWindowController window;
     @FXML
     private Label question;
@@ -56,24 +60,28 @@ public class AuditTest implements Initializable {
     List<String> a4List= new ArrayList<>();
     List<String> a5List= new ArrayList<>();// lista odpowiedzi na 5 pytanie
     List<Integer> pList= new ArrayList<>();// ilość punktów przyznanych za każdą odpowiedź
+    @FXML
+    private ProgressBar progres;
+    @FXML
+    private Label text;
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         index=0;
-        qList.add("1. Czy kiedykolwiek miał(a) Pan(i) poczucie, że powinien/powinna Pan(i) ograniczyć picie?");
-        qList.add("2. Czy zdarzyło się, że ktoś Pana/Panią zdenerwował, krytykując Pana/Pani picie?");
-        qList.add("3. Czy czuł(a) się Pan(i) źle lub miał(a) poczucie winy z powodu swojego picia?");
-        qList.add("4. Czy rozpoczynał(a) Pan(i) dzień od wypicia rana alkoholu dla uspokojenia lub dla złagodzenia kaca?");
-        qList.add("5. Jak często pije Pan(i) napoje alkoholowe?");
-        qList.add("6. Jak dużo porcji napojów alkoholowych wypija Pan(i) typowego dnia, kiedy Pan(i) pije?");
-        qList.add("7. Jak często wypija Pan(i) 6 lub więcej drinków za jednym razem?");
-        qList.add("8. Jak często w ciągu minionego roku okazywało się, że nie był(a) Pan(i) w stanie przerwać picia, gdy juz Pan(i) już zaczął/zaczęła?");
-        qList.add("9. Jak często w minionym roku z powodu picia nie zrobił(a) Pan(i) czegoś, co normalnie powinien/powinna Pan(i) zrobić?");
-        qList.add("10. Jak często w minionym roku musiał(a) Pan(i) rano napić się, aby dojść do siebie po spożyciu zncznej ilości alkoholu poprzedniego dnia?");
-        qList.add("11. Jak często w minionym roku musiał(a) Pan(i) poczucie winy lub wyrzuty sumienia po piciu?");
-        qList.add("12. Jak często w minionym roku nie pamiętał(a) Pan(i) wydarzeń z poprzedniej nocu z powodu picia?");
-        qList.add("13. Czy Pan(i) lub ktokolwiek inny doznał urazu z powod Pan/Pani picia?");
-        qList.add("14. Czy krewny, przyjaciel, lekarz lub inny pracownik medyczny martwił się Pana/Pani piciem lub sugeroawł Panu/Pani zaprzestanie picia?");
+        qList.add("1. Czy kiedykolwiek miałeś poczucie, że powinieś ograniczyć picie?");
+        qList.add("2. Czy zdarzyło się, że ktoś Cię zdenerwował, krytykując za picie?");
+        qList.add("3. Czy czułeś się źle lub miałeś poczucie winy z powodu swojego picia?");
+        qList.add("4. Czy rozpoczynałeś dzień od wypicia rana alkoholu dla uspokojenia lub dla złagodzenia kaca?");
+        qList.add("5. Jak często pijesz napoje alkoholowe?");
+        qList.add("6. Jak dużo porcji napojów alkoholowych wypijasz typowego dnia, kiedy pijesz?");
+        qList.add("7. Jak często wypijasz 6 lub więcej drinków za jednym razem?");
+        qList.add("8. Jak często w ciągu minionego roku okazywało się, że nie byłeś w stanie przerwać picia, gdy już zacząłeś?");
+        qList.add("9. Jak często w minionym roku z powodu picia nie zrobiłeś czegoś, co normalnie powinieś zrobić?");
+        qList.add("10. Jak często w minionym roku musiałeś rano napić się, aby dojść do siebie po spożyciu zncznej ilości alkoholu poprzedniego dnia?");
+        qList.add("11. Jak często w minionym roku musiałeś poczucie winy lub wyrzuty sumienia po piciu?");
+        qList.add("12. Jak często w minionym roku nie pamiętałeś wydarzeń z poprzedniej nocu z powodu picia?");
+        qList.add("13. Czy Ty lub ktokolwiek inny doznał urazu z powod Twojego picia?");
+        qList.add("14. Czy krewny, przyjaciel, lekarz lub inny pracownik medyczny martwił się Twoim piciem lub sugeroawł zaprzestanie picia?");
         for(int i=0;i<4;i++){
             a1List.add(" Nie");
         }
@@ -141,6 +149,8 @@ public class AuditTest implements Initializable {
         answer3.setVisible(false);
         answer4.setVisible(false);
         answer5.setVisible(false);
+        text.setText("Krok "+(index+1)+"/"+pList.size());
+        progres.setProgress(((double)(index+1)/(double)pList.size()));
     }    
     
     public void setIndex(int index) {
@@ -193,6 +203,8 @@ public class AuditTest implements Initializable {
     private void next(ActionEvent event) {
         if(getIndex()+1<14){// jeżeli możemy przejść do następnego pytanie (od 0 do 12 = 13)
             index++;
+            text.setText("Krok "+(index+1)+"/"+pList.size());
+            progres.setProgress(((double)(index+1)/(double)pList.size()));
         }
         if(getIndex()+1>12 || getIndex()<4){
          if(getIndex()<4){
@@ -211,6 +223,9 @@ public class AuditTest implements Initializable {
         }
         if(end){// jezeli kliknięto nA KLAWISZ zakończ
             makeAllDiagnose();
+            Stage stage;
+            stage = (Stage) ((Node)(event.getSource())).getScene().getWindow();
+            stage.close();
         }
         question.setText(qList.get(getIndex()));
         answer1.setText(a1List.get(getIndex()));
@@ -260,6 +275,8 @@ public class AuditTest implements Initializable {
         if(getIndex()-1>=0){
             index--;
         }
+        text.setText("Krok "+(index+1)+"/"+pList.size());
+        progres.setProgress(((index+1)/pList.size()));
         if(getIndex()+1>12 || getIndex()<4){
          if(getIndex()<4){
             answer3.setVisible(false); 
@@ -397,7 +414,6 @@ public class AuditTest implements Initializable {
              answer4.setVisible(false);
              answer5.setVisible(false);
     }
-    @FXML
     private void fastDiagnose(ActionEvent event) {
         makeAllDiagnose();
     }

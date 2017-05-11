@@ -93,6 +93,9 @@ public class MenopauseTestController implements Initializable {
         }
         if(index==4){
             makeAllDiagnose();
+            Stage stage;
+            stage = (Stage) ((Node)(event.getSource())).getScene().getWindow();
+            stage.close();
         }
         if(index<4){
             if(index==3){

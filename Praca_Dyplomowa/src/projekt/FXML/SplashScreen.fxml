@@ -28,7 +28,7 @@
             <Font name="Segoe UI Italic" size="12.0" />
          </font>
       </Label>
-      <Label layoutX="35.0" layoutY="269.0" prefHeight="28.0" prefWidth="306.0" text="Państwowa Wyższa Szkoła Techniczno-Ekonomiczna" textFill="#ededed" textOverrun="CLIP">
+      <Label layoutX="35.0" layoutY="269.0" prefHeight="28.0" prefWidth="363.0" text="Państwowa Wyższa Szkoła Techniczno-Ekonomiczna w Jarosławiu" textFill="#ededed" textOverrun="CLIP">
          <font>
             <Font name="Segoe UI Italic" size="12.0" />
          </font>
