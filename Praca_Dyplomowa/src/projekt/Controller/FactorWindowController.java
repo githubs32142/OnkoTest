@@ -52,7 +52,7 @@ public class FactorWindowController implements Initializable {
     WebEngine webEngine ;
     List <Factor> fact= new ArrayList<>();
     ObservableList<String> data = FXCollections.observableArrayList("Spożywanie alkoholu","Otyłość","Promieniowanie jonizujące","Radioterapia","Lampy solarium","Palenie papierosów",
-            "Brak aktywności fizycznej","Niewłaściwa dieta","Brak naturalnych antyoksydantów","Menopauza + otyłość","Brak błonnika" );
+            "Brak aktywności fizycznej","Niewłaściwa dieta","Brak naturalnych antyoksydantów","Menopauza + otyłość","Brak błonnika","Pole elektromagnetyczne","Kontakt z azbestem" );
     ObservableList<String> dataRight = FXCollections.observableArrayList();
     private int index;
     Stage stage;
@@ -105,6 +105,12 @@ public class FactorWindowController implements Initializable {
         fact.add(new Factor("Menopauza + otyłość", "/projekt/HTML/wzrost_bmi.html",true,"/projekt/FXML/Menopause.fxml"));
         // Fibre
         fact.add(new Factor("Brak błonnika", "/projekt/HTML/brak_naturalnych_antyoksydantow.html", true,"/projekt/FXML/Fibre.fxml"));
+        // 
+        fact.add(new Factor("Pole elektromagnetyczne", "/projekt/HTML/pole_elektromagnetyczne.html",false,"/projekt/FXML/Fibre.fxml"));
+        //
+        fact.add(new Factor("Promieniwanie ultrafiloetowe", "/projekt/HTML/promieniowanie_ultrafioletowe.html",false,"/projekt/FXML/Fibre.fxml"));
+        // AsbestiosTest
+         fact.add(new Factor("Kontakt z azbestem", "/projekt/HTML/promieniowanie_ultrafioletowe.html",true,"/projekt/FXML/AsbestosTest.fxml"));
         webEngine = webView.getEngine();
        // final URL urlFactor = getClass().getResource("/projekt/HTML/alkoholizm.html");
        // webEngine.load(urlFactor.toExternalForm());

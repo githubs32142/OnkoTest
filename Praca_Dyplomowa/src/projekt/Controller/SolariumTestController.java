@@ -19,6 +19,7 @@ import javafx.scene.Node;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.ProgressBar;
 import javafx.scene.control.RadioButton;
 import javafx.scene.control.ToggleGroup;
 import javafx.stage.Stage;
@@ -54,6 +55,10 @@ public class SolariumTestController implements Initializable {
     List<String> a3List= new ArrayList<>();
     List<String> a4List= new ArrayList<>();
     List<Integer> pList= new ArrayList<>();// ilość punktów przyznanych za każdą odpowiedź
+    @FXML
+    private ProgressBar progres;
+    @FXML
+    private Label text;
     /**
      * Initializes the controller class.
      * @param url
@@ -99,6 +104,8 @@ public class SolariumTestController implements Initializable {
             answer4.setVisible(true);
         }
         answer1.setSelected(true);
+        text.setText("Krok "+(index+1)+"/"+pList.size());
+        progres.setProgress(((double)(index+1)/(double)pList.size()));
     }    
 
     @FXML
@@ -142,6 +149,8 @@ public class SolariumTestController implements Initializable {
             if(index==qList.size()-1){
                 next.setText("Zakończ");
             }
+        text.setText("Krok "+(index+1)+"/"+pList.size());
+        progres.setProgress(((double)(index+1)/(double)pList.size()));
         question.setText(qList.get(index));
         answer1.setText(a1List.get(index));
         answer2.setText(a2List.get(index));
@@ -177,6 +186,8 @@ public class SolariumTestController implements Initializable {
             index--;
         }
         if(index>=0){
+        text.setText("Krok "+(index+1)+"/"+pList.size());
+        progres.setProgress(((double)(index+1)/(double)pList.size()));
         question.setText(qList.get(index));
         answer1.setText(a1List.get(index));
         answer2.setText(a2List.get(index));

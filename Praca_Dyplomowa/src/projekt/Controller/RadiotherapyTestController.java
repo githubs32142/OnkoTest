@@ -28,7 +28,7 @@ import jess.Rete;
 /**
  * FXML Controller class
  *
- * @author Admin
+ * @author Andrzej Kierepka
  */
 public class RadiotherapyTestController implements Initializable {
     private FactorWindowController window;
