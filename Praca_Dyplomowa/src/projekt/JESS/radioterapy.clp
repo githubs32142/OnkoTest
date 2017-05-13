@@ -14,7 +14,7 @@
 (defrule rule2
 	(Point (answer1 0))
 	=>
-    ( printout t "Brak diagnozy." crlf)
+    ( printout t "Nie stwierdzono ryzyka choroby nowotworowej." crlf)
 )
 
 

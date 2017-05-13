@@ -27,7 +27,27 @@ public class RunClass extends Application {
     
     @Override
     public void start(Stage primaryStage) throws IOException {
-        FXMLLoader load = new FXMLLoader(this.getClass().getResource("FXML/SplashScreen.fxml"));
+        loadSplash(primaryStage);
+        /*
+        FXMLLoader load = new FXMLLoader(this.getClass().getResource("FXML/AsbestosTest.fxml"));
+        //FXMLLoader load = new FXMLLoader(this.getClass().getResource("FXML/Fibre.fxml"));
+        Parent parent= load.load();
+        Scene scene = new Scene(parent);
+        primaryStage.setScene(scene);
+        primaryStage.initStyle(StageStyle.UNDECORATED);
+        primaryStage.setResizable(false);
+        primaryStage.show();
+        */
+    }
+
+    /**
+     * @param args the command line arguments
+     */
+    public static void main(String[] args) {
+        launch(args);
+    }
+    public void loadSplash (Stage primaryStage) throws IOException{
+                FXMLLoader load = new FXMLLoader(this.getClass().getResource("FXML/SplashScreen.fxml"));
         //FXMLLoader load = new FXMLLoader(this.getClass().getResource("FXML/Fibre.fxml"));
         Parent parent= load.load();
         Scene scene = new Scene(parent);
@@ -62,12 +82,4 @@ public class RunClass extends Application {
             }
         });
     }
-
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String[] args) {
-        launch(args);
-    }
-    
 }

@@ -5,8 +5,11 @@
  */
 package projekt.Controller;
 
+import static java.awt.SystemColor.window;
+import java.io.StringWriter;
 import java.net.URL;
 import java.util.ResourceBundle;
+import java.util.logging.Level;
 import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -15,6 +18,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.geometry.Rectangle2D;
 import javafx.scene.Node;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.ListView;
 import javafx.scene.effect.BlendMode;
@@ -25,6 +29,8 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.input.TransferMode;
 import javafx.stage.Screen;
 import javafx.stage.Stage;
+import jess.JessException;
+import jess.Rete;
 
 /**
  * FXML Controller class
@@ -46,6 +52,7 @@ public class AsbestosTestController implements Initializable {
     Stage stage;
     Rectangle2D rec2;
     Double w,h;
+   private FactorWindowController window;
     /**
      * 
      * Initializes the controller class.
@@ -87,6 +94,7 @@ public class AsbestosTestController implements Initializable {
 
     @FXML
     private void makeTest(ActionEvent event) {
+        makeDiagnostic(toString());
     }
 
    @FXML
@@ -139,8 +147,8 @@ public class AsbestosTestController implements Initializable {
 
     @FXML
     private void closeeSscreen(ActionEvent event) {
-        Platform.exit();
-        System.exit(0);
+        stage = (Stage) ((Node)(event.getSource())).getScene().getWindow();
+        stage.close();
     }
 
     @FXML
@@ -178,20 +186,38 @@ public class AsbestosTestController implements Initializable {
 
     @FXML
     private void addToRightJob(ActionEvent event) {
+        try{
         int index=job.getSelectionModel().getSelectedIndex();
         String tmp= data.remove(index);
         dataRight.add(tmp);
         job.setItems(data);
-        addedJob.setItems(dataRight);//dataRight 
+        addedJob.setItems(dataRight);//dataRight             
+        }catch(Exception ex){
+        Alert alert = new Alert(Alert.AlertType.ERROR);
+        alert.setTitle("OnkoTest");
+        alert.setHeaderText("Błąd podczas przenoszenia");
+        alert.setContentText("Nie zaznaczono zawodu który chcesz przenieść");
+        alert.showAndWait();  
+        }
+
     }
 
     @FXML
     private void addToLeftJob(ActionEvent event) {
+        try{
         int index=addedJob.getSelectionModel().getSelectedIndex();
         String tmp= dataRight.remove(index);
         data.add(tmp);
         addedJob.setItems(dataRight);
-        job.setItems(data);
+        job.setItems(data); 
+        }catch(Exception ex){
+        Alert alert = new Alert(Alert.AlertType.ERROR);
+        alert.setTitle("OnkoTest");
+        alert.setHeaderText("Błąd podczas przenoszenia");
+        alert.setContentText("Nie zaznaczono zawodu który chcesz przenieść");
+        alert.showAndWait();   
+        }
+
     }
 
     @FXML
@@ -218,5 +244,72 @@ public class AsbestosTestController implements Initializable {
         job.setItems(data);
         addedJob.setItems(dataRight); 
     }
-    
+     @Override
+    /**
+     ** Metoda ktora zwraca w postaci ciągu znaków wyrażenie które będzie potrzebne wykonania wniskowania 
+     * @rerurn wyrażenie potrzebne do wykonania wniskowania
+     */
+    public String toString(){
+        StringBuilder tmp= new StringBuilder("( assert ( Point ( sum ").append(dataRight.size());
+        tmp.append(" ) ) )");
+        return tmp.toString();
+    }
+    /**
+     ** wyświetla wyniki diagnozy  
+     * @param message rezultat diagnozy
+     */
+    public void showOutputMessage(String message){
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.setTitle("Wynik diagnozy");
+        alert.setHeaderText("Otrzymane rezulataty");
+        alert.setContentText(message);
+        alert.showAndWait();
+    } 
+    /**
+     ** Metoda która wykonuje diagnoze 
+     * @param s - assertrion 
+     */
+      public void makeDiagnostic(String s){
+            boolean add=false;
+            StringBuilder text= new StringBuilder();
+        try {
+            Rete engine = new Rete();
+            engine.reset();
+            StringWriter o = new StringWriter();
+            engine.addOutputRouter("t", o);
+            String result = new String();
+            // Load the pricing rules
+            engine.batch("projekt/JESS/asbestion.clp");
+            engine.eval(s);
+            engine.run();
+            result = o.toString();
+            engine.clear();
+            if (result == null ? "" == null : result.equals("")) {
+                result = "Brak diagnozy";
+            }
+            for(int i=0;i<result.length();i++){
+                if(result.charAt(i)=='1'){
+                    add=true;
+                }
+                else{
+                    text.append(result.charAt(i));
+                }
+            }
+            if(add){
+                window.changeFactToRight("Kontakt z azbestem");
+            }
+            showOutputMessage(text.toString());
+
+        } catch (JessException ex) {
+        Alert alert = new Alert(Alert.AlertType.ERROR);
+        alert.setTitle("OnkoTest");
+        alert.setHeaderText("Błąd podczas wykonywania daignozy");
+        alert.setContentText(ex.getLocalizedMessage());
+        alert.showAndWait();
+        }
+ 
+    }
+    public void setWindow(FactorWindowController window) {
+        this.window = window;
+    }    
 }

@@ -229,6 +229,11 @@ public class FactorWindowController implements Initializable {
                 FibreTest cnt= new FibreTest();
                 cnt=load.getController();
                 cnt.setWindow(this); 
+                }//azbest
+                if(fact.get(index).getFactor().equals("Kontakt z azbestem")){
+                AsbestosTestController cnt= new AsbestosTestController();
+                cnt=load.getController();
+                cnt.setWindow(this); 
                 }
                 //"Menopauza + otyłość"
                 //primaryStage.initStyle(StageStyle.UNDECORATED);
