@@ -68,6 +68,7 @@ public class FactorWindowController implements Initializable {
     private ListView<String> addedFactor;
     @FXML
     private Button next;
+    private SymptomWindowController sw;
     public FactorWindowController(Person person) {
         this.leftSelected = 0;
         this.person=person;
@@ -131,7 +132,7 @@ public class FactorWindowController implements Initializable {
                 Parent parent= load.load();
                 cnt=load.getController();
                 cnt.setPerson(person);
-                if(person.getName().equals("")){
+                if(person.getName().isEmpty()){
                     cnt.lblname.setVisible(false);
                     cnt.name.setVisible(false);
                     cnt.lblsurname.setText("E-mail:");
@@ -140,6 +141,7 @@ public class FactorWindowController implements Initializable {
                     cnt.surname.setText(person.getEmail());
                     cnt.setMail(true);
                 }
+                cnt.setFactorWindowController(this);
                 Scene scene = new Scene(parent);
                 Stage primaryStage = new Stage();
                 primaryStage.setScene(scene);          
@@ -276,7 +278,21 @@ public class FactorWindowController implements Initializable {
             }
         }
     }
-
+    /**
+     ** Metoda która przenosi podaną jako parametr fakt na listę czynników 
+     * @param fact podany fakt
+     */
+    public void changeFactToLeft(String fact){
+        for(int i=0;i<dataRight.size();i++){
+            if(dataRight.get(i).equals(fact)){
+                data.add(fact);
+                dataRight.remove(i);
+                factors.setItems(data);
+                addedFactor.setItems(dataRight);
+                return ;
+            }
+        }
+    }
     @FXML
     private void nextWindow(ActionEvent event) throws IOException {
          FXMLLoader load = new FXMLLoader(this.getClass().getResource("/projekt/FXML/SymptomWindow.fxml"));
@@ -285,12 +301,12 @@ public class FactorWindowController implements Initializable {
          cnt=load.getController();
          cnt.setPerson(person);
          cnt.setFactor(dataRight);
+         //for(int i=0;i<)
          Scene scene = new Scene(parent);
          Stage primaryStage = new Stage();
          primaryStage.initStyle(StageStyle.UNDECORATED);
          primaryStage.setScene(scene);
          primaryStage.show();
-         Stage stage;
          stage = (Stage) ((Node)(event.getSource())).getScene().getWindow();
          stage.close();
     }

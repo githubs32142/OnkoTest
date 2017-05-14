@@ -78,7 +78,9 @@ public class FirstWindowController implements Initializable {
     private Label lbllheight;
     @FXML
     private CheckBox eMail;
-    
+    private FactorWindowController fwc;
+    private CancerInFamillyController cif;
+    private SymptomWindowController sw;
     /**
      * Initializes the controller class.
      */
@@ -117,6 +119,9 @@ public class FirstWindowController implements Initializable {
         });
         sex.setItems(sexList);
         sex.getSelectionModel().selectFirst();
+        sw = new SymptomWindowController();
+        cif= new CancerInFamillyController();
+        fwc= new FactorWindowController();
     }    
 
     @FXML
@@ -192,12 +197,18 @@ public class FirstWindowController implements Initializable {
                 a= Integer.parseInt(age.getText());
                 Person p = new Person(name.getText(), surname.getText(),w, a, sex.getValue(), h);
                 FXMLLoader load = new FXMLLoader(this.getClass().getResource("/projekt/FXML/FactorWindow.fxml"));
-                FactorWindowController cnt= new FactorWindowController(p);   
+                FactorWindowController cnt= new FactorWindowController(p);
                 Parent parent= load.load();
-                cnt=load.getController();
-                cnt.setPerson(p);
+                cnt=load.getController();                
+                cnt.setPerson(p); 
                 if(p.getBmi()>25){
                    cnt.changeFactToRight("Otyłość"); 
+                }
+                for(int i=0;i<fwc.dataRight.size();i++){
+                    cnt.changeFactToRight(fwc.dataRight.get(i));
+                }
+                if(p.getBmi()<25){
+                   cnt.changeFactToLeft("Otyłość"); 
                 }
                 Scene scene = new Scene(parent);
                 Stage primaryStage = new Stage();
@@ -281,5 +292,21 @@ public class FirstWindowController implements Initializable {
         alert.setContentText(message);
         alert.showAndWait();
     }
+    /**
+     ** Metoda pozwala na ustawienie kontrolera w oknie 2 
+     * @param sw 
+     */
+    public void setSymptomWindowController(SymptomWindowController sw) {
+        this.sw = sw;
+    }
+
+    public void setCancerInFamillyController(CancerInFamillyController cif) {
+        this.cif = cif;
+    }
+
+    public void setFactorWindowController(FactorWindowController fwc) {
+        this.fwc = fwc;
+    }
+    
     
 }

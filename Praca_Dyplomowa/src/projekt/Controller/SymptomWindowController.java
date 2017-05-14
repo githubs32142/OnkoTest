@@ -320,4 +320,34 @@ public class SymptomWindowController implements Initializable {
             }
         }
     }
+     /**
+     ** Metoda która przenosi podaną jako parametr symptom na listę symptomów użytkowanika 
+     * @param symptom podany symptom
+     */
+    public void changeSympomsToRight(String symptom){
+        for(int i=0;i<data.size();i++){
+            if(data.get(i).equals(symptom)){
+                dataRight.add(symptom);
+                data.remove(i);
+                symptoms.setItems(data);
+                addedSymptoms.setItems(dataRight);
+                return ;
+            }
+        }
+    }
+    /**
+     ** Metoda która przenosi podaną jako parametr symptom na listę symptomów 
+     * @param symptom podany symptom
+     */
+    public void changeSympomsToLeft(String symptom){
+        for(int i=0;i<dataRight.size();i++){
+            if(dataRight.get(i).equals(symptom)){
+                data.add(symptom);
+                dataRight.remove(i);
+                symptoms.setItems(data);
+                addedSymptoms.setItems(dataRight);
+                return ;
+            }
+        }
+    }
 }
