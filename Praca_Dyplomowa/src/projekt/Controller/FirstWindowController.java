@@ -86,6 +86,10 @@ public class FirstWindowController implements Initializable {
      */
     
     public FirstWindowController() {
+        sw = new SymptomWindowController();
+        cif= new CancerInFamillyController();
+        fwc= new FactorWindowController();
+    
     } 
     
     public FirstWindowController(Person p) {
@@ -94,6 +98,9 @@ public class FirstWindowController implements Initializable {
         weight.setText(String.valueOf(p.getWeight()));
         height.setText(String.valueOf(p.getHeight()));
         age.setText(String.valueOf(p.getAge()));
+        sw = new SymptomWindowController();
+        cif= new CancerInFamillyController();
+        fwc= new FactorWindowController();
         
     } 
     @Override
@@ -119,9 +126,6 @@ public class FirstWindowController implements Initializable {
         });
         sex.setItems(sexList);
         sex.getSelectionModel().selectFirst();
-        sw = new SymptomWindowController();
-        cif= new CancerInFamillyController();
-        fwc= new FactorWindowController();
     }    
 
     @FXML
@@ -153,10 +157,17 @@ public class FirstWindowController implements Initializable {
                 Parent parent= load.load();
                 cnt=load.getController();
                 cnt.setPerson(p);
-                System.out.println(p.getBmi());
                 if(p.getBmi()>25){
                    cnt.changeFactToRight("Otyłość"); 
-                }    
+                }
+                for(int i=0;i<fwc.dataRight.size();i++){
+                    cnt.changeFactToRight(fwc.dataRight.get(i));
+                }
+                if(p.getBmi()<25){
+                   cnt.changeFactToLeft("Otyłość"); 
+                }
+                cnt.setSymptomWindowController(sw);
+                cnt.setCancerInFamillyController(cif);
                 Scene scene = new Scene(parent);
                 Stage primaryStage = new Stage();
                 primaryStage.setScene(scene);
@@ -210,6 +221,8 @@ public class FirstWindowController implements Initializable {
                 if(p.getBmi()<25){
                    cnt.changeFactToLeft("Otyłość"); 
                 }
+                cnt.setSymptomWindowController(sw);
+                cnt.setCancerInFamillyController(cif);
                 Scene scene = new Scene(parent);
                 Stage primaryStage = new Stage();
                 primaryStage.initStyle(StageStyle.UNDECORATED);

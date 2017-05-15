@@ -56,17 +56,18 @@ public class SymptomWindowController implements Initializable {
     ObservableList<String> data = FXCollections.observableArrayList();
     ObservableList<String> dataRight = FXCollections.observableArrayList();
     @FXML
-    private Button add;
-    @FXML
-    private Button remove;
-    @FXML
     private Button next;
     @FXML
     private ListView<String> symptoms;
     @FXML
     private ListView<String> addedSymptoms;
-
+    private CancerInFamillyController cif;
+    @FXML
+    private Button add;
+    @FXML
+    private Button remove;
     public SymptomWindowController() {
+        cif = new CancerInFamillyController();
     }
 
     /**
@@ -95,6 +96,8 @@ public class SymptomWindowController implements Initializable {
                     cnt.changeFactToRight(factor.get(i));
                 }
                 cnt.setPerson(person);
+                cnt.setSymptomWindowController(this);
+                cnt.setCancerInFamillyController(cif);
                 Scene scene = new Scene(parent);
                 Stage primaryStage = new Stage();
                 primaryStage.setScene(scene);          
@@ -109,13 +112,6 @@ public class SymptomWindowController implements Initializable {
             }
     }
 
-    @FXML
-    private void addFactor(ActionEvent event) {
-    }
-
-    @FXML
-    private void removeFactor(ActionEvent event) {
-    }
 
 
     @FXML
@@ -127,12 +123,19 @@ public class SymptomWindowController implements Initializable {
          cnt.setPerson(person);
          cnt.setFactor(factor);
          cnt.setSymptoms(dataRight);
+         for(int i=0;i<cif.getSizeCancerInFamilly();i++){
+             if(cnt.getCancerInFamilly(0).getCancer().isEmpty()){
+               cnt.setCancerInFamilly(0, cif.getCancerInFamilly(i));
+             }
+             else{
+                cnt.addCancer(cif.getCancerInFamilly(i)); 
+             }
+         }
          Scene scene = new Scene(parent);
          Stage primaryStage = new Stage();
          primaryStage.setScene(scene);
          primaryStage.initStyle(StageStyle.UNDECORATED);
          primaryStage.show();
-         Stage stage;
          stage = (Stage) ((Node)(event.getSource())).getScene().getWindow();
          stage.close();
     }
@@ -320,21 +323,6 @@ public class SymptomWindowController implements Initializable {
             }
         }
     }
-     /**
-     ** Metoda która przenosi podaną jako parametr symptom na listę symptomów użytkowanika 
-     * @param symptom podany symptom
-     */
-    public void changeSympomsToRight(String symptom){
-        for(int i=0;i<data.size();i++){
-            if(data.get(i).equals(symptom)){
-                dataRight.add(symptom);
-                data.remove(i);
-                symptoms.setItems(data);
-                addedSymptoms.setItems(dataRight);
-                return ;
-            }
-        }
-    }
     /**
      ** Metoda która przenosi podaną jako parametr symptom na listę symptomów 
      * @param symptom podany symptom
@@ -350,4 +338,17 @@ public class SymptomWindowController implements Initializable {
             }
         }
     }
+        public void setCancerInFamillyController(CancerInFamillyController cif) {
+        this.cif = cif;
+    }
+
+    @FXML
+    private void addFactor(ActionEvent event) {
+    }
+
+    @FXML
+    private void removeFactor(ActionEvent event) {
+    }
+
+
 }

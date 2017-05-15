@@ -5,10 +5,12 @@
  */
 package projekt.Controller;
 
+import com.sun.javafx.collections.ElementObservableListDecorator;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -24,6 +26,8 @@ import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.TableColumn;
@@ -42,9 +46,10 @@ import projekt.Class.Person;
  * @author Admin
  */
 public class CancerInFamillyController implements Initializable {
+
     Stage stage;
     Rectangle2D rec2;
-    Double w,h;
+    Double w, h;
     private Person person;
     private List<String> factor;
     private List<String> symptoms;
@@ -63,61 +68,66 @@ public class CancerInFamillyController implements Initializable {
     private ComboBox<String> famillyCombo;
     @FXML
     private MenuItem delete;
+
+    public CancerInFamillyController() {
+        data = FXCollections.observableArrayList();
+    }
+
     /**
      * Initializes the controller class.
+     *
      * @param url
      * @param rb
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-            rec2 = Screen.getPrimary().getVisualBounds(); 
-            w = 0.1;
-            h = 0.1;
-            data =FXCollections.observableArrayList();
-            listCancer =FXCollections.observableArrayList("Rak płuc","Rak jelita grubrgo","Rak piersi","Rak jąder","Rak gruczołu krokowego","Guz mózgu","Rak szyjki macicy","Rak płuc","Rak trzustki","Rak żołądka","Rak macicy","Rak krtani");
-            listFamilly =FXCollections.observableArrayList("Brat","Siostra","Ojciec","Matka","Dziadek","Babcia","Wujek","Ciotka");
-            cancer = new TableColumn("Rak w rodzinie");
-            cancer.setMinWidth(266);
-            cancer.setCellValueFactory(
-            new PropertyValueFactory<>("cancer"));
-            familly = new TableColumn("Rodzina ");
-            familly.setMinWidth(266);
-            familly.setCellValueFactory(new PropertyValueFactory<>("familly"));           
-            table.getColumns().addAll(cancer, familly);
-            factor = new ArrayList<>();
-            symptoms= new ArrayList<>();
-            famillyCombo.setItems(listFamilly);
-            cancerCombo.setItems(listCancer);
-            index=-1;
-            data.add(new CancerFamilly("", ""));
-            table.setItems(data);
-           
-    }    
+        rec2 = Screen.getPrimary().getVisualBounds();
+        w = 0.1;
+        h = 0.1;
+        listCancer = FXCollections.observableArrayList("Rak płuc", "Rak jelita grubrgo", "Rak piersi", "Rak jąder", "Rak gruczołu krokowego", "Guz mózgu", "Rak szyjki macicy", "Rak płuc", "Rak trzustki", "Rak żołądka", "Rak macicy", "Rak krtani");
+        listFamilly = FXCollections.observableArrayList("Brat", "Siostra", "Ojciec", "Matka", "Dziadek", "Babcia", "Wujek", "Ciotka");
+        cancer = new TableColumn("Rak w rodzinie");
+        cancer.setMinWidth(266);
+        cancer.setCellValueFactory(
+                new PropertyValueFactory<>("cancer"));
+        familly = new TableColumn("Rodzina ");
+        familly.setMinWidth(266);
+        familly.setCellValueFactory(new PropertyValueFactory<>("familly"));
+        table.getColumns().addAll(cancer, familly);
+        factor = new ArrayList<>();
+        symptoms = new ArrayList<>();
+        famillyCombo.setItems(listFamilly);
+        cancerCombo.setItems(listCancer);
+        index = -1;
+        data.add(new CancerFamilly("", ""));
+        table.setItems(data);
+
+    }
 
     @FXML
     private void undoClick(MouseEvent event) {
-            try{
-                FXMLLoader load = new FXMLLoader(this.getClass().getResource("/projekt/FXML/SymptomWindow.fxml"));
-                SymptomWindowController cnt= new SymptomWindowController();   
-                Parent parent= load.load();
-                cnt=load.getController();
-                for(int i=0;i<symptoms.size();i++){
-                    cnt.changeSymptomToRight(symptoms.get(i));
-                }
-                cnt.setFactor(factor);
-                cnt.setPerson(person);
-                Scene scene = new Scene(parent);
-                Stage primaryStage = new Stage();
-                primaryStage.setScene(scene);          
-                primaryStage.initStyle(StageStyle.UNDECORATED);
-                primaryStage.show();
-                stage = (Stage) ((Node)(event.getSource())).getScene().getWindow();
-                stage.close();
+        try {
+            FXMLLoader load = new FXMLLoader(this.getClass().getResource("/projekt/FXML/SymptomWindow.fxml"));
+            SymptomWindowController cnt = new SymptomWindowController();
+            Parent parent = load.load();
+            cnt = load.getController();
+            for (int i = 0; i < symptoms.size(); i++) {
+                cnt.changeSymptomToRight(symptoms.get(i));
             }
-            catch(IOException e){
-                 Logger logger = Logger.getLogger(getClass().getName());
-                 logger.log(Level.SEVERE, "Failed to create new Window.", e);
-            }
+            cnt.setFactor(factor);
+            cnt.setPerson(person);
+            cnt.setCancerInFamillyController(this);
+            Scene scene = new Scene(parent);
+            Stage primaryStage = new Stage();
+            primaryStage.setScene(scene);
+            primaryStage.initStyle(StageStyle.UNDECORATED);
+            primaryStage.show();
+            stage = (Stage) ((Node) (event.getSource())).getScene().getWindow();
+            stage.close();
+        } catch (IOException e) {
+            Logger logger = Logger.getLogger(getClass().getName());
+            logger.log(Level.SEVERE, "Failed to create new Window.", e);
+        }
     }
 
     public void setPerson(Person person) {
@@ -146,36 +156,35 @@ public class CancerInFamillyController implements Initializable {
 
     @FXML
     private void addToTable(ActionEvent event) {
-        if(cancerCombo.getSelectionModel().getSelectedIndex()>=0  && famillyCombo.getSelectionModel().getSelectedIndex()>=0 ){
-            if(data.get(0).getCancer().isEmpty()){
-            data.set(0,new CancerFamilly(cancerCombo.getSelectionModel().getSelectedItem(), famillyCombo.getSelectionModel().getSelectedItem()));
+        if (cancerCombo.getSelectionModel().getSelectedIndex() >= 0 && famillyCombo.getSelectionModel().getSelectedIndex() >= 0) {
+            if (data.get(0).getCancer().isEmpty()) {
+                data.set(0, new CancerFamilly(cancerCombo.getSelectionModel().getSelectedItem(), famillyCombo.getSelectionModel().getSelectedItem()));
+            } else {
+                data.add(new CancerFamilly(cancerCombo.getSelectionModel().getSelectedItem(), famillyCombo.getSelectionModel().getSelectedItem()));
             }
-            data.add(new CancerFamilly(cancerCombo.getSelectionModel().getSelectedItem(), famillyCombo.getSelectionModel().getSelectedItem()));
             table.setItems(data);
-        }
-        else{
+        } else {
             showOutputMessage("Nie można wprowadzić danych");
         }
-     
+
     }
 
     @FXML
     private void deleteCancerInFamilly(ActionEvent event) {
-        index=table.getSelectionModel().getSelectedIndex();
-        if(index>=0 && index<data.size()){
-            data.remove(index);
-        }
+        makeDelete();
     }
 
     @FXML
     private void tableClicked(MouseEvent event) {
-        
+
     }
-        /**
-     ** wyświetla KOMUNIKAT O BŁĘDZIE 
-     * @param message rezultat diagnozy
+
+    /**
+     ** wyświetla KOMUNIKAT O BŁĘDZIE
+     *
+     * @param message treść komunikatu o błędzie
      */
-    public void showOutputMessage(String message){
+    public void showOutputMessage(String message) {
         Alert alert = new Alert(Alert.AlertType.ERROR);
         alert.setTitle("Błąd");
         alert.setHeaderText("Treść błędu");
@@ -185,25 +194,22 @@ public class CancerInFamillyController implements Initializable {
 
     @FXML
     private void removeObject(ActionEvent event) {
-        index=table.getSelectionModel().getSelectedIndex();
-        if(index>=0 && index<data.size()){
-            data.remove(index);
-        }
+        makeDelete();
     }
 
-@FXML
+    @FXML
     private void fullScreen(ActionEvent event) {
-        stage = (Stage) ((Node)(event.getSource())).getScene().getWindow();
+        stage = (Stage) ((Node) (event.getSource())).getScene().getWindow();
         if (stage.isFullScreen()) {
             stage.setFullScreen(false);
-        }else{
+        } else {
             stage.setFullScreen(true);
         }
     }
 
     @FXML
     private void minimalizeSscreen(ActionEvent event) {
-        stage = (Stage) ((Node)(event.getSource())).getScene().getWindow();
+        stage = (Stage) ((Node) (event.getSource())).getScene().getWindow();
         if (stage.isMaximized()) {
             w = rec2.getWidth();
             h = rec2.getHeight();
@@ -214,26 +220,26 @@ public class CancerInFamillyController implements Initializable {
             Platform.runLater(() -> {
                 stage.setIconified(true);
             });
-        }else{
+        } else {
             stage.setIconified(true);
         }
     }
 
     @FXML
     private void maximalizeSscreen(ActionEvent event) {
-         stage = (Stage) ((Node)(event.getSource())).getScene().getWindow();
+        stage = (Stage) ((Node) (event.getSource())).getScene().getWindow();
         if (stage.isMaximized()) {
             if (w == rec2.getWidth() && h == rec2.getHeight()) {
                 stage.setMaximized(false);
                 stage.setHeight(600);
                 stage.setWidth(800);
                 stage.centerOnScreen();
-            }else{
+            } else {
                 stage.setMaximized(false);
 
             }
-            
-        }else{
+
+        } else {
             stage.setMaximized(true);
             stage.setHeight(rec2.getHeight());
         }
@@ -244,5 +250,84 @@ public class CancerInFamillyController implements Initializable {
         Platform.exit();
         System.exit(0);
     }
- 
+
+    /**
+     ** Metoda która dodaje rak w rodzienie do listy
+     *
+     * @param cf rak w rodzinie
+     */
+    public void addCancer(CancerFamilly cf) {
+        data.add(cf);
+    }
+
+    /**
+     ** Metoda, która wyświetla ilość elementów raka w rodzinie
+     *
+     * @return ilość elementów raka w rodzinie
+     */
+    public int getSizeCancerInFamilly() {
+        return data.size();
+    }
+
+    /**
+     ** Metoda, która wyświetla rak w rodzinie o podanym indeksie
+     *
+     * @return rak w rodzinei
+     */
+    public CancerFamilly getCancerInFamilly(int i) {
+        return data.get(i);
+    }
+
+    /**
+     ** Metoda, która ustawia rak w rodzinie o podanym indeksie
+     *
+     * @param i index na liście
+     * @param cf rak w rodzinei
+     */
+    public void setCancerInFamilly(int i, CancerFamilly cf) {
+        data.set(i, cf);
+    }
+    /**
+     ** Metoda usuwa wiersz z tabeli 
+     */
+    private void makeDelete(){
+        Alert alert = new Alert(AlertType.CONFIRMATION);
+        alert.setTitle("OnkoTest");
+        alert.setHeaderText("Zawartość poniższego komunikatu:");
+        alert.setContentText("Czy na pewno chcesz usunąć zaznaczony rak w rodzinie?");
+        ButtonType buttonTypeYes = new ButtonType("Tak");
+        ButtonType buttonTypeNo = new ButtonType("Nie");
+        alert.getButtonTypes().setAll(buttonTypeYes,buttonTypeNo);
+        Optional<ButtonType> result = alert.showAndWait();
+        if (result.get() == buttonTypeYes) {
+            index = table.getSelectionModel().getSelectedIndex();
+            if (index >= 0 && index < data.size()) {
+                data.remove(index);
+            } else {
+                showOutputMessage("Nie zaznaczyłeś żadnego wiersza");
+            }
+        }
+    }
+
+    @FXML
+    private void nextWindow(ActionEvent event) throws IOException {
+        FXMLLoader load = new FXMLLoader(this.getClass().getResource("/projekt/FXML/SummaryWindow.fxml"));
+         SummaryWindowController cnt= new SummaryWindowController();   
+         Parent parent= load.load();
+         cnt=load.getController();
+         for(int i=0;i<factor.size();i++){
+             cnt.dataFactors.add(factor.get(i));
+         }
+         for(int i=0;i<symptoms.size();i++){
+             cnt.dataSymptoms.add(symptoms.get(i));
+         }
+         Scene scene = new Scene(parent);
+         Stage primaryStage = new Stage();
+         primaryStage.setScene(scene);
+        // primaryStage.initStyle(StageStyle.UNDECORATED);
+         primaryStage.show();
+         Stage stage;
+         stage = (Stage) ((Node)(event.getSource())).getScene().getWindow();
+         stage.close();
+    }
 }
