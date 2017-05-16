@@ -51,9 +51,8 @@ public class FactorWindowController implements Initializable {
     public Person person = new Person();
     WebEngine webEngine;
     List<Factor> fact = new ArrayList<>();
-    ObservableList<String> data = FXCollections.observableArrayList("Spożywanie alkoholu", "Otyłość", "Promieniowanie jonizujące", "Radioterapia", "Lampy solarium", "Palenie papierosów",
-            "Brak aktywności fizycznej", "Niewłaściwa dieta", "Brak naturalnych antyoksydantów", "Menopauza + otyłość", "Brak błonnika", "Pole elektromagnetyczne", "Kontakt z azbestem");
-    ObservableList<String> dataRight = FXCollections.observableArrayList();
+    ObservableList<String> data ;
+    ObservableList<String> dataRight ;
     private int index;
     Stage stage;
     Rectangle2D rec2;
@@ -74,12 +73,23 @@ public class FactorWindowController implements Initializable {
     public FactorWindowController(Person person) {
         this.leftSelected = 0;
         this.person = person;
+        sw = new SymptomWindowController();
+        cif = new CancerInFamillyController();
+        data = FXCollections.observableArrayList("Spożywanie alkoholu", "Otyłość", "Promieniowanie jonizujące", "Radioterapia", "Lampy solarium", "Palenie papierosów",
+            "Brak aktywności fizycznej", "Niewłaściwa dieta", "Brak naturalnych antyoksydantów", "Menopauza + otyłość", "Brak błonnika", "Pole elektromagnetyczne", "Kontakt z azbestem");
+        dataRight = FXCollections.observableArrayList();
     }
+    
 
     public FactorWindowController() {
         this.leftSelected = 0;
         sw = new SymptomWindowController();
         cif = new CancerInFamillyController();
+    data = FXCollections.observableArrayList("Spożywanie alkoholu", "Otyłość", "Promieniowanie jonizujące", "Radioterapia", "Lampy solarium", "Palenie papierosów",
+            "Brak aktywności fizycznej", "Niewłaściwa dieta", "Brak naturalnych antyoksydantów", "Menopauza + otyłość", "Brak błonnika", "Pole elektromagnetyczne", "Kontakt z azbestem");
+        dataRight = FXCollections.observableArrayList();
+        factors= new ListView<>(data);
+        addedFactor= new ListView<>(dataRight);
     }
 
     @Override
@@ -148,6 +158,7 @@ public class FactorWindowController implements Initializable {
             }
             cnt.setFactorWindowController(this);
             cnt.setSymptomWindowController(sw);
+            cnt.setCancerInFamillyController(cif);
             Scene scene = new Scene(parent);
             Stage primaryStage = new Stage();
             primaryStage.setScene(scene);
@@ -280,7 +291,7 @@ public class FactorWindowController implements Initializable {
                 dataRight.add(fact);
                 data.remove(i);
                 factors.setItems(data);
-                addedFactor.setItems(dataRight);
+               addedFactor.setItems(dataRight);
                 return;
             }
         }
@@ -476,6 +487,7 @@ public class FactorWindowController implements Initializable {
      */
     public void setSymptomWindowController(SymptomWindowController sw) {
         this.sw = sw;
+        System.out.println(this.sw.dataRight.size());
     }
 
     /**

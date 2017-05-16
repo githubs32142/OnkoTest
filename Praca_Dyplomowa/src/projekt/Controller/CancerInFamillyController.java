@@ -60,6 +60,7 @@ public class CancerInFamillyController implements Initializable {
     private ObservableList<CancerFamilly> data;
     private ObservableList<String> listCancer;
     private ObservableList<String> listFamilly;
+ 
     private ComboBox<String> famillyCancer;
     private int index;
     @FXML
@@ -87,11 +88,11 @@ public class CancerInFamillyController implements Initializable {
         listCancer = FXCollections.observableArrayList("Rak płuc", "Rak jelita grubrgo", "Rak piersi", "Rak jąder", "Rak gruczołu krokowego", "Guz mózgu", "Rak szyjki macicy", "Rak płuc", "Rak trzustki", "Rak żołądka", "Rak macicy", "Rak krtani");
         listFamilly = FXCollections.observableArrayList("Brat", "Siostra", "Ojciec", "Matka", "Dziadek", "Babcia", "Wujek", "Ciotka");
         cancer = new TableColumn("Rak w rodzinie");
-        cancer.setMinWidth(266);
+        cancer.setMinWidth(280);
         cancer.setCellValueFactory(
                 new PropertyValueFactory<>("cancer"));
         familly = new TableColumn("Rodzina ");
-        familly.setMinWidth(266);
+        familly.setMinWidth(280);
         familly.setCellValueFactory(new PropertyValueFactory<>("familly"));
         table.getColumns().addAll(cancer, familly);
         factor = new ArrayList<>();
@@ -321,6 +322,10 @@ public class CancerInFamillyController implements Initializable {
          for(int i=0;i<symptoms.size();i++){
              cnt.dataSymptoms.add(symptoms.get(i));
          }
+         for(int i=0;i<this.data.size();i++){
+             cnt.cancerFamilly.add(this.data.get(i));
+         }
+         cnt.setPerson(person);
          Scene scene = new Scene(parent);
          Stage primaryStage = new Stage();
          primaryStage.setScene(scene);
@@ -330,4 +335,6 @@ public class CancerInFamillyController implements Initializable {
          stage = (Stage) ((Node)(event.getSource())).getScene().getWindow();
          stage.close();
     }
+
+    
 }

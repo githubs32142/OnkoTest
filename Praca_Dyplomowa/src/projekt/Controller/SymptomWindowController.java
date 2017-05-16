@@ -34,7 +34,6 @@ import javafx.scene.effect.BlendMode;
 import javafx.scene.input.ClipboardContent;
 import javafx.scene.input.DragEvent;
 import javafx.scene.input.Dragboard;
-import javafx.scene.input.MouseDragEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.input.TransferMode;
 import javafx.stage.Screen;
@@ -87,7 +86,6 @@ public class SymptomWindowController implements Initializable {
     @FXML
     private void undoClick(MouseEvent event) {
         try{
-
                 FXMLLoader load = new FXMLLoader(this.getClass().getResource("/projekt/FXML/FactorWindow.fxml"));
                 FactorWindowController cnt= new FactorWindowController();   
                 Parent parent= load.load();
