@@ -179,7 +179,6 @@ public class CancerInFamillyController implements Initializable {
     private void tableClicked(MouseEvent event) {
 
     }
-
     /**
      ** wyświetla KOMUNIKAT O BŁĘDZIE
      *
@@ -331,7 +330,6 @@ public class CancerInFamillyController implements Initializable {
          primaryStage.setScene(scene);
         // primaryStage.initStyle(StageStyle.UNDECORATED);
          primaryStage.show();
-         Stage stage;
          stage = (Stage) ((Node)(event.getSource())).getScene().getWindow();
          stage.close();
     }

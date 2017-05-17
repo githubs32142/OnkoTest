@@ -24,6 +24,7 @@ import javafx.geometry.Rectangle2D;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.ListView;
 import javafx.scene.effect.BlendMode;
@@ -51,8 +52,8 @@ public class FactorWindowController implements Initializable {
     public Person person = new Person();
     WebEngine webEngine;
     List<Factor> fact = new ArrayList<>();
-    ObservableList<String> data ;
-    ObservableList<String> dataRight ;
+    ObservableList<String> data;
+    ObservableList<String> dataRight;
     private int index;
     Stage stage;
     Rectangle2D rec2;
@@ -76,20 +77,19 @@ public class FactorWindowController implements Initializable {
         sw = new SymptomWindowController();
         cif = new CancerInFamillyController();
         data = FXCollections.observableArrayList("Spożywanie alkoholu", "Otyłość", "Promieniowanie jonizujące", "Radioterapia", "Lampy solarium", "Palenie papierosów",
-            "Brak aktywności fizycznej", "Niewłaściwa dieta", "Brak naturalnych antyoksydantów", "Menopauza + otyłość", "Brak błonnika", "Pole elektromagnetyczne", "Kontakt z azbestem");
+                "Brak aktywności fizycznej", "Niewłaściwa dieta", "Brak naturalnych antyoksydantów", "Menopauza + otyłość", "Brak błonnika", "Pole elektromagnetyczne", "Kontakt z azbestem");
         dataRight = FXCollections.observableArrayList();
     }
-    
 
     public FactorWindowController() {
         this.leftSelected = 0;
         sw = new SymptomWindowController();
         cif = new CancerInFamillyController();
-    data = FXCollections.observableArrayList("Spożywanie alkoholu", "Otyłość", "Promieniowanie jonizujące", "Radioterapia", "Lampy solarium", "Palenie papierosów",
-            "Brak aktywności fizycznej", "Niewłaściwa dieta", "Brak naturalnych antyoksydantów", "Menopauza + otyłość", "Brak błonnika", "Pole elektromagnetyczne", "Kontakt z azbestem");
+        data = FXCollections.observableArrayList("Spożywanie alkoholu", "Otyłość", "Promieniowanie jonizujące", "Radioterapia", "Lampy solarium", "Palenie papierosów",
+                "Brak aktywności fizycznej", "Niewłaściwa dieta", "Brak naturalnych antyoksydantów", "Menopauza + otyłość", "Brak błonnika", "Pole elektromagnetyczne", "Kontakt z azbestem");
         dataRight = FXCollections.observableArrayList();
-        factors= new ListView<>(data);
-        addedFactor= new ListView<>(dataRight);
+        factors = new ListView<>(data);
+        addedFactor = new ListView<>(dataRight);
     }
 
     @Override
@@ -291,7 +291,7 @@ public class FactorWindowController implements Initializable {
                 dataRight.add(fact);
                 data.remove(i);
                 factors.setItems(data);
-               addedFactor.setItems(dataRight);
+                addedFactor.setItems(dataRight);
                 return;
             }
         }
@@ -467,17 +467,28 @@ public class FactorWindowController implements Initializable {
 
     @FXML
     private void addToRightFact(ActionEvent event) {
-        changeFactToRight(factors.getSelectionModel().getSelectedItem());
-
+        try{
+            index = factors.getSelectionModel().getSelectedIndex();
+            String tmp = data.remove(index);
+            dataRight.add(tmp);
+            addedFactor.setItems(dataRight);
+            factors.setItems(data);
+        }catch(Exception ex){
+           showOutputMessage("Nie zaznaczyłeś wiersza"); 
+        }
     }
 
     @FXML
     private void addToLeftFact(ActionEvent event) {
-        index = addedFactor.getSelectionModel().getSelectedIndex();
-        String tmp = dataRight.remove(index);
-        data.add(tmp);
-        addedFactor.setItems(dataRight);
-        factors.setItems(data);
+        try {
+            index = addedFactor.getSelectionModel().getSelectedIndex();
+            String tmp = dataRight.remove(index);
+            data.add(tmp);
+            addedFactor.setItems(dataRight);
+            factors.setItems(data);
+        } catch (Exception e) {
+            showOutputMessage("Nie zaznaczyłeś wiersza");
+        }
     }
 
     /**
@@ -487,7 +498,6 @@ public class FactorWindowController implements Initializable {
      */
     public void setSymptomWindowController(SymptomWindowController sw) {
         this.sw = sw;
-        System.out.println(this.sw.dataRight.size());
     }
 
     /**
@@ -498,4 +508,18 @@ public class FactorWindowController implements Initializable {
     public void setCancerInFamillyController(CancerInFamillyController cif) {
         this.cif = cif;
     }
+
+    /**
+     ** wyświetla KOMUNIKAT O BŁĘDZIE
+     *
+     * @param message treść komunikatu o błędzie
+     */
+    public void showOutputMessage(String message) {
+        Alert alert = new Alert(Alert.AlertType.ERROR);
+        alert.setTitle("Błąd");
+        alert.setHeaderText("Treść błędu");
+        alert.setContentText(message);
+        alert.showAndWait();
+    }
+
 }

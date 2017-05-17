@@ -28,6 +28,7 @@ import javafx.geometry.Rectangle2D;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.ListView;
 import javafx.scene.effect.BlendMode;
@@ -342,11 +343,40 @@ public class SymptomWindowController implements Initializable {
 
     @FXML
     private void addFactor(ActionEvent event) {
+        try{
+        int index = symptoms.getSelectionModel().getSelectedIndex();
+            String tmp = data.remove(index);
+            dataRight.add(tmp);
+            addedSymptoms.setItems(dataRight);
+            symptoms.setItems(data);
+        }catch(Exception ex){
+           showOutputMessage("Nie zaznaczyłeś wiersza"); 
+        }
     }
 
     @FXML
     private void removeFactor(ActionEvent event) {
+            try {
+            int index = addedSymptoms.getSelectionModel().getSelectedIndex();
+            String tmp = dataRight.remove(index);
+            data.add(tmp);
+            addedSymptoms.setItems(dataRight);
+            symptoms.setItems(data);
+        } catch (Exception e) {
+            showOutputMessage("Nie zaznaczyłeś wiersza");
+        }
     }
-
+    /**
+     ** wyświetla KOMUNIKAT O BŁĘDZIE
+     *
+     * @param message treść komunikatu o błędzie
+     */
+    public void showOutputMessage(String message) {
+        Alert alert = new Alert(Alert.AlertType.ERROR);
+        alert.setTitle("Błąd");
+        alert.setHeaderText("Treść błędu");
+        alert.setContentText(message);
+        alert.showAndWait();
+    }
 
 }
