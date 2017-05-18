@@ -158,11 +158,18 @@ public class CancerInFamillyController implements Initializable {
     @FXML
     private void addToTable(ActionEvent event) {
         if (cancerCombo.getSelectionModel().getSelectedIndex() >= 0 && famillyCombo.getSelectionModel().getSelectedIndex() >= 0) {
-            if (data.get(0).getCancer().isEmpty()) {
+            
+            if(data.isEmpty()){
+                data.add(new CancerFamilly(cancerCombo.getSelectionModel().getSelectedItem(), famillyCombo.getSelectionModel().getSelectedItem()));
+            }
+            else{
+                if (data.get(0).getCancer().isEmpty()) {
                 data.set(0, new CancerFamilly(cancerCombo.getSelectionModel().getSelectedItem(), famillyCombo.getSelectionModel().getSelectedItem()));
             } else {
                 data.add(new CancerFamilly(cancerCombo.getSelectionModel().getSelectedItem(), famillyCombo.getSelectionModel().getSelectedItem()));
             }
+            }
+            
             table.setItems(data);
         } else {
             showOutputMessage("Nie można wprowadzić danych");
