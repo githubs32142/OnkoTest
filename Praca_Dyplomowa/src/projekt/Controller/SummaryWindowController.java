@@ -46,10 +46,6 @@ public class SummaryWindowController implements Initializable {
     private Button next;
     @FXML
     private ListView<String> factors;
-    ObservableList<CancerFamilly> cancerFamilly;
-    private Person person;
-    ObservableList<String> dataFactors = FXCollections.observableArrayList();
-    ObservableList<String> dataSymptoms = FXCollections.observableArrayList();
     @FXML
     private TableView<CancerFamilly> famillyCancer;
     private TableColumn cancer;
@@ -57,6 +53,10 @@ public class SummaryWindowController implements Initializable {
     Stage stage;
     Rectangle2D rec2;
     Double w, h;
+    ObservableList<CancerFamilly> cancerFamilly;
+    private Person person;
+    ObservableList<String> dataFactors = FXCollections.observableArrayList();
+    ObservableList<String> dataSymptoms = FXCollections.observableArrayList();
     public SummaryWindowController() {
 
         cancerFamilly = FXCollections.observableArrayList();
@@ -71,8 +71,6 @@ public class SummaryWindowController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         rec2 = Screen.getPrimary().getVisualBounds();
-        w = 0.1;
-        h = 0.1;
         factors.setItems(dataFactors);
         symptoms.setItems(dataSymptoms);
         cancer = new TableColumn("Rak w rodzinie");
@@ -109,7 +107,22 @@ public class SummaryWindowController implements Initializable {
     }
 
     @FXML
-    private void nextWindow(ActionEvent event) {
+    private void nextWindow(ActionEvent event) throws IOException {
+        FXMLLoader load = new FXMLLoader(this.getClass().getResource("/projekt/FXML/DiagnoseWindow.fxml"));
+        DiagnoseWindowController cnt = new DiagnoseWindowController();
+        Parent parent = load.load();
+        cnt=load.getController();
+        cnt.cancerFamilly=cancerFamilly;
+        cnt.setPerson(person);
+        cnt.dataSymptoms=dataSymptoms;
+        cnt.cancerFamilly=cancerFamilly;
+        Scene scene = new Scene(parent);
+        Stage primaryStage = new Stage();
+        primaryStage.setScene(scene);
+        primaryStage.initStyle(StageStyle.UNDECORATED);
+        primaryStage.show();
+        stage = (Stage) ((Node) (event.getSource())).getScene().getWindow();
+        stage.close();
     }
 
  @FXML
