@@ -6,6 +6,10 @@
  */
 package projekt.Controller;
 
+import com.jfoenix.controls.JFXDrawer;
+import com.jfoenix.controls.JFXHamburger;
+import com.jfoenix.controls.JFXListView;
+import com.jfoenix.transitions.hamburger.HamburgerBackArrowBasicTransition;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
@@ -31,8 +35,10 @@ import javafx.scene.effect.BlendMode;
 import javafx.scene.input.ClipboardContent;
 import javafx.scene.input.DragEvent;
 import javafx.scene.input.Dragboard;
+import javafx.scene.input.MouseDragEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.input.TransferMode;
+import javafx.scene.layout.VBox;
 import javafx.scene.web.WebEngine;
 import javafx.scene.web.WebView;
 import javafx.stage.Screen;
@@ -59,8 +65,6 @@ public class FactorWindowController implements Initializable {
     Rectangle2D rec2;
     Double w, h;
     @FXML
-    private ListView<String> factors;
-    @FXML
     private WebView webView;
     @FXML
     private Button test;
@@ -70,6 +74,10 @@ public class FactorWindowController implements Initializable {
     private Button next;
     private SymptomWindowController sw;
     private CancerInFamillyController cif;
+    @FXML
+    private VBox box;
+    @FXML
+    private JFXListView<String> factors;
 
     public FactorWindowController(Person person) {
         this.leftSelected = 0;
@@ -88,7 +96,8 @@ public class FactorWindowController implements Initializable {
         data = FXCollections.observableArrayList("Spożywanie alkoholu", "Otyłość", "Promieniowanie jonizujące", "Radioterapia", "Lampy solarium", "Palenie papierosów",
                 "Brak aktywności fizycznej", "Niewłaściwa dieta", "Brak naturalnych antyoksydantów", "Menopauza + otyłość", "Brak błonnika", "Pole elektromagnetyczne", "Kontakt z azbestem");
         dataRight = FXCollections.observableArrayList();
-        factors = new ListView<>(data);
+        factors = new JFXListView<>();
+        factors.setItems(data);
         addedFactor = new ListView<>(dataRight);
     }
 
@@ -131,6 +140,7 @@ public class FactorWindowController implements Initializable {
         factors.setItems(data);
         test.setVisible(false);
         index = -1;
+ 
     }
 
     /**
@@ -262,7 +272,6 @@ public class FactorWindowController implements Initializable {
         }
     }
 
-    @FXML
     private void addedFactorRemove(MouseEvent event) {
         String clickedFact = addedFactor.getItems().get(addedFactor.getSelectionModel().getSelectedIndex());
         int tmpindex = ifFact(clickedFact);
@@ -521,5 +530,7 @@ public class FactorWindowController implements Initializable {
         alert.setContentText(message);
         alert.showAndWait();
     }
+
+
 
 }

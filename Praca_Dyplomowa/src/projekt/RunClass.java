@@ -28,8 +28,8 @@ public class RunClass extends Application {
     @Override
     public void start(Stage primaryStage) throws IOException {
         loadSplash(primaryStage);
-        /*
-        FXMLLoader load = new FXMLLoader(this.getClass().getResource("FXML/AsbestosTest.fxml"));
+        
+       /* FXMLLoader load = new FXMLLoader(this.getClass().getResource("FXML/DiagnoseWindow.fxml"));
         //FXMLLoader load = new FXMLLoader(this.getClass().getResource("FXML/Fibre.fxml"));
         Parent parent= load.load();
         Scene scene = new Scene(parent);

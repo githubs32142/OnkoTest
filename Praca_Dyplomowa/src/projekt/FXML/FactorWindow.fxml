@@ -1,10 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import com.jfoenix.controls.JFXButton?>
+<?import com.jfoenix.controls.JFXListView?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.Cursor?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
-<?import javafx.scene.control.ListView?>
 <?import javafx.scene.control.ProgressBar?>
 <?import javafx.scene.control.Separator?>
 <?import javafx.scene.effect.Blend?>
@@ -18,32 +19,10 @@
 
 <AnchorPane id="AnchorPane" prefHeight="687.0" prefWidth="900.0" styleClass="background" stylesheets="@../CSS/Fact.css" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="projekt.Controller.FactorWindowController">
    <children>
-      <VBox layoutY="-1.0" prefHeight="700.0" prefWidth="120.0" style="-fx-background-color: #2c62b5;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0">
-         <children>
-            <ImageView fitHeight="66.0" fitWidth="63.0" onMouseClicked="#undoClick" pickOnBounds="true" preserveRatio="true">
-               <image>
-                  <Image url="@../Resource/back.png" />
-               </image>
-               <VBox.margin>
-                  <Insets left="20.0" top="20.0" />
-               </VBox.margin>
-            </ImageView>
-         </children>
-      </VBox>
-      <ListView fx:id="factors" layoutX="133.0" layoutY="305.0" onDragDetected="#factorsDragDetected" onDragDropped="#factorDragDropped" onDragEntered="#factorsDragEntered" onDragExited="#factorsDragExited" onDragOver="#factorsDragOver" onMouseClicked="#factorClicked" prefHeight="265.0" prefWidth="289.0" styleClass="box" AnchorPane.bottomAnchor="49.0" AnchorPane.leftAnchor="135.0">
-         <cursor>
-            <Cursor fx:constant="HAND" />
-         </cursor></ListView>
-      <ListView fx:id="addedFactor" layoutX="569.0" layoutY="305.0" onDragDetected="#addedDragDetected" onDragDropped="#addedFactorDragDropped" onDragEntered="#addedFactorDragEntered" onDragExited="#addedFactorDragExited" onDragOver="#addedFactorDragOver" onMouseClicked="#addedFactorRemove" prefHeight="265.0" prefWidth="317.0" styleClass="box" AnchorPane.bottomAnchor="49.0" AnchorPane.rightAnchor="16.0">
-         <cursor>
-            <Cursor fx:constant="HAND" />
-         </cursor></ListView>
       <Label layoutX="114.0" layoutY="333.0" prefHeight="40.0" prefWidth="263.0" styleClass="lbl" text="Czynniki ryzyka:" AnchorPane.bottomAnchor="314.0" AnchorPane.leftAnchor="114.0" />
       <Label layoutX="569.0" layoutY="333.0" prefHeight="40.0" prefWidth="210.0" styleClass="lbl" text="Wybrane czynniki:" AnchorPane.bottomAnchor="314.0" AnchorPane.rightAnchor="123.0" />
-      <Separator layoutX="140.0" layoutY="65.0" orientation="VERTICAL" prefHeight="280.0" prefWidth="2.0" AnchorPane.bottomAnchor="342.0" AnchorPane.topAnchor="65.0" />
-      <Label layoutX="120.0" layoutY="34.0" prefHeight="40.0" prefWidth="204.0" styleClass="lbl" text="Opis czynnika:" AnchorPane.leftAnchor="120.0" AnchorPane.topAnchor="34.0" />
-      <WebView fx:id="webView" layoutX="151.0" layoutY="78.0" prefHeight="265.0" prefWidth="734.0" AnchorPane.leftAnchor="151.0" AnchorPane.rightAnchor="17.0" AnchorPane.topAnchor="78.0" />
-      <Button fx:id="test" layoutX="442.0" layoutY="451.0" mnemonicParsing="false" onAction="#makeTest" prefHeight="29.0" prefWidth="118.0" styleClass="btn" text="Wykonaj test" AnchorPane.bottomAnchor="207.0" AnchorPane.leftAnchor="442.0" AnchorPane.rightAnchor="342.0" />
+      <Label layoutX="399.0" layoutY="24.0" prefHeight="40.0" prefWidth="204.0" styleClass="lbl" text="Opis czynnika:" AnchorPane.leftAnchor="399.0" AnchorPane.topAnchor="24.0" />
+      <WebView fx:id="webView" layoutX="151.0" layoutY="78.0" prefHeight="265.0" prefWidth="865.0" AnchorPane.leftAnchor="151.0" AnchorPane.rightAnchor="17.0" AnchorPane.topAnchor="78.0" />
       <Button fx:id="next" layoutX="794.0" layoutY="644.0" mnemonicParsing="false" onAction="#nextWindow" styleClass="btn" text="Dalej &gt;&gt;" AnchorPane.bottomAnchor="14.0" AnchorPane.rightAnchor="14.0" />
       <Label alignment="CENTER" layoutX="99.0" layoutY="-2.0" prefHeight="40.0" prefWidth="803.0" text="Wprowadź czynniki ryzyka" textFill="#a1a1a1" AnchorPane.topAnchor="0.0">
          <font>
@@ -66,5 +45,29 @@
          </effect>
       </ProgressBar>
       <Label layoutX="663.0" layoutY="641.0" minHeight="-Infinity" minWidth="-Infinity" styleClass="lbl" text="Krok 1/4" AnchorPane.bottomAnchor="11.0" AnchorPane.rightAnchor="134.0" />
+      <VBox fx:id="box" prefHeight="700.0" prefWidth="120.0" style="-fx-background-color: #2c62b5;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0">
+         <children>
+            <ImageView fitHeight="66.0" fitWidth="63.0" onMouseClicked="#undoClick" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../Resource/back.png" />
+               </image>
+               <VBox.margin>
+                  <Insets left="20.0" top="20.0" />
+               </VBox.margin>
+            </ImageView>
+         </children>
+      </VBox>
+      <JFXButton fx:id="test" layoutX="442.0" layoutY="456.0" onAction="#makeTest" prefHeight="25.0" prefWidth="118.0" ripplerFill="#1b5ad6" styleClass="btn" text="Wykonaj test" textOverrun="CLIP" />
+      <Separator layoutX="133.0" layoutY="68.0" orientation="VERTICAL" prefHeight="280.0" prefWidth="2.0" />
+      <JFXListView fx:id="factors" layoutX="135.0" layoutY="393.0" onDragDetected="#factorsDragDetected" onDragDropped="#factorDragDropped" onDragEntered="#factorsDragEntered" onDragExited="#factorsDragExited" onDragOver="#factorsDragOver" onMouseClicked="#factorClicked" prefHeight="265.0" prefWidth="282.0" AnchorPane.bottomAnchor="42.0" AnchorPane.leftAnchor="135.0">
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor>
+      </JFXListView>
+      <JFXListView fx:id="addedFactor" layoutX="584.0" layoutY="397.0" onDragDetected="#addedDragDetected" onDragDropped="#addedFactorDragDropped" onDragEntered="#addedFactorDragEntered" onDragExited="#addedFactorDragExited" onDragOver="#addedFactorDragOver" prefHeight="240.0" prefWidth="291.0">
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor>
+      </JFXListView>
    </children>
 </AnchorPane>

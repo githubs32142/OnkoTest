@@ -5,6 +5,9 @@
  */
 package projekt.Controller;
 
+import com.jfoenix.controls.JFXDrawer;
+import com.jfoenix.controls.JFXHamburger;
+import com.jfoenix.transitions.hamburger.HamburgerBackArrowBasicTransition;
 import java.net.URL;
 import java.util.ResourceBundle;
 import javafx.application.Platform;
@@ -15,7 +18,9 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.geometry.Rectangle2D;
 import javafx.scene.Node;
+import javafx.scene.control.Button;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.web.WebEngine;
 import javafx.scene.web.WebView;
 import javafx.stage.Stage;
@@ -38,6 +43,14 @@ public class DiagnoseWindowController implements Initializable {
     Double w, h;
     @FXML
     private WebView webView;
+    @FXML
+    private Button btnLogout;
+    @FXML
+    private JFXHamburger hamburger;
+    @FXML
+    private JFXDrawer drawer;
+    @FXML
+    private AnchorPane box;
     public DiagnoseWindowController() {
         cancerFamilly = FXCollections.observableArrayList();
         dataFactors = FXCollections.observableArrayList();
@@ -48,12 +61,22 @@ public class DiagnoseWindowController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         webEngine = webView.getEngine();
-        
+        drawer.setSidePane(box);
+        drawer.close();
+        HamburgerBackArrowBasicTransition transition = new HamburgerBackArrowBasicTransition(hamburger);
+        transition.setRate(-1);
+        hamburger.addEventHandler(MouseEvent.MOUSE_PRESSED,(e)->{
+            transition.setRate(transition.getRate()*-1);
+            transition.play();
+            
+            if(drawer.isShown())
+            {
+                drawer.close();
+            }else
+                drawer.open();
+        });
     }    
 
-    @FXML
-    private void undoClick(MouseEvent event) {
-    }
 
 @FXML
     private void fullScreen(ActionEvent event) {
@@ -110,5 +133,9 @@ public class DiagnoseWindowController implements Initializable {
     }
         public void setPerson(Person person) {
         this.person = person;
+    }
+
+    @FXML
+    private void undoClicked(ActionEvent event) {
     }
 }

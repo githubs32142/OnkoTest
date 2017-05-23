@@ -335,7 +335,7 @@ public class CancerInFamillyController implements Initializable {
          Scene scene = new Scene(parent);
          Stage primaryStage = new Stage();
          primaryStage.setScene(scene);
-        // primaryStage.initStyle(StageStyle.UNDECORATED);
+         primaryStage.initStyle(StageStyle.UNDECORATED);
          primaryStage.show();
          stage = (Stage) ((Node)(event.getSource())).getScene().getWindow();
          stage.close();
