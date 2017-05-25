@@ -5,6 +5,10 @@
  */
 package projekt.Controller;
 
+import com.jfoenix.controls.JFXDrawer;
+import com.jfoenix.controls.JFXHamburger;
+import com.jfoenix.transitions.hamburger.HamburgerBackArrowBasicTransition;
+import com.jfoenix.transitions.hamburger.HamburgerBasicCloseTransition;
 import java.io.BufferedReader;
 import java.io.FileInputStream;
 import java.io.IOException;
@@ -21,6 +25,7 @@ import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -37,6 +42,7 @@ import javafx.scene.input.DragEvent;
 import javafx.scene.input.Dragboard;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.input.TransferMode;
+import javafx.scene.layout.VBox;
 import javafx.stage.Screen;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
@@ -66,6 +72,12 @@ public class SymptomWindowController implements Initializable {
     private Button add;
     @FXML
     private Button remove;
+    @FXML
+    private JFXDrawer drawer;
+    @FXML
+    private VBox box;
+    @FXML
+    private JFXHamburger hamburger;
     public SymptomWindowController() {
         cif = new CancerInFamillyController();
     }
@@ -82,36 +94,25 @@ public class SymptomWindowController implements Initializable {
         h = 0.1;
         readData("src/projekt/Data/symptoms.txt");
         symptoms.setItems(data);
+                drawer.setSidePane(box);
+        drawer.close();
+        HamburgerBasicCloseTransition transition = new HamburgerBasicCloseTransition(hamburger);
+        transition.setRate(-1);
+        hamburger.addEventHandler(MouseEvent.MOUSE_PRESSED, new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent e) {
+                transition.setRate(transition.getRate()*-1);
+                transition.play();
+                
+                if(drawer.isShown())
+                {
+                    drawer.close();
+                }else
+                    drawer.open();
+                    drawer.setPrefWidth(150);
+            }
+        });
     }    
-
-    @FXML
-    private void undoClick(MouseEvent event) {
-        try{
-                FXMLLoader load = new FXMLLoader(this.getClass().getResource("/projekt/FXML/FactorWindow.fxml"));
-                FactorWindowController cnt= new FactorWindowController();   
-                Parent parent= load.load();
-                cnt=load.getController();
-                for(int i=0;i<factor.size();i++){
-                    cnt.changeFactToRight(factor.get(i));
-                }
-                cnt.setPerson(person);
-                cnt.setSymptomWindowController(this);
-                cnt.setCancerInFamillyController(cif);
-                Scene scene = new Scene(parent);
-                Stage primaryStage = new Stage();
-                primaryStage.setScene(scene);          
-                primaryStage.initStyle(StageStyle.UNDECORATED);
-                primaryStage.show();
-                stage = (Stage) ((Node)(event.getSource())).getScene().getWindow();
-                stage.close();
-            }
-            catch(IOException e){
-                 Logger logger = Logger.getLogger(getClass().getName());
-                 logger.log(Level.SEVERE, "Failed to create new Window.", e);
-            }
-    }
-
-
 
     @FXML
     private void nextWindow(ActionEvent event) throws IOException {
@@ -151,13 +152,7 @@ public class SymptomWindowController implements Initializable {
         this.factor = factor;
     }
 
-    @FXML
-    private void symptomsClicked(MouseEvent event) {
-    }
 
-    @FXML
-    private void addedSymptomsClicked(MouseEvent event) {
-    }
     
     static String readInput(String path) {
     StringBuilder buffer = new StringBuilder();
@@ -377,6 +372,33 @@ public class SymptomWindowController implements Initializable {
         alert.setHeaderText("Treść błędu");
         alert.setContentText(message);
         alert.showAndWait();
+    }
+
+    @FXML
+    private void undoClick(ActionEvent event) {
+        try{
+                FXMLLoader load = new FXMLLoader(this.getClass().getResource("/projekt/FXML/FactorWindow.fxml"));
+                FactorWindowController cnt= new FactorWindowController();   
+                Parent parent= load.load();
+                cnt=load.getController();
+                for(int i=0;i<factor.size();i++){
+                    cnt.changeFactToRight(factor.get(i));
+                }
+                cnt.setPerson(person);
+                cnt.setSymptomWindowController(this);
+                cnt.setCancerInFamillyController(cif);
+                Scene scene = new Scene(parent);
+                Stage primaryStage = new Stage();
+                primaryStage.setScene(scene);          
+                primaryStage.initStyle(StageStyle.UNDECORATED);
+                primaryStage.show();
+                stage = (Stage) ((Node)(event.getSource())).getScene().getWindow();
+                stage.close();
+            }
+            catch(IOException e){
+                 Logger logger = Logger.getLogger(getClass().getName());
+                 logger.log(Level.SEVERE, "Failed to create new Window.", e);
+            }
     }
 
 }

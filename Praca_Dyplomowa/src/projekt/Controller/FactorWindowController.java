@@ -10,6 +10,7 @@ import com.jfoenix.controls.JFXDrawer;
 import com.jfoenix.controls.JFXHamburger;
 import com.jfoenix.controls.JFXListView;
 import com.jfoenix.transitions.hamburger.HamburgerBackArrowBasicTransition;
+import com.jfoenix.transitions.hamburger.HamburgerBasicCloseTransition;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
@@ -21,6 +22,7 @@ import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -78,6 +80,10 @@ public class FactorWindowController implements Initializable {
     private VBox box;
     @FXML
     private JFXListView<String> factors;
+    @FXML
+    private JFXHamburger hamburger;
+    @FXML
+    private JFXDrawer drawer;
 
     public FactorWindowController(Person person) {
         this.leftSelected = 0;
@@ -140,49 +146,27 @@ public class FactorWindowController implements Initializable {
         factors.setItems(data);
         test.setVisible(false);
         index = -1;
+        drawer.setSidePane(box);
+        drawer.close();
+        HamburgerBasicCloseTransition transition = new HamburgerBasicCloseTransition(hamburger);
+        transition.setRate(-1);
+        hamburger.addEventHandler(MouseEvent.MOUSE_PRESSED, new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent e) {
+                transition.setRate(transition.getRate()*-1);
+                transition.play();
+                
+                if(drawer.isShown())
+                {
+                    drawer.close();
+                }else
+                    drawer.open();
+                    drawer.setPrefWidth(150);
+            }
+        });
  
     }
 
-    /**
-     ** Metoda która powoduje, że wchodzimy do poprzedniego okna okna głównego
-     *
-     * @param event
-     */
-    @FXML
-    private void undoClick(MouseEvent event) {
-        try {
-
-            FXMLLoader load = new FXMLLoader(this.getClass().getResource("/projekt/FXML/FirstWindow.fxml"));
-            FirstWindowController cnt = new FirstWindowController();
-            Parent parent = load.load();
-            cnt = load.getController();
-            cnt.setPerson(person);
-            if (person.getName().isEmpty()) {
-                cnt.lblname.setVisible(false);
-                cnt.name.setVisible(false);
-                cnt.lblsurname.setText("E-mail:");
-                cnt.toplbl.setLayoutX(186);
-                cnt.toplbl.setLayoutY(50);
-                cnt.surname.setText(person.getEmail());
-                cnt.setMail(true);
-            }
-            cnt.setFactorWindowController(this);
-            cnt.setSymptomWindowController(sw);
-            cnt.setCancerInFamillyController(cif);
-            Scene scene = new Scene(parent);
-            Stage primaryStage = new Stage();
-            primaryStage.setScene(scene);
-            primaryStage.initStyle(StageStyle.UNDECORATED);
-            primaryStage.setResizable(false);
-            primaryStage.show();
-            Stage stage;
-            stage = (Stage) ((Node) (event.getSource())).getScene().getWindow();
-            stage.close();
-        } catch (IOException e) {
-            Logger logger = Logger.getLogger(getClass().getName());
-            logger.log(Level.SEVERE, "Failed to create new Window.", e);
-        }
-    }
 
     @FXML
     private void factorClicked(MouseEvent event) {
@@ -529,6 +513,42 @@ public class FactorWindowController implements Initializable {
         alert.setHeaderText("Treść błędu");
         alert.setContentText(message);
         alert.showAndWait();
+    }
+
+    @FXML
+    private void undoClick(ActionEvent event) {
+        try {
+
+            FXMLLoader load = new FXMLLoader(this.getClass().getResource("/projekt/FXML/FirstWindow.fxml"));
+            FirstWindowController cnt = new FirstWindowController();
+            Parent parent = load.load();
+            cnt = load.getController();
+            cnt.setPerson(person);
+            if (person.getName().isEmpty()) {
+                cnt.lblname.setVisible(false);
+                cnt.name.setVisible(false);
+                cnt.lblsurname.setText("E-mail:");
+                cnt.toplbl.setLayoutX(186);
+                cnt.toplbl.setLayoutY(50);
+                cnt.surname.setText(person.getEmail());
+                cnt.setMail(true);
+            }
+            cnt.setFactorWindowController(this);
+            cnt.setSymptomWindowController(sw);
+            cnt.setCancerInFamillyController(cif);
+            Scene scene = new Scene(parent);
+            Stage primaryStage = new Stage();
+            primaryStage.setScene(scene);
+            primaryStage.initStyle(StageStyle.UNDECORATED);
+            primaryStage.setResizable(false);
+            primaryStage.show();
+            Stage stage;
+            stage = (Stage) ((Node) (event.getSource())).getScene().getWindow();
+            stage.close();
+        } catch (IOException e) {
+            Logger logger = Logger.getLogger(getClass().getName());
+            logger.log(Level.SEVERE, "Failed to create new Window.", e);
+        }
     }
 
 

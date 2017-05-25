@@ -1,9 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import com.jfoenix.controls.JFXButton?>
+<?import com.jfoenix.controls.JFXDrawer?>
+<?import com.jfoenix.controls.JFXHamburger?>
+<?import com.jfoenix.controls.JFXListView?>
 <?import javafx.geometry.Insets?>
+<?import javafx.scene.Cursor?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
-<?import javafx.scene.control.ListView?>
 <?import javafx.scene.control.ProgressBar?>
 <?import javafx.scene.effect.Blend?>
 <?import javafx.scene.image.Image?>
@@ -12,28 +16,41 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 
-<AnchorPane id="AnchorPane" prefHeight="650.0" prefWidth="900.0" styleClass="background" stylesheets="@../CSS/Factor.css" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="projekt.Controller.SymptomWindowController">
+<AnchorPane id="AnchorPane" prefHeight="650.0" prefWidth="900.0" styleClass="background" stylesheets="@../CSS/Fact.css" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="projekt.Controller.SymptomWindowController">
    <children>
-      <VBox layoutY="-1.0" prefHeight="658.0" prefWidth="120.0" style="-fx-background-color: #2c62b5;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0">
+      <JFXListView fx:id="symptoms" layoutX="72.0" layoutY="144.0" onDragDetected="#symptomsDragDetected" onDragDropped="#symptomsDragDropped" onDragEntered="#symptomsDragEntered" onDragExited="#symptomsDragExited" onDragOver="#symptomsDragOver" prefHeight="461.0" prefWidth="288.0" AnchorPane.bottomAnchor="82.0" AnchorPane.leftAnchor="72.0">
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor></JFXListView>
+      <ProgressBar layoutX="137.0" layoutY="596.0" prefHeight="14.0" prefWidth="570.0" progress="0.5" AnchorPane.bottomAnchor="40.0" AnchorPane.rightAnchor="265.0">
+         <effect>
+            <Blend />
+         </effect>
+      </ProgressBar>
+      <JFXDrawer fx:id="drawer" defaultDrawerSize="150.0" prefHeight="687.0" prefWidth="66.0">
          <children>
-            <ImageView fitHeight="66.0" fitWidth="63.0" onMouseClicked="#undoClick" pickOnBounds="true" preserveRatio="true">
-               <image>
-                  <Image url="@../Resource/back.png" />
-               </image>
-               <VBox.margin>
-                  <Insets left="15.0" top="20.0" />
-               </VBox.margin>
-            </ImageView>
+            <VBox fx:id="box" maxWidth="305.0" minWidth="20.0" prefHeight="687.0" prefWidth="110.0" style="-fx-background-color: #2b579a;">
+               <children>
+                  <Button mnemonicParsing="false" onAction="#undoClick" prefHeight="40.0" prefWidth="0.0" stylesheets="@../CSS/buttonCircle.css">
+                     <graphic>
+                        <ImageView fitHeight="16.0" fitWidth="24.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../Resource/arrowLeft.png" />
+                           </image>
+                        </ImageView>
+                     </graphic>
+                     <VBox.margin>
+                        <Insets left="60.0" top="40.0" />
+                     </VBox.margin>
+                  </Button>
+               </children>
+            </VBox>
          </children>
-      </VBox>
-      <ListView fx:id="symptoms" layoutX="137.0" layoutY="147.0" onDragDetected="#symptomsDragDetected" onDragDropped="#symptomsDragDropped" onDragEntered="#symptomsDragEntered" onDragExited="#symptomsDragExited" onDragOver="#symptomsDragOver" onMouseClicked="#symptomsClicked" prefHeight="426.0" prefWidth="277.0" styleClass="box" AnchorPane.bottomAnchor="85.0" AnchorPane.leftAnchor="137.0" />
-      <Button fx:id="add" layoutX="471.0" layoutY="345.0" mnemonicParsing="false" onAction="#addFactor" prefHeight="37.0" prefWidth="72.0" styleClass="btn" text="&gt;&gt;" AnchorPane.bottomAnchor="268.0" AnchorPane.leftAnchor="471.0" AnchorPane.rightAnchor="357.0" />
-      <Button fx:id="remove" layoutX="470.0" layoutY="391.0" mnemonicParsing="false" onAction="#removeFactor" prefHeight="37.0" prefWidth="72.0" styleClass="btn" text="&lt;&lt;" AnchorPane.leftAnchor="470.0" AnchorPane.rightAnchor="358.0" />
-      <ListView fx:id="addedSymptoms" layoutX="579.0" layoutY="147.0" onDragDetected="#addedSymptomsDragDetected" onDragDropped="#addedSymptomsDragDropped" onDragEntered="#addedSymptomsDragEntered" onDragExited="#addedSymptomsDragExited" onDragOver="#addedSymptomsDragOver" onMouseClicked="#addedSymptomsClicked" prefHeight="426.0" prefWidth="300.0" styleClass="box" AnchorPane.bottomAnchor="85.0" AnchorPane.rightAnchor="21.0" />
-      <Label layoutX="242.0" layoutY="63.0" prefHeight="30.0" prefWidth="531.0" text="Wybierz objawy, które występują u Ciebie przez co najmniej 3 miesiące!" textAlignment="CENTER" AnchorPane.leftAnchor="242.0" AnchorPane.rightAnchor="127.0" AnchorPane.topAnchor="63.0" />
-      <Label layoutX="120.0" layoutY="109.0" prefHeight="30.0" prefWidth="173.0" text="Lista objawów:" AnchorPane.leftAnchor="120.0" />
-      <Button fx:id="next" layoutX="783.0" layoutY="589.0" mnemonicParsing="false" onAction="#nextWindow" styleClass="btn" text="Dalej &gt;&gt;" AnchorPane.bottomAnchor="32.0" AnchorPane.leftAnchor="783.0" AnchorPane.rightAnchor="23.0" />
-      <Label layoutX="564.0" layoutY="109.0" text="Twoje objawy:" AnchorPane.rightAnchor="201.0" />
+      </JFXDrawer>
+      <Label layoutX="151.0" layoutY="43.0" prefHeight="35.0" prefWidth="586.0" styleClass="lbl" text="Wybierz objawy, które występują u Ciebie przez co najmniej 3 miesiące!" textAlignment="CENTER" AnchorPane.leftAnchor="151.0" AnchorPane.rightAnchor="163.0" AnchorPane.topAnchor="43.0" />
+      <Label layoutX="123.0" layoutY="109.0" prefHeight="30.0" prefWidth="173.0" styleClass="lbl2" text="Lista objawów:" AnchorPane.leftAnchor="123.0" />
+      <Button fx:id="next" layoutX="760.0" layoutY="626.0" mnemonicParsing="false" onAction="#nextWindow" styleClass="btn" text="Dalej &gt;&gt;" AnchorPane.bottomAnchor="32.0" AnchorPane.leftAnchor="760.0" AnchorPane.rightAnchor="46.0" />
+      <Label layoutX="612.0" layoutY="109.0" styleClass="lbl2" text="Twoje objawy:" AnchorPane.rightAnchor="140.0" />
       <HBox layoutX="763.0" layoutY="2.0" prefHeight="0.0" prefWidth="140.0" stylesheets="@../CSS/winDec.css" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="2.0">
          <children>
             <Button mnemonicParsing="false" onAction="#fullScreen" prefHeight="30.0" prefWidth="34.0" styleClass="decoration-button-fullscreen" />
@@ -42,11 +59,17 @@
             <Button mnemonicParsing="false" onAction="#closeeSscreen" prefHeight="30.0" prefWidth="34.0" styleClass="decoration-button-close" />
          </children>
       </HBox>
-      <ProgressBar layoutX="137.0" layoutY="596.0" prefHeight="14.0" prefWidth="531.0" progress="0.5" AnchorPane.bottomAnchor="40.0" AnchorPane.rightAnchor="232.0">
-         <effect>
-            <Blend />
-         </effect>
-      </ProgressBar>
-      <Label layoutX="680.0" layoutY="588.0" styleClass="lbl" text="Krok 2/4" AnchorPane.bottomAnchor="32.0" AnchorPane.rightAnchor="121.0" />
+      <Label layoutX="650.0" layoutY="623.0" styleClass="lbl" text="Krok 2/4" AnchorPane.bottomAnchor="29.0" AnchorPane.rightAnchor="143.0" />
+      <JFXHamburger fx:id="hamburger" layoutX="846.0" layoutY="50.0">
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor>
+      </JFXHamburger>
+      <JFXListView fx:id="addedSymptoms" layoutX="526.0" layoutY="144.0" onDragDetected="#addedSymptomsDragDetected" onDragDropped="#addedSymptomsDragDropped" onDragEntered="#addedSymptomsDragEntered" onDragExited="#addedSymptomsDragExited" onDragOver="#addedSymptomsDragOver" prefHeight="461.0" prefWidth="288.0">
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor></JFXListView>
+      <JFXButton fx:id="add" layoutX="408.0" layoutY="315.0" onAction="#addFactor" prefHeight="29.0" prefWidth="72.0" styleClass="btn" text="&gt;&gt;" AnchorPane.leftAnchor="408.0" AnchorPane.rightAnchor="420.0" />
+      <JFXButton fx:id="remove" layoutX="408.0" layoutY="366.0" onAction="#removeFactor" prefHeight="30.0" prefWidth="72.0" styleClass="btn" text="&lt;&lt;" AnchorPane.leftAnchor="408.0" AnchorPane.rightAnchor="420.0" />
    </children>
 </AnchorPane>

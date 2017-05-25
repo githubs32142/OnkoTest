@@ -1,13 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import com.jfoenix.controls.JFXButton?>
+<?import com.jfoenix.controls.JFXDrawer?>
+<?import com.jfoenix.controls.JFXHamburger?>
 <?import com.jfoenix.controls.JFXListView?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.Cursor?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ProgressBar?>
-<?import javafx.scene.control.Separator?>
 <?import javafx.scene.effect.Blend?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
@@ -17,14 +18,14 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.web.WebView?>
 
-<AnchorPane id="AnchorPane" prefHeight="687.0" prefWidth="900.0" styleClass="background" stylesheets="@../CSS/Fact.css" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="projekt.Controller.FactorWindowController">
+<AnchorPane id="AnchorPane" prefHeight="687.0" prefWidth="900.0" style="-fx-background-color: ;" styleClass="background" stylesheets="@../CSS/Fact.css" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="projekt.Controller.FactorWindowController">
    <children>
-      <Label layoutX="114.0" layoutY="333.0" prefHeight="40.0" prefWidth="263.0" styleClass="lbl" text="Czynniki ryzyka:" AnchorPane.bottomAnchor="314.0" AnchorPane.leftAnchor="114.0" />
-      <Label layoutX="569.0" layoutY="333.0" prefHeight="40.0" prefWidth="210.0" styleClass="lbl" text="Wybrane czynniki:" AnchorPane.bottomAnchor="314.0" AnchorPane.rightAnchor="123.0" />
-      <Label layoutX="399.0" layoutY="24.0" prefHeight="40.0" prefWidth="204.0" styleClass="lbl" text="Opis czynnika:" AnchorPane.leftAnchor="399.0" AnchorPane.topAnchor="24.0" />
-      <WebView fx:id="webView" layoutX="151.0" layoutY="78.0" prefHeight="265.0" prefWidth="865.0" AnchorPane.leftAnchor="151.0" AnchorPane.rightAnchor="17.0" AnchorPane.topAnchor="78.0" />
-      <Button fx:id="next" layoutX="794.0" layoutY="644.0" mnemonicParsing="false" onAction="#nextWindow" styleClass="btn" text="Dalej &gt;&gt;" AnchorPane.bottomAnchor="14.0" AnchorPane.rightAnchor="14.0" />
-      <Label alignment="CENTER" layoutX="99.0" layoutY="-2.0" prefHeight="40.0" prefWidth="803.0" text="Wprowadź czynniki ryzyka" textFill="#a1a1a1" AnchorPane.topAnchor="0.0">
+      <Label layoutX="99.0" layoutY="333.0" prefHeight="40.0" prefWidth="263.0" styleClass="lbl2" text="Czynniki ryzyka:" AnchorPane.bottomAnchor="314.0" AnchorPane.leftAnchor="99.0" />
+      <Label layoutX="580.0" layoutY="333.0" prefHeight="40.0" prefWidth="210.0" styleClass="lbl2" text="Wybrane czynniki:" AnchorPane.bottomAnchor="314.0" AnchorPane.rightAnchor="110.0" />
+      <Label layoutX="399.0" layoutY="30.0" prefHeight="40.0" prefWidth="204.0" styleClass="lbl" text="Opis czynnika:" AnchorPane.leftAnchor="399.0" AnchorPane.rightAnchor="299.0" AnchorPane.topAnchor="30.0" />
+      <WebView fx:id="webView" layoutX="60.0" layoutY="78.0" prefHeight="249.0" prefWidth="803.0" AnchorPane.leftAnchor="60.0" AnchorPane.rightAnchor="39.0" AnchorPane.topAnchor="78.0" />
+      <Button fx:id="next" layoutX="768.0" layoutY="653.0" mnemonicParsing="false" onAction="#nextWindow" styleClass="btn" text="Dalej &gt;&gt;" AnchorPane.bottomAnchor="5.0" AnchorPane.rightAnchor="40.0" />
+      <Label alignment="CENTER" layoutX="99.0" layoutY="-2.0" prefHeight="40.0" prefWidth="803.0" text="Wprowadź czynniki ryzyka" textFill="#a1a1a1" AnchorPane.leftAnchor="99.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <font>
             <Font name="Segoe UI Semilight" size="14.0" />
          </font>
@@ -37,37 +38,60 @@
             <Button mnemonicParsing="false" onAction="#closeeSscreen" prefHeight="30.0" prefWidth="34.0" styleClass="decoration-button-close" />
          </children>
       </HBox>
-      <Button layoutX="469.0" layoutY="495.0" mnemonicParsing="false" onAction="#addToRightFact" styleClass="btn" text="&gt;&gt;" AnchorPane.bottomAnchor="163.0" AnchorPane.leftAnchor="469.0" AnchorPane.rightAnchor="370.0" />
-      <Button layoutX="470.0" layoutY="537.0" mnemonicParsing="false" onAction="#addToLeftFact" styleClass="btn" text="&lt;&lt;" AnchorPane.bottomAnchor="121.0" AnchorPane.leftAnchor="469.0" AnchorPane.rightAnchor="370.0" />
-      <ProgressBar layoutX="135.0" layoutY="652.0" prefHeight="14.0" prefWidth="505.0" progress="0.25" AnchorPane.bottomAnchor="21.0" AnchorPane.leftAnchor="135.0" AnchorPane.rightAnchor="262.0">
+      <ProgressBar layoutX="78.0" layoutY="660.0" prefHeight="14.0" prefWidth="563.0" progress="0.25" AnchorPane.bottomAnchor="13.0" AnchorPane.leftAnchor="78.0" AnchorPane.rightAnchor="261.0">
          <effect>
             <Blend />
          </effect>
       </ProgressBar>
-      <Label layoutX="663.0" layoutY="641.0" minHeight="-Infinity" minWidth="-Infinity" styleClass="lbl" text="Krok 1/4" AnchorPane.bottomAnchor="11.0" AnchorPane.rightAnchor="134.0" />
-      <VBox fx:id="box" prefHeight="700.0" prefWidth="120.0" style="-fx-background-color: #2c62b5;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0">
+      <Label layoutX="663.0" layoutY="650.0" minHeight="-Infinity" minWidth="-Infinity" styleClass="lbl" text="Krok 1/4" AnchorPane.bottomAnchor="2.0" AnchorPane.rightAnchor="134.0" />
+      <JFXButton fx:id="test" layoutX="400.0" layoutY="447.0" onAction="#makeTest" prefHeight="30.0" prefWidth="118.0" ripplerFill="#137fb1" styleClass="btn" text="Wykonaj test" textOverrun="CLIP" AnchorPane.leftAnchor="400.0" AnchorPane.topAnchor="447.0">
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor></JFXButton>
+      <JFXListView fx:id="factors" layoutX="77.0" layoutY="385.0" onDragDetected="#factorsDragDetected" onDragDropped="#factorDragDropped" onDragEntered="#factorsDragEntered" onDragExited="#factorsDragExited" onDragOver="#factorsDragOver" onMouseClicked="#factorClicked" prefHeight="265.0" prefWidth="282.0" AnchorPane.bottomAnchor="37.0" AnchorPane.leftAnchor="77.0">
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor>
+      </JFXListView>
+      <JFXListView fx:id="addedFactor" layoutX="570.0" layoutY="389.0" onDragDetected="#addedDragDetected" onDragDropped="#addedFactorDragDropped" onDragEntered="#addedFactorDragEntered" onDragExited="#addedFactorDragExited" onDragOver="#addedFactorDragOver" prefHeight="265.0" prefWidth="291.0" AnchorPane.bottomAnchor="37.0" AnchorPane.rightAnchor="39.0">
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor>
+      </JFXListView>
+      <JFXHamburger fx:id="hamburger" layoutX="836.0" layoutY="40.0" AnchorPane.rightAnchor="14.0">
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor>
+      </JFXHamburger>
+      <JFXDrawer fx:id="drawer" defaultDrawerSize="150.0" prefHeight="687.0" prefWidth="63.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0">
          <children>
-            <ImageView fitHeight="66.0" fitWidth="63.0" onMouseClicked="#undoClick" pickOnBounds="true" preserveRatio="true">
-               <image>
-                  <Image url="@../Resource/back.png" />
-               </image>
-               <VBox.margin>
-                  <Insets left="20.0" top="20.0" />
-               </VBox.margin>
-            </ImageView>
+            <VBox fx:id="box" maxWidth="305.0" minWidth="20.0" prefHeight="687.0" prefWidth="69.0" style="-fx-background-color: #2b579a;">
+               <children>
+                  <Button mnemonicParsing="false" onAction="#undoClick" prefHeight="40.0" prefWidth="0.0" stylesheets="@../CSS/buttonCircle.css">
+                     <graphic>
+                        <ImageView fitHeight="16.0" fitWidth="24.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../Resource/arrowLeft.png" />
+                           </image>
+                        </ImageView>
+                     </graphic>
+                     <VBox.margin>
+                        <Insets left="60.0" top="40.0" />
+                     </VBox.margin>
+                  </Button>
+               </children>
+            </VBox>
          </children>
-      </VBox>
-      <JFXButton fx:id="test" layoutX="442.0" layoutY="456.0" onAction="#makeTest" prefHeight="25.0" prefWidth="118.0" ripplerFill="#1b5ad6" styleClass="btn" text="Wykonaj test" textOverrun="CLIP" />
-      <Separator layoutX="133.0" layoutY="68.0" orientation="VERTICAL" prefHeight="280.0" prefWidth="2.0" />
-      <JFXListView fx:id="factors" layoutX="135.0" layoutY="393.0" onDragDetected="#factorsDragDetected" onDragDropped="#factorDragDropped" onDragEntered="#factorsDragEntered" onDragExited="#factorsDragExited" onDragOver="#factorsDragOver" onMouseClicked="#factorClicked" prefHeight="265.0" prefWidth="282.0" AnchorPane.bottomAnchor="42.0" AnchorPane.leftAnchor="135.0">
+      </JFXDrawer>
+      <JFXButton layoutX="424.0" layoutY="503.0" onAction="#addToRightFact" prefHeight="30.0" prefWidth="73.0" ripplerFill="#137fb1" styleClass="btn" text="&gt;&gt;">
          <cursor>
             <Cursor fx:constant="HAND" />
          </cursor>
-      </JFXListView>
-      <JFXListView fx:id="addedFactor" layoutX="584.0" layoutY="397.0" onDragDetected="#addedDragDetected" onDragDropped="#addedFactorDragDropped" onDragEntered="#addedFactorDragEntered" onDragExited="#addedFactorDragExited" onDragOver="#addedFactorDragOver" prefHeight="240.0" prefWidth="291.0">
+      </JFXButton>
+      <JFXButton layoutX="424.0" layoutY="552.0" onAction="#addToLeftFact" prefHeight="30.0" prefWidth="73.0" styleClass="btn" text="&lt;&lt;">
          <cursor>
             <Cursor fx:constant="HAND" />
          </cursor>
-      </JFXListView>
+      </JFXButton>
    </children>
 </AnchorPane>

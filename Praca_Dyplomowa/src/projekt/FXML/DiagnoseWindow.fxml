@@ -28,7 +28,7 @@
          </font>
       </Label>
       <WebView fx:id="webView" layoutY="27.0" prefHeight="624.0" prefWidth="900.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" />
-      <JFXHamburger fx:id="hamburger" layoutX="846.0" layoutY="39.0" />
+      <JFXHamburger fx:id="hamburger" layoutX="846.0" layoutY="39.0" styleClass="background" />
       <JFXDrawer fx:id="drawer" defaultDrawerSize="150.0" prefHeight="650.0" prefWidth="150.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
             <AnchorPane fx:id="box" prefHeight="650.0" prefWidth="85.0" style="-fx-background-color: #2b579a;">
