@@ -35,7 +35,7 @@
                <children>
                   <VBox layoutY="135.0" prefHeight="224.0" prefWidth="144.0">
                      <children>
-                        <Button mnemonicParsing="false" prefHeight="47.0" prefWidth="144.0" styleClass="btn" text="Zapisz do pdf" />
+                        <Button mnemonicParsing="false" onAction="#saveToPdf" prefHeight="47.0" prefWidth="144.0" styleClass="btn" text="Zapisz do pdf" />
                         <Button mnemonicParsing="false" prefHeight="44.0" prefWidth="144.0" styleClass="btn" text="Nowa diagnoza" />
                      </children>
                   </VBox>

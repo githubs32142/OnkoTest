@@ -5,8 +5,19 @@
  */
 package projekt.Controller;
 
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.OutputStreamWriter;
+import java.io.PrintWriter;
 import java.net.URL;
+import java.nio.charset.Charset;
+import java.nio.charset.StandardCharsets;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.ResourceBundle;
 import javafx.application.Platform;
 import javafx.collections.FXCollections;
@@ -31,6 +42,7 @@ import javafx.stage.Screen;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 import projekt.Class.CancerFamilly;
+import projekt.Class.DiagnozeHTML;
 import projekt.Class.Person;
 
 /**
@@ -116,6 +128,20 @@ public class SummaryWindowController implements Initializable {
         cnt.setPerson(person);
         cnt.dataSymptoms=dataSymptoms;
         cnt.cancerFamilly=cancerFamilly;
+        DiagnozeHTML html = new DiagnozeHTML(cancerFamilly, person, dataFactors, dataSymptoms);
+        html.parseHTML();
+        //cnt.webEngine.loadContent(html.text.toString());
+        Path logFile = Paths.get("projekt/HTML/Diagnoza/1.txt");
+        try{
+             OutputStreamWriter outputStreamWriter = new OutputStreamWriter(new FileOutputStream(new File("src/projekt/HTML/Diagnoza/diagnoza.html")), Charset.forName("UTF-8"));
+    PrintWriter out = new PrintWriter(outputStreamWriter);
+           out.write(html.text.toString());
+           out.close();
+        }catch(FileNotFoundException ex){
+            System.out.println(ex.getMessage());
+        }
+        URL urlFile = SummaryWindowController.class.getClassLoader().getResource("projekt/HTML/Diagnoza/diagnoza.html");
+        cnt.webEngine.load(urlFile.toExternalForm());
         Scene scene = new Scene(parent);
         Stage primaryStage = new Stage();
         primaryStage.setScene(scene);

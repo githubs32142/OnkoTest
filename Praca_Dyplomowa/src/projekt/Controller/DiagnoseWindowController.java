@@ -5,10 +5,34 @@
  */
 package projekt.Controller;
 
+import com.itextpdf.text.Document;
+import com.itextpdf.text.DocumentException;
+import com.itextpdf.text.pdf.PdfWriter;
+import com.itextpdf.tool.xml.XMLWorker;
+import com.itextpdf.tool.xml.XMLWorkerHelper;
+import com.itextpdf.tool.xml.css.CSS;
+import com.itextpdf.tool.xml.css.CssFile;
+import com.itextpdf.tool.xml.css.StyleAttrCSSResolver;
+import com.itextpdf.tool.xml.html.HTML;
+import com.itextpdf.tool.xml.html.Tags;
+import com.itextpdf.tool.xml.parser.XMLParser;
+import com.itextpdf.tool.xml.pipeline.css.CSSResolver;
+import com.itextpdf.tool.xml.pipeline.css.CssResolverPipeline;
+import com.itextpdf.tool.xml.pipeline.end.PdfWriterPipeline;
+import com.itextpdf.tool.xml.pipeline.html.HtmlPipeline;
+import com.itextpdf.tool.xml.pipeline.html.HtmlPipelineContext;
 import com.jfoenix.controls.JFXDrawer;
 import com.jfoenix.controls.JFXHamburger;
 import com.jfoenix.transitions.hamburger.HamburgerBackArrowBasicTransition;
+import java.io.ByteArrayInputStream;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
 import java.net.URL;
+import java.nio.charset.StandardCharsets;
 import java.util.ResourceBundle;
 import javafx.application.Platform;
 import javafx.collections.FXCollections;
@@ -23,8 +47,11 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.web.WebEngine;
 import javafx.scene.web.WebView;
+import javafx.stage.FileChooser;
+import javafx.stage.FileChooser.ExtensionFilter;
 import javafx.stage.Stage;
 import projekt.Class.CancerFamilly;
+import projekt.Class.DiagnozeHTML;
 import projekt.Class.Person;
 
 /**
@@ -33,11 +60,12 @@ import projekt.Class.Person;
  * @author Admin
  */
 public class DiagnoseWindowController implements Initializable {
+    StringBuilder string;
     ObservableList<CancerFamilly> cancerFamilly;
     private Person person;
     ObservableList<String> dataFactors;
     ObservableList<String> dataSymptoms;
-    WebEngine webEngine;
+    public WebEngine webEngine;
     Stage stage;
     Rectangle2D rec2;
     Double w, h;
@@ -51,6 +79,7 @@ public class DiagnoseWindowController implements Initializable {
     private JFXDrawer drawer;
     @FXML
     private AnchorPane box;
+    private String CSS;
     public DiagnoseWindowController() {
         cancerFamilly = FXCollections.observableArrayList();
         dataFactors = FXCollections.observableArrayList();
@@ -61,6 +90,7 @@ public class DiagnoseWindowController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         webEngine = webView.getEngine();
+        
         drawer.setSidePane(box);
         drawer.close();
         HamburgerBackArrowBasicTransition transition = new HamburgerBackArrowBasicTransition(hamburger);
@@ -137,5 +167,47 @@ public class DiagnoseWindowController implements Initializable {
 
     @FXML
     private void undoClicked(ActionEvent event) {
+    }
+
+    @FXML
+    private void saveToPdf(ActionEvent event) throws FileNotFoundException, DocumentException {
+
+    }
+     public void createPdf(String file) throws IOException, DocumentException {
+        // step 1
+        Document document = new Document();
+         String HTML = "/projekt/HTML/wzrost_bmi.html";
+         String CSS = "/projekt/HTML/style.css";
+        // step 2
+        PdfWriter writer = PdfWriter.getInstance(document, new FileOutputStream(file));
+        writer.setInitialLeading(12.5f);
+ 
+        // step 3
+        document.open();
+ 
+        // step 4
+ 
+        // CSS
+        CSSResolver cssResolver = new StyleAttrCSSResolver();
+        CssFile cssFile = XMLWorkerHelper.getCSS(new FileInputStream(CSS));
+        cssResolver.addCss(cssFile);
+ 
+        // HTML
+        HtmlPipelineContext htmlContext = new HtmlPipelineContext(null);
+        htmlContext.setTagFactory(Tags.getHtmlTagProcessorFactory());
+ 
+        // Pipelines
+        PdfWriterPipeline pdf = new PdfWriterPipeline(document, writer);
+        HtmlPipeline html = new HtmlPipeline(htmlContext, pdf);
+        CssResolverPipeline css = new CssResolverPipeline(cssResolver, html);
+ 
+        // XML Worker
+        XMLWorker worker = new XMLWorker(css, true);
+        XMLParser p = new XMLParser(worker);
+
+        p.parse(new FileInputStream(HTML));
+ 
+        // step 5
+        document.close();
     }
 }
