@@ -60,6 +60,7 @@ import projekt.Class.Person;
  * @author Admin
  */
 public class DiagnoseWindowController implements Initializable {
+
     StringBuilder string;
     ObservableList<CancerFamilly> cancerFamilly;
     private Person person;
@@ -80,35 +81,35 @@ public class DiagnoseWindowController implements Initializable {
     @FXML
     private AnchorPane box;
     private String CSS;
+
     public DiagnoseWindowController() {
         cancerFamilly = FXCollections.observableArrayList();
         dataFactors = FXCollections.observableArrayList();
         dataSymptoms = FXCollections.observableArrayList();
         person = new Person();
     }
-    
+
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        webEngine = webView.getEngine();
-        
+       // webEngine = webView.getEngine();
+
         drawer.setSidePane(box);
         drawer.close();
         HamburgerBackArrowBasicTransition transition = new HamburgerBackArrowBasicTransition(hamburger);
         transition.setRate(-1);
-        hamburger.addEventHandler(MouseEvent.MOUSE_PRESSED,(e)->{
-            transition.setRate(transition.getRate()*-1);
+        hamburger.addEventHandler(MouseEvent.MOUSE_PRESSED, (e) -> {
+            transition.setRate(transition.getRate() * -1);
             transition.play();
-            
-            if(drawer.isShown())
-            {
+
+            if (drawer.isShown()) {
                 drawer.close();
-            }else
+            } else {
                 drawer.open();
+            }
         });
-    }    
+    }
 
-
-@FXML
+    @FXML
     private void fullScreen(ActionEvent event) {
         stage = (Stage) ((Node) (event.getSource())).getScene().getWindow();
         if (stage.isFullScreen()) {
@@ -161,7 +162,8 @@ public class DiagnoseWindowController implements Initializable {
         Platform.exit();
         System.exit(0);
     }
-        public void setPerson(Person person) {
+
+    public void setPerson(Person person) {
         this.person = person;
     }
 
@@ -170,44 +172,46 @@ public class DiagnoseWindowController implements Initializable {
     }
 
     @FXML
-    private void saveToPdf(ActionEvent event) throws FileNotFoundException, DocumentException {
+    private void saveToPdf(ActionEvent event) throws FileNotFoundException, DocumentException, IOException {
+            FileChooser fileChooser = new FileChooser();
+            fileChooser.getExtensionFilters().addAll(new ExtensionFilter("Pliki PDF", "*.pdf"));
 
+              File fileSel = fileChooser.showSaveDialog( new Stage());
+              
+              if(fileSel != null){
+                  Document document = new Document();
+            // step 2
+                  createPdf(fileSel);
+              }
     }
-     public void createPdf(String file) throws IOException, DocumentException {
-        // step 1
+
+    public void createPdf(File file) throws IOException, DocumentException {
         Document document = new Document();
-         String HTML = "/projekt/HTML/wzrost_bmi.html";
-         String CSS = "/projekt/HTML/style.css";
-        // step 2
+        String HTML = "src/projekt/HTML/Diagnoza/diagnoza.html";
+        String CSS = "src/projekt/HTML/Diagnoza/styl.css";
         PdfWriter writer = PdfWriter.getInstance(document, new FileOutputStream(file));
         writer.setInitialLeading(12.5f);
- 
-        // step 3
         document.open();
- 
-        // step 4
- 
-        // CSS
         CSSResolver cssResolver = new StyleAttrCSSResolver();
         CssFile cssFile = XMLWorkerHelper.getCSS(new FileInputStream(CSS));
         cssResolver.addCss(cssFile);
- 
-        // HTML
         HtmlPipelineContext htmlContext = new HtmlPipelineContext(null);
         htmlContext.setTagFactory(Tags.getHtmlTagProcessorFactory());
- 
-        // Pipelines
         PdfWriterPipeline pdf = new PdfWriterPipeline(document, writer);
         HtmlPipeline html = new HtmlPipeline(htmlContext, pdf);
         CssResolverPipeline css = new CssResolverPipeline(cssResolver, html);
- 
-        // XML Worker
         XMLWorker worker = new XMLWorker(css, true);
         XMLParser p = new XMLParser(worker);
-
         p.parse(new FileInputStream(HTML));
- 
-        // step 5
         document.close();
     }
+
+    public WebView getWebView() {
+        return webView;
+    }
+
+    public void setWebView(WebView webView) {
+        this.webView = webView;
+    }
+    
 }

@@ -44,20 +44,16 @@ public class RunClass extends Application {
     @Override
     public void start(Stage primaryStage) throws IOException {
         loadSplash(primaryStage);
-        try {
-            createPdf("aaa.pdf");
-            /* FXMLLoader load = new FXMLLoader(this.getClass().getResource("FXML/DiagnoseWindow.fxml"));
-            //FXMLLoader load = new FXMLLoader(this.getClass().getResource("FXML/Fibre.fxml"));
-            Parent parent= load.load();
-            Scene scene = new Scene(parent);
-            primaryStage.setScene(scene);
-            primaryStage.initStyle(StageStyle.UNDECORATED);
-            primaryStage.setResizable(false);
-            primaryStage.show();
-            */
-        } catch (DocumentException ex) {
-            Logger.getLogger(RunClass.class.getName()).log(Level.SEVERE, null, ex);
-        }
+       
+        /* FXMLLoader load = new FXMLLoader(this.getClass().getResource("FXML/DiagnoseWindow.fxml"));
+        //FXMLLoader load = new FXMLLoader(this.getClass().getResource("FXML/Fibre.fxml"));
+        Parent parent= load.load();
+        Scene scene = new Scene(parent);
+        primaryStage.setScene(scene);
+        primaryStage.initStyle(StageStyle.UNDECORATED);
+        primaryStage.setResizable(false);
+        primaryStage.show();
+        */
     }
 
     /**
@@ -102,41 +98,5 @@ public class RunClass extends Application {
             }
         });
     }
-         public void createPdf(String file) throws IOException, DocumentException {
-        // step 1
-        Document document = new Document();
-         String HTML = "src/projekt/HTML/Diagnoza/zad.html";
-         String CSS = "src/projekt/HTML/Diagnoza/styl.css";
-        // step 2
-        PdfWriter writer = PdfWriter.getInstance(document, new FileOutputStream(file));
-        writer.setInitialLeading(12.5f);
  
-        // step 3
-        document.open();
- 
-        // step 4
- 
-        // CSS
-        CSSResolver cssResolver = new StyleAttrCSSResolver();
-        CssFile cssFile = XMLWorkerHelper.getCSS(new FileInputStream(CSS));
-        cssResolver.addCss(cssFile);
- 
-        // HTML
-        HtmlPipelineContext htmlContext = new HtmlPipelineContext(null);
-        htmlContext.setTagFactory(Tags.getHtmlTagProcessorFactory());
- 
-        // Pipelines
-        PdfWriterPipeline pdf = new PdfWriterPipeline(document, writer);
-        HtmlPipeline html = new HtmlPipeline(htmlContext, pdf);
-        CssResolverPipeline css = new CssResolverPipeline(cssResolver, html);
- 
-        // XML Worker
-        XMLWorker worker = new XMLWorker(css, true);
-        XMLParser p = new XMLParser(worker);
-
-        p.parse(new FileInputStream(HTML));
- 
-        // step 5
-        document.close();
-    }
 }

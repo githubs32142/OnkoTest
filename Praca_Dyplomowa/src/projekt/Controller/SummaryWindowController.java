@@ -20,8 +20,12 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ResourceBundle;
 import javafx.application.Platform;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.concurrent.Worker;
+import javafx.concurrent.Worker.State;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -38,12 +42,14 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.DragEvent;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.web.WebView;
 import javafx.stage.Screen;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 import projekt.Class.CancerFamilly;
 import projekt.Class.DiagnozeHTML;
 import projekt.Class.Person;
+import sun.net.InetAddressCachePolicy;
 
 /**
  * FXML Controller class
@@ -52,6 +58,7 @@ import projekt.Class.Person;
  */
 public class SummaryWindowController implements Initializable {
 
+    boolean first = true;
     @FXML
     private ListView<String> symptoms;
     @FXML
@@ -69,6 +76,7 @@ public class SummaryWindowController implements Initializable {
     private Person person;
     ObservableList<String> dataFactors = FXCollections.observableArrayList();
     ObservableList<String> dataSymptoms = FXCollections.observableArrayList();
+
     public SummaryWindowController() {
 
         cancerFamilly = FXCollections.observableArrayList();
@@ -101,12 +109,12 @@ public class SummaryWindowController implements Initializable {
         FXMLLoader load = new FXMLLoader(this.getClass().getResource("/projekt/FXML/CancerInFamilly.fxml"));
         CancerInFamillyController cnt = new CancerInFamillyController();
         Parent parent = load.load();
-        cnt=load.getController();
+        cnt = load.getController();
         cnt.setFactor(dataFactors);
         cnt.setPerson(person);
         cnt.setSymptoms(dataSymptoms);
-        for (int i = 0; i <cancerFamilly.size() ; i++) {
-         cnt.addCancer(cancerFamilly.get(i));
+        for (int i = 0; i < cancerFamilly.size(); i++) {
+            cnt.addCancer(cancerFamilly.get(i));
         }
         Scene scene = new Scene(parent);
         Stage primaryStage = new Stage();
@@ -123,35 +131,36 @@ public class SummaryWindowController implements Initializable {
         FXMLLoader load = new FXMLLoader(this.getClass().getResource("/projekt/FXML/DiagnoseWindow.fxml"));
         DiagnoseWindowController cnt = new DiagnoseWindowController();
         Parent parent = load.load();
-        cnt=load.getController();
-        cnt.cancerFamilly=cancerFamilly;
+        cnt = load.getController();
+        cnt.cancerFamilly = cancerFamilly;
         cnt.setPerson(person);
-        cnt.dataSymptoms=dataSymptoms;
-        cnt.cancerFamilly=cancerFamilly;
+        cnt.dataSymptoms = dataSymptoms;
+        cnt.cancerFamilly = cancerFamilly;
         DiagnozeHTML html = new DiagnozeHTML(cancerFamilly, person, dataFactors, dataSymptoms);
         html.parseHTML();
-        //cnt.webEngine.loadContent(html.text.toString());
-        Path logFile = Paths.get("projekt/HTML/Diagnoza/1.txt");
-        try{
-             OutputStreamWriter outputStreamWriter = new OutputStreamWriter(new FileOutputStream(new File("src/projekt/HTML/Diagnoza/diagnoza.html")), Charset.forName("UTF-8"));
-    PrintWriter out = new PrintWriter(outputStreamWriter);
-           out.write(html.text.toString());
-           out.close();
-        }catch(FileNotFoundException ex){
+        try {
+            OutputStreamWriter outputStreamWriter = new OutputStreamWriter(new FileOutputStream(new File("src/projekt/HTML/Diagnoza/diagnoza.html")), Charset.forName("UTF-8"));
+            PrintWriter out = new PrintWriter(outputStreamWriter);
+            out.write(html.textCss.toString());
+            out.close();
+        } catch (FileNotFoundException ex) {
             System.out.println(ex.getMessage());
         }
-        URL urlFile = SummaryWindowController.class.getClassLoader().getResource("projekt/HTML/Diagnoza/diagnoza.html");
-        cnt.webEngine.load(urlFile.toExternalForm());
+        final URL urlFile = getClass().getResource("/projekt/HTML/Diagnoza/diagnoza.html");
+        final WebView view = cnt.getWebView();
+        //view.getEngine().load(urlFile.toExternalForm());
+        view.getEngine().loadContent(html.textCss.toString());
         Scene scene = new Scene(parent);
         Stage primaryStage = new Stage();
         primaryStage.setScene(scene);
         primaryStage.initStyle(StageStyle.UNDECORATED);
         primaryStage.show();
+        cnt.setWebView(view);
         stage = (Stage) ((Node) (event.getSource())).getScene().getWindow();
         stage.close();
     }
 
- @FXML
+    @FXML
     private void fullScreen(ActionEvent event) {
         stage = (Stage) ((Node) (event.getSource())).getScene().getWindow();
         if (stage.isFullScreen()) {
@@ -205,23 +214,22 @@ public class SummaryWindowController implements Initializable {
         System.exit(0);
     }
 
-
     @FXML
     private void backToFactor(ActionEvent event) throws IOException {
         FXMLLoader load = new FXMLLoader(this.getClass().getResource("/projekt/FXML/FactorWindow.fxml"));
         FactorWindowController cnt = new FactorWindowController();
         Parent parent = load.load();
-        cnt=load.getController();
-        for (int i = 0; i <dataFactors.size() ; i++) {
+        cnt = load.getController();
+        for (int i = 0; i < dataFactors.size(); i++) {
             cnt.changeFactToRight(dataFactors.get(i));
         }
         cnt.setPerson(person);
-        SymptomWindowController sw= new SymptomWindowController();
-        sw.dataRight=dataSymptoms;
+        SymptomWindowController sw = new SymptomWindowController();
+        sw.dataRight = dataSymptoms;
         cnt.setSymptomWindowController(sw);
-        CancerInFamillyController cif= new CancerInFamillyController();
-        for (int i = 0; i <cancerFamilly.size() ; i++) {
-         cif.addCancer(cancerFamilly.get(i));
+        CancerInFamillyController cif = new CancerInFamillyController();
+        for (int i = 0; i < cancerFamilly.size(); i++) {
+            cif.addCancer(cancerFamilly.get(i));
         }
         cnt.setCancerInFamillyController(cif);
         Scene scene = new Scene(parent);
@@ -239,15 +247,15 @@ public class SummaryWindowController implements Initializable {
         FXMLLoader load = new FXMLLoader(this.getClass().getResource("/projekt/FXML/SymptomWindow.fxml"));
         SymptomWindowController cnt = new SymptomWindowController();
         Parent parent = load.load();
-        cnt=load.getController();
+        cnt = load.getController();
         cnt.setFactor(dataFactors);
         cnt.setPerson(person);
-        for (int i = 0; i <dataSymptoms.size() ; i++) {
-         cnt.changeSymptomToRight(dataSymptoms.get(i));
+        for (int i = 0; i < dataSymptoms.size(); i++) {
+            cnt.changeSymptomToRight(dataSymptoms.get(i));
         }
-        CancerInFamillyController cif= new CancerInFamillyController();
-        for (int i = 0; i <cancerFamilly.size() ; i++) {
-         cif.addCancer(cancerFamilly.get(i));
+        CancerInFamillyController cif = new CancerInFamillyController();
+        for (int i = 0; i < cancerFamilly.size(); i++) {
+            cif.addCancer(cancerFamilly.get(i));
         }
         cnt.setCancerInFamillyController(cif);
         Scene scene = new Scene(parent);
@@ -263,6 +271,7 @@ public class SummaryWindowController implements Initializable {
     public void setPerson(Person person) {
         this.person = person;
     }
+
     /**
      ** wyświetla KOMUNIKAT O BŁĘDZIE
      *
