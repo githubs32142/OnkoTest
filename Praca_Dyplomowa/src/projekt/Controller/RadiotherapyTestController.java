@@ -32,7 +32,7 @@ import jess.Rete;
  */
 public class RadiotherapyTestController implements Initializable {
     private FactorWindowController window;
-    private boolean end=false;// kiedy klikneliśmy na koniec(wystaw diagnozę)
+ //   private boolean end=false;// kiedy klikneliśmy na koniec(wystaw diagnozę)
     @FXML
     private Label question;
     @FXML

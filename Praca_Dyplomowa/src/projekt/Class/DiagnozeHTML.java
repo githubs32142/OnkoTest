@@ -61,25 +61,28 @@ public class DiagnozeHTML {
             str.append("<tr ><td>BMI:</td> <td>").append(person.getBmi()).append("</td></tr>\n");
         }
         str.append("</table>\n");
+        String s = this.getClass().getResource("/projekt/HTML/img/bmi.png").getFile().toString();
+
+//        str.append("<img src =\"src/projekt/HTML/img/bmi.png\" />");
         return str;
     }
 
     public void parseHTML() {
         StringBuilder str = new StringBuilder();
-        str.append("<!DOCTYPE html>\n");
+        // str.append("<!DOCTYPE html>\n");
         str.append("<html>\n");
         textCss.append(str);
-        str.append("<link rel=\"stylesheet\" type=\"text/css\" href=\"styl.css\"c=r_963\" /> \n");
+        // str.append("<link rel=\"stylesheet\" type=\"text/css\" href=\"styl.css\"c=r_963\" /> \n");
         str.append("<meta charset=\"utf-8\"/>\n");
         str.append("<body>\n");
         str.append("<table>\n");
-        str.append("<tr class=\"alt\"> <td><h1> Dane Pacjenta:</h1></td> </tr>\n");
+        str.append("<tr > <td><h1> Dane Pacjenta:</h1></td> </tr>\n");
         str.append("</table>");
         str.append(makePersonInTable());
         str.append("<table>\n");
         str.append("<br/>\n");
         str.append("<br/>\n");
-        str.append("<tr class=\"alt\"> <td><h1> Czynniki ryzyka:</h1></td> </tr>\n");
+        str.append("<tr > <td><h1> Czynniki ryzyka:</h1></td> </tr>\n");
         str.append("</table>");
         str.append(createFactor());
         str.append("</body>\n");
@@ -87,64 +90,56 @@ public class DiagnozeHTML {
         text = str;
         textCss.append("<meta charset=\"utf-8\"/>\n");
         textCss.append("<body>\n");
-        textCss.append(addCSS());
+        //textCss.append(addCSS());
         textCss.append("<table>\n");
-        textCss.append("<tr class=\"alt\"> <td><h1> Dane Pacjenta:</h1></td> </tr>\n");
+        textCss.append("<tr > <td><h1> Dane Pacjenta:</h1></td> </tr>\n");
         textCss.append("</table>");
         textCss.append(makePersonInTable());
         textCss.append("<br/>\n");
         textCss.append("<br/>\n");
         textCss.append("<table>\n");
-        textCss.append("<tr class=\"alt\"> <td><h1> Czynniki ryzyka:</h1></td> </tr>\n");
+        textCss.append("<tr> <td><h1> Czynniki ryzyka:</h1></td> </tr>\n");
         textCss.append("</table>");
         textCss.append(createFactor());
+        textCss.append("<table>\n");
+        textCss.append("<tr> <td><h1> Symptomy które wystąpiły w przeciągu 3 miesięcy:</h1></td> </tr>\n");
+        textCss.append("</table>");
+        textCss.append(createSymptoms());
+        textCss.append("<table>\n");
+        textCss.append("<tr> <td><h1> Rak w rodzinie:</h1></td> </tr>\n");
+        textCss.append("</table>");
+        textCss.append(createCancerInFailly());
         textCss.append("</body>\n");
         textCss.append("</html>\n");
 
-    }
-
-    private StringBuilder addCSS() {
-        StringBuilder str = new StringBuilder();
-        str.append("<style type=\"text/css\">\n");
-        str.append("h1 {\n");
-        str.append("text-align: center;\n");
-        str.append("color:#2196F3;\n");
-        str.append("font-family:\"Segoe UI\",Arial,sans-serif;\n");
-        str.append("font-weight:400;\n");
-        str.append("font-size: 22px;\n");
-        str.append("margin:10px 0;\n");
-        str.append("padding: 20px 20px;\n");
-        str.append("border-right: 2px solid #6499F4;\n");
-        str.append("overflow: hidden; \n");
-        str.append("width: 80%;\n");
-        str.append("}\n");
-        str.append("table { border: 2px solid #6499F4; text-align: left; width: 100%; font: normal 12px/150% Verdana, Arial, Helvetica, sans-serif; background: #fff; overflow: hidden; -webkit-border-radius: 20px; -moz-border-radius: 20px; border-radius: 20px; width: 80%;}\n");
-        str.append("th { padding: 20px 20px; }\n");
-        str.append("td { color: #00557F; font-size: 18px;border-bottom: 2px solid #447FAB; border-right: 2px solid #6499F4;font-weight: normal;  padding: 20px 20px;}\n");
-        str.append(".alt td { background: #E1EEf4; color: #00557F; }\n");
-        str.append("td:first-child { border-left: none; }\n");
-        str.append("tr:last-child td { border-bottom: none;}\n");
-        str.append("label {\n");
-        str.append("float:left;\n");
-        str.append("width:25%;\n");
-        str.append("margin-right:0.5em;\n");
-        str.append("padding-top:0.2em;\n");
-        str.append("text-align:right;\n");
-        str.append("font-weight:bold;\n");
-        str.append("}\n");
-        str.append("</style>\n");
-        return str;
     }
 
     private StringBuilder createFactor() {
         StringBuilder str = new StringBuilder();
         str.append("<table>\n");
         for (int i = 0; i < dataFactors.size(); i++) {
-            if (i % 2 == 0) {
-                str.append("<tr> <td>").append(dataFactors.get(i)).append("</td></tr>\n");
-            } else {
-                str.append("<tr class=\"alt\"> <td>").append(dataFactors.get(i)).append("</td></tr>\n");
-            }
+            str.append("<tr> <td>").append(dataFactors.get(i)).append("</td></tr>\n");
+        }
+        str.append("</table>\n");
+        return str;
+    }
+
+    private StringBuilder createSymptoms() {
+        StringBuilder str = new StringBuilder();
+        str.append("<table>\n");
+        for (int i = 0; i < dataSymptoms.size(); i++) {
+            str.append("<tr> <td>").append(dataSymptoms.get(i)).append("</td></tr>\n");
+        }
+        str.append("</table>\n");
+        return str;
+    }
+
+    private StringBuilder createCancerInFailly() {
+        StringBuilder str = new StringBuilder();
+        str.append("<table>\n");
+        str.append("<tr> <td>Pokrewieństwo </td> <td>Rak w rodzienie </td></tr>\n");
+        for (int i = 0; i < dataSymptoms.size(); i++) {
+            str.append("<tr> <td>").append(cancerFamilly.get(i).getFamilly()).append("</td>\n <td> ").append(cancerFamilly.get(i).getCancer()).append("</td></tr>\n");
         }
         str.append("</table>\n");
         return str;

@@ -189,21 +189,16 @@ public class DiagnoseWindowController implements Initializable {
         Document document = new Document();
         String HTML = "src/projekt/HTML/Diagnoza/diagnoza.html";
         String CSS = "src/projekt/HTML/Diagnoza/styl.css";
-        PdfWriter writer = PdfWriter.getInstance(document, new FileOutputStream(file));
-        writer.setInitialLeading(12.5f);
-        document.open();
-        CSSResolver cssResolver = new StyleAttrCSSResolver();
-        CssFile cssFile = XMLWorkerHelper.getCSS(new FileInputStream(CSS));
-        cssResolver.addCss(cssFile);
-        HtmlPipelineContext htmlContext = new HtmlPipelineContext(null);
-        htmlContext.setTagFactory(Tags.getHtmlTagProcessorFactory());
-        PdfWriterPipeline pdf = new PdfWriterPipeline(document, writer);
-        HtmlPipeline html = new HtmlPipeline(htmlContext, pdf);
-        CssResolverPipeline css = new CssResolverPipeline(cssResolver, html);
-        XMLWorker worker = new XMLWorker(css, true);
-        XMLParser p = new XMLParser(worker);
-        p.parse(new FileInputStream(HTML));
-        document.close();
+
+    // step 2
+    PdfWriter writer = PdfWriter.getInstance(document, new FileOutputStream(file));
+    // step 3
+    document.open();
+    // step 4
+    XMLWorkerHelper.getInstance().parseXHtml(writer, document,
+            new FileInputStream(HTML));
+    // step 5
+    document.close();
     }
 
     public WebView getWebView() {

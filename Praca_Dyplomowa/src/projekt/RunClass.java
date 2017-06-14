@@ -40,12 +40,13 @@ import javafx.util.Duration;
  * @author Admin
  */
 public class RunClass extends Application {
-    
+
     @Override
     public void start(Stage primaryStage) throws IOException {
         loadSplash(primaryStage);
-       
-        /* FXMLLoader load = new FXMLLoader(this.getClass().getResource("FXML/DiagnoseWindow.fxml"));
+
+        /*
+         //FXMLLoader load = new FXMLLoader(this.getClass().getResource("FXML/SummaryWindow.fxml"));
         //FXMLLoader load = new FXMLLoader(this.getClass().getResource("FXML/Fibre.fxml"));
         Parent parent= load.load();
         Scene scene = new Scene(parent);
@@ -53,7 +54,7 @@ public class RunClass extends Application {
         primaryStage.initStyle(StageStyle.UNDECORATED);
         primaryStage.setResizable(false);
         primaryStage.show();
-        */
+         */
     }
 
     /**
@@ -62,12 +63,13 @@ public class RunClass extends Application {
     public static void main(String[] args) {
         launch(args);
     }
-    public void loadSplash (Stage primaryStage) throws IOException{
-                FXMLLoader load = new FXMLLoader(this.getClass().getResource("FXML/SplashScreen.fxml"));
+
+    public void loadSplash(Stage primaryStage) throws IOException {
+        FXMLLoader load = new FXMLLoader(this.getClass().getResource("FXML/SplashScreen.fxml"));
         //FXMLLoader load = new FXMLLoader(this.getClass().getResource("FXML/Fibre.fxml"));
-        Parent parent= load.load();
+        Parent parent = load.load();
         Scene scene = new Scene(parent);
-        FadeTransition fin= new FadeTransition(Duration.seconds(10), parent);
+        FadeTransition fin = new FadeTransition(Duration.seconds(10), parent);
         fin.setFromValue(0);
         fin.setToValue(6);
         fin.setCycleCount(1);
@@ -75,8 +77,8 @@ public class RunClass extends Application {
         primaryStage.setScene(scene);
         primaryStage.initStyle(StageStyle.UNDECORATED);
         primaryStage.setResizable(false);
-        primaryStage.show();  
-        fin.setOnFinished( new EventHandler<ActionEvent>() {
+        primaryStage.show();
+        fin.setOnFinished(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
                 FXMLLoader load = new FXMLLoader(this.getClass().getResource("FXML/FirstWindow.fxml"));
@@ -87,7 +89,7 @@ public class RunClass extends Application {
                     Logger.getLogger(RunClass.class.getName()).log(Level.SEVERE, null, ex);
                 }
                 Scene scene = new Scene(parent);
-                FadeTransition fin= new FadeTransition(Duration.seconds(5), parent);
+                FadeTransition fin = new FadeTransition(Duration.seconds(5), parent);
                 fin.setFromValue(0);
                 fin.setToValue(3);
                 fin.setCycleCount(1);
@@ -98,5 +100,5 @@ public class RunClass extends Application {
             }
         });
     }
- 
+
 }

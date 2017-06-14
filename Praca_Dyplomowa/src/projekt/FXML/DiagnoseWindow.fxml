@@ -22,7 +22,7 @@
             <Button mnemonicParsing="false" onAction="#closeeSscreen" prefHeight="30.0" prefWidth="34.0" styleClass="decoration-button-close" />
          </children>
       </HBox>
-      <Label alignment="CENTER" layoutX="100.0" layoutY="-1.0" prefHeight="25.0" prefWidth="803.0" text="Wyniki diagnozy:" textFill="#a1a1a1" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="-1.0">
+      <Label alignment="CENTER" layoutX="100.0" layoutY="-1.0" prefHeight="25.0" prefWidth="667.0" text="Wyniki diagnozy:" textFill="#a1a1a1" AnchorPane.rightAnchor="136.0" AnchorPane.topAnchor="-1.0">
          <font>
             <Font name="Segoe UI Semilight" size="14.0" />
          </font>

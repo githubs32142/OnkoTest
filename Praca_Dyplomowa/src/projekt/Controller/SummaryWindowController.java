@@ -5,6 +5,9 @@
  */
 package projekt.Controller;
 
+import com.jfoenix.controls.JFXDrawer;
+import com.jfoenix.controls.JFXHamburger;
+import com.jfoenix.transitions.hamburger.HamburgerBasicCloseTransition;
 import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -27,6 +30,7 @@ import javafx.collections.ObservableList;
 import javafx.concurrent.Worker;
 import javafx.concurrent.Worker.State;
 import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -42,6 +46,7 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.DragEvent;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.VBox;
 import javafx.scene.web.WebView;
 import javafx.stage.Screen;
 import javafx.stage.Stage;
@@ -49,7 +54,6 @@ import javafx.stage.StageStyle;
 import projekt.Class.CancerFamilly;
 import projekt.Class.DiagnozeHTML;
 import projekt.Class.Person;
-import sun.net.InetAddressCachePolicy;
 
 /**
  * FXML Controller class
@@ -76,6 +80,12 @@ public class SummaryWindowController implements Initializable {
     private Person person;
     ObservableList<String> dataFactors = FXCollections.observableArrayList();
     ObservableList<String> dataSymptoms = FXCollections.observableArrayList();
+    @FXML
+    private JFXDrawer drawer;
+    @FXML
+    private VBox box;
+    @FXML
+    private JFXHamburger hamburger;
 
     public SummaryWindowController() {
 
@@ -102,28 +112,25 @@ public class SummaryWindowController implements Initializable {
         familly.setCellValueFactory(new PropertyValueFactory<>("familly"));
         famillyCancer.getColumns().addAll(cancer, familly);
         famillyCancer.setItems(cancerFamilly);
-    }
+                drawer.setSidePane(box);
+        drawer.close();
+        HamburgerBasicCloseTransition transition = new HamburgerBasicCloseTransition(hamburger);
+        transition.setRate(-1);
+        hamburger.addEventHandler(MouseEvent.MOUSE_PRESSED, new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent e) {
+                transition.setRate(transition.getRate()*-1);
+                transition.play();
+                
+                if(drawer.isShown())
+                {
+                    drawer.close();
+                }else
+                    drawer.open();
+                    drawer.setPrefWidth(150);
+            }
+        });
 
-    @FXML
-    private void undoClick(MouseEvent event) throws IOException {
-        FXMLLoader load = new FXMLLoader(this.getClass().getResource("/projekt/FXML/CancerInFamilly.fxml"));
-        CancerInFamillyController cnt = new CancerInFamillyController();
-        Parent parent = load.load();
-        cnt = load.getController();
-        cnt.setFactor(dataFactors);
-        cnt.setPerson(person);
-        cnt.setSymptoms(dataSymptoms);
-        for (int i = 0; i < cancerFamilly.size(); i++) {
-            cnt.addCancer(cancerFamilly.get(i));
-        }
-        Scene scene = new Scene(parent);
-        Stage primaryStage = new Stage();
-        primaryStage.setScene(scene);
-        primaryStage.initStyle(StageStyle.UNDECORATED);
-        primaryStage.show();
-        Stage stage;
-        stage = (Stage) ((Node) (event.getSource())).getScene().getWindow();
-        stage.close();
     }
 
     @FXML
@@ -141,7 +148,7 @@ public class SummaryWindowController implements Initializable {
         try {
             OutputStreamWriter outputStreamWriter = new OutputStreamWriter(new FileOutputStream(new File("src/projekt/HTML/Diagnoza/diagnoza.html")), Charset.forName("UTF-8"));
             PrintWriter out = new PrintWriter(outputStreamWriter);
-            out.write(html.textCss.toString());
+            out.write(html.text.toString());
             out.close();
         } catch (FileNotFoundException ex) {
             System.out.println(ex.getMessage());
@@ -283,5 +290,27 @@ public class SummaryWindowController implements Initializable {
         alert.setHeaderText("Treść błędu");
         alert.setContentText(message);
         alert.showAndWait();
+    }
+
+    @FXML
+    private void undoClick(ActionEvent event) throws IOException {
+    FXMLLoader load = new FXMLLoader(this.getClass().getResource("/projekt/FXML/CancerInFamilly.fxml"));
+        CancerInFamillyController cnt = new CancerInFamillyController();
+        Parent parent = load.load();
+        cnt = load.getController();
+        cnt.setFactor(dataFactors);
+        cnt.setPerson(person);
+        cnt.setSymptoms(dataSymptoms);
+        for (int i = 0; i < cancerFamilly.size(); i++) {
+            cnt.addCancer(cancerFamilly.get(i));
+        }
+        Scene scene = new Scene(parent);
+        Stage primaryStage = new Stage();
+        primaryStage.setScene(scene);
+        primaryStage.initStyle(StageStyle.UNDECORATED);
+        primaryStage.show();
+        Stage stage;
+        stage = (Stage) ((Node) (event.getSource())).getScene().getWindow();
+        stage.close();
     }
 }

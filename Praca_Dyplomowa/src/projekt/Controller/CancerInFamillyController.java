@@ -5,6 +5,9 @@
  */
 package projekt.Controller;
 
+import com.jfoenix.controls.JFXDrawer;
+import com.jfoenix.controls.JFXHamburger;
+import com.jfoenix.transitions.hamburger.HamburgerBasicCloseTransition;
 import com.sun.javafx.collections.ElementObservableListDecorator;
 import java.io.IOException;
 import java.net.URL;
@@ -18,6 +21,7 @@ import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -34,6 +38,7 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.VBox;
 import javafx.stage.Screen;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
@@ -69,6 +74,12 @@ public class CancerInFamillyController implements Initializable {
     private ComboBox<String> famillyCombo;
     @FXML
     private MenuItem delete;
+    @FXML
+    private JFXDrawer drawer;
+    @FXML
+    private VBox box;
+    @FXML
+    private JFXHamburger hamburger;
 
     public CancerInFamillyController() {
         data = FXCollections.observableArrayList();
@@ -85,6 +96,7 @@ public class CancerInFamillyController implements Initializable {
         rec2 = Screen.getPrimary().getVisualBounds();
         w = 0.1;
         h = 0.1;
+        
         listCancer = FXCollections.observableArrayList("Rak płuc", "Rak jelita grubrgo", "Rak piersi", "Rak jąder", "Rak gruczołu krokowego", "Guz mózgu", "Rak szyjki macicy", "Rak płuc", "Rak trzustki", "Rak żołądka", "Rak macicy", "Rak krtani");
         listFamilly = FXCollections.observableArrayList("Brat", "Siostra", "Ojciec", "Matka", "Dziadek", "Babcia", "Wujek", "Ciotka");
         cancer = new TableColumn("Rak w rodzinie");
@@ -102,34 +114,27 @@ public class CancerInFamillyController implements Initializable {
         index = -1;
         data.add(new CancerFamilly("", ""));
         table.setItems(data);
-
-    }
-
-    @FXML
-    private void undoClick(MouseEvent event) {
-        try {
-            FXMLLoader load = new FXMLLoader(this.getClass().getResource("/projekt/FXML/SymptomWindow.fxml"));
-            SymptomWindowController cnt = new SymptomWindowController();
-            Parent parent = load.load();
-            cnt = load.getController();
-            for (int i = 0; i < symptoms.size(); i++) {
-                cnt.changeSymptomToRight(symptoms.get(i));
+        drawer.setSidePane(box);
+        drawer.close();
+        HamburgerBasicCloseTransition transition = new HamburgerBasicCloseTransition(hamburger);
+        transition.setRate(-1);
+        hamburger.addEventHandler(MouseEvent.MOUSE_PRESSED, new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent e) {
+                transition.setRate(transition.getRate()*-1);
+                transition.play();
+                
+                if(drawer.isShown())
+                {
+                    drawer.close();
+                }else
+                    drawer.open();
+                    drawer.setPrefWidth(150);
             }
-            cnt.setFactor(factor);
-            cnt.setPerson(person);
-            cnt.setCancerInFamillyController(this);
-            Scene scene = new Scene(parent);
-            Stage primaryStage = new Stage();
-            primaryStage.setScene(scene);
-            primaryStage.initStyle(StageStyle.UNDECORATED);
-            primaryStage.show();
-            stage = (Stage) ((Node) (event.getSource())).getScene().getWindow();
-            stage.close();
-        } catch (IOException e) {
-            Logger logger = Logger.getLogger(getClass().getName());
-            logger.log(Level.SEVERE, "Failed to create new Window.", e);
-        }
+        });
+
     }
+
 
     public void setPerson(Person person) {
         this.person = person;
@@ -339,6 +344,32 @@ public class CancerInFamillyController implements Initializable {
          primaryStage.show();
          stage = (Stage) ((Node)(event.getSource())).getScene().getWindow();
          stage.close();
+    }
+
+    @FXML
+    private void undoClick(ActionEvent event) {
+        try {
+            FXMLLoader load = new FXMLLoader(this.getClass().getResource("/projekt/FXML/SymptomWindow.fxml"));
+            SymptomWindowController cnt = new SymptomWindowController();
+            Parent parent = load.load();
+            cnt = load.getController();
+            for (int i = 0; i < symptoms.size(); i++) {
+                cnt.changeSymptomToRight(symptoms.get(i));
+            }
+            cnt.setFactor(factor);
+            cnt.setPerson(person);
+            cnt.setCancerInFamillyController(this);
+            Scene scene = new Scene(parent);
+            Stage primaryStage = new Stage();
+            primaryStage.setScene(scene);
+            primaryStage.initStyle(StageStyle.UNDECORATED);
+            primaryStage.show();
+            stage = (Stage) ((Node) (event.getSource())).getScene().getWindow();
+            stage.close();
+        } catch (IOException e) {
+            Logger logger = Logger.getLogger(getClass().getName());
+            logger.log(Level.SEVERE, "Failed to create new Window.", e);
+        }
     }
 
     
