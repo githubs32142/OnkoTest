@@ -112,22 +112,22 @@ public class SummaryWindowController implements Initializable {
         familly.setCellValueFactory(new PropertyValueFactory<>("familly"));
         famillyCancer.getColumns().addAll(cancer, familly);
         famillyCancer.setItems(cancerFamilly);
-                drawer.setSidePane(box);
+        drawer.setSidePane(box);
         drawer.close();
         HamburgerBasicCloseTransition transition = new HamburgerBasicCloseTransition(hamburger);
         transition.setRate(-1);
         hamburger.addEventHandler(MouseEvent.MOUSE_PRESSED, new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent e) {
-                transition.setRate(transition.getRate()*-1);
+                transition.setRate(transition.getRate() * -1);
                 transition.play();
-                
-                if(drawer.isShown())
-                {
+
+                if (drawer.isShown()) {
                     drawer.close();
-                }else
+                } else {
                     drawer.open();
-                    drawer.setPrefWidth(150);
+                }
+                drawer.setPrefWidth(150);
             }
         });
 
@@ -145,6 +145,8 @@ public class SummaryWindowController implements Initializable {
         cnt.cancerFamilly = cancerFamilly;
         DiagnozeHTML html = new DiagnozeHTML(cancerFamilly, person, dataFactors, dataSymptoms);
         html.parseHTML();
+        cnt.setString(html.text);
+        final WebView view = cnt.getWebView();
         try {
             OutputStreamWriter outputStreamWriter = new OutputStreamWriter(new FileOutputStream(new File("src/projekt/HTML/Diagnoza/diagnoza.html")), Charset.forName("UTF-8"));
             PrintWriter out = new PrintWriter(outputStreamWriter);
@@ -153,8 +155,6 @@ public class SummaryWindowController implements Initializable {
         } catch (FileNotFoundException ex) {
             System.out.println(ex.getMessage());
         }
-        final URL urlFile = getClass().getResource("/projekt/HTML/Diagnoza/diagnoza.html");
-        final WebView view = cnt.getWebView();
         //view.getEngine().load(urlFile.toExternalForm());
         view.getEngine().loadContent(html.textCss.toString());
         Scene scene = new Scene(parent);
@@ -294,7 +294,7 @@ public class SummaryWindowController implements Initializable {
 
     @FXML
     private void undoClick(ActionEvent event) throws IOException {
-    FXMLLoader load = new FXMLLoader(this.getClass().getResource("/projekt/FXML/CancerInFamilly.fxml"));
+        FXMLLoader load = new FXMLLoader(this.getClass().getResource("/projekt/FXML/CancerInFamilly.fxml"));
         CancerInFamillyController cnt = new CancerInFamillyController();
         Parent parent = load.load();
         cnt = load.getController();

@@ -46,22 +46,22 @@ public class DiagnozeHTML {
         str.append("<table>\n");
         if (person.getEmail().isEmpty()) {
             str.append("<tr><td>Imię</td> <td>").append(person.getName()).append("</td></tr>\n");
-            str.append("<tr class=\"alt\"> <td>Nazwisko</td> <td>").append(person.getSurName()).append("</td></tr>\n");
+            str.append("<tr > <td>Nazwisko</td> <td>").append(person.getSurName()).append("</td></tr>\n");
             str.append("<tr > <td>Wiek</td> <td>").append(person.getAge()).append("</td></tr>\n");
-            str.append("<tr class=\"alt\"> <td>Wzrost</td> <td>").append(person.getHeight()).append("</td></tr>\n");
+            str.append("<tr > <td>Wzrost</td> <td>").append(person.getHeight()).append("</td></tr>\n");
             str.append("<tr > <td>Waga</td> <td>").append(person.getWeight()).append("</td></tr>\n");
-            str.append("<tr class=\"alt\"> <td>Płeć:</td> <td>").append(person.getSex()).append("</td></tr>\n");
+            str.append("<tr > <td>Płeć:</td> <td>").append(person.getSex()).append("</td></tr>\n");
             str.append("<tr ><td>BMI:</td> <td>").append(person.getBmi()).append("</td></tr>\n");
         } else {
-            str.append("<tr class=\"alt\"> <td>E-mail</td> <td>").append(person.getEmail()).append("</td></tr>\n");
+            str.append("<tr > <td>E-mail</td> <td>").append(person.getEmail()).append("</td></tr>\n");
             str.append("<tr > <td>Wiek</td> <td>").append(person.getAge()).append("</td></tr>\n");
-            str.append("<tr class=\"alt\"> <td>Wzrost</td> <td>").append(person.getHeight()).append("</td></tr>\n");
+            str.append("<tr > <td>Wzrost</td> <td>").append(person.getHeight()).append("</td></tr>\n");
             str.append("<tr > <td>Waga</td> <td>").append(person.getWeight()).append("</td></tr>\n");
-            str.append("<tr class=\"alt\"> <td>Płeć:</td> <td>").append(person.getSex()).append("</td></tr>\n");
+            str.append("<tr > <td>Płeć:</td> <td>").append(person.getSex()).append("</td></tr>\n");
             str.append("<tr ><td>BMI:</td> <td>").append(person.getBmi()).append("</td></tr>\n");
         }
         str.append("</table>\n");
-        String s = this.getClass().getResource("/projekt/HTML/img/bmi.png").getFile().toString();
+        // String s = this.getClass().getResource("/projekt/HTML/img/bmi.png").getFile().toString();
 
 //        str.append("<img src =\"src/projekt/HTML/img/bmi.png\" />");
         return str;
@@ -79,12 +79,21 @@ public class DiagnozeHTML {
         str.append("<tr > <td><h1> Dane Pacjenta:</h1></td> </tr>\n");
         str.append("</table>");
         str.append(makePersonInTable());
+        str.append("<br/>\n");
         str.append("<table>\n");
-        str.append("<br/>\n");
-        str.append("<br/>\n");
         str.append("<tr > <td><h1> Czynniki ryzyka:</h1></td> </tr>\n");
         str.append("</table>");
         str.append(createFactor());
+        str.append("<br/>\n");
+        str.append("<table>\n");
+        str.append("<tr> <td><h1> Symptomy które wystąpiły w przeciągu 3 miesięcy:</h1></td> </tr>\n");
+        str.append("</table>");
+        str.append(createSymptoms());
+        str.append("<br/>\n");
+        str.append("<table>\n");
+        str.append("<tr> <td><h1> Nowotwór w rodzinie:</h1></td> </tr>\n");
+        str.append("</table>");
+        str.append(createCancerInFailly());
         str.append("</body>\n");
         str.append("</html>\n");
         text = str;
@@ -106,7 +115,7 @@ public class DiagnozeHTML {
         textCss.append("</table>");
         textCss.append(createSymptoms());
         textCss.append("<table>\n");
-        textCss.append("<tr> <td><h1> Rak w rodzinie:</h1></td> </tr>\n");
+        textCss.append("<tr> <td><h1> Nowotwór w rodzinie:</h1></td> </tr>\n");
         textCss.append("</table>");
         textCss.append(createCancerInFailly());
         textCss.append("</body>\n");
@@ -138,7 +147,7 @@ public class DiagnozeHTML {
         StringBuilder str = new StringBuilder();
         str.append("<table>\n");
         str.append("<tr> <td>Pokrewieństwo </td> <td>Rak w rodzienie </td></tr>\n");
-        for (int i = 0; i < dataSymptoms.size(); i++) {
+        for (int i = 0; i < cancerFamilly.size(); i++) {
             str.append("<tr> <td>").append(cancerFamilly.get(i).getFamilly()).append("</td>\n <td> ").append(cancerFamilly.get(i).getCancer()).append("</td></tr>\n");
         }
         str.append("</table>\n");

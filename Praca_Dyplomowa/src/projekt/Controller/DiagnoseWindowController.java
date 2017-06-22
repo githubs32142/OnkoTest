@@ -7,6 +7,7 @@ package projekt.Controller;
 
 import com.itextpdf.text.Document;
 import com.itextpdf.text.DocumentException;
+import com.itextpdf.text.Image;
 import com.itextpdf.text.pdf.PdfWriter;
 import com.itextpdf.tool.xml.XMLWorker;
 import com.itextpdf.tool.xml.XMLWorkerHelper;
@@ -32,11 +33,13 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URL;
+import java.nio.charset.Charset;
 import java.nio.charset.StandardCharsets;
 import java.util.ResourceBundle;
 import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.embed.swing.SwingFXUtils;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -50,6 +53,7 @@ import javafx.scene.web.WebView;
 import javafx.stage.FileChooser;
 import javafx.stage.FileChooser.ExtensionFilter;
 import javafx.stage.Stage;
+import javax.imageio.ImageIO;
 import projekt.Class.CancerFamilly;
 import projekt.Class.DiagnozeHTML;
 import projekt.Class.Person;
@@ -61,7 +65,7 @@ import projekt.Class.Person;
  */
 public class DiagnoseWindowController implements Initializable {
 
-    StringBuilder string;
+    private StringBuilder string;
     ObservableList<CancerFamilly> cancerFamilly;
     private Person person;
     ObservableList<String> dataFactors;
@@ -185,20 +189,42 @@ public class DiagnoseWindowController implements Initializable {
               }
     }
 
-    public void createPdf(File file) throws IOException, DocumentException {
+ public void createPdf(File file) throws IOException, DocumentException {
+        // step 1
         Document document = new Document();
-        String HTML = "src/projekt/HTML/Diagnoza/diagnoza.html";
-        String CSS = "src/projekt/HTML/Diagnoza/styl.css";
+         String HTML = "src/projekt/HTML/Diagnoza/diagnoza.html";
+         String CSS = "src/projekt/HTML/Diagnoza/styl.css";
+        // step 2
+        PdfWriter writer = PdfWriter.getInstance(document, new FileOutputStream(file));
+        writer.setInitialLeading(12.5f);
+ 
+        // step 3
+        document.open();
+ 
+        // step 4
+ 
+        // CSS
+        CSSResolver cssResolver = new StyleAttrCSSResolver();
+        CssFile cssFile = XMLWorkerHelper.getCSS(new FileInputStream(CSS));
+        cssResolver.addCss(cssFile);
+ 
+        // HTML
+        HtmlPipelineContext htmlContext = new HtmlPipelineContext(null);
+        htmlContext.setTagFactory(Tags.getHtmlTagProcessorFactory());
+ 
+        // Pipelines
+        PdfWriterPipeline pdf = new PdfWriterPipeline(document, writer);
+        HtmlPipeline html = new HtmlPipeline(htmlContext, pdf);
+        CssResolverPipeline css = new CssResolverPipeline(cssResolver, html);
+ 
+        // XML Worker
+        XMLWorker worker = new XMLWorker(css, true);
+        XMLParser p = new XMLParser(worker);
 
-    // step 2
-    PdfWriter writer = PdfWriter.getInstance(document, new FileOutputStream(file));
-    // step 3
-    document.open();
-    // step 4
-    XMLWorkerHelper.getInstance().parseXHtml(writer, document,
-            new FileInputStream(HTML));
-    // step 5
-    document.close();
+        p.parse(new FileInputStream(HTML));
+ 
+        // step 5
+        document.close();
     }
 
     public WebView getWebView() {
@@ -207,6 +233,10 @@ public class DiagnoseWindowController implements Initializable {
 
     public void setWebView(WebView webView) {
         this.webView = webView;
+    }
+
+    public void setString(StringBuilder string) {
+        this.string = string;
     }
     
 }
