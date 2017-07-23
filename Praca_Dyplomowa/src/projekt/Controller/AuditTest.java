@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package projekt.Controller;
 
 import java.io.StringWriter;
@@ -153,14 +148,29 @@ public class AuditTest implements Initializable {
         progres.setProgress(((double) (index + 1) / (double) pList.size()));
     }
 
+    /**
+     ** Metoda, która ustawia index
+     *
+     * @param index index
+     */
     public void setIndex(int index) {
         this.index = index;
     }
 
+    /**
+     ** Metoda, która zwraca index
+     *
+     * @return index
+     */
     public int getIndex() {
         return index;
     }
 
+    /**
+     ** Metoda, która wykonuje diagnoze
+     *
+     * @param s jest komenda która będzie interpretowana
+     */
     public void makeDiagnostic(String s) {
         boolean add = false;
         StringBuilder text = new StringBuilder();
@@ -199,6 +209,11 @@ public class AuditTest implements Initializable {
 
     }
 
+    /**
+     ** Metoda, która powoduje przejście do kolejnego pytania.
+     *
+     * @param event obsługa zdarzenia polegająca na kliknięciu w przycisk
+     */
     @FXML
     private void next(ActionEvent event) {
         if (getIndex() + 1 < 14) {// jeżeli możemy przejść do następnego pytanie (od 0 do 12 = 13)
@@ -265,6 +280,11 @@ public class AuditTest implements Initializable {
         }
     }
 
+    /**
+     ** Metoda, która powoduje przejście wstecz
+     *
+     * @param event obsługa zdarzenia wstecz
+     */
     @FXML
     private void back(ActionEvent event) {// klikneliśmy wstecz
         end = false;
@@ -324,12 +344,22 @@ public class AuditTest implements Initializable {
 
     }
 
+    /**
+     ** Metoda polegająca na kliknięciu w 1 odpowiedź
+     *
+     * @param event obsługa zdarzenia
+     */
     @FXML
     private void answer1Action(ActionEvent event) {
 
         pList.set(getIndex(), 0);
     }
 
+    /**
+     ** Metoda polegająca na kliknięciu w 2 odpowiedź
+     *
+     * @param event obsługa zdarzenia
+     */
     @FXML
     private void answer2Action(ActionEvent event) {
         if (getIndex() < 12) {
@@ -339,6 +369,11 @@ public class AuditTest implements Initializable {
         }
     }
 
+    /**
+     ** Metoda polegająca na kliknięciu w 3 odpowiedź
+     *
+     * @param event obsługa zdarzenia
+     */
     @FXML
     private void answer3Action(ActionEvent event) {
         //pList.set(getIndex(),2);
@@ -349,11 +384,21 @@ public class AuditTest implements Initializable {
         }
     }
 
+    /**
+     ** Metoda polegająca na kliknięciu w 4 odpowiedź
+     *
+     * @param event obsługa zdarzenia
+     */
     @FXML
     private void answer4Action(ActionEvent event) {
         pList.set(getIndex(), 3);
     }
 
+    /**
+     ** Metoda polegająca na kliknięciu w 5 odpowiedź
+     *
+     * @param event obsługa zdarzenia
+     */
     @FXML
     private void answer5Action(ActionEvent event) {
         pList.set(getIndex(), 4);
@@ -412,10 +457,11 @@ public class AuditTest implements Initializable {
         answer5.setVisible(false);
     }
 
-    private void fastDiagnose(ActionEvent event) {
-        makeAllDiagnose();
-    }
-
+    /**
+     ** Metoda, która ustawia kontroler klasy głownej
+     *
+     * @param window kontroler klasy głównej
+     */
     public void setWindow(FactorWindowController window) {
         this.window = window;
     }

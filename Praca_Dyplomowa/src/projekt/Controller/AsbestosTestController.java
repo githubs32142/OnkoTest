@@ -33,9 +33,9 @@ import jess.JessException;
 import jess.Rete;
 
 /**
- * FXML Controller class
+ ** Klasa kontrolera, który obsługuje test na zagrożenie azbestem
  *
- * @author Admin
+ * @author Andrzej Kierepka
  */
 public class AsbestosTestController implements Initializable {
 
@@ -46,26 +46,28 @@ public class AsbestosTestController implements Initializable {
     @FXML
     private Button test;
     ObservableList<String> data = FXCollections.observableArrayList(
-    "Mechanik samochodowy","Pracownik wykonywania kotłów","Stolarz","Montarz murów suchych","Elektryk","Hutnik"
-    ,"Operator maszyn","Tokarz","Specjalista budowy młynów","Monter rur","Pracownik elektrowni","Kolejarz","Stoczniowiec");
+            "Mechanik samochodowy", "Pracownik wykonywania kotłów", "Stolarz", "Montarz murów suchych", "Elektryk", "Hutnik",
+             "Operator maszyn", "Tokarz", "Specjalista budowy młynów", "Monter rur", "Pracownik elektrowni", "Kolejarz", "Stoczniowiec");
     ObservableList<String> dataRight = FXCollections.observableArrayList();
     Stage stage;
     Rectangle2D rec2;
-    Double w,h;
-   private FactorWindowController window;
+    Double w, h;
+    private FactorWindowController window;
+
     /**
-     * 
-     * Initializes the controller class.
+     *
+     * Inicjalizacja kontriolera
+     *
      * @param url
      * @param rb
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        rec2 = Screen.getPrimary().getVisualBounds(); 
+        rec2 = Screen.getPrimary().getVisualBounds();
         w = 0.1;
         h = 0.1;
         job.setItems(data);
-    }    
+    }
 
     @FXML
     private void undoClick(MouseEvent event) {
@@ -81,15 +83,15 @@ public class AsbestosTestController implements Initializable {
 
     @FXML
     private void addedFactorRemove(MouseEvent event) {
-        
+
     }
 
     @FXML
     private void addedDragDetected(MouseEvent event) {
-       Dragboard dragBoard = addedJob.startDragAndDrop(TransferMode.MOVE);
-      ClipboardContent content = new ClipboardContent();
-      content.putString(String.valueOf(addedJob.getSelectionModel().getSelectedIndex()));
-      dragBoard.setContent(content); 
+        Dragboard dragBoard = addedJob.startDragAndDrop(TransferMode.MOVE);
+        ClipboardContent content = new ClipboardContent();
+        content.putString(String.valueOf(addedJob.getSelectionModel().getSelectedIndex()));
+        dragBoard.setContent(content);
     }
 
     @FXML
@@ -97,19 +99,19 @@ public class AsbestosTestController implements Initializable {
         makeDiagnostic(toString());
     }
 
-   @FXML
+    @FXML
     private void fullScreen(ActionEvent event) {
-         stage = (Stage) ((Node)(event.getSource())).getScene().getWindow();
+        stage = (Stage) ((Node) (event.getSource())).getScene().getWindow();
         if (stage.isFullScreen()) {
             stage.setFullScreen(false);
-        }else{
+        } else {
             stage.setFullScreen(true);
         }
     }
 
     @FXML
     private void minimalizeSscreen(ActionEvent event) {
-                stage = (Stage) ((Node)(event.getSource())).getScene().getWindow();
+        stage = (Stage) ((Node) (event.getSource())).getScene().getWindow();
         if (stage.isMaximized()) {
             w = rec2.getWidth();
             h = rec2.getHeight();
@@ -120,26 +122,26 @@ public class AsbestosTestController implements Initializable {
             Platform.runLater(() -> {
                 stage.setIconified(true);
             });
-        }else{
+        } else {
             stage.setIconified(true);
-        }    
+        }
     }
 
     @FXML
     private void maximalizeSscreen(ActionEvent event) {
-        stage = (Stage) ((Node)(event.getSource())).getScene().getWindow();
+        stage = (Stage) ((Node) (event.getSource())).getScene().getWindow();
         if (stage.isMaximized()) {
             if (w == rec2.getWidth() && h == rec2.getHeight()) {
                 stage.setMaximized(false);
                 stage.setHeight(600);
                 stage.setWidth(800);
                 stage.centerOnScreen();
-            }else{
+            } else {
                 stage.setMaximized(false);
 
             }
-            
-        }else{
+
+        } else {
             stage.setMaximized(true);
             stage.setHeight(rec2.getHeight());
         }
@@ -147,7 +149,7 @@ public class AsbestosTestController implements Initializable {
 
     @FXML
     private void closeeSscreen(ActionEvent event) {
-        stage = (Stage) ((Node)(event.getSource())).getScene().getWindow();
+        stage = (Stage) ((Node) (event.getSource())).getScene().getWindow();
         stage.close();
     }
 
@@ -158,64 +160,64 @@ public class AsbestosTestController implements Initializable {
 
     @FXML
     private void jobDragDetected(MouseEvent event) {
-      Dragboard dragBoard = job.startDragAndDrop(TransferMode.MOVE);
-      ClipboardContent content = new ClipboardContent();
-      content.putString(String.valueOf(job.getSelectionModel().getSelectedIndex()));
-      dragBoard.setContent(content);
+        Dragboard dragBoard = job.startDragAndDrop(TransferMode.MOVE);
+        ClipboardContent content = new ClipboardContent();
+        content.putString(String.valueOf(job.getSelectionModel().getSelectedIndex()));
+        dragBoard.setContent(content);
     }
 
     @FXML
     private void jobDragExited(DragEvent event) {
-      job.setBlendMode(null);  
+        job.setBlendMode(null);
     }
 
     @FXML
     private void jobDragOver(DragEvent event) {
-         event.acceptTransferModes(TransferMode.MOVE); 
+        event.acceptTransferModes(TransferMode.MOVE);
     }
 
     @FXML
     private void jobDragDropped(DragEvent event) {
         int tmp = Integer.parseInt(event.getDragboard().getString());
-        String aadd= addedJob.getItems().get(tmp);
+        String aadd = addedJob.getItems().get(tmp);
         dataRight.remove(tmp);
         data.add(aadd);
         job.setItems(data);
-        addedJob.setItems(dataRight);        
+        addedJob.setItems(dataRight);
     }
 
     @FXML
     private void addToRightJob(ActionEvent event) {
-        try{
-        int index=job.getSelectionModel().getSelectedIndex();
-        String tmp= data.remove(index);
-        dataRight.add(tmp);
-        job.setItems(data);
-        addedJob.setItems(dataRight);//dataRight             
-        }catch(Exception ex){
-        Alert alert = new Alert(Alert.AlertType.ERROR);
-        alert.setTitle("OnkoTest");
-        alert.setHeaderText("Błąd podczas przenoszenia");
-        alert.setContentText("Nie zaznaczono zawodu który chcesz przenieść");
-        alert.showAndWait();  
+        try {
+            int index = job.getSelectionModel().getSelectedIndex();
+            String tmp = data.remove(index);
+            dataRight.add(tmp);
+            job.setItems(data);
+            addedJob.setItems(dataRight);//dataRight             
+        } catch (Exception ex) {
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("OnkoTest");
+            alert.setHeaderText("Błąd podczas przenoszenia");
+            alert.setContentText("Nie zaznaczono zawodu który chcesz przenieść");
+            alert.showAndWait();
         }
 
     }
 
     @FXML
     private void addToLeftJob(ActionEvent event) {
-        try{
-        int index=addedJob.getSelectionModel().getSelectedIndex();
-        String tmp= dataRight.remove(index);
-        data.add(tmp);
-        addedJob.setItems(dataRight);
-        job.setItems(data); 
-        }catch(Exception ex){
-        Alert alert = new Alert(Alert.AlertType.ERROR);
-        alert.setTitle("OnkoTest");
-        alert.setHeaderText("Błąd podczas przenoszenia");
-        alert.setContentText("Nie zaznaczono zawodu który chcesz przenieść");
-        alert.showAndWait();   
+        try {
+            int index = addedJob.getSelectionModel().getSelectedIndex();
+            String tmp = dataRight.remove(index);
+            data.add(tmp);
+            addedJob.setItems(dataRight);
+            job.setItems(data);
+        } catch (Exception ex) {
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("OnkoTest");
+            alert.setHeaderText("Błąd podczas przenoszenia");
+            alert.setContentText("Nie zaznaczono zawodu który chcesz przenieść");
+            alert.showAndWait();
         }
 
     }
@@ -232,46 +234,53 @@ public class AsbestosTestController implements Initializable {
 
     @FXML
     private void addedDragOver(DragEvent event) {
-        event.acceptTransferModes(TransferMode.MOVE);    
+        event.acceptTransferModes(TransferMode.MOVE);
     }
 
     @FXML
     private void addedDragDropped(DragEvent event) {
         int tmp = Integer.parseInt(event.getDragboard().getString());
-        String aadd= job.getItems().get(tmp);
+        String aadd = job.getItems().get(tmp);
         data.remove(tmp);
         dataRight.add(aadd);
         job.setItems(data);
-        addedJob.setItems(dataRight); 
+        addedJob.setItems(dataRight);
     }
-     @Override
+
+    @Override
     /**
-     ** Metoda ktora zwraca w postaci ciągu znaków wyrażenie które będzie potrzebne wykonania wniskowania 
+     ** Metoda ktora zwraca w postaci ciągu znaków wyrażenie które będzie
+     * potrzebne wykonania wniskowania
+     *
      * @rerurn wyrażenie potrzebne do wykonania wniskowania
      */
-    public String toString(){
-        StringBuilder tmp= new StringBuilder("( assert ( Point ( sum ").append(dataRight.size());
+    public String toString() {
+        StringBuilder tmp = new StringBuilder("( assert ( Point ( sum ").append(dataRight.size());
         tmp.append(" ) ) )");
         return tmp.toString();
     }
+
     /**
-     ** wyświetla wyniki diagnozy  
+     ** wyświetla wyniki diagnozy
+     *
      * @param message rezultat diagnozy
      */
-    public void showOutputMessage(String message){
+    public void showOutputMessage(String message) {
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
         alert.setTitle("Wynik diagnozy");
         alert.setHeaderText("Otrzymane rezulataty");
         alert.setContentText(message);
         alert.showAndWait();
-    } 
+    }
+
     /**
-     ** Metoda która wykonuje diagnoze 
-     * @param s - assertrion 
+     ** Metoda która wykonuje diagnoze
+     *
+     * @param s - assertrion
      */
-      public void makeDiagnostic(String s){
-            boolean add=false;
-            StringBuilder text= new StringBuilder();
+    public void makeDiagnostic(String s) {
+        boolean add = false;
+        StringBuilder text = new StringBuilder();
         try {
             Rete engine = new Rete();
             engine.reset();
@@ -287,29 +296,29 @@ public class AsbestosTestController implements Initializable {
             if (result == null ? "" == null : result.equals("")) {
                 result = "Brak diagnozy";
             }
-            for(int i=0;i<result.length();i++){
-                if(result.charAt(i)=='1'){
-                    add=true;
-                }
-                else{
+            for (int i = 0; i < result.length(); i++) {
+                if (result.charAt(i) == '1') {
+                    add = true;
+                } else {
                     text.append(result.charAt(i));
                 }
             }
-            if(add){
+            if (add) {
                 window.changeFactToRight("Kontakt z azbestem");
             }
             showOutputMessage(text.toString());
 
         } catch (JessException ex) {
-        Alert alert = new Alert(Alert.AlertType.ERROR);
-        alert.setTitle("OnkoTest");
-        alert.setHeaderText("Błąd podczas wykonywania daignozy");
-        alert.setContentText(ex.getLocalizedMessage());
-        alert.showAndWait();
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("OnkoTest");
+            alert.setHeaderText("Błąd podczas wykonywania daignozy");
+            alert.setContentText(ex.getLocalizedMessage());
+            alert.showAndWait();
         }
- 
+
     }
+
     public void setWindow(FactorWindowController window) {
         this.window = window;
-    }    
+    }
 }

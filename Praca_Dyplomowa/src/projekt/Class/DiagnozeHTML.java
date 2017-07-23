@@ -1,12 +1,13 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package projekt.Class;
 
 import javafx.collections.ObservableList;
 
+/**
+ ** Klasa która pozwala na zapis diagnozy w postaci html-owej.
+ *
+ * @author Andrzej Kierepka
+ */
 public class DiagnozeHTML {
 
     private ObservableList<CancerFamilly> cancerFamilly;
@@ -25,22 +26,47 @@ public class DiagnozeHTML {
         textCss = new StringBuilder();
     }
 
+    /**
+     ** Metoda, która pozwala na ustawienie listy nowotworów w rodzinie
+     *
+     * @param cancerFamilly lista nowotworów w rodzinie
+     */
     public void setCancerFamilly(ObservableList<CancerFamilly> cancerFamilly) {
         this.cancerFamilly = cancerFamilly;
     }
 
+    /**
+     ** Metoda, która pozwala na listy czynników ryzyka
+     *
+     * @param dataFactors lista czynników ryzyka
+     */
     public void setDataFactors(ObservableList<String> dataFactors) {
         this.dataFactors = dataFactors;
     }
 
+    /**
+     ** Metoda, która pozwala na ustawienie listy symptomów
+     *
+     * @param dataSymptoms lista symptomów
+     */
     public void setDataSymptoms(ObservableList<String> dataSymptoms) {
         this.dataSymptoms = dataSymptoms;
     }
 
+    /**
+     ** Metoda, która pozwala na ustawienie danych osoby
+     *
+     * @param person osoba
+     */
     public void setPerson(Person person) {
         this.person = person;
     }
 
+    /**
+     ** Metoda, która zwraca dane osobowe w tabeli
+     *
+     * @return tabela w postaci html
+     */
     private StringBuilder makePersonInTable() {
         StringBuilder str = new StringBuilder();
         str.append("<table>\n");
@@ -67,6 +93,9 @@ public class DiagnozeHTML {
         return str;
     }
 
+    /**
+     ** Metoda, która parsuje diagnoze do html
+     */
     public void parseHTML() {
         StringBuilder str = new StringBuilder();
         // str.append("<!DOCTYPE html>\n");
@@ -123,6 +152,11 @@ public class DiagnozeHTML {
 
     }
 
+    /**
+     ** Metoda, która zamienia czynniki ryzyka do tabeli w postaci html
+     *
+     * @return czynniki ryzyka w postaci w html
+     */
     private StringBuilder createFactor() {
         StringBuilder str = new StringBuilder();
         str.append("<table>\n");
@@ -133,6 +167,11 @@ public class DiagnozeHTML {
         return str;
     }
 
+    /**
+     ** Metoda, która zwraca symptomy w postaci tabeli html
+     *
+     * @return symptomy w postaci html
+     */
     private StringBuilder createSymptoms() {
         StringBuilder str = new StringBuilder();
         str.append("<table>\n");

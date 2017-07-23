@@ -1,10 +1,4 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package projekt.Controller;
-
 
 import java.io.IOException;
 import java.net.URL;
@@ -39,13 +33,14 @@ import projekt.animations.FadeInRightTransition;
 import projekt.animations.FadeInUpTransition;
 
 /**
- * FXML Controller class
+ ** Klasa, ktora obsługuje plik FXML FirstWindow
  *
  * @author Andrzej Kierepka
  */
 public class FirstWindowController implements Initializable {
-    ObservableList<String > sexList = FXCollections.observableArrayList("Kobieta", "Mężczyzna");
-    private boolean mail=false;
+
+    ObservableList<String> sexList = FXCollections.observableArrayList("Kobieta", "Mężczyzna");
+    private boolean mail = false;
     @FXML
     public TextField name;
     @FXML
@@ -81,17 +76,22 @@ public class FirstWindowController implements Initializable {
     private FactorWindowController fwc;
     private CancerInFamillyController cif;
     private SymptomWindowController sw;
+
     /**
-     * Initializes the controller class.
+     ** Konstruktor bezparametrowy
      */
-    
     public FirstWindowController() {
         sw = new SymptomWindowController();
-        cif= new CancerInFamillyController();
-        fwc= new FactorWindowController();
-    
-    } 
-    
+        cif = new CancerInFamillyController();
+        fwc = new FactorWindowController();
+
+    }
+
+    /**
+     ** Konstruktor z prametrem w którym podajemy osobę
+     *
+     * @param p instacja klasy Person
+     */
     public FirstWindowController(Person p) {
         name.setText(p.getName());
         surname.setText(p.getSurName());
@@ -99,10 +99,17 @@ public class FirstWindowController implements Initializable {
         height.setText(String.valueOf(p.getHeight()));
         age.setText(String.valueOf(p.getAge()));
         sw = new SymptomWindowController();
-        cif= new CancerInFamillyController();
-        fwc= new FactorWindowController();
-        
-    } 
+        cif = new CancerInFamillyController();
+        fwc = new FactorWindowController();
+
+    }
+
+    /**
+     ** Inicjalizacja kontrolera
+     *
+     * @param url
+     * @param rb
+     */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         Platform.runLater(() -> {
@@ -126,137 +133,151 @@ public class FirstWindowController implements Initializable {
         });
         sex.setItems(sexList);
         sex.getSelectionModel().selectFirst();
-    }    
-
-    @FXML
-    private void nextWindow(ActionEvent event) throws IOException {
-        Double w= new Double(0.0);
-        int h = 0;
-        int a = 0;
-        if(mail){
-            if(!surname.getText().isEmpty() && !sex.getValue().isEmpty() ){
-                try{
-                if(CheckReg.checkHeightCent(height.getText()) || CheckReg.checkHeightMetr(height.getText()) ){
-                  w=Double.valueOf(height.getText());
-                  if(CheckReg.checkHeightMetr(height.getText())){
-                  w*=100;    
-                  }
-                  h = w.intValue();
-                  w=0.0;
-                  }
-                  else{
-                    showOutputMessage("Nie poprawnie wprowadzono wzrost");
-                    return ;
-                }    
-                w=Double.valueOf(weight.getText()); 
-                a= Integer.parseInt(age.getText());
-                Person p = new Person(surname.getText(), w, a, sex.getValue(), h);
-                if(CheckReg.checkEmail(surname.getText())){
-                FXMLLoader load = new FXMLLoader(this.getClass().getResource("/projekt/FXML/FactorWindow.fxml"));
-                FactorWindowController cnt= new FactorWindowController(p);   
-                Parent parent= load.load();
-                cnt=load.getController();
-                cnt.setPerson(p);
-                if(p.getBmi()>25){
-                   cnt.changeFactToRight("Otyłość"); 
-                }
-                for(int i=0;i<fwc.dataRight.size();i++){
-                    cnt.changeFactToRight(fwc.dataRight.get(i));
-                }
-                if(p.getBmi()<25){
-                   cnt.changeFactToLeft("Otyłość"); 
-                }
-                cnt.setSymptomWindowController(sw);
-                cnt.setCancerInFamillyController(cif);
-                Scene scene = new Scene(parent);
-                Stage primaryStage = new Stage();
-                primaryStage.setScene(scene);
-                primaryStage.show();
-                Stage stage;
-                stage = (Stage) ((Node)(event.getSource())).getScene().getWindow();
-                stage.close();
-                }
-                else{   
-                showOutputMessage("Wprowadzony adres e-mail jest nieprawidłowy");
-                }
-                }
-                catch(IOException | NumberFormatException e){
-                    showOutputMessage(e.toString());
-                }
-            }
-            else{
-                showOutputMessage("Wypełnij odpowiednie pola");
-            }
-        }
-        else{
-            if(!name.getText().isEmpty() && !surname.getText().isEmpty() && !sex.getValue().isEmpty()  ){
-            try{
-                if(CheckReg.checkWord(name.getText()) && CheckReg.checkWord(surname.getText()) ){
-                if(CheckReg.checkHeightCent(height.getText()) || CheckReg.checkHeightMetr(height.getText()) ){
-                  w=Double.valueOf(height.getText());
-                  if(CheckReg.checkHeightMetr(height.getText())){
-                  w*=100;    
-                  }
-                  h = w.intValue();
-                  w=0.0;
-                  }
-                  else{
-                    showOutputMessage("Nie poprawnie wprowadzono wzrost");
-                    return ;
-                }
-                w=Double.valueOf(weight.getText());
-                a= Integer.parseInt(age.getText());
-                Person p = new Person(name.getText(), surname.getText(),w, a, sex.getValue(), h);
-                FXMLLoader load = new FXMLLoader(this.getClass().getResource("/projekt/FXML/FactorWindow.fxml"));
-                FactorWindowController cnt= new FactorWindowController(p);
-                Parent parent= load.load();
-                cnt=load.getController();                
-                cnt.setPerson(p); 
-                if(p.getBmi()>25){
-                   cnt.changeFactToRight("Otyłość"); 
-                }
-                for(int i=0;i<fwc.dataRight.size();i++){
-                    cnt.changeFactToRight(fwc.dataRight.get(i));
-                }
-                if(p.getBmi()<25){
-                   cnt.changeFactToLeft("Otyłość"); 
-                }
-                cnt.setSymptomWindowController(sw);
-                cnt.setCancerInFamillyController(cif);
-                Scene scene = new Scene(parent);
-                Stage primaryStage = new Stage();
-                primaryStage.initStyle(StageStyle.UNDECORATED);
-                primaryStage.setScene(scene);
-                primaryStage.show();
-                Stage stage;
-                stage = (Stage) ((Node)(event.getSource())).getScene().getWindow();
-                stage.close();    
-                }
-                else{
-                    showOutputMessage("Wprowadź imie lub nazwisko");
-                }
-            }
-            catch(IOException | NumberFormatException e){
-                showOutputMessage(e.toString());
-            }
-        }
-        else{
-               showOutputMessage("Wypełnij odpowiednie pola");
-            }
-        }
-        
     }
 
+    /**
+     ** Metoda, która powoduje przejście do następnego okna
+     *
+     * @param event zdarzenie obsługujące przyciśnięcieprzycisku
+     * @throws IOException wyjątek który może być sposodowany przez złe podanie
+     * ścieżek dostępu
+     */
+    @FXML
+    private void nextWindow(ActionEvent event) throws IOException {
+        Double w = new Double(0.0);
+        int h = 0;
+        int a = 0;
+        if (mail) {
+            if (!surname.getText().isEmpty() && !sex.getValue().isEmpty()) {
+                try {
+                    if (CheckReg.checkHeightCent(height.getText()) || CheckReg.checkHeightMetr(height.getText())) {
+                        w = Double.valueOf(height.getText());
+                        if (CheckReg.checkHeightMetr(height.getText())) {
+                            w *= 100;
+                        }
+                        h = w.intValue();
+                        w = 0.0;
+                    } else {
+                        showOutputMessage("Nie poprawnie wprowadzono wzrost");
+                        return;
+                    }
+                    w = Double.valueOf(weight.getText());
+                    a = Integer.parseInt(age.getText());
+                    Person p = new Person(surname.getText(), w, a, sex.getValue(), h);
+                    if (CheckReg.checkEmail(surname.getText())) {
+                        FXMLLoader load = new FXMLLoader(this.getClass().getResource("/projekt/FXML/FactorWindow.fxml"));
+                        FactorWindowController cnt = new FactorWindowController(p);
+                        Parent parent = load.load();
+                        cnt = load.getController();
+                        cnt.setPerson(p);
+                        if (p.getBmi() > 25) {
+                            cnt.changeFactToRight("Otyłość");
+                        }
+                        for (int i = 0; i < fwc.dataRight.size(); i++) {
+                            cnt.changeFactToRight(fwc.dataRight.get(i));
+                        }
+                        if (p.getBmi() < 25) {
+                            cnt.changeFactToLeft("Otyłość");
+                        }
+                        cnt.setSymptomWindowController(sw);
+                        cnt.setCancerInFamillyController(cif);
+                        Scene scene = new Scene(parent);
+                        Stage primaryStage = new Stage();
+                        primaryStage.setScene(scene);
+                        primaryStage.show();
+                        Stage stage;
+                        stage = (Stage) ((Node) (event.getSource())).getScene().getWindow();
+                        stage.close();
+                    } else {
+                        showOutputMessage("Wprowadzony adres e-mail jest nieprawidłowy");
+                    }
+                } catch (IOException | NumberFormatException e) {
+                    showOutputMessage(e.toString()  );
+                }
+            } else {
+                showOutputMessage("Wypełnij pola które nie zostały jeszcze uzupełnione");
+            }
+        } else {
+            if (!name.getText().isEmpty() && !surname.getText().isEmpty() && !sex.getValue().isEmpty()) {
+                try {
+                    if (CheckReg.checkWord(name.getText()) && CheckReg.checkWord(surname.getText())) {
+                        if (CheckReg.checkHeightCent(height.getText()) || CheckReg.checkHeightMetr(height.getText())) {
+                            w = Double.valueOf(height.getText());
+                            if (CheckReg.checkHeightMetr(height.getText())) {
+                                w *= 100;
+                            }
+                            h = w.intValue();
+                            w = 0.0;
+                        } else {
+                            showOutputMessage("Nie poprawnie wprowadzono wzrost");
+                            return;
+                        }
+                        w = Double.valueOf(weight.getText());
+                        a = Integer.parseInt(age.getText());
+                        Person p = new Person(name.getText(), surname.getText(), w, a, sex.getValue(), h);
+                        FXMLLoader load = new FXMLLoader(this.getClass().getResource("/projekt/FXML/FactorWindow.fxml"));
+                        FactorWindowController cnt = new FactorWindowController(p);
+                        Parent parent = load.load();
+                        cnt = load.getController();
+                        cnt.setPerson(p);
+                        if (p.getBmi() > 25) {
+                            cnt.changeFactToRight("Otyłość");
+                        }
+                        for (int i = 0; i < fwc.dataRight.size(); i++) {
+                            cnt.changeFactToRight(fwc.dataRight.get(i));
+                        }
+                        if (p.getBmi() < 25) {
+                            cnt.changeFactToLeft("Otyłość");
+                        }
+                        cnt.setSymptomWindowController(sw);
+                        cnt.setCancerInFamillyController(cif);
+                        Scene scene = new Scene(parent);
+                        Stage primaryStage = new Stage();
+                        primaryStage.initStyle(StageStyle.UNDECORATED);
+                        primaryStage.setScene(scene);
+                        primaryStage.show();
+                        Stage stage;
+                        stage = (Stage) ((Node) (event.getSource())).getScene().getWindow();
+                        stage.close();
+                    } else {
+                        showOutputMessage("Nie poprawnie wprowadzono imie lub nazwisko.\nKażde imię i nazwisko powinno zaczynać się od dużej litery");
+                    }
+                } catch (IOException | NumberFormatException e) {
+                    showOutputMessage(e.toString());
+                }
+            } else {
+                showOutputMessage("Wypełnij pola które nie zostały jeszcze uzupełnione");
+            }
+        }
+
+    }
+
+    /**
+     ** Metoda, która zamyka okno
+     *
+     * @param event obsługa zdarzenia polegająca na przyciśnięciu przycisku
+     */
     @FXML
     private void close(ActionEvent event) {
         Platform.exit();
     }
 
+    /**
+     ** Metoda, która zamyka okno
+     *
+     * @param event obsługa zdarzenia polegająca na przyciśnięciu obiektu
+     */
     @FXML
     private void mouseClosed(MouseEvent event) {
         Platform.exit();
     }
-    public void setPerson(Person p){
+
+    /**
+     ** Metoda, która ustawia osobę
+     *
+     * @param p instacjna która imituje osobę
+     */
+    public void setPerson(Person p) {
         name.setText(p.getName());
         surname.setText(p.getSurName());
         weight.setText(String.valueOf(p.getWeight()));
@@ -264,50 +285,67 @@ public class FirstWindowController implements Initializable {
         age.setText(String.valueOf(p.getAge()));
     }
 
+    /**
+     ** Metoda, która oznacza zaznaczenie kliknięcia w zaznaczenie
+     *
+     * @param event obsługa zdarzenia kliknięcia w e-mail
+     */
     @FXML
     private void eMailClicked(ActionEvent event) {
-    mail=!mail;
-    if(mail){
-        lblname.setVisible(false);
-        name.setVisible(false);
-        lblsurname.setText("E-mail:");
-        surname.setPromptText("Podaj swój e-mail");
-        toplbl.setLayoutX(186);
-        toplbl.setLayoutY(50);
-    }
-    else{
-        toplbl.setLayoutY(10);
-        lblname.setVisible(true);
-        name.setVisible(true);
-        lblsurname.setText("Nazwisko:");
-        surname.setPromptText("Podaj swóje nazwisko");
-    }
+        mail = !mail;
+        if (mail) {
+            lblname.setVisible(false);
+            name.setVisible(false);
+            lblsurname.setText("E-mail:");
+            surname.setPromptText("Podaj swój e-mail");
+            toplbl.setLayoutX(186);
+            toplbl.setLayoutY(50);
+        } else {
+            toplbl.setLayoutY(10);
+            lblname.setVisible(true);
+            name.setVisible(true);
+            lblsurname.setText("Nazwisko:");
+            surname.setPromptText("Podaj swóje nazwisko");
+        }
     }
 
+    /**
+     ** Metoda, która ustawiia e-mail
+     *
+     * @param mail true- trzeba podać e-mail
+     */
     public void setMail(boolean mail) {
         this.mail = mail;
-       
-            eMail.setSelected(mail);
-        
+        eMail.setSelected(mail);
+
     }
 
+    /**
+     ** Metoda, która zwraca e-mail
+     *
+     * @return e-mail
+     */
     public CheckBox geteMail() {
         return eMail;
     }
-        /**
-     ** wyświetla okno dialogowe 
+
+    /**
+     ** wyświetla okno dialogowe
+     *
      * @param message wiadomość
      */
-    private void showOutputMessage(String message){
+    private void showOutputMessage(String message) {
         Alert alert = new Alert(Alert.AlertType.ERROR);
         alert.setTitle("Powiadomienie");
         alert.setHeaderText("Treść komunikatu:");
         alert.setContentText(message);
         alert.showAndWait();
     }
+
     /**
-     ** Metoda pozwala na ustawienie kontrolera w oknie 2 
-     * @param sw 
+     ** Metoda pozwala na ustawienie kontrolera w oknie 2
+     *
+     * @param sw
      */
     public void setSymptomWindowController(SymptomWindowController sw) {
         this.sw = sw;
@@ -320,6 +358,5 @@ public class FirstWindowController implements Initializable {
     public void setFactorWindowController(FactorWindowController fwc) {
         this.fwc = fwc;
     }
-    
-    
+
 }

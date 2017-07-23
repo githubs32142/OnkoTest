@@ -1,8 +1,4 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package projekt.Controller;
 
 import com.itextpdf.text.Document;
@@ -61,7 +57,7 @@ import projekt.Class.Person;
 /**
  * FXML Controller class
  *
- * @author Admin
+ * @author Andrzej Kierepka
  */
 public class DiagnoseWindowController implements Initializable {
 
@@ -85,7 +81,9 @@ public class DiagnoseWindowController implements Initializable {
     @FXML
     private AnchorPane box;
     private String CSS;
-
+/**
+ * Konstruktor bezparametrowy 
+ */
     public DiagnoseWindowController() {
         cancerFamilly = FXCollections.observableArrayList();
         dataFactors = FXCollections.observableArrayList();
@@ -113,6 +111,11 @@ public class DiagnoseWindowController implements Initializable {
         });
     }
 
+    /**
+     ** Metoda, która powoduje, że formulrz rozciąga się naa cały ekran
+     *
+     * @param event
+     */
     @FXML
     private void fullScreen(ActionEvent event) {
         stage = (Stage) ((Node) (event.getSource())).getScene().getWindow();
@@ -122,7 +125,11 @@ public class DiagnoseWindowController implements Initializable {
             stage.setFullScreen(true);
         }
     }
-
+    /**
+     ** Metoda która minimalizuje okno
+     *
+     * @param event obsługa zdarzenia
+     */
     @FXML
     private void minimalizeSscreen(ActionEvent event) {
         stage = (Stage) ((Node) (event.getSource())).getScene().getWindow();
@@ -140,7 +147,11 @@ public class DiagnoseWindowController implements Initializable {
             stage.setIconified(true);
         }
     }
-
+    /**
+     ** Metoda, która maksymalizuje okno
+     *
+     * @param event obsługa zdarzenia
+     */
     @FXML
     private void maximalizeSscreen(ActionEvent event) {
         stage = (Stage) ((Node) (event.getSource())).getScene().getWindow();
@@ -160,13 +171,21 @@ public class DiagnoseWindowController implements Initializable {
             stage.setHeight(rec2.getHeight());
         }
     }
-
+/**
+ ** Metoda, która zamyka program 
+ * @param event 
+ */
     @FXML
     private void closeeSscreen(ActionEvent event) {
         Platform.exit();
         System.exit(0);
     }
 
+    /**
+     ** Metoda która pozwala na ustawienie obiektu immitującego ooę
+     *
+     * @param person instancja Klasy Person
+     */
     public void setPerson(Person person) {
         this.person = person;
     }
@@ -174,7 +193,13 @@ public class DiagnoseWindowController implements Initializable {
     @FXML
     private void undoClicked(ActionEvent event) {
     }
-
+/**
+ ** Metoda, która pozwala na zapisa wyniku diagnozy do pliku pdf 
+ * @param event obsługa zdarznia
+ * @throws FileNotFoundException 
+ * @throws DocumentException
+ * @throws IOException Wyjątek wejścia/ wyjścia
+ */
     @FXML
     private void saveToPdf(ActionEvent event) throws FileNotFoundException, DocumentException, IOException {
             FileChooser fileChooser = new FileChooser();
@@ -184,46 +209,33 @@ public class DiagnoseWindowController implements Initializable {
               
               if(fileSel != null){
                   Document document = new Document();
-            // step 2
                   createPdf(fileSel);
               }
     }
-
+/**
+ ** Metoda, która tworzy plik pdf na podaną ścieżkę 
+ * @param file
+ * @throws IOException
+ * @throws DocumentException 
+ */
  public void createPdf(File file) throws IOException, DocumentException {
-        // step 1
         Document document = new Document();
          String HTML = "src/projekt/HTML/Diagnoza/diagnoza.html";
          String CSS = "src/projekt/HTML/Diagnoza/styl.css";
-        // step 2
         PdfWriter writer = PdfWriter.getInstance(document, new FileOutputStream(file));
         writer.setInitialLeading(12.5f);
- 
-        // step 3
-        document.open();
- 
-        // step 4
- 
-        // CSS
+ document.open();
         CSSResolver cssResolver = new StyleAttrCSSResolver();
         CssFile cssFile = XMLWorkerHelper.getCSS(new FileInputStream(CSS));
         cssResolver.addCss(cssFile);
- 
-        // HTML
-        HtmlPipelineContext htmlContext = new HtmlPipelineContext(null);
+       HtmlPipelineContext htmlContext = new HtmlPipelineContext(null);
         htmlContext.setTagFactory(Tags.getHtmlTagProcessorFactory());
- 
-        // Pipelines
         PdfWriterPipeline pdf = new PdfWriterPipeline(document, writer);
         HtmlPipeline html = new HtmlPipeline(htmlContext, pdf);
         CssResolverPipeline css = new CssResolverPipeline(cssResolver, html);
- 
-        // XML Worker
         XMLWorker worker = new XMLWorker(css, true);
         XMLParser p = new XMLParser(worker);
-
         p.parse(new FileInputStream(HTML));
- 
-        // step 5
         document.close();
     }
 

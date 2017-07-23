@@ -575,7 +575,7 @@
  ******************************************************************************/
 
 .text-field{
-    -fx-skin: "herudi.style.MetroTextFieldSkin";
+    -fx-skin: "projekt.style.MetroTextFieldSkin";
 }
 
 .text-input{
@@ -648,7 +648,7 @@
  ******************************************************************************/
 
 .password-field {
-    -fx-skin: "herudi.style.MetroPasswordFieldSkin";
+    -fx-skin: "projekt.style.MetroPasswordFieldSkin";
 }
 
 .password-field > .right-button > .right-button-graphic {

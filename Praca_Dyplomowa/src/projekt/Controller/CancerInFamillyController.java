@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package projekt.Controller;
 
 import com.jfoenix.controls.JFXDrawer;
@@ -48,7 +43,7 @@ import projekt.Class.Person;
 /**
  * FXML Controller class
  *
- * @author Admin
+ * @author Andrzzej Kierepka
  */
 public class CancerInFamillyController implements Initializable {
 
@@ -65,7 +60,7 @@ public class CancerInFamillyController implements Initializable {
     private ObservableList<CancerFamilly> data;
     private ObservableList<String> listCancer;
     private ObservableList<String> listFamilly;
- 
+
     private ComboBox<String> famillyCancer;
     private int index;
     @FXML
@@ -96,7 +91,7 @@ public class CancerInFamillyController implements Initializable {
         rec2 = Screen.getPrimary().getVisualBounds();
         w = 0.1;
         h = 0.1;
-        
+
         listCancer = FXCollections.observableArrayList("Rak płuc", "Rak jelita grubrgo", "Rak piersi", "Rak jąder", "Rak gruczołu krokowego", "Guz mózgu", "Rak szyjki macicy", "Rak płuc", "Rak trzustki", "Rak żołądka", "Rak macicy", "Rak krtani");
         listFamilly = FXCollections.observableArrayList("Brat", "Siostra", "Ojciec", "Matka", "Dziadek", "Babcia", "Wujek", "Ciotka");
         cancer = new TableColumn("Rak w rodzinie");
@@ -121,60 +116,93 @@ public class CancerInFamillyController implements Initializable {
         hamburger.addEventHandler(MouseEvent.MOUSE_PRESSED, new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent e) {
-                transition.setRate(transition.getRate()*-1);
+                transition.setRate(transition.getRate() * -1);
                 transition.play();
-                
-                if(drawer.isShown())
-                {
+
+                if (drawer.isShown()) {
                     drawer.close();
-                }else
+                } else {
                     drawer.open();
-                    drawer.setPrefWidth(150);
+                }
+                drawer.setPrefWidth(150);
             }
         });
 
     }
 
-
+    /**
+     ** Metoda która pozwala na ustawienie obiektu immitującego ooę
+     *
+     * @param person instancja Klasy Person
+     */
     public void setPerson(Person person) {
         this.person = person;
     }
 
+    /**
+     ** Metoda, która pozwala na ustawienie listy czynników ryzyka
+     *
+     * @param factor lista czynników ryzyka
+     */
     public void setFactor(List<String> factor) {
         this.factor = factor;
     }
 
+    /**
+     ** Metoda, która ustawia pozwala na ustawienie symptomów
+     *
+     * @param symptoms lista symptomów
+     */
     public void setSymptoms(List<String> symptoms) {
         this.symptoms = symptoms;
     }
 
+    /**
+     ** Metoda, która zrwaca zmienną określającą osobę
+     *
+     * @return zmienna typu Person
+     */
     public Person getPerson() {
         return person;
     }
 
+    /**
+     ** Metoda, która zwraca listę czynników ryzyka
+     *
+     * @return Lista czynników ryzyka
+     */
     public List<String> getFactor() {
         return factor;
     }
 
+    /**
+     ** Metoda, która pozawala na zwrócenie listy symptoów
+     *
+     * @return lista symptomów
+     */
     public List<String> getSymptoms() {
         return symptoms;
     }
 
+    /**
+     ** Metoda która pozwala na dodanie danych do tabeli
+     *
+     * @param event obsługa zdarzenia kliknięcie w przycisk
+     */
     @FXML
     private void addToTable(ActionEvent event) {
         if (cancerCombo.getSelectionModel().getSelectedIndex() >= 0 && famillyCombo.getSelectionModel().getSelectedIndex() >= 0) {
-            
-            if(data.isEmpty()){
+
+            if (data.isEmpty()) {
                 data.add(new CancerFamilly(cancerCombo.getSelectionModel().getSelectedItem(), famillyCombo.getSelectionModel().getSelectedItem()));
-            }
-            else{
-                if (data.get(0).getCancer().isEmpty()) {
-                data.set(0, new CancerFamilly(cancerCombo.getSelectionModel().getSelectedItem(), famillyCombo.getSelectionModel().getSelectedItem()));
             } else {
-                data.add(new CancerFamilly(cancerCombo.getSelectionModel().getSelectedItem(), famillyCombo.getSelectionModel().getSelectedItem()));
+                if (data.get(0).getCancer().isEmpty()) {
+                    data.set(0, new CancerFamilly(cancerCombo.getSelectionModel().getSelectedItem(), famillyCombo.getSelectionModel().getSelectedItem()));
+                } else {
+                    data.add(new CancerFamilly(cancerCombo.getSelectionModel().getSelectedItem(), famillyCombo.getSelectionModel().getSelectedItem()));
+                }
             }
-            }
-            
+
             table.setItems(data);
         } else {
             showOutputMessage("Nie można wprowadzić danych");
@@ -182,6 +210,11 @@ public class CancerInFamillyController implements Initializable {
 
     }
 
+    /**
+     ** Metoda, która usuwa zaznaczony wiersz z tabeli
+     *
+     * @param event
+     */
     @FXML
     private void deleteCancerInFamilly(ActionEvent event) {
         makeDelete();
@@ -191,6 +224,7 @@ public class CancerInFamillyController implements Initializable {
     private void tableClicked(MouseEvent event) {
 
     }
+
     /**
      ** wyświetla KOMUNIKAT O BŁĘDZIE
      *
@@ -209,6 +243,11 @@ public class CancerInFamillyController implements Initializable {
         makeDelete();
     }
 
+    /**
+     ** Metoda, która powoduje, że formulrz rozciąga się naa cały ekran
+     *
+     * @param event
+     */
     @FXML
     private void fullScreen(ActionEvent event) {
         stage = (Stage) ((Node) (event.getSource())).getScene().getWindow();
@@ -219,6 +258,11 @@ public class CancerInFamillyController implements Initializable {
         }
     }
 
+    /**
+     ** Metoda która minimalizuje formularz
+     *
+     * @param event obsługa zdarzenia
+     */
     @FXML
     private void minimalizeSscreen(ActionEvent event) {
         stage = (Stage) ((Node) (event.getSource())).getScene().getWindow();
@@ -237,6 +281,11 @@ public class CancerInFamillyController implements Initializable {
         }
     }
 
+    /**
+     ** Metoda, która maksymalizuje formularz
+     *
+     * @param event obsługa zdarzenia
+     */
     @FXML
     private void maximalizeSscreen(ActionEvent event) {
         stage = (Stage) ((Node) (event.getSource())).getScene().getWindow();
@@ -257,6 +306,11 @@ public class CancerInFamillyController implements Initializable {
         }
     }
 
+    /**
+     ** Metoda, która zamyka program
+     *
+     * @param event obsługa zdarzenia
+     */
     @FXML
     private void closeeSscreen(ActionEvent event) {
         Platform.exit();
@@ -299,17 +353,18 @@ public class CancerInFamillyController implements Initializable {
     public void setCancerInFamilly(int i, CancerFamilly cf) {
         data.set(i, cf);
     }
+
     /**
-     ** Metoda usuwa wiersz z tabeli 
+     ** Metoda usuwa wiersz z tabeli
      */
-    private void makeDelete(){
+    private void makeDelete() {
         Alert alert = new Alert(AlertType.CONFIRMATION);
         alert.setTitle("OnkoTest");
         alert.setHeaderText("Zawartość poniższego komunikatu:");
         alert.setContentText("Czy na pewno chcesz usunąć zaznaczony rak w rodzinie?");
         ButtonType buttonTypeYes = new ButtonType("Tak");
         ButtonType buttonTypeNo = new ButtonType("Nie");
-        alert.getButtonTypes().setAll(buttonTypeYes,buttonTypeNo);
+        alert.getButtonTypes().setAll(buttonTypeYes, buttonTypeNo);
         Optional<ButtonType> result = alert.showAndWait();
         if (result.get() == buttonTypeYes) {
             index = table.getSelectionModel().getSelectedIndex();
@@ -321,31 +376,42 @@ public class CancerInFamillyController implements Initializable {
         }
     }
 
+    /**
+     ** Metoda, która powoduje przejście do następnego okna
+     *
+     * @param event obsługa zdarzenia
+     * @throws IOException wyjątek który może spowodowac błąd wejścia/wyjścia
+     */
     @FXML
     private void nextWindow(ActionEvent event) throws IOException {
         FXMLLoader load = new FXMLLoader(this.getClass().getResource("/projekt/FXML/SummaryWindow.fxml"));
-         SummaryWindowController cnt= new SummaryWindowController();   
-         Parent parent= load.load();
-         cnt=load.getController();
-         for(int i=0;i<factor.size();i++){
-             cnt.dataFactors.add(factor.get(i));
-         }
-         for(int i=0;i<symptoms.size();i++){
-             cnt.dataSymptoms.add(symptoms.get(i));
-         }
-         for(int i=0;i<this.data.size();i++){
-             cnt.cancerFamilly.add(this.data.get(i));
-         }
-         cnt.setPerson(person);
-         Scene scene = new Scene(parent);
-         Stage primaryStage = new Stage();
-         primaryStage.setScene(scene);
-         primaryStage.initStyle(StageStyle.UNDECORATED);
-         primaryStage.show();
-         stage = (Stage) ((Node)(event.getSource())).getScene().getWindow();
-         stage.close();
+        SummaryWindowController cnt = new SummaryWindowController();
+        Parent parent = load.load();
+        cnt = load.getController();
+        for (int i = 0; i < factor.size(); i++) {
+            cnt.dataFactors.add(factor.get(i));
+        }
+        for (int i = 0; i < symptoms.size(); i++) {
+            cnt.dataSymptoms.add(symptoms.get(i));
+        }
+        for (int i = 0; i < this.data.size(); i++) {
+            cnt.cancerFamilly.add(this.data.get(i));
+        }
+        cnt.setPerson(person);
+        Scene scene = new Scene(parent);
+        Stage primaryStage = new Stage();
+        primaryStage.setScene(scene);
+        primaryStage.initStyle(StageStyle.UNDECORATED);
+        primaryStage.show();
+        stage = (Stage) ((Node) (event.getSource())).getScene().getWindow();
+        stage.close();
     }
 
+    /**
+     ** Metoda, która powoduje przejście do poprzedniego okna
+     *
+     * @param event obsługa zdarzenia
+     */
     @FXML
     private void undoClick(ActionEvent event) {
         try {
@@ -371,6 +437,4 @@ public class CancerInFamillyController implements Initializable {
             logger.log(Level.SEVERE, "Failed to create new Window.", e);
         }
     }
-
-    
 }

@@ -1,15 +1,10 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package projekt.Class;
 
 import javafx.beans.property.SimpleStringProperty;
 
 /**
- *
- * @author Admin
+ ** Klasa, która dzięki pozwala na działanie tabeli. 
+ * @author Andrzej Kierepka
  */
 public class CancerFamilly {   
         private SimpleStringProperty cancer;

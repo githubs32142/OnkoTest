@@ -573,7 +573,7 @@
  ******************************************************************************/
 
 .text-field{
-	-fx-skin: "style.MetroTextFieldSkin";
+	-fx-skin: "projekt.style.MetroTextFieldSkin";
 }
 
 .text-input{
@@ -593,7 +593,7 @@
 }
 
 .text-input:focused{
-    -fx-background-color: #5c5c5c, white;
+    -fx-background-color: #5c5c5c, black;/* white*/
 
     -fx-text-fill: black;
 }
