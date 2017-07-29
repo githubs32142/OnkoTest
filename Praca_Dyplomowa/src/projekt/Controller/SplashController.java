@@ -12,7 +12,7 @@ import javafx.fxml.Initializable;
 /**
  * FXML Controller class
  *
- * @author Admin
+ * @author Andrzej Kierepka
  */
 public class SplashController implements Initializable {
 

@@ -57,11 +57,12 @@ public class FibreTest implements Initializable {
     private Button removeButton;
     @FXML
     private Label sum;
-
     /**
-     * Initializes the controller class.
-     * @param url
-     * @param rb
+     *
+     * Inicjalizacja kontriolera
+     *
+     * @param url wskaźnik do "zasobu" w sieci World Wide Web
+     * @param rb wersja językowa
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
@@ -99,14 +100,27 @@ public class FibreTest implements Initializable {
         addedProduct.setItems(addData);
         sum.setText("Suma: "+addFibre.getSumFibre());
     }
-
+    /**
+     ** Metoda, która zwraca index
+     *
+     * @return index
+     */
     public int getIndex() {
         return index;
     }
 
+    /**
+     ** Metoda, która ustawia index
+     *
+     * @param index index
+     */
     public void setIndex(int index) {
         this.index = index;
     }
+    /**
+     ** Metoda, która sortuje produkty znajdujące   
+     * @param event obsługa zdarzenia
+     */
     @FXML
     private void sortProduct(ActionEvent event) {
         listFibre.sort(sort.getSelectionModel().getSelectedIndex()+1);
@@ -123,7 +137,10 @@ public class FibreTest implements Initializable {
                 stage = (Stage) ((Node)(event.getSource())).getScene().getWindow();
                 stage.close();
     }
-
+/**
+ ** Metoda, która wykonuje test  
+ * @param event obsługa zdarzenia
+ */
     @FXML
     private void makeTest(ActionEvent event) {
         makeDiagnostic(toString());
@@ -205,7 +222,10 @@ public class FibreTest implements Initializable {
         removeButton.setVisible(true);
         index= addedProduct.getSelectionModel().getSelectedIndex();
     }
-
+/**
+ ** Metoda, która usuwa zaznaczony element z listy składników 
+ * @param event obsługa zdarzenia
+ */
     @FXML
     private void remove(ActionEvent event) {
         index= addedProduct.getSelectionModel().getSelectedIndex();    
@@ -216,6 +236,11 @@ public class FibreTest implements Initializable {
             sum.setText("Suma: "+addFibre.getSumFibre());
         }
     }
+        /**
+     ** Metoda, która ustawia kontroler klasy głownej
+     *
+     * @param window kontroler klasy głównej
+     */
         public void setWindow(FactorWindowController window) {
         this.window = window;
     }

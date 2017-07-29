@@ -10,11 +10,13 @@ import java.util.logging.Logger;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.Node;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.RadioButton;
 import javafx.scene.control.ToggleGroup;
+import javafx.stage.Stage;
 import jess.JessException;
 import jess.Rete;
 
@@ -128,7 +130,11 @@ public class SmokingTestController implements Initializable {
         }
         if (index == 6) {
             // koniec
+
             makeAllDiagnose();
+            Stage stage;
+            stage = (Stage) ((Node) (event.getSource())).getScene().getWindow();
+            stage.close();
             next.setText("Dalej>");
             index = 0;
             for (int i = 0; i < 6; i++) {
@@ -201,10 +207,6 @@ public class SmokingTestController implements Initializable {
         }
     }
 
-    private void fastDiagnose(ActionEvent event) {
-        makeAllDiagnose();
-    }
-
     public int getIndex() {
         return index;
     }
@@ -213,7 +215,6 @@ public class SmokingTestController implements Initializable {
      ** Metoda ktora zwraca w postaci ciągu znaków wyrażenie które będzie
      * potrzebne wykonania wniskowania
      *
-     * @return
      * @rerurn wyrażenie potrzebne do wykonania wniskowania
      */
     @Override

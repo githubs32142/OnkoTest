@@ -1,8 +1,4 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package projekt.Controller;
 
 import com.jfoenix.controls.JFXDrawer;
@@ -51,7 +47,7 @@ import projekt.Class.ProductFibre;
 /**
  * FXML Controller class
  *
- * @author Admin
+ * @author Andrzej Kierepka
  */
 public class SymptomWindowController implements Initializable {
     Stage stage;
@@ -83,7 +79,7 @@ public class SymptomWindowController implements Initializable {
     }
 
     /**
-     * Initializes the controller class.
+     * Metoda, która powoduje inicjalizajcę kontrolera klasy.
      * @param url
      * @param rb
      */
@@ -113,7 +109,11 @@ public class SymptomWindowController implements Initializable {
             }
         });
     }    
-
+/**
+ ** Metoda, która powoduje przejście do następnego okna 
+ * @param event obsługa zdarzenia przyciśnięcie klawisza
+ * @throws IOException wyjątek wejścia wyjścia
+ */
     @FXML
     private void nextWindow(ActionEvent event) throws IOException {
          FXMLLoader load = new FXMLLoader(this.getClass().getResource("/projekt/FXML/CancerInFamilly.fxml"));
@@ -139,21 +139,34 @@ public class SymptomWindowController implements Initializable {
          stage = (Stage) ((Node)(event.getSource())).getScene().getWindow();
          stage.close();
     }
-
+/**
+ ** Metoda, ltóra zwraca obiekt klasy person 
+ * @return obiekt klasy prenos
+ */
     public Person getPerson() {
         return person;
     }
-
+/**
+ ** Metoda, która pozwala na ustawienie zmiennej typu person 
+ * @param person instancja klasy Person
+ */
     public void setPerson(Person person) {
         this.person = person;
     }
-
+/**
+ ** Metoda, która pozwala na ustawienie listy czynników rysyka 
+ * @param factor lista czynników ryzyka
+ */
     public void setFactor(List<String> factor) {
         this.factor = factor;
     }
 
 
-    
+    /**
+     ** Metoda, która odczytuje dane z pliku zewnętrznego i pozwala na zachowanie znakowania UTF-8 
+     * @param path ścieżka dostępu do pliku
+     * @return ciąg znaków w pliku tekstowym
+     */
     static String readInput(String path) {
     StringBuilder buffer = new StringBuilder();
     try {
@@ -172,7 +185,10 @@ public class SymptomWindowController implements Initializable {
         return null;
     }
     }
-
+/**
+ ** Metoda, która pozwala na odczytamnie danych 
+ * @param path ścieżka dostępu do pliku tekstowego
+ */
     public void readData(String path){
         String line= readInput(path);
         StringTokenizer st = new StringTokenizer(line, ",");
@@ -180,12 +196,18 @@ public class SymptomWindowController implements Initializable {
             data.add(st.nextElement().toString());
         }
     }
-
+/**
+ ** Kliknięcia na zaznaczony wiersz z zamiarem jego przeniesienia 
+ * @param event obsługa zdarzenia DragEvent
+ */
     @FXML
     private void symptomsDragEntered(DragEvent event) {
         symptoms.setBlendMode(BlendMode.SRC_ATOP);
     }
-
+/**
+ ** Metoda, która pozwala na wykrycie zdarzenia typu D&D 
+ * @param event obsługa zdarzenia MouseEvent
+ */
     @FXML
     private void symptomsDragDetected(MouseEvent event) {
       Dragboard dragBoard = symptoms.startDragAndDrop(TransferMode.MOVE);
@@ -193,7 +215,10 @@ public class SymptomWindowController implements Initializable {
       content.putString(String.valueOf(symptoms.getSelectionModel().getSelectedIndex()));
       dragBoard.setContent(content); 
     }
-
+/**
+ * 
+ * @param event 
+ */
     @FXML
     private void symptomsDragExited(DragEvent event) {
         symptoms.setBlendMode(null);
@@ -248,7 +273,11 @@ public class SymptomWindowController implements Initializable {
     private void addedSymptomsDragEntered(DragEvent event) {
         addedSymptoms.setBlendMode(BlendMode.SRC_ATOP);
     }
-
+    /**
+     ** Metoda, która powoduje, że formulrz rozciąga się na cały ekran
+     *
+     * @param event obsługa zdarzenia
+     */
     @FXML
     private void fullScreen(ActionEvent event) {
         stage = (Stage) ((Node)(event.getSource())).getScene().getWindow();
@@ -258,7 +287,11 @@ public class SymptomWindowController implements Initializable {
             stage.setFullScreen(true);
         }
     }
-
+    /**
+     ** Metoda która minimalizuje formularz
+     *
+     * @param event obsługa zdarzenia
+     */
     @FXML
     private void minimalizeSscreen(ActionEvent event) {
         stage = (Stage) ((Node)(event.getSource())).getScene().getWindow();
@@ -276,7 +309,11 @@ public class SymptomWindowController implements Initializable {
             stage.setIconified(true);
         }
     }
-
+    /**
+     ** Metoda, która maksymalizuje formularz
+     *
+     * @param event obsługa zdarzenia
+     */
     @FXML
     private void maximalizeSscreen(ActionEvent event) {
          stage = (Stage) ((Node)(event.getSource())).getScene().getWindow();
@@ -296,7 +333,11 @@ public class SymptomWindowController implements Initializable {
             stage.setHeight(rec2.getHeight());
         }
     }
-
+    /**
+     ** Metoda, która zamyka program
+     *
+     * @param event obsługa zdarzenia
+     */
     @FXML
     private void closeeSscreen(ActionEvent event) {
         Platform.exit();
@@ -332,34 +373,12 @@ public class SymptomWindowController implements Initializable {
             }
         }
     }
+    /**
+     ** Metoda, która ustawia kontroller typu CancerInFamillyController
+     * @param cif instancja klasy CancerInFamillyController
+     */
         public void setCancerInFamillyController(CancerInFamillyController cif) {
         this.cif = cif;
-    }
-
-    @FXML
-    private void addFactor(ActionEvent event) {
-        try{
-        int index = symptoms.getSelectionModel().getSelectedIndex();
-            String tmp = data.remove(index);
-            dataRight.add(tmp);
-            addedSymptoms.setItems(dataRight);
-            symptoms.setItems(data);
-        }catch(Exception ex){
-           showOutputMessage("Nie zaznaczyłeś wiersza"); 
-        }
-    }
-
-    @FXML
-    private void removeFactor(ActionEvent event) {
-            try {
-            int index = addedSymptoms.getSelectionModel().getSelectedIndex();
-            String tmp = dataRight.remove(index);
-            data.add(tmp);
-            addedSymptoms.setItems(dataRight);
-            symptoms.setItems(data);
-        } catch (Exception e) {
-            showOutputMessage("Nie zaznaczyłeś wiersza");
-        }
     }
     /**
      ** wyświetla KOMUNIKAT O BŁĘDZIE
@@ -399,6 +418,32 @@ public class SymptomWindowController implements Initializable {
                  Logger logger = Logger.getLogger(getClass().getName());
                  logger.log(Level.SEVERE, "Failed to create new Window.", e);
             }
+    }
+
+    @FXML
+    private void addSymptom(ActionEvent event) {
+                try{
+        int index = symptoms.getSelectionModel().getSelectedIndex();
+            String tmp = data.remove(index);
+            dataRight.add(tmp);
+            addedSymptoms.setItems(dataRight);
+            symptoms.setItems(data);
+        }catch(Exception ex){
+           showOutputMessage("Nie zaznaczyłeś wiersza"); 
+        }
+    }
+
+    @FXML
+    private void removeSymptom(ActionEvent event) {
+                    try {
+            int index = addedSymptoms.getSelectionModel().getSelectedIndex();
+            String tmp = dataRight.remove(index);
+            data.add(tmp);
+            addedSymptoms.setItems(dataRight);
+            symptoms.setItems(data);
+        } catch (Exception e) {
+            showOutputMessage("Nie zaznaczyłeś wiersza");
+        }
     }
 
 }

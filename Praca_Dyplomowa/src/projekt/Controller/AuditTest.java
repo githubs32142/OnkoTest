@@ -61,6 +61,13 @@ public class AuditTest implements Initializable {
     @FXML
     private Label text;
 
+    /**
+     *
+     * Inicjalizacja kontriolera
+     *
+     * @param url wskaźnik do "zasobu" w sieci World Wide Web
+     * @param rb wersja językowa
+     */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         index = 0;

@@ -86,7 +86,9 @@ public class SummaryWindowController implements Initializable {
     private VBox box;
     @FXML
     private JFXHamburger hamburger;
-
+/**
+ ** Konstruktor bezparametrowy 
+ */
     public SummaryWindowController() {
 
         cancerFamilly = FXCollections.observableArrayList();
@@ -133,6 +135,12 @@ public class SummaryWindowController implements Initializable {
 
     }
 
+    /**
+     ** Metoda, która powoduje, że przechodzimy do następnego okna
+     *
+     * @param event obsługa zdarzenia kliknięcie w przycisk
+     * @throws IOException wyjątek wejścia/wyjścia
+     */
     @FXML
     private void nextWindow(ActionEvent event) throws IOException {
         FXMLLoader load = new FXMLLoader(this.getClass().getResource("/projekt/FXML/DiagnoseWindow.fxml"));
@@ -167,6 +175,11 @@ public class SummaryWindowController implements Initializable {
         stage.close();
     }
 
+    /**
+     ** Metoda, która powoduje, że formulrz rozciąga się na cały ekran
+     *
+     * @param event
+     */
     @FXML
     private void fullScreen(ActionEvent event) {
         stage = (Stage) ((Node) (event.getSource())).getScene().getWindow();
@@ -177,6 +190,11 @@ public class SummaryWindowController implements Initializable {
         }
     }
 
+    /**
+     ** Metoda która minimalizuje formularz
+     *
+     * @param event obsługa zdarzenia
+     */
     @FXML
     private void minimalizeSscreen(ActionEvent event) {
         stage = (Stage) ((Node) (event.getSource())).getScene().getWindow();
@@ -195,6 +213,11 @@ public class SummaryWindowController implements Initializable {
         }
     }
 
+    /**
+     ** Metoda, która maksymalizuje formularz
+     *
+     * @param event obsługa zdarzenia
+     */
     @FXML
     private void maximalizeSscreen(ActionEvent event) {
         stage = (Stage) ((Node) (event.getSource())).getScene().getWindow();
@@ -215,12 +238,24 @@ public class SummaryWindowController implements Initializable {
         }
     }
 
+    /**
+     ** Metoda, która zamyka program
+     *
+     * @param event obsługa zdarzenia
+     */
     @FXML
     private void closeeSscreen(ActionEvent event) {
         Platform.exit();
         System.exit(0);
     }
 
+    /**
+     ** Metoda, która powoduje przejście do okna gdzie znajdują się czynniki
+     * ryzyka.
+     *
+     * @param event obsługa zdarzenia kliknięcie w przycisk
+     * @throws IOException wyjątek wejścia/wyjścia
+     */
     @FXML
     private void backToFactor(ActionEvent event) throws IOException {
         FXMLLoader load = new FXMLLoader(this.getClass().getResource("/projekt/FXML/FactorWindow.fxml"));
@@ -249,6 +284,12 @@ public class SummaryWindowController implements Initializable {
         stage.close();
     }
 
+    /**
+     ** Metoda, która powoduje przejście do okna podsumowania
+     *
+     * @param event zdarzenie obsługi zdarzenia
+     * @throws IOException wyjątek wejścia/wyjścia
+     */
     @FXML
     private void backToSummary(ActionEvent event) throws IOException {
         FXMLLoader load = new FXMLLoader(this.getClass().getResource("/projekt/FXML/SymptomWindow.fxml"));
@@ -275,6 +316,11 @@ public class SummaryWindowController implements Initializable {
         stage.close();
     }
 
+    /**
+     ** Metoda która pozwala na ustawienie obiektu immitującego ooę
+     *
+     * @param person instancja Klasy Person
+     */
     public void setPerson(Person person) {
         this.person = person;
     }
@@ -292,6 +338,12 @@ public class SummaryWindowController implements Initializable {
         alert.showAndWait();
     }
 
+    /**
+     ** Metoda, która powoduje przejście do poprzedniego okna
+     *
+     * @param event obsługa zdarzenia przejście do poprzedniego okna
+     * @throws IOException wyjątek wejścia/wyjścia.
+     */
     @FXML
     private void undoClick(ActionEvent event) throws IOException {
         FXMLLoader load = new FXMLLoader(this.getClass().getResource("/projekt/FXML/CancerInFamilly.fxml"));

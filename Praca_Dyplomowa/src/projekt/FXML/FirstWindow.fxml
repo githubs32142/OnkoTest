@@ -2,6 +2,7 @@
 
 <?import com.jfoenix.controls.JFXButton?>
 <?import javafx.geometry.Insets?>
+<?import javafx.scene.Cursor?>
 <?import javafx.scene.control.CheckBox?>
 <?import javafx.scene.control.ChoiceBox?>
 <?import javafx.scene.control.Label?>
@@ -22,6 +23,9 @@
          <font>
             <Font name="Segoe UI Semibold" size="27.0" />
          </font>
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor>
       </Label>
       <VBox layoutX="93.0" layoutY="81.0" prefHeight="306.0" prefWidth="347.0">
          <children>
@@ -118,12 +122,21 @@
                      <font>
                         <Font name="Segoe UI Semibold" size="22.0" />
                      </font>
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor>
                   </CheckBox>
                </children>
             </HBox>
          </children>
       </VBox>
-      <JFXButton fx:id="next" layoutX="319.0" layoutY="408.0" onAction="#nextWindow" ripplerFill="BLACK" text="Dalej &gt;&gt;" />
-      <JFXButton fx:id="close" layoutX="114.0" layoutY="408.0" onAction="#close" text="Zamknij" />
+      <JFXButton fx:id="next" layoutX="319.0" layoutY="408.0" onAction="#nextWindow" ripplerFill="BLACK" text="Dalej &gt;&gt;">
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor></JFXButton>
+      <JFXButton fx:id="close" layoutX="114.0" layoutY="408.0" onAction="#close" text="Zamknij">
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor></JFXButton>
    </children>
 </AnchorPane>

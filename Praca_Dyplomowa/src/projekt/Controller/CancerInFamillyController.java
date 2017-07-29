@@ -81,10 +81,11 @@ public class CancerInFamillyController implements Initializable {
     }
 
     /**
-     * Initializes the controller class.
      *
-     * @param url
-     * @param rb
+     * Inicjalizacja kontriolera
+     *
+     * @param url wskaźnik do "zasobu" w sieci World Wide Web
+     * @param rb wersja językowa
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
@@ -220,6 +221,11 @@ public class CancerInFamillyController implements Initializable {
         makeDelete();
     }
 
+    /**
+     ** Metoda, która klikniemy w tabelę
+     *
+     * @param event obsługa zdarzenia
+     */
     @FXML
     private void tableClicked(MouseEvent event) {
 
@@ -338,7 +344,8 @@ public class CancerInFamillyController implements Initializable {
     /**
      ** Metoda, która wyświetla rak w rodzinie o podanym indeksie
      *
-     * @return rak w rodzinei
+     * @param i index
+     * @return rak w rodzine 
      */
     public CancerFamilly getCancerInFamilly(int i) {
         return data.get(i);

@@ -84,7 +84,10 @@ public class FactorWindowController implements Initializable {
     private JFXHamburger hamburger;
     @FXML
     private JFXDrawer drawer;
-
+/**
+ ** Konstruktor w którym podajemy instancje klasy Person 
+ * @param person instancja klasy Person
+ */
     public FactorWindowController(Person person) {
         this.leftSelected = 0;
         this.person = person;
@@ -94,7 +97,9 @@ public class FactorWindowController implements Initializable {
                 "Brak aktywności fizycznej", "Niewłaściwa dieta", "Brak naturalnych antyoksydantów", "Menopauza + otyłość", "Brak błonnika", "Pole elektromagnetyczne", "Kontakt z azbestem");
         dataRight = FXCollections.observableArrayList();
     }
-
+/**
+ ** Konstruktor bezparametrowy 
+ */
     public FactorWindowController() {
         this.leftSelected = 0;
         sw = new SymptomWindowController();
@@ -106,7 +111,13 @@ public class FactorWindowController implements Initializable {
         factors.setItems(data);
         addedFactor = new ListView<>(dataRight);
     }
-
+    /**
+     *
+     * Inicjalizacja kontriolera
+     *
+     * @param url wskaźnik do "zasobu" w sieci World Wide Web
+     * @param rb wersja językowa
+     */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         rec2 = Screen.getPrimary().getVisualBounds();
@@ -167,7 +178,10 @@ public class FactorWindowController implements Initializable {
  
     }
 
-
+/**
+ ** Metoda, która wywołana jest poprzez kliknięcie w listę czynników ryzyka 
+ * @param event obsługa zdarzenia
+ */
     @FXML
     private void factorClicked(MouseEvent event) {
         String clickedFact = factors.getItems().get(factors.getSelectionModel().getSelectedIndex());
@@ -183,7 +197,11 @@ public class FactorWindowController implements Initializable {
             }
         }
     }
-
+/**
+ ** Metoda sprawdza, czy podany czynnik ryzyka znajduje się na liście czynników ryzyka 
+ * @param facts czynnik ryzyka
+ * @return index do danego czynnika ryzyka >0 czynnik znajduje się 
+ */
     public int ifFact(String facts) {
         for (int i = 0; i < fact.size(); i++) {
             if (fact.get(i).getFactor().equals(facts)) {
@@ -192,7 +210,10 @@ public class FactorWindowController implements Initializable {
         }
         return -1;
     }
-
+/**
+ ** Metoda, która wykonuje test 
+ * @param event obsługa zdarzenia
+ */
     @FXML
     private void makeTest(ActionEvent event) {
         if (index >= 0) {
@@ -207,6 +228,7 @@ public class FactorWindowController implements Initializable {
                 Scene scene = new Scene(parent);
                 Stage primaryStage = new Stage();
                 primaryStage.setScene(scene);
+                primaryStage.setResizable(false);
                 if (fact.get(index).getFactor().equals("Spożywanie alkoholu")) {
                     AuditTest cnt = new AuditTest();
                     cnt = load.getController();
@@ -245,11 +267,13 @@ public class FactorWindowController implements Initializable {
                 if (fact.get(index).getFactor().equals("Kontakt z azbestem")) {
                     AsbestosTestController cnt = new AsbestosTestController();
                     cnt = load.getController();
+                    primaryStage.initStyle(StageStyle.UNDECORATED);
+                    primaryStage.setResizable(true);
                     cnt.setWindow(this);
                 }
                 //"Menopauza + otyłość"
                 //primaryStage.initStyle(StageStyle.UNDECORATED);
-                primaryStage.setResizable(false);
+
                 primaryStage.show();
 
             }
@@ -306,7 +330,11 @@ public class FactorWindowController implements Initializable {
             }
         }
     }
-
+/**
+ ** Metoda, która powoduje perzejście do kolejnego okna 
+ * @param event
+ * @throws IOException 
+ */
     @FXML
     private void nextWindow(ActionEvent event) throws IOException {
         FXMLLoader load = new FXMLLoader(this.getClass().getResource("/projekt/FXML/SymptomWindow.fxml"));
@@ -397,7 +425,7 @@ public class FactorWindowController implements Initializable {
     /**
      ** Metoda która ustawia dane osoby
      *
-     * @param person
+     * @param person instancja klasy PERSON
      */
     public void setPerson(Person person) {
         this.person = person;

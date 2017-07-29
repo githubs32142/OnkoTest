@@ -158,11 +158,24 @@ public class FirstWindowController implements Initializable {
                         h = w.intValue();
                         w = 0.0;
                     } else {
-                        showOutputMessage("Nie poprawnie wprowadzono wzrost");
+                        showOutputMessage("Nie poprawnie wprowadzono dane na temat wzrostu.\nWzrost podajemy w centymertrach!");
                         return;
                     }
-                    w = Double.valueOf(weight.getText());
-                    a = Integer.parseInt(age.getText());
+
+                    if (CheckReg.checkWeight(weight.getText()) || CheckReg.checkWeight2(weight.getText())) {
+                        w = Double.valueOf(weight.getText());
+                    } else {
+                        showOutputMessage("Nie poprawnie wprowadzono dane na temat wagi.\nWagę podajemy w kilogramach!");
+                        return;
+                    }
+
+                    if (CheckReg.checkAge(age.getText())) {
+                        a = Integer.parseInt(age.getText());
+                    } else {
+                        showOutputMessage("Nie poprawnie wprowadzono dane na temat wieku.\nWiek podajemy w latach!");
+                        return;
+                    }
+
                     Person p = new Person(surname.getText(), w, a, sex.getValue(), h);
                     if (CheckReg.checkEmail(surname.getText())) {
                         FXMLLoader load = new FXMLLoader(this.getClass().getResource("/projekt/FXML/FactorWindow.fxml"));
@@ -189,10 +202,10 @@ public class FirstWindowController implements Initializable {
                         stage = (Stage) ((Node) (event.getSource())).getScene().getWindow();
                         stage.close();
                     } else {
-                        showOutputMessage("Wprowadzony adres e-mail jest nieprawidłowy");
+                        showOutputMessage("Wprowadzony adres e-mail jest nieprawidłowy.\nPrzkładowy poprawny adres e-mail: jan_kowalski@email.com");
                     }
                 } catch (IOException | NumberFormatException e) {
-                    showOutputMessage(e.toString()  );
+                    showOutputMessage("Nie poprawnie wprowadzono dane na temat wagi.\nWagę podajemy w kilogramach!");
                 }
             } else {
                 showOutputMessage("Wypełnij pola które nie zostały jeszcze uzupełnione");
@@ -209,11 +222,24 @@ public class FirstWindowController implements Initializable {
                             h = w.intValue();
                             w = 0.0;
                         } else {
-                            showOutputMessage("Nie poprawnie wprowadzono wzrost");
+                            showOutputMessage("Nie poprawnie wprowadzono dane na temat wzrostu.\nWzrost podajemy w centymertrach!");
                             return;
                         }
-                        w = Double.valueOf(weight.getText());
-                        a = Integer.parseInt(age.getText());
+
+                        if (CheckReg.checkWeight(weight.getText()) || CheckReg.checkWeight2(weight.getText())) {
+                            w = Double.valueOf(weight.getText());
+                        } else {
+                            showOutputMessage("Nie poprawnie wprowadzono dane na temat wagi.\nWagę podajemy w kilogramach!");
+                            return;
+                        }
+
+                        if (CheckReg.checkAge(age.getText())) {
+                            a = Integer.parseInt(age.getText());
+                        } else {
+                            showOutputMessage("Nie poprawnie wprowadzono dane na temat wieku.\nWiek podajemy w latach!");
+                            return;
+                        }
+
                         Person p = new Person(name.getText(), surname.getText(), w, a, sex.getValue(), h);
                         FXMLLoader load = new FXMLLoader(this.getClass().getResource("/projekt/FXML/FactorWindow.fxml"));
                         FactorWindowController cnt = new FactorWindowController(p);
@@ -240,13 +266,13 @@ public class FirstWindowController implements Initializable {
                         stage = (Stage) ((Node) (event.getSource())).getScene().getWindow();
                         stage.close();
                     } else {
-                        showOutputMessage("Nie poprawnie wprowadzono imie lub nazwisko.\nKażde imię i nazwisko powinno zaczynać się od dużej litery");
+                        showOutputMessage("Nie poprawnie wprowadzono imie i/lub nazwisko.\nKażde imię i nazwisko powinno zaczynać się od dużej litery\nPrzykład prawidłowego imienia: Jan \nPrzykład prawidłowego nazwiska: Nowak");
                     }
                 } catch (IOException | NumberFormatException e) {
                     showOutputMessage(e.toString());
                 }
             } else {
-                showOutputMessage("Wypełnij pola które nie zostały jeszcze uzupełnione");
+                showOutputMessage("Wypełnij dane, które nie zostały jeszcze uzupełnione!");
             }
         }
 
@@ -343,18 +369,28 @@ public class FirstWindowController implements Initializable {
     }
 
     /**
-     ** Metoda pozwala na ustawienie kontrolera w oknie 2
+     ** Metoda pozwala na instancji klasy SymptomWindowController
      *
-     * @param sw
+     * @param sw instancji klasy SymptomWindowController
      */
     public void setSymptomWindowController(SymptomWindowController sw) {
         this.sw = sw;
     }
 
+    /**
+     ** Metoda pozwala na instancji klasy CancerInFamillyController
+     *
+     * @param cif instancji klasy CancerInFamillyController
+     */
     public void setCancerInFamillyController(CancerInFamillyController cif) {
         this.cif = cif;
     }
 
+    /**
+     ** Metoda pozwala na instancji klasy FactorWindowController
+     *
+     * @param fwc instancji klasy FactorWindowController
+     */
     public void setFactorWindowController(FactorWindowController fwc) {
         this.fwc = fwc;
     }

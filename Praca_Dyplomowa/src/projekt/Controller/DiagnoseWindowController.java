@@ -90,7 +90,13 @@ public class DiagnoseWindowController implements Initializable {
         dataSymptoms = FXCollections.observableArrayList();
         person = new Person();
     }
-
+    /**
+     *
+     * Inicjalizacja kontriolera
+     *
+     * @param url wskaźnik do "zasobu" w sieci World Wide Web
+     * @param rb wersja językowa
+     */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
        // webEngine = webView.getEngine();
@@ -214,9 +220,9 @@ public class DiagnoseWindowController implements Initializable {
     }
 /**
  ** Metoda, która tworzy plik pdf na podaną ścieżkę 
- * @param file
- * @throws IOException
- * @throws DocumentException 
+ * @param file ścieżka dostępu do pluku na którym ma być zapisaby plik pdf 
+ * @throws IOException wyjątek wejścia/ wyjścia
+ * @throws DocumentException  wyjatek podczas tworzenia dokumentu
  */
  public void createPdf(File file) throws IOException, DocumentException {
         Document document = new Document();

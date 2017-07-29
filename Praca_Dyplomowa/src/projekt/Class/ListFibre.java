@@ -116,9 +116,12 @@ public class ListFibre {
     /**
      ** Metoda która wykonuje sortowanie metodą bąbelkową
      *
-     * @param type typ sortowania:<br/> 1- Według nazw rosnąco<br/>2- Według
+     * @param type typ sortowania:
+     * <br/> 1- Według nazw rosnąco
+     * <br/>2- Według
      * nazw malejąco
-     * <br/>3- Według wartości błonnika rosnąco<br/>4- Według wartości błonnika
+     * <br/>3- Według wartości błonnika rosnąco
+     * <br/>4- Według wartości błonnika
      * malejąco
      */
     public void sort(int type) {
@@ -194,7 +197,7 @@ public class ListFibre {
     /**
      ** Metoda która usuwa produkt z listy
      *
-     * @param index index * assert index>0 && index<listFibre.size()
+     * @param index index 
      */
     public void remove(int index) {
         if (index >= 0 && index < listFibre.size()) {

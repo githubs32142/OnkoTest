@@ -18,7 +18,7 @@ import javafx.scene.control.ToggleGroup;
 /**
  * FXML Controller class
  *
- * @author Admin
+ * @author Andrzej Kierepka
  */
 public class EarlyChAgeController implements Initializable {
 
@@ -36,6 +36,13 @@ public class EarlyChAgeController implements Initializable {
     private Button close;
     private  int point ;
     @Override
+        /**
+     *
+     * Inicjalizacja kontriolera
+     *
+     * @param url wskaźnik do "zasobu" w sieci World Wide Web
+     * @param rb wersja językowa
+     */
     public void initialize(URL url, ResourceBundle rb) {
         point =0;
     }    

@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package projekt;
 
 import com.itextpdf.text.Document;
@@ -37,11 +32,18 @@ import javafx.stage.StageStyle;
 import javafx.util.Duration;
 
 /**
+ ** Klasa która powoduje uruchomienie programu
  *
- * @author Admin
+ * @author Andrzej Kierepka
  */
 public class RunClass extends Application {
 
+    /**
+     ** Metoda, która powoduje ładowanie aplikacji wraz ze splash-em
+     *
+     * @param primaryStage Scena na której znajdzie się formuularz
+     * @throws IOException wyjątek wejścia/wyjścia
+     */
     @Override
     public void start(Stage primaryStage) throws IOException {
         loadSplash(primaryStage);
@@ -58,6 +60,8 @@ public class RunClass extends Application {
     }
 
     /**
+     ** Metoda głowna programu
+     *
      * @param args the command line arguments
      */
     public static void main(String[] args) {

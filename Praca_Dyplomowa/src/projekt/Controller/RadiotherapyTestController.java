@@ -60,16 +60,31 @@ public class RadiotherapyTestController implements Initializable {
         point = 0;
     }
 
+    /**
+     ** Metoda polegająca na kliknięciu w 1 odpowiedź
+     *
+     * @param event obsługa zdarzenia
+     */
     @FXML
     private void answer1Action(ActionEvent event) {
         point = 0;
     }
 
+    /**
+     ** Metoda polegająca na kliknięciu w 2 odpowiedź
+     *
+     * @param event obsługa zdarzenia
+     */
     @FXML
     private void answer2Action(ActionEvent event) {
         point = 1;
     }
 
+    /**
+     ** Metoda, która zamyka okno
+     *
+     * @param event obsługa zdarzenia polegająca na kliknięciu w przycisk
+     */
     @FXML
     private void closeAction(ActionEvent event) {
         Stage stage;
@@ -78,6 +93,11 @@ public class RadiotherapyTestController implements Initializable {
 
     }
 
+    /**
+     ** Metoda, która wykonuje diagnoze
+     *
+     * @param event obsługa zdarzenia polegająca na kliknięciu w przycisk
+     */
     @FXML
     private void diagnoseAction(ActionEvent event) {
         makeDiagnostic(toString());
@@ -121,6 +141,11 @@ public class RadiotherapyTestController implements Initializable {
 
     }
 
+    /**
+     ** Metoda, która wykonuje diagnoze
+     *
+     * @param s jest komenda która będzie interpretowana
+     */
     public void makeDiagnostic(String s) {
         boolean add = false;
         StringBuilder text = new StringBuilder();
@@ -157,6 +182,11 @@ public class RadiotherapyTestController implements Initializable {
 
     }
 
+    /**
+     ** Metoda, która ustawia kontroler klasy głownej
+     *
+     * @param window kontroler klasy głównej
+     */
     public void setWindow(FactorWindowController window) {
         this.window = window;
     }

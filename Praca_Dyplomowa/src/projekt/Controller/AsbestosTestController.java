@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package projekt.Controller;
 
 import static java.awt.SystemColor.window;
@@ -47,7 +42,7 @@ public class AsbestosTestController implements Initializable {
     private Button test;
     ObservableList<String> data = FXCollections.observableArrayList(
             "Mechanik samochodowy", "Pracownik wykonywania kotłów", "Stolarz", "Montarz murów suchych", "Elektryk", "Hutnik",
-             "Operator maszyn", "Tokarz", "Specjalista budowy młynów", "Monter rur", "Pracownik elektrowni", "Kolejarz", "Stoczniowiec");
+            "Operator maszyn", "Tokarz", "Specjalista budowy młynów", "Monter rur", "Pracownik elektrowni", "Kolejarz", "Stoczniowiec");
     ObservableList<String> dataRight = FXCollections.observableArrayList();
     Stage stage;
     Rectangle2D rec2;
@@ -58,8 +53,8 @@ public class AsbestosTestController implements Initializable {
      *
      * Inicjalizacja kontriolera
      *
-     * @param url
-     * @param rb
+     * @param url wskaźnik do "zasobu" w sieci World Wide Web
+     * @param rb wersja językowa
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
@@ -67,18 +62,6 @@ public class AsbestosTestController implements Initializable {
         w = 0.1;
         h = 0.1;
         job.setItems(data);
-    }
-
-    @FXML
-    private void undoClick(MouseEvent event) {
-    }
-
-    private void factorsDragEntered(DragEvent event) {
-        job.setBlendMode(BlendMode.SRC_ATOP);
-    }
-
-    @FXML
-    private void factorClicked(MouseEvent event) {
     }
 
     @FXML
@@ -94,11 +77,21 @@ public class AsbestosTestController implements Initializable {
         dragBoard.setContent(content);
     }
 
+    /**
+     ** Metoda, która powoduje wykonanie testu
+     *
+     * @param event obsługa zdarzenia kliknięcie w przycisk
+     */
     @FXML
     private void makeTest(ActionEvent event) {
         makeDiagnostic(toString());
     }
 
+    /**
+     ** Metoda, która powoduje, że formulrz rozciąga się na cały ekran
+     *
+     * @param event obsługa zdarzenia
+     */
     @FXML
     private void fullScreen(ActionEvent event) {
         stage = (Stage) ((Node) (event.getSource())).getScene().getWindow();
@@ -109,6 +102,11 @@ public class AsbestosTestController implements Initializable {
         }
     }
 
+    /**
+     ** Metoda która minimalizuje formularz
+     *
+     * @param event obsługa zdarzenia
+     */
     @FXML
     private void minimalizeSscreen(ActionEvent event) {
         stage = (Stage) ((Node) (event.getSource())).getScene().getWindow();
@@ -127,6 +125,11 @@ public class AsbestosTestController implements Initializable {
         }
     }
 
+    /**
+     ** Metoda, która maksymalizuje formularz
+     *
+     * @param event obsługa zdarzenia
+     */
     @FXML
     private void maximalizeSscreen(ActionEvent event) {
         stage = (Stage) ((Node) (event.getSource())).getScene().getWindow();
@@ -147,6 +150,11 @@ public class AsbestosTestController implements Initializable {
         }
     }
 
+    /**
+     ** Metoda, która zamyka program
+     *
+     * @param event obsługa zdarzenia
+     */
     @FXML
     private void closeeSscreen(ActionEvent event) {
         stage = (Stage) ((Node) (event.getSource())).getScene().getWindow();
@@ -274,9 +282,9 @@ public class AsbestosTestController implements Initializable {
     }
 
     /**
-     ** Metoda która wykonuje diagnoze
+     ** Metoda, która wykonuje diagnoze
      *
-     * @param s - assertrion
+     * @param s jest komenda która będzie interpretowana
      */
     public void makeDiagnostic(String s) {
         boolean add = false;
@@ -318,6 +326,11 @@ public class AsbestosTestController implements Initializable {
 
     }
 
+    /**
+     ** Metoda, która ustawia kontroler klasy głownej
+     *
+     * @param window kontroler klasy głównej
+     */
     public void setWindow(FactorWindowController window) {
         this.window = window;
     }

@@ -26,7 +26,7 @@ import jess.Rete;
 /**
  * FXML Controller class
  *
- * @author Admin
+ * @author Andrzej Kierepka
  */
 public class DietTestController implements Initializable {
 
@@ -53,9 +53,12 @@ public class DietTestController implements Initializable {
     List<String> a3List = new ArrayList<>();
     List<String> a4List = new ArrayList<>();
     List<Integer> pList = new ArrayList<>();// ilość punktów przyznanych za każdą odpowiedź
-
     /**
-     * Metoda, która inicjalzujr kontroller
+     *
+     * Inicjalizacja kontriolera
+     *
+     * @param url wskaźnik do "zasobu" w sieci World Wide Web
+     * @param rb wersja językowa
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
@@ -255,7 +258,6 @@ public class DietTestController implements Initializable {
      ** Metoda ktora zwraca w postaci ciągu znaków wyrażenie które będzie
      * potrzebne wykonania wniskowania
      *
-     * @return
      * @rerurn wyrażenie potrzebne do wykonania wniskowania
      */
     @Override

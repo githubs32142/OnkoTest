@@ -67,7 +67,7 @@ public class ProductFibre {
     /**
      ** Metoda, która ustaiwa wagę produktu w gramach
      *
-     * @param weight
+     * @param weight podana waga w kilogramach
      */
     public void setWeight(Double weight) {
         this.weight = weight;

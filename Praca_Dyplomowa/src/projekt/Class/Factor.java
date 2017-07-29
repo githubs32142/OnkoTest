@@ -31,8 +31,8 @@ public class Factor {
     /**
      ** Metoda która sprwdza, czy podany objaw już jest
      *
-     * @param factor
-     * @return
+     * @param factor podany czynnik ryzyka
+     * @return prawda, jeżeli się zawiera
      */
     public boolean contains(String factor) {
         return this.factor.equals(factor);
