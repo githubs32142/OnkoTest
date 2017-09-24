@@ -103,7 +103,7 @@ public class SolariumTestController implements Initializable {
         }
         answer1.setSelected(true);
         text.setText("Krok " + (index + 1) + "/" + pList.size());
-        progres.setProgress(((double) (index + 1) / (double) pList.size()));
+        progres.setProgress(((index + 1) / (double) pList.size()));
     }
 
     /**
@@ -173,7 +173,7 @@ public class SolariumTestController implements Initializable {
                 next.setText("Zakończ");
             }
             text.setText("Krok " + (index + 1) + "/" + pList.size());
-            progres.setProgress(((double) (index + 1) / (double) pList.size()));
+            progres.setProgress(((index + 1) / (double) pList.size()));
             question.setText(qList.get(index));
             answer1.setText(a1List.get(index));
             answer2.setText(a2List.get(index));
@@ -214,7 +214,7 @@ public class SolariumTestController implements Initializable {
         }
         if (index >= 0) {
             text.setText("Krok " + (index + 1) + "/" + pList.size());
-            progres.setProgress(((double) (index + 1) / (double) pList.size()));
+            progres.setProgress(((index + 1) / (double) pList.size()));
             question.setText(qList.get(index));
             answer1.setText(a1List.get(index));
             answer2.setText(a2List.get(index));

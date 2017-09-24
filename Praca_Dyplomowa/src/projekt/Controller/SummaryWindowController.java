@@ -8,7 +8,6 @@ package projekt.Controller;
 import com.jfoenix.controls.JFXDrawer;
 import com.jfoenix.controls.JFXHamburger;
 import com.jfoenix.transitions.hamburger.HamburgerBasicCloseTransition;
-import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
@@ -17,18 +16,10 @@ import java.io.OutputStreamWriter;
 import java.io.PrintWriter;
 import java.net.URL;
 import java.nio.charset.Charset;
-import java.nio.charset.StandardCharsets;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.util.ResourceBundle;
 import javafx.application.Platform;
-import javafx.beans.value.ChangeListener;
-import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.concurrent.Worker;
-import javafx.concurrent.Worker.State;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
@@ -44,8 +35,8 @@ import javafx.scene.control.ListView;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
-import javafx.scene.input.DragEvent;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.web.WebView;
 import javafx.stage.Screen;
@@ -86,9 +77,14 @@ public class SummaryWindowController implements Initializable {
     private VBox box;
     @FXML
     private JFXHamburger hamburger;
-/**
- ** Konstruktor bezparametrowy 
- */
+    @FXML
+    private AnchorPane root;
+    private double xOffset = 0;
+    private double yOffset = 0;
+
+    /**
+     ** Konstruktor bezparametrowy
+     */
     public SummaryWindowController() {
 
         cancerFamilly = FXCollections.observableArrayList();
@@ -132,7 +128,23 @@ public class SummaryWindowController implements Initializable {
                 drawer.setPrefWidth(150);
             }
         });
-
+        root.setOnMousePressed(new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent event) {
+                xOffset = event.getSceneX();
+                yOffset = event.getSceneY();
+            }
+        });
+        //set mouse drag
+        root.setOnMouseDragged(new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent event) {
+                Stage stage;
+                stage = (Stage) ((Node) (event.getSource())).getScene().getWindow();
+                stage.setX(event.getScreenX() - xOffset);
+                stage.setY(event.getScreenY() - yOffset);
+            }
+        });
     }
 
     /**
@@ -178,7 +190,7 @@ public class SummaryWindowController implements Initializable {
     /**
      ** Metoda, która powoduje, że formulrz rozciąga się na cały ekran
      *
-     * @param event
+     * @param event obsługa zdarzenia
      */
     @FXML
     private void fullScreen(ActionEvent event) {

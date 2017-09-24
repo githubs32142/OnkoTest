@@ -3,7 +3,6 @@ package projekt.Controller;
 import com.jfoenix.controls.JFXDrawer;
 import com.jfoenix.controls.JFXHamburger;
 import com.jfoenix.transitions.hamburger.HamburgerBasicCloseTransition;
-import com.sun.javafx.collections.ElementObservableListDecorator;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;

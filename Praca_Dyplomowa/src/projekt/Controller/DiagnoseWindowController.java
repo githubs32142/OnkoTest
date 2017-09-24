@@ -1,16 +1,12 @@
-
 package projekt.Controller;
 
 import com.itextpdf.text.Document;
 import com.itextpdf.text.DocumentException;
-import com.itextpdf.text.Image;
 import com.itextpdf.text.pdf.PdfWriter;
 import com.itextpdf.tool.xml.XMLWorker;
 import com.itextpdf.tool.xml.XMLWorkerHelper;
-import com.itextpdf.tool.xml.css.CSS;
 import com.itextpdf.tool.xml.css.CssFile;
 import com.itextpdf.tool.xml.css.StyleAttrCSSResolver;
-import com.itextpdf.tool.xml.html.HTML;
 import com.itextpdf.tool.xml.html.Tags;
 import com.itextpdf.tool.xml.parser.XMLParser;
 import com.itextpdf.tool.xml.pipeline.css.CSSResolver;
@@ -21,26 +17,26 @@ import com.itextpdf.tool.xml.pipeline.html.HtmlPipelineContext;
 import com.jfoenix.controls.JFXDrawer;
 import com.jfoenix.controls.JFXHamburger;
 import com.jfoenix.transitions.hamburger.HamburgerBackArrowBasicTransition;
-import java.io.ByteArrayInputStream;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
-import java.io.InputStream;
 import java.net.URL;
-import java.nio.charset.Charset;
-import java.nio.charset.StandardCharsets;
 import java.util.ResourceBundle;
+import javafx.animation.FadeTransition;
 import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.embed.swing.SwingFXUtils;
 import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.geometry.Rectangle2D;
 import javafx.scene.Node;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
@@ -49,9 +45,8 @@ import javafx.scene.web.WebView;
 import javafx.stage.FileChooser;
 import javafx.stage.FileChooser.ExtensionFilter;
 import javafx.stage.Stage;
-import javax.imageio.ImageIO;
+import javafx.util.Duration;
 import projekt.Class.CancerFamilly;
-import projekt.Class.DiagnozeHTML;
 import projekt.Class.Person;
 
 /**
@@ -81,15 +76,21 @@ public class DiagnoseWindowController implements Initializable {
     @FXML
     private AnchorPane box;
     private String CSS;
-/**
- * Konstruktor bezparametrowy 
- */
+    @FXML
+    private AnchorPane root;
+    private double xOffset = 0;
+    private double yOffset = 0;
+
+    /**
+     * Konstruktor bezparametrowy
+     */
     public DiagnoseWindowController() {
         cancerFamilly = FXCollections.observableArrayList();
         dataFactors = FXCollections.observableArrayList();
         dataSymptoms = FXCollections.observableArrayList();
         person = new Person();
     }
+
     /**
      *
      * Inicjalizacja kontriolera
@@ -99,7 +100,7 @@ public class DiagnoseWindowController implements Initializable {
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-       // webEngine = webView.getEngine();
+        // webEngine = webView.getEngine();
 
         drawer.setSidePane(box);
         drawer.close();
@@ -113,6 +114,23 @@ public class DiagnoseWindowController implements Initializable {
                 drawer.close();
             } else {
                 drawer.open();
+            }
+        });
+        root.setOnMousePressed(new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent event) {
+                xOffset = event.getSceneX();
+                yOffset = event.getSceneY();
+            }
+        });
+        //set mouse drag
+        root.setOnMouseDragged(new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent event) {
+                Stage stage;
+                stage = (Stage) ((Node) (event.getSource())).getScene().getWindow();
+                stage.setX(event.getScreenX() - xOffset);
+                stage.setY(event.getScreenY() - yOffset);
             }
         });
     }
@@ -131,6 +149,7 @@ public class DiagnoseWindowController implements Initializable {
             stage.setFullScreen(true);
         }
     }
+
     /**
      ** Metoda która minimalizuje okno
      *
@@ -153,6 +172,7 @@ public class DiagnoseWindowController implements Initializable {
             stage.setIconified(true);
         }
     }
+
     /**
      ** Metoda, która maksymalizuje okno
      *
@@ -177,10 +197,12 @@ public class DiagnoseWindowController implements Initializable {
             stage.setHeight(rec2.getHeight());
         }
     }
-/**
- ** Metoda, która zamyka program 
- * @param event 
- */
+
+    /**
+     ** Metoda, która zamyka program
+     *
+     * @param event
+     */
     @FXML
     private void closeeSscreen(ActionEvent event) {
         Platform.exit();
@@ -199,42 +221,46 @@ public class DiagnoseWindowController implements Initializable {
     @FXML
     private void undoClicked(ActionEvent event) {
     }
-/**
- ** Metoda, która pozwala na zapisa wyniku diagnozy do pliku pdf 
- * @param event obsługa zdarznia
- * @throws FileNotFoundException 
- * @throws DocumentException
- * @throws IOException Wyjątek wejścia/ wyjścia
- */
+
+    /**
+     ** Metoda, która pozwala na zapisa wyniku diagnozy do pliku pdf
+     *
+     * @param event obsługa zdarznia
+     * @throws FileNotFoundException
+     * @throws DocumentException
+     * @throws IOException Wyjątek wejścia/ wyjścia
+     */
     @FXML
     private void saveToPdf(ActionEvent event) throws FileNotFoundException, DocumentException, IOException {
-            FileChooser fileChooser = new FileChooser();
-            fileChooser.getExtensionFilters().addAll(new ExtensionFilter("Pliki PDF", "*.pdf"));
+        FileChooser fileChooser = new FileChooser();
+        fileChooser.getExtensionFilters().addAll(new ExtensionFilter("Pliki PDF", "*.pdf"));
 
-              File fileSel = fileChooser.showSaveDialog( new Stage());
-              
-              if(fileSel != null){
-                  Document document = new Document();
-                  createPdf(fileSel);
-              }
+        File fileSel = fileChooser.showSaveDialog(new Stage());
+
+        if (fileSel != null) {
+            Document document = new Document();
+            createPdf(fileSel);
+        }
     }
-/**
- ** Metoda, która tworzy plik pdf na podaną ścieżkę 
- * @param file ścieżka dostępu do pluku na którym ma być zapisaby plik pdf 
- * @throws IOException wyjątek wejścia/ wyjścia
- * @throws DocumentException  wyjatek podczas tworzenia dokumentu
- */
- public void createPdf(File file) throws IOException, DocumentException {
+
+    /**
+     ** Metoda, która tworzy plik pdf na podaną ścieżkę
+     *
+     * @param file ścieżka dostępu do pluku na którym ma być zapisaby plik pdf
+     * @throws IOException wyjątek wejścia/ wyjścia
+     * @throws DocumentException wyjatek podczas tworzenia dokumentu
+     */
+    public void createPdf(File file) throws IOException, DocumentException {
         Document document = new Document();
-         String HTML = "src/projekt/HTML/Diagnoza/diagnoza.html";
-         String CSS = "src/projekt/HTML/Diagnoza/styl.css";
+        String HTML = "src/projekt/HTML/Diagnoza/diagnoza.html";
+        String CSS = "src/projekt/HTML/Diagnoza/styl.css";
         PdfWriter writer = PdfWriter.getInstance(document, new FileOutputStream(file));
         writer.setInitialLeading(12.5f);
- document.open();
+        document.open();
         CSSResolver cssResolver = new StyleAttrCSSResolver();
         CssFile cssFile = XMLWorkerHelper.getCSS(new FileInputStream(CSS));
         cssResolver.addCss(cssFile);
-       HtmlPipelineContext htmlContext = new HtmlPipelineContext(null);
+        HtmlPipelineContext htmlContext = new HtmlPipelineContext(null);
         htmlContext.setTagFactory(Tags.getHtmlTagProcessorFactory());
         PdfWriterPipeline pdf = new PdfWriterPipeline(document, writer);
         HtmlPipeline html = new HtmlPipeline(htmlContext, pdf);
@@ -256,5 +282,28 @@ public class DiagnoseWindowController implements Initializable {
     public void setString(StringBuilder string) {
         this.string = string;
     }
-    
+
+    @FXML
+    private void newDiagnose(ActionEvent event) {
+        stage = (Stage) ((Node) (event.getSource())).getScene().getWindow();
+        stage.close();
+        Stage primaryStage= new Stage();
+        FXMLLoader load = new FXMLLoader(this.getClass().getResource("FXML/FirstWindow.fxml"));
+                Parent parent = null;
+                try {
+                    parent = load.load();
+                } catch (IOException ex) {
+                    System.err.println(ex.getMessage());
+                }
+                Scene scene = new Scene(parent);
+                FadeTransition fin = new FadeTransition(Duration.seconds(5), parent);
+                fin.setFromValue(0);
+                fin.setToValue(3);
+                fin.setCycleCount(1);
+                fin.play();
+                primaryStage.setScene(scene);
+                primaryStage.setResizable(false);
+                primaryStage.show();
+    }
+
 }

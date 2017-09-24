@@ -73,7 +73,7 @@ public class IonizingRadiationTestController implements Initializable {
         answer2.setText(a2List.get(0));
         answer1.setSelected(true);
         text.setText("Krok " + (index + 1) + "/" + pList.size());
-        progres.setProgress(((double) (index + 1) / (double) pList.size()));
+        progres.setProgress(((index + 1) / (double) pList.size()));
     }
 
     /**
@@ -114,7 +114,7 @@ public class IonizingRadiationTestController implements Initializable {
         }
         if (index < 2) {
             text.setText("Krok " + (index + 1) + "/" + pList.size());
-            progres.setProgress(((double) (index + 1) / (double) pList.size()));
+            progres.setProgress(((index + 1) / (double) pList.size()));
             if (index == 1) {
                 next.setText("Zakończ");
             }
@@ -142,7 +142,7 @@ public class IonizingRadiationTestController implements Initializable {
         }
         if (index >= 0) {
             text.setText("Krok " + (index + 1) + "/" + pList.size());
-            progres.setProgress(((double) (index + 1) / (double) pList.size()));
+            progres.setProgress(((index + 1) / (double) pList.size()));
             question.setText(qList.get(index));
             answer1.setText(a1List.get(index));
             answer2.setText(a2List.get(index));

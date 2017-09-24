@@ -12,7 +12,7 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.web.WebView?>
 
-<AnchorPane id="AnchorPane" prefHeight="650.0" prefWidth="900.0" styleClass="background" stylesheets="@../CSS/dignose.css" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="projekt.Controller.DiagnoseWindowController">
+<AnchorPane id="AnchorPane" fx:id="root" prefHeight="650.0" prefWidth="900.0" styleClass="background" stylesheets="@../CSS/dignose.css" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="projekt.Controller.DiagnoseWindowController">
    <children>
       <HBox layoutX="763.0" layoutY="2.0" prefHeight="0.0" prefWidth="140.0" stylesheets="@../CSS/winDec.css" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="2.0">
          <children>
@@ -36,7 +36,7 @@
                   <VBox layoutY="135.0" prefHeight="224.0" prefWidth="144.0">
                      <children>
                         <Button mnemonicParsing="false" onAction="#saveToPdf" prefHeight="47.0" prefWidth="144.0" styleClass="btn" text="Zapisz do pdf" />
-                        <Button mnemonicParsing="false" prefHeight="44.0" prefWidth="144.0" styleClass="btn" text="Nowa diagnoza" />
+                        <Button mnemonicParsing="false" onAction="#newDiagnose" prefHeight="44.0" prefWidth="144.0" styleClass="btn" text="Nowa diagnoza" />
                      </children>
                   </VBox>
                   <Button fx:id="btnLogout" layoutX="43.0" layoutY="44.0" mnemonicParsing="false" onAction="#undoClicked" prefHeight="40.0" prefWidth="0.0" stylesheets="@../CSS/buttonCircle.css">

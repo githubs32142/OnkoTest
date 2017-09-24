@@ -1,7 +1,5 @@
 package projekt.Class;
 
-import java.util.Objects;
-
 /**
  ** Klasa, która pozwala na zarządzanie czynników ryzyka
  *

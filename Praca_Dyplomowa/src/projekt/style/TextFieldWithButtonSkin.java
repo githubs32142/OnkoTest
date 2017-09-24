@@ -1,6 +1,5 @@
 package projekt.style;
 
-import com.sun.javafx.scene.control.behavior.TextFieldBehavior;
 import com.sun.javafx.scene.control.skin.TextFieldSkin;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
@@ -76,8 +75,9 @@ public class TextFieldWithButtonSkin extends TextFieldSkin{
 
     protected void textChanged()
     {
-        if (textField.getText() == null)
+        if (textField.getText() == null) {
             return;
+        }
 
         rightButton.setVisible(!textField.getText().isEmpty());
         rightButtonGraphic.setVisible(!textField.getText().isEmpty());
@@ -85,8 +85,9 @@ public class TextFieldWithButtonSkin extends TextFieldSkin{
 
     protected void focusChanged()
     {
-        if (textField.getText() == null)
+        if (textField.getText() == null) {
             return;
+        }
 
         rightButton.setVisible(textField.isFocused() && !textField.getText().isEmpty());
         rightButtonGraphic.setVisible(textField.isFocused() && !textField.getText().isEmpty());

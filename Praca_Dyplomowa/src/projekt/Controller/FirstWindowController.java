@@ -3,12 +3,11 @@ package projekt.Controller;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -22,12 +21,12 @@ import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 import projekt.Class.CheckReg;
-import projekt.Class.ListFibre;
 import projekt.Class.Person;
-import projekt.Class.Product;
+import projekt.ToolTip.TTFirstWindnow;
 import projekt.animations.FadeInLeftTransition;
 import projekt.animations.FadeInRightTransition;
 import projekt.animations.FadeInUpTransition;
@@ -76,6 +75,10 @@ public class FirstWindowController implements Initializable {
     private FactorWindowController fwc;
     private CancerInFamillyController cif;
     private SymptomWindowController sw;
+    private double xOffset = 0;
+    private double yOffset = 0;
+    @FXML
+    private AnchorPane root;
 
     /**
      ** Konstruktor bezparametrowy
@@ -133,6 +136,24 @@ public class FirstWindowController implements Initializable {
         });
         sex.setItems(sexList);
         sex.getSelectionModel().selectFirst();
+        root.setOnMousePressed(new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent event) {
+                xOffset = event.getSceneX();
+                yOffset = event.getSceneY();
+            }
+        });
+        //set mouse drag
+        root.setOnMouseDragged(new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent event) {
+                Stage stage;
+                stage = (Stage) ((Node) (event.getSource())).getScene().getWindow();
+                stage.setX(event.getScreenX() - xOffset);
+                stage.setY(event.getScreenY() - yOffset);
+            }
+        });
+        new TTFirstWindnow(this);
     }
 
     /**
@@ -394,5 +415,50 @@ public class FirstWindowController implements Initializable {
     public void setFactorWindowController(FactorWindowController fwc) {
         this.fwc = fwc;
     }
+
+    public TextField getAge() {
+        return age;
+    }
+
+    public ObservableList<String> getSexList() {
+        return sexList;
+    }
+
+    public TextField getWeight() {
+        return weight;
+    }
+
+    public TextField getName() {
+        return name;
+    }
+
+    public TextField getHeight() {
+        return height;
+    }
+
+    public TextField getSurname() {
+        return surname;
+    }
+
+    public void setAge(TextField age) {
+        this.age = age;
+    }
+
+    public void setHeight(TextField height) {
+        this.height = height;
+    }
+
+    public void setName(TextField name) {
+        this.name = name;
+    }
+
+    public void setSurname(TextField surname) {
+        this.surname = surname;
+    }
+
+    public void setWeight(TextField weight) {
+        this.weight = weight;
+    }
+    
 
 }

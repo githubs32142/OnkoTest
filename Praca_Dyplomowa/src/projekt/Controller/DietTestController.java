@@ -258,7 +258,7 @@ public class DietTestController implements Initializable {
      ** Metoda ktora zwraca w postaci ciągu znaków wyrażenie które będzie
      * potrzebne wykonania wniskowania
      *
-     * @rerurn wyrażenie potrzebne do wykonania wniskowania
+     * @return  wyrażenie potrzebne do wykonania wniskowania
      */
     @Override
     public String toString() {

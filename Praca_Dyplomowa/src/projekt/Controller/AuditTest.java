@@ -152,7 +152,7 @@ public class AuditTest implements Initializable {
         answer4.setVisible(false);
         answer5.setVisible(false);
         text.setText("Krok " + (index + 1) + "/" + pList.size());
-        progres.setProgress(((double) (index + 1) / (double) pList.size()));
+        progres.setProgress(((index + 1) / (double) pList.size()));
     }
 
     /**
@@ -226,7 +226,7 @@ public class AuditTest implements Initializable {
         if (getIndex() + 1 < 14) {// jeżeli możemy przejść do następnego pytanie (od 0 do 12 = 13)
             index++;
             text.setText("Krok " + (index + 1) + "/" + pList.size());
-            progres.setProgress(((double) (index + 1) / (double) pList.size()));
+            progres.setProgress(((index + 1) / (double) pList.size()));
         }
         if (getIndex() + 1 > 12 || getIndex() < 4) {
             if (getIndex() < 4) {

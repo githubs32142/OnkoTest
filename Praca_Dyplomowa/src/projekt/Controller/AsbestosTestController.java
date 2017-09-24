@@ -1,10 +1,8 @@
 package projekt.Controller;
 
-import static java.awt.SystemColor.window;
 import java.io.StringWriter;
 import java.net.URL;
 import java.util.ResourceBundle;
-import java.util.logging.Level;
 import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;

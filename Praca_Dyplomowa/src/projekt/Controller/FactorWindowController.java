@@ -1,15 +1,9 @@
-/**
- *
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package projekt.Controller;
 
 import com.jfoenix.controls.JFXDrawer;
 import com.jfoenix.controls.JFXHamburger;
 import com.jfoenix.controls.JFXListView;
-import com.jfoenix.transitions.hamburger.HamburgerBackArrowBasicTransition;
 import com.jfoenix.transitions.hamburger.HamburgerBasicCloseTransition;
 import java.io.IOException;
 import java.net.URL;
@@ -37,9 +31,9 @@ import javafx.scene.effect.BlendMode;
 import javafx.scene.input.ClipboardContent;
 import javafx.scene.input.DragEvent;
 import javafx.scene.input.Dragboard;
-import javafx.scene.input.MouseDragEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.input.TransferMode;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.web.WebEngine;
 import javafx.scene.web.WebView;
@@ -50,7 +44,7 @@ import projekt.Class.Factor;
 import projekt.Class.Person;
 
 /**
- * FXML Controller class
+ * Kontroler do ppliku FXML
  *
  * @author Andrzej Kierepka
  */
@@ -84,10 +78,16 @@ public class FactorWindowController implements Initializable {
     private JFXHamburger hamburger;
     @FXML
     private JFXDrawer drawer;
-/**
- ** Konstruktor w którym podajemy instancje klasy Person 
- * @param person instancja klasy Person
- */
+    @FXML
+    private AnchorPane mainPane;
+        private double xOffset = 0;
+    private double yOffset = 0;
+
+    /**
+     ** Konstruktor w którym podajemy instancje klasy Person
+     *
+     * @param person instancja klasy Person
+     */
     public FactorWindowController(Person person) {
         this.leftSelected = 0;
         this.person = person;
@@ -97,9 +97,10 @@ public class FactorWindowController implements Initializable {
                 "Brak aktywności fizycznej", "Niewłaściwa dieta", "Brak naturalnych antyoksydantów", "Menopauza + otyłość", "Brak błonnika", "Pole elektromagnetyczne", "Kontakt z azbestem");
         dataRight = FXCollections.observableArrayList();
     }
-/**
- ** Konstruktor bezparametrowy 
- */
+
+    /**
+     ** Konstruktor bezparametrowy
+     */
     public FactorWindowController() {
         this.leftSelected = 0;
         sw = new SymptomWindowController();
@@ -111,6 +112,7 @@ public class FactorWindowController implements Initializable {
         factors.setItems(data);
         addedFactor = new ListView<>(dataRight);
     }
+
     /**
      *
      * Inicjalizacja kontriolera
@@ -164,24 +166,41 @@ public class FactorWindowController implements Initializable {
         hamburger.addEventHandler(MouseEvent.MOUSE_PRESSED, new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent e) {
-                transition.setRate(transition.getRate()*-1);
+                transition.setRate(transition.getRate() * -1);
                 transition.play();
-                
-                if(drawer.isShown())
-                {
+
+                if (drawer.isShown()) {
                     drawer.close();
-                }else
+                } else {
                     drawer.open();
-                    drawer.setPrefWidth(150);
+                }
+                drawer.setPrefWidth(150);
             }
         });
- 
+        mainPane.setOnMousePressed(new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent event) {
+                xOffset = event.getSceneX();
+                yOffset = event.getSceneY();
+            }
+        });
+        //set mouse drag
+        mainPane.setOnMouseDragged(new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent event) {
+                Stage stage;
+                stage = (Stage) ((Node) (event.getSource())).getScene().getWindow();
+                stage.setX(event.getScreenX() - xOffset);
+                stage.setY(event.getScreenY() - yOffset);
+            }
+        });
     }
 
-/**
- ** Metoda, która wywołana jest poprzez kliknięcie w listę czynników ryzyka 
- * @param event obsługa zdarzenia
- */
+    /**
+     ** Metoda, która wywołana jest poprzez kliknięcie w listę czynników ryzyka
+     *
+     * @param event obsługa zdarzenia
+     */
     @FXML
     private void factorClicked(MouseEvent event) {
         String clickedFact = factors.getItems().get(factors.getSelectionModel().getSelectedIndex());
@@ -197,11 +216,14 @@ public class FactorWindowController implements Initializable {
             }
         }
     }
-/**
- ** Metoda sprawdza, czy podany czynnik ryzyka znajduje się na liście czynników ryzyka 
- * @param facts czynnik ryzyka
- * @return index do danego czynnika ryzyka >0 czynnik znajduje się 
- */
+
+    /**
+     ** Metoda sprawdza, czy podany czynnik ryzyka znajduje się na liście
+     * czynników ryzyka
+     *
+     * @param facts czynnik ryzyka
+     * @return index do danego czynnika ryzyka >0 czynnik znajduje się
+     */
     public int ifFact(String facts) {
         for (int i = 0; i < fact.size(); i++) {
             if (fact.get(i).getFactor().equals(facts)) {
@@ -210,10 +232,12 @@ public class FactorWindowController implements Initializable {
         }
         return -1;
     }
-/**
- ** Metoda, która wykonuje test 
- * @param event obsługa zdarzenia
- */
+
+    /**
+     ** Metoda, która wykonuje test
+     *
+     * @param event obsługa zdarzenia
+     */
     @FXML
     private void makeTest(ActionEvent event) {
         if (index >= 0) {
@@ -280,22 +304,6 @@ public class FactorWindowController implements Initializable {
         }
     }
 
-    private void addedFactorRemove(MouseEvent event) {
-        String clickedFact = addedFactor.getItems().get(addedFactor.getSelectionModel().getSelectedIndex());
-        int tmpindex = ifFact(clickedFact);
-        index = tmpindex;
-        if (tmpindex >= 0) {
-            rightSeleted = addedFactor.getSelectionModel().getSelectedIndex();
-            final URL urlFactor = getClass().getResource(fact.get(tmpindex).getSymptom());
-            webEngine.load(urlFactor.toExternalForm());
-            if (fact.get(tmpindex).isTest()) {
-                test.setVisible(true);
-            } else {
-                test.setVisible(false);
-            }
-        }
-    }
-
     /**
      ** Metoda która przenosi podaną jako parametr fakt na listę czynników
      * użytkowanika
@@ -330,11 +338,13 @@ public class FactorWindowController implements Initializable {
             }
         }
     }
-/**
- ** Metoda, która powoduje perzejście do kolejnego okna 
- * @param event
- * @throws IOException 
- */
+
+    /**
+     ** Metoda, która powoduje perzejście do kolejnego okna
+     *
+     * @param event
+     * @throws IOException
+     */
     @FXML
     private void nextWindow(ActionEvent event) throws IOException {
         FXMLLoader load = new FXMLLoader(this.getClass().getResource("/projekt/FXML/SymptomWindow.fxml"));
@@ -356,11 +366,21 @@ public class FactorWindowController implements Initializable {
         stage.close();
     }
 
+    /**
+     ** Przeciągnięcie z miejsca zródłowego do miejsca docelowego
+     *
+     * @param event obsługa zdarzenia
+     */
     @FXML
     private void factorsDragEntered(DragEvent event) {
         factors.setBlendMode(BlendMode.SRC_ATOP);
     }
 
+    /**
+     ** Metoda, która wykrywa przeciąganie i rozpoczyna drag & drop
+     *
+     * @param event obsługa zdarzenia MouseEvent
+     */
     @FXML
     private void factorsDragDetected(MouseEvent event) {
         Dragboard dragBoard = factors.startDragAndDrop(TransferMode.MOVE);
@@ -369,31 +389,63 @@ public class FactorWindowController implements Initializable {
         dragBoard.setContent(content);
     }
 
+    /**
+     ** Wyjście poza obszar formularza
+     *
+     * @param event obsługa zdarzenia
+     */
     @FXML
     private void factorsDragExited(DragEvent event) {
         factors.setBlendMode(null);
     }
 
+    /**
+     ** Metoda, która odpowiada za przeciąganie danych z źródała do miejsca
+     * docelowego
+     *
+     * @param event obsługa zdarzenia
+     */
     @FXML
     private void factorsDragOver(DragEvent event) {
         event.acceptTransferModes(TransferMode.MOVE);
     }
 
+    /**
+     ** Przeciągnięcie z miejsca zródłowego do miejsca docelowego
+     *
+     * @param event obsługa zdarzenia
+     */
     @FXML
     private void addedFactorDragEntered(DragEvent event) {
         addedFactor.setBlendMode(BlendMode.SRC_ATOP);
     }
 
+    /**
+     ** Wyjście poza obszar formularza
+     *
+     * @param event obsługa zdarzenia
+     */
     @FXML
     private void addedFactorDragExited(DragEvent event) {
         addedFactor.setBlendMode(null);
     }
 
+    /**
+     ** Metoda, która odpowiada za przeciąganie danych z źródała do miejsca
+     * docelowego
+     *
+     * @param event obsługa zdarzenia
+     */
     @FXML
     private void addedFactorDragOver(DragEvent event) {
         event.acceptTransferModes(TransferMode.MOVE);
     }
 
+    /**
+     ** Metoda, która odpowiada za opuszczenie przeciąganego czynnika ryzyka
+     *
+     * @param event obsługa zdarzeniA
+     */
     @FXML
     private void addedFactorDragDropped(DragEvent event) {
         int tmp = Integer.parseInt(event.getDragboard().getString());
@@ -404,6 +456,11 @@ public class FactorWindowController implements Initializable {
         addedFactor.setItems(dataRight);
     }
 
+    /**
+     ** Metoda, która odpowiada za opuszczenie przeciąganego czynnika ryzyka
+     *
+     * @param event obsługa zdarzeniA
+     */
     @FXML
     private void factorDragDropped(DragEvent event) {
         int tmp = Integer.parseInt(event.getDragboard().getString());
@@ -414,6 +471,11 @@ public class FactorWindowController implements Initializable {
         addedFactor.setItems(dataRight);
     }
 
+    /**
+     ** Metoda, która wykrywa przeciąganie i rozpoczyna drag & drop
+     *
+     * @param event obsługa zdarzenia MouseEvent
+     */
     @FXML
     private void addedDragDetected(MouseEvent event) {
         Dragboard dragBoard = addedFactor.startDragAndDrop(TransferMode.MOVE);
@@ -432,6 +494,11 @@ public class FactorWindowController implements Initializable {
 
     }
 
+    /**
+     ** Metoda, która powoduje, że formulrz rozciąga się na cały ekran
+     *
+     * @param event obsługa zdarzenia
+     */
     @FXML
     private void fullScreen(ActionEvent event) {
         stage = (Stage) ((Node) (event.getSource())).getScene().getWindow();
@@ -442,6 +509,11 @@ public class FactorWindowController implements Initializable {
         }
     }
 
+    /**
+     ** Metoda która minimalizuje formularz
+     *
+     * @param event obsługa zdarzenia
+     */
     @FXML
     private void minimalizeSscreen(ActionEvent event) {
         stage = (Stage) ((Node) (event.getSource())).getScene().getWindow();
@@ -460,6 +532,11 @@ public class FactorWindowController implements Initializable {
         }
     }
 
+    /**
+     ** Metoda, która maksymalizuje formularz
+     *
+     * @param event obsługa zdarzenia
+     */
     @FXML
     private void maximalizeSscreen(ActionEvent event) {
         stage = (Stage) ((Node) (event.getSource())).getScene().getWindow();
@@ -480,25 +557,43 @@ public class FactorWindowController implements Initializable {
         }
     }
 
+    /**
+     ** Metoda, która powoduje wyjście z programu
+     *
+     * @param event obsługa zdarzenia
+     */
     @FXML
     private void closeeSscreen(ActionEvent event) {
         Platform.exit();
         System.exit(0);
     }
 
+    /**
+     ** Metoda, która powoduje przeniesienie czynnika ryzyka z listy dostępnych
+     * czynników ryzyka(dostępnych po lewej stronie okna) do wybrnych czynników
+     * ryzyka
+     *
+     * @param event obsługa zdarzenia kliknięcia w przycisk
+     */
     @FXML
     private void addToRightFact(ActionEvent event) {
-        try{
+        try {
             index = factors.getSelectionModel().getSelectedIndex();
             String tmp = data.remove(index);
             dataRight.add(tmp);
             addedFactor.setItems(dataRight);
             factors.setItems(data);
-        }catch(Exception ex){
-           showOutputMessage("Nie zaznaczyłeś wiersza"); 
+        } catch (Exception ex) {
+            showOutputMessage("Nie zaznaczyłeś wiersza");
         }
     }
 
+    /**
+     ** Metoda, która przenosi zaznaczony czynnik ryzyka do listy w której
+     * znajduje się lista czynników ryzyka
+     *
+     * @param event obsługa zdarzenia kliknięcia w przycisk
+     */
     @FXML
     private void addToLeftFact(ActionEvent event) {
         try {
@@ -543,6 +638,11 @@ public class FactorWindowController implements Initializable {
         alert.showAndWait();
     }
 
+    /**
+     ** Metoda, która przechodz do okna w którym podajemy swoje dane
+     *
+     * @param event obsługa zdarzenia kliknięcia w przycisk
+     */
     @FXML
     private void undoClick(ActionEvent event) {
         try {
@@ -578,7 +678,5 @@ public class FactorWindowController implements Initializable {
             logger.log(Level.SEVERE, "Failed to create new Window.", e);
         }
     }
-
-
 
 }
