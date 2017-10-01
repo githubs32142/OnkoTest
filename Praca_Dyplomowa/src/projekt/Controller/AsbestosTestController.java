@@ -83,6 +83,9 @@ public class AsbestosTestController implements Initializable {
     @FXML
     private void makeTest(ActionEvent event) {
         makeDiagnostic(toString());
+        Stage stage;
+        stage = (Stage) ((Node) (event.getSource())).getScene().getWindow();
+        stage.close();
     }
 
     /**

@@ -26,9 +26,9 @@ import jess.Rete;
 /**
  * FXML Controller class
  *
- * @author Andrzej Kierepka
+ * @author Admin
  */
-public class EarlyChAgeController implements Initializable {
+public class EarlyBabeController implements Initializable {
 
     private FactorWindowController window;
     @FXML
@@ -114,7 +114,7 @@ public class EarlyChAgeController implements Initializable {
             engine.addOutputRouter("t", o);
             String result = new String();
             // Load the pricing rules
-            engine.batch("projekt/JESS/EarlyChAge.clp");
+            engine.batch("projekt/JESS/EarlyBabe.clp");
             engine.eval(s);
             engine.run();
             result = o.toString();
@@ -130,13 +130,13 @@ public class EarlyChAgeController implements Initializable {
                 }
             }
             if (add) {
-                window.changeFactToRight("Wczesne współżycie seksualne");
+                window.changeFactToRight("Wczesny wiek rodzenia");
             }
             showOutputMessage(text.toString());
 
         } catch (JessException ex) {
-            Logger.getLogger(EarlyChAgeController.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(EarlyBabeController.class.getName()).log(Level.SEVERE, null, ex);
         }
-
     }
+    
 }

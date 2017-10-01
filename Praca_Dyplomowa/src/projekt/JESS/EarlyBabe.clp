@@ -8,12 +8,12 @@
 (defrule rule1
 	 (Point {sum > 0 })
 	=>
-    ( printout t "1Zbyt wczesna inicjacja seksualna" crlf)
+    ( printout t "1Zbyt wczesny wiek rodzenia" crlf)
 )
 (defrule rule2
 	 (Point {sum  < 1 } )
 	=>
-    ( printout t "Brak zagrożenia zbyt wczesnej inicjacji seksualnej." crlf)
+    ( printout t "Brak zagrożenia zbyt wczesnego rodzenia." crlf)
 )
 
 (facts)

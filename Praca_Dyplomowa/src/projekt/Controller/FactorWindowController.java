@@ -1,4 +1,3 @@
-
 package projekt.Controller;
 
 import com.jfoenix.controls.JFXDrawer;
@@ -41,6 +40,7 @@ import javafx.stage.Screen;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 import projekt.Class.Factor;
+import projekt.Class.OperationFactor;
 import projekt.Class.Person;
 
 /**
@@ -80,7 +80,7 @@ public class FactorWindowController implements Initializable {
     private JFXDrawer drawer;
     @FXML
     private AnchorPane mainPane;
-        private double xOffset = 0;
+    private double xOffset = 0;
     private double yOffset = 0;
 
     /**
@@ -105,8 +105,10 @@ public class FactorWindowController implements Initializable {
         this.leftSelected = 0;
         sw = new SymptomWindowController();
         cif = new CancerInFamillyController();
-        data = FXCollections.observableArrayList("Spożywanie alkoholu", "Otyłość", "Promieniowanie jonizujące", "Radioterapia", "Lampy solarium", "Palenie papierosów",
-                "Brak aktywności fizycznej", "Niewłaściwa dieta", "Brak naturalnych antyoksydantów", "Menopauza + otyłość", "Brak błonnika", "Pole elektromagnetyczne", "Kontakt z azbestem");
+        data = FXCollections.observableArrayList("Spożywanie alkoholu", "Otyłość", "Promieniowanie jonizujące",
+                "Radioterapia", "Lampy solarium", "Palenie papierosów",
+                "Brak aktywności fizycznej", "Niewłaściwa dieta", "Brak naturalnych antyoksydantów", "Menopauza + otyłość",
+                "Brak błonnika", "Pole elektromagnetyczne", "Kontakt z azbestem", "Wczesne współżycie seksualne","Wczesny wiek rodzenia");
         dataRight = FXCollections.observableArrayList();
         factors = new JFXListView<>();
         factors.setItems(data);
@@ -125,34 +127,7 @@ public class FactorWindowController implements Initializable {
         rec2 = Screen.getPrimary().getVisualBounds();
         w = 0.1;
         h = 0.1;
-        //AuditTest
-        fact.add(new Factor("Spożywanie alkoholu", "/projekt/HTML/alkoholizm.html", true, "/projekt/FXML/AuditTest.fxml"));
-        // Samo dodaje
-        fact.add(new Factor("Otyłość", "/projekt/HTML/otylosc.html", false, ""));
-        // IonizingRadiation
-        fact.add(new Factor("Promieniowanie jonizujące", "/projekt/HTML/promieniowanie.html", true, "/projekt/FXML/IonizingRadiation.fxml"));
-        //  Radiotherapy
-        fact.add(new Factor("Radioterapia", "/projekt/HTML/radioterapia.html", true, "/projekt/FXML/Radiotherapy.fxml"));
-        // Solarium
-        fact.add(new Factor("Lampy solarium", "/projekt/HTML/solarium.html", true, "/projekt/FXML/Solarium.fxml"));
-        // Smoking
-        fact.add(new Factor("Palenie papierosów", "/projekt/HTML/papierosy.html", true, "/projekt/FXML/SmokingTest.fxml"));
-        //  da się zrobić
-        fact.add(new Factor("Brak aktywności fizycznej", "/projekt/HTML/aktywnosc_fizyczna.html", false, ""));
-        // Diet bez reguł//
-        fact.add(new Factor("Niewłaściwa dieta", "/projekt/HTML/brak_owocow.html", true, "/projekt/FXML/Diet.fxml"));
-        //
-        fact.add(new Factor("Brak naturalnych antyoksydantów", "/projekt/HTML/brak_naturalnych_antyoksydantow.html", false, ""));
-        // Menopause 
-        fact.add(new Factor("Menopauza + otyłość", "/projekt/HTML/wzrost_bmi.html", true, "/projekt/FXML/Menopause.fxml"));
-        // Fibre
-        fact.add(new Factor("Brak błonnika", "/projekt/HTML/brak_naturalnych_antyoksydantow.html", true, "/projekt/FXML/Fibre.fxml"));
-        // 
-        fact.add(new Factor("Pole elektromagnetyczne", "/projekt/HTML/pole_elektromagnetyczne.html", false, "/projekt/FXML/Fibre.fxml"));
-        //
-        fact.add(new Factor("Promieniwanie ultrafiloetowe", "/projekt/HTML/promieniowanie_ultrafioletowe.html", false, "/projekt/FXML/Fibre.fxml"));
-        // AsbestiosTest
-        fact.add(new Factor("Kontakt z azbestem", "/projekt/HTML/promieniowanie_ultrafioletowe.html", true, "/projekt/FXML/AsbestosTest.fxml"));
+        OperationFactor.initFactor(fact);
         webEngine = webView.getEngine();
         // final URL urlFactor = getClass().getResource("/projekt/HTML/alkoholizm.html");
         // webEngine.load(urlFactor.toExternalForm());
@@ -295,6 +270,16 @@ public class FactorWindowController implements Initializable {
                     primaryStage.setResizable(true);
                     cnt.setWindow(this);
                 }
+                if (fact.get(index).getFactor().equals("Wczesne współżycie seksualne")) {
+                    EarlyChAgeController cnt = new EarlyChAgeController();
+                    cnt = load.getController();
+                    cnt.setWindow(this);
+                }
+                if (fact.get(index).getFactor().equals("Wczesny wiek rodzenia")) {
+                    EarlyBabeController cnt = new EarlyBabeController();
+                    cnt = load.getController();
+                    cnt.setWindow(this);
+                }//
                 //"Menopauza + otyłość"
                 //primaryStage.initStyle(StageStyle.UNDECORATED);
 
