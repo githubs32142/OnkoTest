@@ -11,6 +11,7 @@ import javafx.scene.Scene;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 import javafx.util.Duration;
+import projekt.Class.ListRiskFactor;
 
 /**
  ** Klasa która powoduje uruchomienie programu

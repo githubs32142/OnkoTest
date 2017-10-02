@@ -1,0 +1,23 @@
+(clear)
+(reset)
+
+(deftemplate RiskFactor
+(slot sp_alkohol)
+(slot otylosc)
+(slot pro_jonizujace)
+(slot radioterapia)
+(slot lam_solarium)
+(slot pal_soarium)
+(slot br_akt_fizycznej)
+(slot nie_dieta)
+(slot br_nat_antykoksydantow)
+(slot menopazua_otylosc)
+(slot br_blonnika)
+(slot pol_elektromagnetyczne)
+(slot prom_ultra)
+(slot kon_azbest)
+(slot wcz_wsp_sexualne)
+(slot wcz_rodz))
+
+(facts)
+(run)

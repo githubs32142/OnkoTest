@@ -25,6 +25,7 @@ import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 import projekt.Class.CheckReg;
+import projekt.Class.ListRiskFactor;
 import projekt.Class.Person;
 import projekt.ToolTip.TTFirstWindnow;
 import projekt.animations.FadeInLeftTransition;
@@ -154,6 +155,8 @@ public class FirstWindowController implements Initializable {
             }
         });
         new TTFirstWindnow(this);
+        
+
     }
 
     /**

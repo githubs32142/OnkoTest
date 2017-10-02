@@ -44,6 +44,7 @@ import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 import projekt.Class.CancerFamilly;
 import projekt.Class.DiagnozeHTML;
+import projekt.Class.ListRiskFactor;
 import projekt.Class.Person;
 
 /**
@@ -183,6 +184,10 @@ public class SummaryWindowController implements Initializable {
         primaryStage.initStyle(StageStyle.UNDECORATED);
         primaryStage.show();
         cnt.setWebView(view);
+        
+        ListRiskFactor f = new ListRiskFactor("src/projekt/Data/czynniki_ryzyka.txt");
+        f.makeOperation(dataFactors);
+        
         stage = (Stage) ((Node) (event.getSource())).getScene().getWindow();
         stage.close();
     }
