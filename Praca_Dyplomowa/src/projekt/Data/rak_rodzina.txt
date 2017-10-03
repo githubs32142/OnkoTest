@@ -1,0 +1,96 @@
+Brat-Rak p³uc;brat_pluc
+Brat-Rak jelita grubrgo;brat_jelito
+Brat-Rak piersi;brat_piersi
+Brat-Rak j¹der;brat_jader
+Brat-Rak gruczo³u krokowego;brat_gru_krok
+Brat-Guz mózgu;brat_mozg
+Brat-Rak szyjki macicy;brat_syjki_macic
+Brat-Rak p³uc;brat_pluc
+Brat-Rak trzustki;brat_trzustka
+Brat-Rak ¿o³¹dka;brat_zoladka
+Brat-Rak macicy;brat_macicy
+Brat-Rak krtani;brat_krtani
+Siostra-Rak p³uc;siostra_pluc
+Siostra-Rak jelita grubrgo;siostra_jelito
+Siostra-Rak piersi;siostra_piersi
+Siostra-Rak j¹der;siostra_jader
+Siostra-Rak gruczo³u krokowego;siostra_gru_krok
+Siostra-Guz mózgu;siostra_mozg
+Siostra-Rak szyjki macicy;siostra_syjki_macic
+Siostra-Rak p³uc;siostra_pluc
+Siostra-Rak trzustki;siostra_trzustka
+Siostra-Rak ¿o³¹dka;siostra_zoladka
+Siostra-Rak macicy;siostra_macicy
+Siostra-Rak krtani;siostra_krtani
+Ojciec-Rak p³uc;ojciec_pluc
+Ojciec-Rak jelita grubrgo;ojciec_jelito
+Ojciec-Rak piersi;ojciec_piersi
+Ojciec-Rak j¹der;ojciec_jader
+Ojciec-Rak gruczo³u krokowego;ojciec_gru_krok
+Ojciec-Guz mózgu;ojciec_mozg
+Ojciec-Rak szyjki macicy;ojciec_syjki_macic
+Ojciec-Rak p³uc;ojciec_pluc
+Ojciec-Rak trzustki;ojciec_trzustka
+Ojciec-Rak ¿o³¹dka;ojciec_zoladka
+Ojciec-Rak macicy;ojciec_macicy
+Ojciec-Rak krtani;ojciec_krtani
+Matka-Rak p³uc;matka_pluc
+Matka-Rak jelita grubrgo;matka_jelito
+Matka-Rak piersi;matka_piersi
+Matka-Rak j¹der;matka_jader
+Matka-Rak gruczo³u krokowego;matka_gru_krok
+Matka-Guz mózgu;matka_mozg
+Matka-Rak szyjki macicy;matka_syjki_macic
+Matka-Rak p³uc;matka_pluc
+Matka-Rak trzustki;matka_trzustka
+Matka-Rak ¿o³¹dka;matka_zoladka
+Matka-Rak macicy;matka_macicy
+Matka-Rak krtani;matka_krtani
+Dziadek-Rak p³uc;dziadek_pluc
+Dziadek-Rak jelita grubrgo;dziadek_jelito
+Dziadek-Rak piersi;dziadek_piersi
+Dziadek-Rak j¹der;dziadek_jader
+Dziadek-Rak gruczo³u krokowego;dziadek_gru_krok
+Dziadek-Guz mózgu;dziadek_mozg
+Dziadek-Rak szyjki macicy;dziadek_syjki_macic
+Dziadek-Rak p³uc;dziadek_pluc
+Dziadek-Rak trzustki;dziadek_trzustka
+Dziadek-Rak ¿o³¹dka;dziadek_zoladka
+Dziadek-Rak macicy;dziadek_macicy
+Dziadek-Rak krtani;dziadek_krtani
+Babcia-Rak p³uc;babcia_pluc
+Babcia-Rak jelita grubrgo;babcia_jelito
+Babcia-Rak piersi;babcia_piersi
+Babcia-Rak j¹der;babcia_jader
+Babcia-Rak gruczo³u krokowego;babcia_gru_krok
+Babcia-Guz mózgu;babcia_mozg
+Babcia-Rak szyjki macicy;babcia_syjki_macic
+Babcia-Rak p³uc;babcia_pluc
+Babcia-Rak trzustki;babcia_trzustka
+Babcia-Rak ¿o³¹dka;babcia_zoladka
+Babcia-Rak macicy;babcia_macicy
+Babcia-Rak krtani;babcia_krtani
+Wujek-Rak p³uc;wujek_pluc
+Wujek-Rak jelita grubrgo;wujek_jelito
+Wujek-Rak piersi;wujek_piersi
+Wujek-Rak j¹der;wujek_jader
+Wujek-Rak gruczo³u krokowego;wujek_gru_krok
+Wujek-Guz mózgu;wujek_mozg
+Wujek-Rak szyjki macicy;wujek_syjki_macic
+Wujek-Rak p³uc;wujek_pluc
+Wujek-Rak trzustki;wujek_trzustka
+Wujek-Rak ¿o³¹dka;wujek_zoladka
+Wujek-Rak macicy;wujek_macicy
+Wujek-Rak krtani;wujek_krtani
+Ciotka-Rak p³uc;ciotka_pluc
+Ciotka-Rak jelita grubrgo;ciotka_jelito
+Ciotka-Rak piersi;ciotka_piersi
+Ciotka-Rak j¹der;ciotka_jader
+Ciotka-Rak gruczo³u krokowego;ciotka_gru_krok
+Ciotka-Guz mózgu;ciotka_mozg
+Ciotka-Rak szyjki macicy;ciotka_syjki_macic
+Ciotka-Rak p³uc;ciotka_pluc
+Ciotka-Rak trzustki;ciotka_trzustka
+Ciotka-Rak ¿o³¹dka;ciotka_zoladka
+Ciotka-Rak macicy;ciotka_macicy
+Ciotka-Rak krtani;ciotka_krtani

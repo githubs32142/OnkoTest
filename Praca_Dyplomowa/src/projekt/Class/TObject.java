@@ -5,19 +5,19 @@
  */
 package projekt.Class;
 
-public class RiskFactor {
+public class TObject {
 
     private String factor;
     private String alias;
     private boolean isAdded;
 
-    public RiskFactor(String symptom, String alias) {
+    public TObject(String symptom, String alias) {
         this.factor = symptom;
         this.alias = alias;
         isAdded=false;
     }
 
-    public RiskFactor() {
+    public TObject() {
         this("", "");
         isAdded=false;
     }

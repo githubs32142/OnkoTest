@@ -11,7 +11,8 @@ import javafx.scene.Scene;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 import javafx.util.Duration;
-import projekt.Class.ListRiskFactor;
+import projekt.Class.FCList;
+import projekt.Class.TList;
 
 /**
  ** Klasa która powoduje uruchomienie programu
@@ -29,6 +30,7 @@ public class RunClass extends Application {
     @Override
     public void start(Stage primaryStage) throws IOException {
         loadSplash(primaryStage);
+
         /*
         //FXMLLoader load = new FXMLLoader(this.getClass().getResource("FXML/SummaryWindow.fxml"));
         //FXMLLoader load = new FXMLLoader(this.getClass().getResource("FXML/Fibre.fxml"));

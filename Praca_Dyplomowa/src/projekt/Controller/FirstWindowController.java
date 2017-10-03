@@ -25,7 +25,8 @@ import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 import projekt.Class.CheckReg;
-import projekt.Class.ListRiskFactor;
+import projekt.Class.FCList;
+import projekt.Class.TList;
 import projekt.Class.Person;
 import projekt.ToolTip.TTFirstWindnow;
 import projekt.animations.FadeInLeftTransition;
@@ -155,8 +156,13 @@ public class FirstWindowController implements Initializable {
             }
         });
         new TTFirstWindnow(this);
-        
-
+        FCList f = new FCList("src/projekt/Data/rak_rodzina.txt");
+        System.out.println("(deftemplate FamillyCancer");
+        for(int i=0;i<f.size();i++){
+            System.out.println("(slot "+f.getAlias(i));
+        }
+        System.out.println(")");
+        System.out.println(f.size());
     }
 
     /**

@@ -18,14 +18,14 @@ import projekt.Interface.*;
  *
  * @author Admin
  */
-public class ListRiskFactor implements ReadData,Operation {
+public class TList implements ReadData,Operation {
 
-    private List<RiskFactor> listRiskFactor = new ArrayList<>();
+    private List<TObject> listRiskFactor = new ArrayList<>();
 
-    public ListRiskFactor() {
+    public TList() {
     }
 
-    public ListRiskFactor(String path) {
+    public TList(String path) {
         readData(path);
     }
 
@@ -56,7 +56,7 @@ public class ListRiskFactor implements ReadData,Operation {
         boolean count = true;
         while (st.hasMoreElements()) {
             if (count) {
-                listRiskFactor.add(new RiskFactor());
+                listRiskFactor.add(new TObject());
                 listRiskFactor.get(listRiskFactor.size() - 1).setFactor(st.nextElement().toString());
             } else {
                 listRiskFactor.get(listRiskFactor.size() - 1).setAlias(st.nextElement().toString());
