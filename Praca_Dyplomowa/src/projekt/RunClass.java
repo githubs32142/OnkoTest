@@ -62,7 +62,6 @@ public class RunClass extends Application {
      */
     public void loadSplash(Stage primaryStage) throws IOException {
         FXMLLoader load = new FXMLLoader(this.getClass().getResource("FXML/SplashScreen.fxml"));
-        //FXMLLoader load = new FXMLLoader(this.getClass().getResource("FXML/Fibre.fxml"));
         Parent parent = load.load();
         Scene scene = new Scene(parent);
         FadeTransition fin = new FadeTransition(Duration.seconds(10), parent);
@@ -95,5 +94,9 @@ public class RunClass extends Application {
                 primaryStage.show();
             }
         });
+                TList f = new TList("src/projekt/Data/czynniki_ryzyka.txt");
+        //f.makeOperation(dataFactors);
+        System.out.println(f.toString());
+        System.out.println(f.makeAssert());
     }
 }

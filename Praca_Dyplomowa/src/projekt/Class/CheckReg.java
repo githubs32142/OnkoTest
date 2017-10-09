@@ -103,8 +103,9 @@ public class CheckReg {
      * @return prawdę jeżeli wage podano poprawnie
      */
     public static boolean checkAge(String word) {
-        Pattern p = Pattern.compile("[1-9]{1}[0-9]{1,2}");
+        Pattern p = Pattern.compile("[1-9]{1}|[1-9]{1}[0-9]{1,2}");
         Matcher matcher = p.matcher(word);
+        
         return matcher.matches(); //zwraca true lub false
     }
 }

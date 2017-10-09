@@ -49,7 +49,8 @@ import projekt.Class.Person;
  * @author Andrzej Kierepka
  */
 public class FactorWindowController implements Initializable {
-
+    private double xOffset = 0;
+    private double yOffset = 0;
     private int leftSelected, rightSeleted = 0;
     public Person person = new Person();
     WebEngine webEngine;
@@ -60,8 +61,6 @@ public class FactorWindowController implements Initializable {
     Stage stage;
     Rectangle2D rec2;
     Double w, h;
-    @FXML
-    private WebView webView;
     @FXML
     private Button test;
     @FXML
@@ -80,8 +79,9 @@ public class FactorWindowController implements Initializable {
     private JFXDrawer drawer;
     @FXML
     private AnchorPane mainPane;
-    private double xOffset = 0;
-    private double yOffset = 0;
+    @FXML
+    private WebView webHTML;
+
 
     /**
      ** Konstruktor w którym podajemy instancje klasy Person
@@ -128,9 +128,11 @@ public class FactorWindowController implements Initializable {
         w = 0.1;
         h = 0.1;
         OperationFactor.initFactor(fact);
-        webEngine = webView.getEngine();
-        // final URL urlFactor = getClass().getResource("/projekt/HTML/alkoholizm.html");
-        // webEngine.load(urlFactor.toExternalForm());
+        webEngine = webHTML.getEngine();
+        //webEngine.setUserStyleSheetLocation(getClass().getResource("/projekt/HTML/style.css").toString());
+        // final URL urlFactor = getClass().getResource("/projekt/HTML/style.css");
+       //  webEngine.load(urlFactor.toExternalForm());
+       //webEngine.setUserStyleSheetLocation(urlFactor.toExternalForm());
         factors.setItems(data);
         test.setVisible(false);
         index = -1;
@@ -182,7 +184,7 @@ public class FactorWindowController implements Initializable {
         index = ifFact(clickedFact);
         if (index >= 0) {
             leftSelected = factors.getSelectionModel().getSelectedIndex();
-            final URL urlFactor = getClass().getResource(fact.get(index).getSymptom());
+            final URL urlFactor = getClass().getResource(fact.get(index).getUrlHTML());
             webEngine.load(urlFactor.toExternalForm());
             if (fact.get(index).isTest()) {
                 test.setVisible(true);

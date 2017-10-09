@@ -8,20 +8,20 @@ package projekt.Class;
 public class Factor {
 
     private String factor;
-    private String symptom;
+    private String urlHTML;
     private boolean test;
     private String urlTest;
 
     public Factor(String factor, String symptom, boolean test, String urlTest) {
         this.factor = factor;
-        this.symptom = symptom;
+        this.urlHTML = symptom;
         this.test = test;
         this.urlTest = urlTest;
     }
 
     public Factor(Factor factor) {
         this.factor = factor.factor;
-        this.symptom = factor.symptom;
+        this.urlHTML = factor.urlHTML;
         this.test = factor.test;
         this.urlTest = factor.urlTest;
     }
@@ -50,8 +50,8 @@ public class Factor {
      *
      * @return symptom
      */
-    public String getSymptom() {
-        return symptom;
+    public String getUrlHTML() {
+        return urlHTML;
     }
 
     /**

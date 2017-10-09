@@ -1,0 +1,15 @@
+﻿Gorączka-goraczka
+Osłabienie-oslabienie
+Bladość skóry-blad_skory
+Apatia-apatia
+Stany podgorączkowe-stan_podgoraczkowe
+Osłabienie apetytu-os_apetyt
+Duszność-dusznosc
+Krwawienie z jamy ustnej-kr_jam_ustna
+Skłonnośc do infekcji-slk_infekcj
+Obfite poty w nocy-ob_poty
+Mdłości-mdlosci
+Częste bóle głowy-cz_bol_glowy
+Częste bóle brzucha-cz_bol_brzucha
+Świąd skóry-sw_skory
+Powiększone niebolesne węzły chłonne-pow_wezly_chlonne 

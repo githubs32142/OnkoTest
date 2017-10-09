@@ -52,7 +52,7 @@ public class TList implements ReadData,Operation {
     public void readData(String path) {
         listRiskFactor.clear();
         String line = readInput(path);
-        StringTokenizer st = new StringTokenizer(line, "-\n");
+        StringTokenizer st = new StringTokenizer(line, "-;");
         boolean count = true;
         while (st.hasMoreElements()) {
             if (count) {
@@ -69,9 +69,9 @@ public class TList implements ReadData,Operation {
 
     @Override
     public String toString() {
-        StringBuffer str = new StringBuffer();
+        StringBuilder str = new StringBuilder();
         for(int i =0; i<listRiskFactor.size() ; i++){
-            str.append(listRiskFactor.get(i).getAlias()).append("\n");
+            str.append( listRiskFactor.get(i).getAlias()).append("\n");
         }
         System.out.println(listRiskFactor.size());
         return str.toString();
@@ -92,9 +92,15 @@ public class TList implements ReadData,Operation {
        // throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
        StringBuilder str = new StringBuilder();
        for(int i =0 ; i < listRiskFactor.size() ; i ++){
-           str.append(listRiskFactor.get(i).getFactor()).append(" ").append(listRiskFactor.get(i).isAdded()).append("\n");
+           //System.out.println(listRiskFactor.get(i).getAlias());
+           //str.append(" ").append(listRiskFactor.get(i).getFactor()).append(" ").append(listRiskFactor.get(i).isAdded()).append("\n");
+           str.append("(").append(listRiskFactor.get(i).getAlias()).append("\n").append("Tak").append("),");
+            //System.out.println(listRiskFactor.get(i).getFactor()+" "+listRiskFactor.get(i).getAlias() );
        }
-       return str.toString();
+       String text=str.toString();
+       text=text.replace("\n", " ");
+       text=text.replace(",", "\n");
+       return text;
     }
 
     @Override
@@ -105,9 +111,6 @@ public class TList implements ReadData,Operation {
                     listRiskFactor.get(i).setIsAdded(true);
                 }
             }
-        }
-        for(int i =0; i<listRiskFactor.size();i++){
-            System.out.println("Czynnik ryzyka:"+ listRiskFactor.get(i).getFactor()+ " jest "+String.valueOf(listRiskFactor.get(i).isAdded()) );
         }
     }
 }

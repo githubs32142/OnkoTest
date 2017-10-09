@@ -167,7 +167,7 @@ public class SummaryWindowController implements Initializable {
         DiagnozeHTML html = new DiagnozeHTML(cancerFamilly, person, dataFactors, dataSymptoms);
         html.parseHTML();
         cnt.setString(html.text);
-        final WebView view = cnt.getWebView();
+        WebView view = cnt.getWebView();
         try {
             OutputStreamWriter outputStreamWriter = new OutputStreamWriter(new FileOutputStream(new File("src/projekt/HTML/Diagnoza/diagnoza.html")), Charset.forName("UTF-8"));
             PrintWriter out = new PrintWriter(outputStreamWriter);
@@ -184,17 +184,21 @@ public class SummaryWindowController implements Initializable {
         primaryStage.initStyle(StageStyle.UNDECORATED);
         primaryStage.show();
         cnt.setWebView(view);
-        
         TList f = new TList("src/projekt/Data/czynniki_ryzyka.txt");
-        f.makeOperation(dataFactors);
-        
+        //f.makeOperation(dataFactors);
+        System.out.println(f.toString());
+        System.out.println(f.makeAssert());
+        //TList f2 = new TList("src/projekt/Data/objawy.txt");
+        //System.out.println(f2.toString());
+        //f2.makeOperation(dataSymptoms);
+        //System.out.println(f2.makeAssert());
         stage = (Stage) ((Node) (event.getSource())).getScene().getWindow();
         stage.close();
     }
 
     /**
      ** Metoda, która powoduje, że formulrz rozciąga się na cały ekran
-     *
+     *3
      * @param event obsługa zdarzenia
      */
     @FXML

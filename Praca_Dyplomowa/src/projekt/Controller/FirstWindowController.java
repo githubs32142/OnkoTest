@@ -156,13 +156,6 @@ public class FirstWindowController implements Initializable {
             }
         });
         new TTFirstWindnow(this);
-        FCList f = new FCList("src/projekt/Data/rak_rodzina.txt");
-        System.out.println("(deftemplate FamillyCancer");
-        for(int i=0;i<f.size();i++){
-            System.out.println("(slot "+f.getAlias(i));
-        }
-        System.out.println(")");
-        System.out.println(f.size());
     }
 
     /**
