@@ -94,12 +94,10 @@ public class TList implements ReadData,Operation {
        for(int i =0 ; i < listRiskFactor.size() ; i ++){
            //System.out.println(listRiskFactor.get(i).getAlias());
            //str.append(" ").append(listRiskFactor.get(i).getFactor()).append(" ").append(listRiskFactor.get(i).isAdded()).append("\n");
-           str.append("(").append(listRiskFactor.get(i).getAlias()).append("\n").append("Tak").append("),");
+           str.append("(").append(listRiskFactor.get(i).getAlias()).append(" ").append(listRiskFactor.get(i).isAdded()).append(")\n");
             //System.out.println(listRiskFactor.get(i).getFactor()+" "+listRiskFactor.get(i).getAlias() );
        }
        String text=str.toString();
-       text=text.replace("\n", " ");
-       text=text.replace(",", "\n");
        return text;
     }
 

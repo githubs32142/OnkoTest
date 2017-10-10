@@ -95,8 +95,7 @@ public class RunClass extends Application {
             }
         });
                 TList f = new TList("src/projekt/Data/czynniki_ryzyka.txt");
-        //f.makeOperation(dataFactors);
-        System.out.println(f.toString());
-        System.out.println(f.makeAssert());
+        FCList fc = new FCList("src/projekt/Data/rak_rodzina.txt");
+        System.out.println(fc.toString());
     }
 }

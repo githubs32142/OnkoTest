@@ -51,7 +51,7 @@ public class FCList implements ReadData,Operation{
     public void readData(String path) {
          list.clear();
         String line = readInput(path);
-        StringTokenizer st = new StringTokenizer(line, "-;\n");
+        StringTokenizer st = new StringTokenizer(line, "-;:");
         int count = 0;
         while (st.hasMoreElements()) {
             switch(count%3){
@@ -68,8 +68,6 @@ public class FCList implements ReadData,Operation{
             }
             count++;
         }
-        System.out.println(list.size());
-        System.out.println(toString());
     }
 
     @Override
@@ -77,7 +75,6 @@ public class FCList implements ReadData,Operation{
         StringBuilder str = new StringBuilder();
         for(int i =0 ; i < list.size() ; i++ ){
             str.append(list.get(i).getFamily()).append(" ").append(list.get(i).getCancer()).append(" ").append(list.get(i).getAlians());
-            System.out.println(list.get(i).getAlians());
         }
         return str.toString();
     }
