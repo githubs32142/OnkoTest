@@ -11,6 +11,6 @@ import java.util.List;
 
 public interface Operation {
     public boolean contains( String s);
-    public String makeAssert();
+    public String makeAssert(String s);
     public void makeOperation(List<String> list);
 }

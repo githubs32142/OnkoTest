@@ -185,13 +185,10 @@ public class SummaryWindowController implements Initializable {
         primaryStage.show();
         cnt.setWebView(view);
         TList f = new TList("src/projekt/Data/czynniki_ryzyka.txt");
-        //f.makeOperation(dataFactors);
-        System.out.println(f.toString());
-        System.out.println(f.makeAssert());
-        //TList f2 = new TList("src/projekt/Data/objawy.txt");
-        //System.out.println(f2.toString());
-        //f2.makeOperation(dataSymptoms);
-        //System.out.println(f2.makeAssert());
+        f.makeOperation(dataFactors);
+        System.out.println(dataFactors.size());
+        System.out.println(f.makeAssert("RiskFactor"));
+
         stage = (Stage) ((Node) (event.getSource())).getScene().getWindow();
         stage.close();
     }

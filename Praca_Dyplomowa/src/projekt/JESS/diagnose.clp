@@ -37,6 +37,7 @@
 (slot sw_skory)
 (slot pow_wezly_chlonne)
 )
+
 (deftemplate FamillyCancer
 (slot brat_pluc)
 (slot brat_jelito)

@@ -85,7 +85,7 @@ public class FCList implements ReadData,Operation{
     }
 
     @Override
-    public String makeAssert() {
+    public String makeAssert(String s) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
@@ -99,4 +99,5 @@ public class FCList implements ReadData,Operation{
     public String getAlias(int i){
         return list.get(i).getAlians();
     }
+
 }

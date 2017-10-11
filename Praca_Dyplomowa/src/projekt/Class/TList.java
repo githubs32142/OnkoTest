@@ -14,11 +14,12 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.StringTokenizer;
 import projekt.Interface.*;
+
 /**
  *
  * @author Admin
  */
-public class TList implements ReadData,Operation {
+public class TList implements ReadData, Operation {
 
     private List<TObject> listRiskFactor = new ArrayList<>();
 
@@ -60,7 +61,7 @@ public class TList implements ReadData,Operation {
                 listRiskFactor.get(listRiskFactor.size() - 1).setFactor(st.nextElement().toString());
             } else {
                 listRiskFactor.get(listRiskFactor.size() - 1).setAlias(st.nextElement().toString());
-               // System.out.println(listRiskFactor.get(listRiskFactor.size() - 1).getAlias());
+                // System.out.println(listRiskFactor.get(listRiskFactor.size() - 1).getAlias());
                 //  System.out.println(st.nextElement().toString());
             }
             count = !count;
@@ -70,45 +71,46 @@ public class TList implements ReadData,Operation {
     @Override
     public String toString() {
         StringBuilder str = new StringBuilder();
-        for(int i =0; i<listRiskFactor.size() ; i++){
-            str.append( listRiskFactor.get(i).getAlias()).append("\n");
+        for (int i = 0; i < listRiskFactor.size(); i++) {
+            str.append(listRiskFactor.get(i).getAlias()).append("\n");
         }
-        System.out.println(listRiskFactor.size());
         return str.toString();
 
     }
 
     @Override
     public boolean contains(String s) {
-        for(int i = 0; i< listRiskFactor.size();i++){
-            if(listRiskFactor.get(i).getFactor().equals(s))
+        for (int i = 0; i < listRiskFactor.size(); i++) {
+            if (listRiskFactor.get(i).getFactor().equals(s)) {
                 return true;
+            }
         }
         return false;
     }
 
     @Override
-    public String makeAssert() {
-       // throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-       StringBuilder str = new StringBuilder();
-       for(int i =0 ; i < listRiskFactor.size() ; i ++){
-           //System.out.println(listRiskFactor.get(i).getAlias());
-           //str.append(" ").append(listRiskFactor.get(i).getFactor()).append(" ").append(listRiskFactor.get(i).isAdded()).append("\n");
-           str.append("(").append(listRiskFactor.get(i).getAlias()).append(" ").append(listRiskFactor.get(i).isAdded()).append(")\n");
-            //System.out.println(listRiskFactor.get(i).getFactor()+" "+listRiskFactor.get(i).getAlias() );
-       }
-       String text=str.toString();
-       return text;
+    public String makeAssert(String s) {
+
+        StringBuilder str = new StringBuilder();
+        str.append("( assert ").append(s).append(" ( ");
+        for (int i = 0; i < listRiskFactor.size(); i++) {
+            str.append("( ").append(listRiskFactor.get(i).getAlias()).append(" ").append(listRiskFactor.get(i).getAddedString()).append(" ) ");
+        }
+        str.append(") )");
+        return str.toString();
     }
 
     @Override
     public void makeOperation(List<String> list) {
-        for(int i =0 ; i < listRiskFactor.size(); i++){
-            for(int j=0 ;j<list.size();j++){
-                if(listRiskFactor.get(i).getFactor().equals(list.get(j))){
+        for (int i = 0; i < listRiskFactor.size(); i++) {
+            for (int j = 0; j < list.size(); j++) {
+                System.out.println(listRiskFactor.get(i).getFactor()+"="+list.get(j));
+                if (EqualString.equals(listRiskFactor.get(i).getFactor(), list.get(j))) {
                     listRiskFactor.get(i).setIsAdded(true);
+                    System.out.println(listRiskFactor.get(i).getFactor());
                 }
             }
         }
     }
+
 }

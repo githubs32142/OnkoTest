@@ -14,12 +14,12 @@ public class TObject {
     public TObject(String symptom, String alias) {
         this.factor = symptom;
         this.alias = alias;
-        isAdded=false;
+        isAdded = false;
     }
 
     public TObject() {
         this("", "");
-        isAdded=false;
+        isAdded = false;
     }
 
     public String getFactor() {
@@ -27,6 +27,7 @@ public class TObject {
     }
 
     public void setFactor(String factor) {
+        System.out.println(factor+ " "+factor.length() );
         this.factor = factor;
     }
 
@@ -44,6 +45,13 @@ public class TObject {
 
     public boolean isAdded() {
         return isAdded;
+    }
+
+    public String getAddedString() {
+        if (isAdded) {
+            return "Tak";
+        }
+        return "Nie";
     }
 
 }
