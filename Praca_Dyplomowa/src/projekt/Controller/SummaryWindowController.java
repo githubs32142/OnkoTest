@@ -44,6 +44,8 @@ import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 import projekt.Class.CancerFamilly;
 import projekt.Class.DiagnozeHTML;
+import projekt.Class.FCList;
+import projekt.Class.FCObject;
 import projekt.Class.TList;
 import projekt.Class.Person;
 
@@ -188,7 +190,14 @@ public class SummaryWindowController implements Initializable {
         f.makeOperation(dataFactors);
         System.out.println(dataFactors.size());
         System.out.println(f.makeAssert("RiskFactor"));
-
+        TList f2 = new TList("src/projekt/Data/objawy.txt");
+        f2.makeOperation(dataSymptoms);
+        System.out.println(dataSymptoms.size());
+        System.out.println(f2.makeAssert("Symptoms"));
+        FCList f3= new FCList("src/projekt/Data/rak_rodzina.txt");
+        f3.makeOperation(cancerFamilly);
+        System.out.println(dataSymptoms.size());
+        System.out.println(f3.makeAssert("FamillyCancer"));
         stage = (Stage) ((Node) (event.getSource())).getScene().getWindow();
         stage.close();
     }

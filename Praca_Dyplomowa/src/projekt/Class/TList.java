@@ -104,10 +104,8 @@ public class TList implements ReadData, Operation {
     public void makeOperation(List<String> list) {
         for (int i = 0; i < listRiskFactor.size(); i++) {
             for (int j = 0; j < list.size(); j++) {
-                System.out.println(listRiskFactor.get(i).getFactor()+"="+list.get(j));
                 if (EqualString.equals(listRiskFactor.get(i).getFactor(), list.get(j))) {
                     listRiskFactor.get(i).setIsAdded(true);
-                    System.out.println(listRiskFactor.get(i).getFactor());
                 }
             }
         }

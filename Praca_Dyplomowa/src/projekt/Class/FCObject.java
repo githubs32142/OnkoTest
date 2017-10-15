@@ -16,15 +16,18 @@ public class FCObject {
     private String family;
     private String cancer;
     private String alians;
+    private boolean isAdded;
 
     public FCObject(String family, String cancer, String alians) {
         this.family = family;
         this.cancer = cancer;
         this.alians = alians;
+        isAdded=false;
     }
 
     public FCObject() {
         this("","","");
+        isAdded=false;
     }
 
     public String getAlians() {
@@ -51,5 +54,17 @@ public class FCObject {
         this.family = family;
     }
 
-    
+    public boolean isAdded() {
+        return isAdded;
+    }
+
+    public void setAdded(boolean isAdded) {
+        this.isAdded = isAdded;
+    }
+        public String getAddedString() {
+        if (isAdded) {
+            return "Tak";
+        }
+        return "Nie";
+    }
 }

@@ -20,9 +20,10 @@ import projekt.Interface.ReadData;
  *
  * @author Admin
  */
-public class FCList implements ReadData,Operation{
+public class FCList implements ReadData{
     
     List<FCObject> list = new ArrayList<>();
+    
     public FCList(String path) {
         readData(path);
     }
@@ -79,20 +80,40 @@ public class FCList implements ReadData,Operation{
         return str.toString();
     }
 
-    @Override
-    public boolean contains(String s) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public boolean contains(CancerFamilly cf) {
+       for(int i=0;i<list.size();i++){
+           if(list.get(i).getCancer().equals(cf.getCancer()) &&list.get(i).getFamily().equals(cf.getFamilly()) ){
+               return true;
+           }
+       }
+        return false;
     }
 
-    @Override
+
     public String makeAssert(String s) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        StringBuilder str = new StringBuilder();
+        str.append("( assert ").append(s).append(" ( ");
+        for (int i = 0; i < list.size(); i++) {
+            str.append("( ").append(list.get(i).getAlians()).append(" ").append(list.get(i).getAddedString()).append(" ) ");
+        }
+        str.append(") )");
+        return str.toString();
     }
 
-    @Override
-    public void makeOperation(List<String> list) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+
+    public void makeOperation(List<CancerFamilly> list) {
+        int tmp=0;
+        for(int i=0;i<this.list.size();i++){
+            for(int j=0;j<list.size();j++){
+                if(EqualString.equals(this.list.get(i).getCancer(),list.get(j).getCancer() ) && EqualString.equals(this.list.get(i).getFamily(),list.get(j).getFamilly() )){
+                    this.list.get(i).setAdded(true);
+                }
+                tmp++;
+            }
+        }
+        System.out.println("ilość operacji "+tmp);
     }
+    
     public int size(){
         return this.list.size();
     }
