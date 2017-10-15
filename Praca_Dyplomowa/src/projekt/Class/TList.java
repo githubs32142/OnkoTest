@@ -92,7 +92,7 @@ public class TList implements ReadData, Operation {
     public String makeAssert(String s) {
 
         StringBuilder str = new StringBuilder();
-        str.append("( assert ").append(s).append(" ( ");
+        str.append("( assert ( ").append(s);
         for (int i = 0; i < listRiskFactor.size(); i++) {
             str.append("( ").append(listRiskFactor.get(i).getAlias()).append(" ").append(listRiskFactor.get(i).getAddedString()).append(" ) ");
         }

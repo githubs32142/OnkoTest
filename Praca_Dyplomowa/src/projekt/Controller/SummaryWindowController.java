@@ -17,6 +17,8 @@ import java.io.PrintWriter;
 import java.net.URL;
 import java.nio.charset.Charset;
 import java.util.ResourceBundle;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -42,10 +44,12 @@ import javafx.scene.web.WebView;
 import javafx.stage.Screen;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
+import jess.JessException;
 import projekt.Class.CancerFamilly;
 import projekt.Class.DiagnozeHTML;
 import projekt.Class.FCList;
 import projekt.Class.FCObject;
+import projekt.Class.JessEngine;
 import projekt.Class.TList;
 import projekt.Class.Person;
 
@@ -198,6 +202,12 @@ public class SummaryWindowController implements Initializable {
         f3.makeOperation(cancerFamilly);
         System.out.println(dataSymptoms.size());
         System.out.println(f3.makeAssert("FamillyCancer"));
+        try {
+            JessEngine.queryInferenceEngine(f.makeAssert("RiskFactor")+" "
+                    +f2.makeAssert("Symptoms")+" "+ f3.makeAssert("FamillyCancer"));
+        } catch (JessException ex) {
+            Logger.getLogger(SummaryWindowController.class.getName()).log(Level.SEVERE, null, ex);
+        }
         stage = (Stage) ((Node) (event.getSource())).getScene().getWindow();
         stage.close();
     }

@@ -7,7 +7,7 @@
 (slot pro_jonizujace)
 (slot radioterapia)
 (slot lam_solarium)
-(slot pal_soarium)
+(slot pal_papierosow)
 (slot br_akt_fizycznej)
 (slot nie_dieta)
 (slot br_nat_antykoksydantow)
@@ -137,5 +137,10 @@
 (slot ciotka_krtani)
 )
 
+(defrule defrule1
+	 (exists (or  (and (RiskFactor (otylosc Tak))( Symptoms (blad_skory Tak)))))
+	=>
+	 (printout t " is likely to have Skin Cancer" crlf)
+)
 (facts)
 (run)

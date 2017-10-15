@@ -20,15 +20,14 @@ import projekt.Interface.ReadData;
  *
  * @author Admin
  */
-public class FCList implements ReadData{
-    
+public class FCList implements ReadData {
+
     List<FCObject> list = new ArrayList<>();
-    
+
     public FCList(String path) {
         readData(path);
     }
 
-    
     @Override
     public String readInput(String path) {
         StringBuilder buffer = new StringBuilder();
@@ -50,22 +49,25 @@ public class FCList implements ReadData{
 
     @Override
     public void readData(String path) {
-         list.clear();
+        list.clear();
         String line = readInput(path);
         StringTokenizer st = new StringTokenizer(line, "-;:");
         int count = 0;
         while (st.hasMoreElements()) {
-            switch(count%3){
+            switch (count % 3) {
                 case 0: {
                     list.add(new FCObject());
-                    list.get(list.size()-1).setFamily(st.nextElement().toString());
-                }break;
-                case 1:{
-                    list.get(list.size()-1).setCancer(st.nextElement().toString());
-                }break;
-                case 2:{
-                    list.get(list.size()-1).setAlians(st.nextElement().toString());
-                }break;
+                    list.get(list.size() - 1).setFamily(st.nextElement().toString());
+                }
+                break;
+                case 1: {
+                    list.get(list.size() - 1).setCancer(st.nextElement().toString());
+                }
+                break;
+                case 2: {
+                    list.get(list.size() - 1).setAlians(st.nextElement().toString());
+                }
+                break;
             }
             count++;
         }
@@ -74,25 +76,24 @@ public class FCList implements ReadData{
     @Override
     public String toString() {
         StringBuilder str = new StringBuilder();
-        for(int i =0 ; i < list.size() ; i++ ){
+        for (int i = 0; i < list.size(); i++) {
             str.append(list.get(i).getFamily()).append(" ").append(list.get(i).getCancer()).append(" ").append(list.get(i).getAlians());
         }
         return str.toString();
     }
 
     public boolean contains(CancerFamilly cf) {
-       for(int i=0;i<list.size();i++){
-           if(list.get(i).getCancer().equals(cf.getCancer()) &&list.get(i).getFamily().equals(cf.getFamilly()) ){
-               return true;
-           }
-       }
+        for (int i = 0; i < list.size(); i++) {
+            if (list.get(i).getCancer().equals(cf.getCancer()) && list.get(i).getFamily().equals(cf.getFamilly())) {
+                return true;
+            }
+        }
         return false;
     }
 
-
     public String makeAssert(String s) {
         StringBuilder str = new StringBuilder();
-        str.append("( assert ").append(s).append(" ( ");
+        str.append("( assert ( ").append(s);
         for (int i = 0; i < list.size(); i++) {
             str.append("( ").append(list.get(i).getAlians()).append(" ").append(list.get(i).getAddedString()).append(" ) ");
         }
@@ -100,24 +101,24 @@ public class FCList implements ReadData{
         return str.toString();
     }
 
-
     public void makeOperation(List<CancerFamilly> list) {
-        int tmp=0;
-        for(int i=0;i<this.list.size();i++){
-            for(int j=0;j<list.size();j++){
-                if(EqualString.equals(this.list.get(i).getCancer(),list.get(j).getCancer() ) && EqualString.equals(this.list.get(i).getFamily(),list.get(j).getFamilly() )){
+        int tmp = 0;
+        for (int i = 0; i < this.list.size(); i++) {
+            for (int j = 0; j < list.size(); j++) {
+                if (EqualString.equals(this.list.get(i).getCancer(), list.get(j).getCancer()) && EqualString.equals(this.list.get(i).getFamily(), list.get(j).getFamilly())) {
                     this.list.get(i).setAdded(true);
                 }
                 tmp++;
             }
         }
-        System.out.println("ilość operacji "+tmp);
+        System.out.println("ilość operacji " + tmp);
     }
-    
-    public int size(){
+
+    public int size() {
         return this.list.size();
     }
-    public String getAlias(int i){
+
+    public String getAlias(int i) {
         return list.get(i).getAlians();
     }
 

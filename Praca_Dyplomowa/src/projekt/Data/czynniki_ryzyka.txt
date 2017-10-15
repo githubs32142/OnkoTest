@@ -9,7 +9,7 @@ Niewłaściwa dieta-nie_dieta;
 Brak naturalnych antyoksydantów-br_nat_antykoksydantow;
 Menopauza + otyłość-menopazua_otylosc;
 Brak błonnika-br_blonnika;
-Pole elektromagnetyczne-pole_lektromagnetyczne;
+Pole elektromagnetyczne-pol_elektromagnetyczne;
 Promieniwanie ultrafiloetowe-prom_ultra;
 Kontakt z azbestem-kon_azbest;
 Wczesne współżycie seksualne-wcz_wsp_sexualne;
