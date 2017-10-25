@@ -190,6 +190,8 @@ public class SummaryWindowController implements Initializable {
         primaryStage.initStyle(StageStyle.UNDECORATED);
         primaryStage.show();
         cnt.setWebView(view);
+        String str = "";
+        str= "( assert ( Person (age "+person.getAge()+")))";
         TList f = new TList("src/projekt/Data/czynniki_ryzyka.txt");
         f.makeOperation(dataFactors);
         System.out.println(dataFactors.size());
@@ -203,7 +205,7 @@ public class SummaryWindowController implements Initializable {
         System.out.println(dataSymptoms.size());
         System.out.println(f3.makeAssert("FamillyCancer"));
         try {
-            JessEngine.queryInferenceEngine(f.makeAssert("RiskFactor")+" "
+            JessEngine.queryInferenceEngine(str+" "+f.makeAssert("RiskFactor")+" "
                     +f2.makeAssert("Symptoms")+" "+ f3.makeAssert("FamillyCancer"));
         } catch (JessException ex) {
             Logger.getLogger(SummaryWindowController.class.getName()).log(Level.SEVERE, null, ex);
