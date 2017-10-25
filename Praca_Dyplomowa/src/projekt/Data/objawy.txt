@@ -13,3 +13,5 @@ Częste bóle głowy-cz_bol_glowy;
 Częste bóle brzucha-cz_bol_brzucha;
 Świąd skóry-sw_skory;
 Powiększone niebolesne węzły chłonne-pow_wezly_chlonne;
+Pokasływanie-pokaslywanie;
+Chudnięcie-chudniecie;
