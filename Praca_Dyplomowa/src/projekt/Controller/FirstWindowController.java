@@ -156,6 +156,7 @@ public class FirstWindowController implements Initializable {
             }
         });
         new TTFirstWindnow(this);
+    
     }
 
     /**
