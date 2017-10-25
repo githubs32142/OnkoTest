@@ -1,6 +1,10 @@
 (clear)
 (reset)
 
+(deftemplate Person
+(slot age)
+)
+
 (deftemplate RiskFactor
 (slot sp_alkohol)
 (slot otylosc)
@@ -18,6 +22,10 @@
 (slot kon_azbest)
 (slot wcz_wsp_sexualne)
 (slot wcz_rodz)
+(slot diet_w_tluszcze)
+(slot cz_sp_czerw_mieso)
+(slot spoz_pok_smazonych)
+(slot spoz_pok_grill)
 )
 
 (deftemplate Symptoms
@@ -36,6 +44,8 @@
 (slot cz_bol_brzucha)
 (slot sw_skory)
 (slot pow_wezly_chlonne)
+(slot pokaslywanie)
+(slot chudniecie)
 )
 
 (deftemplate FamillyCancer
@@ -137,10 +147,47 @@
 (slot ciotka_krtani)
 )
 
-(defrule defrule1
-	 (exists (or  (and (RiskFactor (otylosc Tak))( Symptoms (blad_skory Tak)))))
+
+(defrule rulerp1
+         (and (RiskFactor (pal_papierosow 1) ) (exists (or (Symptoms (goraczka 1)) (Symptoms(pokaslywanie 1)) (Symptoms(chudniecie 1))  (Symptoms(oslabienie 1)  ))))
 	=>
-	 (printout t " is likely to have Skin Cancer" crlf)
+	 (printout t " Rak płuc" crlf)
 )
+(defrule rulerp2
+         (and (RiskFactor (pal_papierosow 1) ) (exists (and (Symptoms(pokaslywanie 1)) (Symptoms(chudniecie 1))  )))
+	=>
+	 (printout t " Rak płuc2" crlf)
+)
+(defrule rulerp3
+         (and (RiskFactor (pal_papierosow 1) ))
+	=>
+	 (printout t " Rak płuc3" crlf)
+)
+
+(bind ?x_tmp 0)
+( defrule sm_cz
+	( RiskFactor (otylosc ?ans1 )(diet_w_tluszcze ?ans2 )(br_akt_fizycznej ?ans3 ) (cz_sp_czerw_mieso ?ans4 ) (spoz_pok_smazonych ?ans5 ) (spoz_pok_grill ?ans6 ))
+	=>
+	(assert (Sum6 (+ ?ans1 ?ans2 ?ans3 ?ans4 ?ans5 ?ans6 )))
+)
+(defrule person1 
+	(Person ( age ?age ) )(test (> ?age 49))
+ =>
+	(+ ?x_tmp 1)
+)
+
+(defrule rulerjg1
+	(Sum6 ?sum6 )
+	=>
+	(assert (CancerJG (+ ?sum6 ?x_tmp )))
+)
+
+(defrule rulerjg2
+	(CancerJG ?tmp )(test (> ?tmp 2))
+	=>
+	(printout t " Rak jelita grubego" crlf)
+)
+
+
 (facts)
 (run)
