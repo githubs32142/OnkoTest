@@ -43,6 +43,14 @@ public class OperationFactor {
         fact.add(new Factor("Wczesne współżycie seksualne", "/projekt/HTML/wczesne_wsolzycie.html", true, "/projekt/FXML/EarlyChildhoodAge.fxml"));
                 //Wczesne współżycie  EarlyChAgeController
         fact.add(new Factor("Wczesny wiek rodzenia", "/projekt/HTML/wczesne_dziecko.html", true, "/projekt/FXML/EarlyBabe.fxml"));
+        //
+        fact.add(new Factor("Dieta bogata w tłuszcze", "/projekt/HTML/dieta_w_tluszcze.html", false, ""));
+        //
+        fact.add(new Factor("Częste spożywanie czerwonego mięsa", "/projekt/HTML/spoz_cz_miesa.html", false, ""));
+        //
+        fact.add(new Factor("Spożywanie pokarmów smażonych", "/projekt/HTML/spoz_pok_smazonych.html", false, ""));
+        //
+        fact.add(new Factor("Spożywanie pokarmów grilowanch", "/projekt/HTML/spoz_pok_grill.html", false, ""));
     }
     
     
