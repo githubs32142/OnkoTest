@@ -94,7 +94,8 @@ public class FactorWindowController implements Initializable {
         sw = new SymptomWindowController();
         cif = new CancerInFamillyController();
         data = FXCollections.observableArrayList("Spożywanie alkoholu", "Otyłość", "Promieniowanie jonizujące", "Radioterapia", "Lampy solarium", "Palenie papierosów",
-                "Brak aktywności fizycznej", "Niewłaściwa dieta", "Brak naturalnych antyoksydantów", "Menopauza + otyłość", "Brak błonnika", "Pole elektromagnetyczne", "Kontakt z azbestem");
+                "Brak aktywności fizycznej", "Niewłaściwa dieta", "Brak naturalnych antyoksydantów",
+                "Menopauza + otyłość", "Brak błonnika", "Pole elektromagnetyczne", "Kontakt z azbestem");
         dataRight = FXCollections.observableArrayList();
     }
 
@@ -108,7 +109,8 @@ public class FactorWindowController implements Initializable {
         data = FXCollections.observableArrayList("Spożywanie alkoholu", "Otyłość", "Promieniowanie jonizujące",
                 "Radioterapia", "Lampy solarium", "Palenie papierosów",
                 "Brak aktywności fizycznej", "Niewłaściwa dieta", "Brak naturalnych antyoksydantów", "Menopauza + otyłość",
-                "Brak błonnika", "Pole elektromagnetyczne", "Kontakt z azbestem", "Wczesne współżycie seksualne","Wczesny wiek rodzenia");
+                "Brak błonnika", "Pole elektromagnetyczne", "Kontakt z azbestem", "Wczesne współżycie seksualne","Wczesny wiek rodzenia"
+        ,"Dieta bogata w tłuszcz","Częste spożywanie czerwonego mięsa","Spożywanie pokarmów smażonych","Spożywanie pokarmów grilowanch");
         dataRight = FXCollections.observableArrayList();
         factors = new JFXListView<>();
         factors.setItems(data);
