@@ -63,8 +63,8 @@ public class FCObject {
     }
         public String getAddedString() {
         if (isAdded) {
-            return "Tak";
+            return "1";
         }
-        return "Nie";
+        return "0";
     }
 }
