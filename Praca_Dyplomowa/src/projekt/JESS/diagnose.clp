@@ -46,6 +46,9 @@
 (slot pow_wezly_chlonne)
 (slot pokaslywanie)
 (slot chudniecie)
+(slot kr_stolc)
+(slot sl_stolcu)
+(slot zm_tr_wypozniania)
 )
 
 (deftemplate FamillyCancer
@@ -164,7 +167,6 @@
 	 (printout t " Rak płuc3" crlf)
 )
 
-(bind ?x_tmp 0)
 ( defrule sm_cz
 	( RiskFactor (otylosc ?ans1 )(diet_w_tluszcze ?ans2 )(br_akt_fizycznej ?ans3 ) (cz_sp_czerw_mieso ?ans4 ) (spoz_pok_smazonych ?ans5 ) (spoz_pok_grill ?ans6 ))
 	=>
@@ -173,19 +175,37 @@
 (defrule person1 
 	(Person ( age ?age ) )(test (> ?age 49))
  =>
-	(+ ?x_tmp 1)
+        (assert (Sum (+ 0 1)))
+)
+ 
+(defrule rulerjg0
+          (exists (or (FamillyCancer (brat_pluc 1)) (FamillyCancer(siostra_jelito 1)) (FamillyCancer(ojciec_jelito 1))  (FamillyCancer(matka_jelito 1)  )))
+	=>
+	 (assert (Sum2 (+ 0 1)))
 )
 
+
 (defrule rulerjg1
-	(Sum6 ?sum6 )
+	(and (Sum6 ?sum6 ) (Sum ?sum) (Sum2 ?sum2))
 	=>
-	(assert (CancerJG (+ ?sum6 ?x_tmp )))
+	(assert (CancerJG (+ ?sum6  ?sum ?sum2 )))
 )
 
 (defrule rulerjg2
 	(CancerJG ?tmp )(test (> ?tmp 2))
 	=>
-	(printout t " Rak jelita grubego" crlf)
+	(printout t " Rak jelita grubego"  crlf)
+)
+(defrule rulerjg3
+         (and (Symptoms (zm_tr_wypozniania 1) ) (exists (or (Symptoms(kr_stolc 1)) (Symptoms(sl_stolcu 1))  )))
+	=>
+	 (printout t " Rak jelita grubego" crlf)
+)
+
+(defrule rulerjg4
+          (exists (and (Symptoms(kr_stolc 1)) (Symptoms(sl_stolcu 1))  ))
+	=>
+	 (printout t " Rak jelita grubego" crlf)
 )
 
 
