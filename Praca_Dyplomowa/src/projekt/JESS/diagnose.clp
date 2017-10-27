@@ -26,6 +26,10 @@
 (slot cz_sp_czerw_mieso)
 (slot spoz_pok_smazonych)
 (slot spoz_pok_grill)
+(slot dos_antykoncepcja)
+(slot sz_miesiacza)
+(slot poz_w_rodzenia)
+(slot w_r_piersi)
 )
 
 (deftemplate Symptoms
@@ -208,6 +212,24 @@
 	 (printout t " Rak jelita grubego" crlf)
 )
 
+
+( defrule sm_cz2
+	( RiskFactor (dos_antykoncepcja ?ans1 )(sz_miesiacza ?ans2 )(poz_w_rodzenia ?ans3 ) (br_akt_fizycznej ?ans4 ) (w_r_piersi ?ans5 ) (sp_alkohol ?ans6 ) (menopazua_otylosc ?ans7 ) )
+	=>
+	(assert (Sum7 (+ ?ans1 ?ans2 ?ans3 ?ans4 ?ans5 ?ans6 ?ans7 )))
+)
+
+(defrule rulerpp1
+	(and (Sum7 ?sum7 ) (Sum ?sum) )
+	=>
+	(assert (CancerPP (+ ?sum7  ?sum  )))
+)
+
+(defrule rulerpp2
+	(CancerPP ?tmp )(test (> ?tmp 2))
+	=>
+	(printout t " Rak piersi"  crlf)
+)
 
 (facts)
 (run)

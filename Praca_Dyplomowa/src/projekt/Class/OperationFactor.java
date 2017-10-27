@@ -51,6 +51,14 @@ public class OperationFactor {
         fact.add(new Factor("Spożywanie pokarmów smażonych", "/projekt/HTML/spoz_pok_smazonych.html", false, ""));
         //
         fact.add(new Factor("Spożywanie pokarmów grilowanch", "/projekt/HTML/spoz_pok_grill.html", false, ""));
+         //
+        fact.add(new Factor("Doustna antykoncepcja", "/projekt/HTML/d_antykoncepcja.html", false, ""));
+         //
+        fact.add(new Factor("Pierwsza miesiączka poniżej 10 r.ż.", "/projekt/HTML/sz_miesiaczka.html", false, ""));
+        //
+        fact.add(new Factor("Późny wiek rodzenia", "/projekt/HTML/p_wiek_rodzenia.html", false, ""));
+        //
+        fact.add(new Factor("Wcześniejsze zachorowanie na raka piersi", "/projekt/HTML/w_rak_piersi.html", false, ""));
     }
     
     

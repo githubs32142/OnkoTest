@@ -110,7 +110,8 @@ public class FactorWindowController implements Initializable {
                 "Radioterapia", "Lampy solarium", "Palenie papierosów",
                 "Brak aktywności fizycznej", "Niewłaściwa dieta", "Brak naturalnych antyoksydantów", "Menopauza + otyłość",
                 "Brak błonnika", "Pole elektromagnetyczne", "Kontakt z azbestem", "Wczesne współżycie seksualne","Wczesny wiek rodzenia"
-        ,"Dieta bogata w tłuszcz","Częste spożywanie czerwonego mięsa","Spożywanie pokarmów smażonych","Spożywanie pokarmów grilowanch");
+        ,"Dieta bogata w tłuszcz","Częste spożywanie czerwonego mięsa","Spożywanie pokarmów smażonych","Spożywanie pokarmów grilowanch"
+        ,"Doustna antykoncepcja","Pierwsza miesiączka poniżej 10 r.ż.","Późny wiek rodzenia","Wcześniejsze zachorowanie na raka piersi");
         dataRight = FXCollections.observableArrayList();
         factors = new JFXListView<>();
         factors.setItems(data);
