@@ -16,7 +16,7 @@ import jess.Rete;
 public class JessEngine {
         public static Rete engine;
 
-    public static void queryInferenceEngine(String s) throws JessException {
+    public static String queryInferenceEngine(String s) throws JessException {
         // Create a Jess rule engine
         engine = new Rete();
         engine.reset();
@@ -35,6 +35,6 @@ public class JessEngine {
             result = "No cancer was diagnosed"
                     + " Please try again";
         }
-        System.out.println(result);
+        return result;
     }
 }

@@ -10,6 +10,7 @@ import java.io.InputStreamReader;
 import java.io.Reader;
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.ResourceBundle;
 import java.util.StringTokenizer;
@@ -95,6 +96,7 @@ public class SymptomWindowController implements Initializable {
         w = 0.1;
         h = 0.1;
         readData(ConfigPath.getSymptomsList());
+        Collections.sort(data, (String t, String t1) -> t1.compareTo(t)); 
         symptoms.setItems(data);
         drawer.setSidePane(box);
         drawer.close();

@@ -1,6 +1,12 @@
 
 package projekt.Class;
 
+import java.util.ArrayList;
+import java.util.Collection;
+import static java.util.Collections.list;
+import java.util.HashSet;
+import java.util.List;
+import java.util.stream.Collectors;
 import javafx.collections.ObservableList;
 
 /**
@@ -16,6 +22,8 @@ public class DiagnozeHTML {
     private ObservableList<String> dataSymptoms;
     public StringBuilder text;
     public StringBuilder textCss;
+    private String resultDiagnose;
+    private List<String> dianoseCut= new ArrayList();
 
     public DiagnozeHTML(ObservableList<CancerFamilly> cancerFamilly, Person person, ObservableList<String> dataFactors, ObservableList<String> dataSymptoms) {
         this.cancerFamilly = cancerFamilly;
@@ -123,6 +131,12 @@ public class DiagnozeHTML {
         str.append("<tr> <td><h1> Nowotwór w rodzinie:</h1></td> </tr>\n");
         str.append("</table>");
         str.append(createCancerInFailly());
+       // C(
+        str.append("<br/>\n");
+        str.append("<table>\n");
+        str.append("<tr> <td><h1> Wykryte zagrożenia:</h1></td> </tr>\n");
+        str.append("</table>");
+        str.append(createDiagnose());
         str.append("</body>\n");
         str.append("</html>\n");
         text = str;
@@ -147,6 +161,12 @@ public class DiagnozeHTML {
         textCss.append("<tr> <td><h1> Nowotwór w rodzinie:</h1></td> </tr>\n");
         textCss.append("</table>");
         textCss.append(createCancerInFailly());
+               // C(
+        textCss.append("<br/>\n");
+        textCss.append("<table>\n");
+        textCss.append("<tr> <td><h1> Wykryte zagrożenia:</h1></td> </tr>\n");
+        textCss.append("</table>");
+        textCss.append(createDiagnose());
         textCss.append("</body>\n");
         textCss.append("</html>\n");
 
@@ -191,5 +211,40 @@ public class DiagnozeHTML {
         }
         str.append("</table>\n");
         return str;
+    }
+        private StringBuilder createDiagnose() {
+        StringBuilder str = new StringBuilder();
+        str.append("<table>\n");
+        for (int i = 0; i < dianoseCut.size(); i++) {
+            str.append("<tr> <td>").append(dianoseCut.get(i)).append("</td></tr>\n");
+        }
+        str.append("</table>\n");
+        return str;
+    }
+
+    public void setResultDiagnose(String resultDiagnose) {
+        this.resultDiagnose = resultDiagnose;
+        cutDiagnose();
+        removeDuplicate();
+    }
+    public void cutDiagnose(){
+        String tmp="";
+        for(int i=0;i<resultDiagnose.length();i++ ){
+            if(resultDiagnose.charAt(i)=='\n'){
+                dianoseCut.add(tmp);
+                tmp="";
+            }
+            else{
+                tmp+=resultDiagnose.charAt(i);
+            }
+        }
+    }
+    public void removeDuplicate(){
+        Collection<String> noDups = new HashSet<>(dianoseCut);
+        System.out.println(noDups);
+       // dianoseCut.clear();
+       // dianoseCut.addAll(noDups);
+        System.out.println("aaaa");
+        System.out.println(dianoseCut);
     }
 }

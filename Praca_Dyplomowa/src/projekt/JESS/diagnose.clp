@@ -153,17 +153,17 @@
 (defrule rulerp1
          (and (RiskFactor (pal_papierosow 1) ) (exists (or (Symptoms (goraczka 1)) (Symptoms(pokaslywanie 1)) (Symptoms(chudniecie 1))  (Symptoms(oslabienie 1)  ))))
 	=>
-	 (printout t " Rak płuc" crlf)
+	 (printout t "Rak płuc" crlf)
 )
 (defrule rulerp2
          (and (RiskFactor (pal_papierosow 1) ) (exists (and (Symptoms(pokaslywanie 1)) (Symptoms(chudniecie 1))  )))
 	=>
-	 (printout t " Rak płuc2" crlf)
+	 (printout t "Rak płuc" crlf)
 )
 (defrule rulerp3
          (and (RiskFactor (pal_papierosow 1) ))
 	=>
-	 (printout t " Rak płuc3" crlf)
+	 (printout t "Rak płuc" crlf)
 )
 
 ( defrule sm_cz
@@ -194,18 +194,18 @@
 (defrule rulerjg2
 	(CancerJG ?tmp )(test (> ?tmp 2))
 	=>
-	(printout t " Rak jelita grubego"  crlf)
+	(printout t "Rak jelita grubego"  crlf)
 )
 (defrule rulerjg3
          (and (Symptoms (zm_tr_wypozniania 1) ) (exists (or (Symptoms(kr_stolc 1)) (Symptoms(sl_stolcu 1))  )))
 	=>
-	 (printout t " Rak jelita grubego" crlf)
+	 (printout t "Rak jelita grubego" crlf)
 )
 
 (defrule rulerjg4
           (exists (and (Symptoms(kr_stolc 1)) (Symptoms(sl_stolcu 1))  ))
 	=>
-	 (printout t " Rak jelita grubego" crlf)
+	 (printout t "Rak jelita grubego" crlf)
 )
 
 ; ###############Reguły dotyczące raka piersi #####################
@@ -224,7 +224,7 @@
 (defrule rulerpp2
 	(CancerPP ?tmp )(test (> ?tmp 2))
 	=>
-	(printout t " Rak piersi"  crlf)
+	(printout t "Rak piersi"  crlf)
 )
 
 ;############## Reguły dotyczące raka gruczołu krokowego#####################
@@ -256,17 +256,36 @@
 (defrule rulergk3
 	(CancerGK ?tmp )(test (> ?tmp 2))
 	=>
-	(printout t " Rak gruczołu krokowego"  crlf)
+	(printout t "Rak gruczołu krokowego"  crlf)
 )
 
 (defrule rulergk4
          (exists (and (Symptoms(wycz_guz_krok 1)) (Symptoms(as_gr_krok 1))  ))
 	=>
-	 (printout t " Rak gruczołu krokowego"  crlf)
+	 (printout t "Rak gruczołu krokowego"  crlf)
 )
 ;rak żołądla
 
-; Rak jajników 
+; Rak jajników (nie wszystko)
 
+( defrule sm_cz3
+	( FamillyCancer (ciotka_jajnik ?ans1 )(babcia_jajnik ?ans2 )(matka_jajnik ?ans3 ) (siostra_jajnik ?ans4 ) )
+	=>
+	(assert (Sum_cz3 (+ ?ans1 ?ans2 ?ans3 ?ans4)))
+)
+
+( defrule sm_cz4
+	( RiskFactor (bezdzietnosc ?ans1 )(otylosc ?ans2 ) )
+	=>
+	(assert (Sum_cz4 (+ ?ans1 ?ans2 )))
+)
+
+(defrule rulerj0
+	(and (Sum_cz3 ?sumc3 ) (SumAge2 ?sumage2) (Sum_cz4 ?sumc4))
+	=>
+	(assert (CancerJ (+ ?sumc3  ?sumage2 ?sumc4 )))
+)
+
+; ###############Reguły dotyczące raka piersi #####################
 (facts)
 (run)

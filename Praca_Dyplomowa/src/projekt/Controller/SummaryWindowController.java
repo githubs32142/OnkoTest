@@ -163,6 +163,7 @@ public class SummaryWindowController implements Initializable {
      */
     @FXML
     private void nextWindow(ActionEvent event) throws IOException {
+        String s="";
         FXMLLoader load = new FXMLLoader(this.getClass().getResource("/projekt/FXML/DiagnoseWindow.fxml"));
         DiagnoseWindowController cnt = new DiagnoseWindowController();
         Parent parent = load.load();
@@ -172,25 +173,9 @@ public class SummaryWindowController implements Initializable {
         cnt.dataSymptoms = dataSymptoms;
         cnt.cancerFamilly = cancerFamilly;
         DiagnozeHTML html = new DiagnozeHTML(cancerFamilly, person, dataFactors, dataSymptoms);
-        html.parseHTML();
-        cnt.setString(html.text);
-        WebView view = cnt.getWebView();
-        try {
-            OutputStreamWriter outputStreamWriter = new OutputStreamWriter(new FileOutputStream(new File("src/projekt/HTML/Diagnoza/diagnoza.html")), Charset.forName("UTF-8"));
-            PrintWriter out = new PrintWriter(outputStreamWriter);
-            out.write(html.text.toString());
-            out.close();
-        } catch (FileNotFoundException ex) {
-            System.out.println(ex.getMessage());
-        }
+
         //view.getEngine().load(urlFile.toExternalForm());
-        view.getEngine().loadContent(html.textCss.toString());
-        Scene scene = new Scene(parent);
-        Stage primaryStage = new Stage();
-        primaryStage.setScene(scene);
-        primaryStage.initStyle(StageStyle.UNDECORATED);
-        primaryStage.show();
-        cnt.setWebView(view);
+
         String str = "";
         str= "( assert ( Person (age "+person.getAge()+")))";
         TList f = new TList(ConfigPath.getFactorWithAlians());
@@ -206,11 +191,32 @@ public class SummaryWindowController implements Initializable {
         System.out.println(dataSymptoms.size());
         System.out.println(f3.makeAssert("FamillyCancer"));
         try {
-            JessEngine.queryInferenceEngine(str+" "+f.makeAssert("RiskFactor")+" "
+        s=    JessEngine.queryInferenceEngine(str+" "+f.makeAssert("RiskFactor")+" "
                     +f2.makeAssert("Symptoms")+" "+ f3.makeAssert("FamillyCancer"));
+        
         } catch (JessException ex) {
             Logger.getLogger(SummaryWindowController.class.getName()).log(Level.SEVERE, null, ex);
         }
+        System.out.println(s);
+        html.setResultDiagnose(s);
+                html.parseHTML();
+        cnt.setString(html.text);
+        WebView view = cnt.getWebView();
+        try {
+            OutputStreamWriter outputStreamWriter = new OutputStreamWriter(new FileOutputStream(new File("src/projekt/HTML/Diagnoza/diagnoza.html")), Charset.forName("UTF-8"));
+            PrintWriter out = new PrintWriter(outputStreamWriter);
+            out.write(html.text.toString());
+            out.close();
+        } catch (FileNotFoundException ex) {
+            System.out.println(ex.getMessage());
+        }
+         view.getEngine().loadContent(html.textCss.toString());
+        Scene scene = new Scene(parent);
+        Stage primaryStage = new Stage();
+        primaryStage.setScene(scene);
+        primaryStage.initStyle(StageStyle.UNDECORATED);
+        primaryStage.show();
+        cnt.setWebView(view);
         stage = (Stage) ((Node) (event.getSource())).getScene().getWindow();
         stage.close();
     }

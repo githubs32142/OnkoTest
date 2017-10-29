@@ -11,6 +11,8 @@ import java.io.InputStreamReader;
 import java.io.Reader;
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 import java.util.ResourceBundle;
 import java.util.StringTokenizer;
@@ -44,6 +46,7 @@ import javafx.scene.web.WebView;
 import javafx.stage.Screen;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
+import projekt.Class.EqualString;
 import projekt.Class.Factor;
 import projekt.Class.OperationFactor;
 import projekt.Class.Person;
@@ -137,10 +140,8 @@ public class FactorWindowController implements Initializable {
         w = 0.1;
         h = 0.1;
         OperationFactor.initFactor(fact);
+        sort();
         webEngine = webHTML.getEngine();
-        //webEngine.setUserStyleSheetLocation(getClass().getResource("/projekt/HTML/style.css").toString());
-        // final URL urlFactor = getClass().getResource("/projekt/HTML/style.css");
-       //  webEngine.load(urlFactor.toExternalForm());
        //webEngine.setUserStyleSheetLocation(urlFactor.toExternalForm());
         factors.setItems(data);
         test.setVisible(false);
@@ -191,6 +192,7 @@ public class FactorWindowController implements Initializable {
     private void factorClicked(MouseEvent event) {
         String clickedFact = factors.getItems().get(factors.getSelectionModel().getSelectedIndex());
         index = ifFact(clickedFact);
+        System.out.println(clickedFact);
         if (index >= 0) {
             leftSelected = factors.getSelectionModel().getSelectedIndex();
             final URL urlFactor = getClass().getResource(fact.get(index).getUrlHTML());
@@ -212,7 +214,7 @@ public class FactorWindowController implements Initializable {
      */
     public int ifFact(String facts) {
         for (int i = 0; i < fact.size(); i++) {
-            if (fact.get(i).getFactor().equals(facts)) {
+            if (EqualString.equals(fact.get(i).getFactor(), facts)) {
                 return i;
             }
         }
@@ -710,5 +712,8 @@ public class FactorWindowController implements Initializable {
         while (st.hasMoreElements()) {
             data.add(st.nextElement().toString());
         }
+    }
+    private void sort(){
+        Collections.sort(data, (String t, String t1) -> t1.compareTo(t)); 
     }
 }

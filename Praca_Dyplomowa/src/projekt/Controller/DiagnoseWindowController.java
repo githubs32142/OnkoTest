@@ -45,6 +45,7 @@ import javafx.scene.web.WebView;
 import javafx.stage.FileChooser;
 import javafx.stage.FileChooser.ExtensionFilter;
 import javafx.stage.Stage;
+import javafx.stage.StageStyle;
 import javafx.util.Duration;
 import projekt.Class.CancerFamilly;
 import projekt.Class.Person;
@@ -288,7 +289,7 @@ public class DiagnoseWindowController implements Initializable {
         stage = (Stage) ((Node) (event.getSource())).getScene().getWindow();
         stage.close();
         Stage primaryStage= new Stage();
-        FXMLLoader load = new FXMLLoader(this.getClass().getResource("FXML/FirstWindow.fxml"));
+        FXMLLoader load = new FXMLLoader(this.getClass().getResource("/projekt/FXML/FirstWindow.fxml"));
                 Parent parent = null;
                 try {
                     parent = load.load();
@@ -296,13 +297,9 @@ public class DiagnoseWindowController implements Initializable {
                     System.err.println(ex.getMessage());
                 }
                 Scene scene = new Scene(parent);
-                FadeTransition fin = new FadeTransition(Duration.seconds(5), parent);
-                fin.setFromValue(0);
-                fin.setToValue(3);
-                fin.setCycleCount(1);
-                fin.play();
                 primaryStage.setScene(scene);
                 primaryStage.setResizable(false);
+                primaryStage.initStyle(StageStyle.UNDECORATED);
                 primaryStage.show();
     }
 
