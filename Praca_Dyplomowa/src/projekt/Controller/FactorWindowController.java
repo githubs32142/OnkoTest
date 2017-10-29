@@ -4,11 +4,16 @@ import com.jfoenix.controls.JFXDrawer;
 import com.jfoenix.controls.JFXHamburger;
 import com.jfoenix.controls.JFXListView;
 import com.jfoenix.transitions.hamburger.HamburgerBasicCloseTransition;
+import java.io.BufferedReader;
+import java.io.FileInputStream;
 import java.io.IOException;
+import java.io.InputStreamReader;
+import java.io.Reader;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
+import java.util.StringTokenizer;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javafx.application.Platform;
@@ -42,6 +47,7 @@ import javafx.stage.StageStyle;
 import projekt.Class.Factor;
 import projekt.Class.OperationFactor;
 import projekt.Class.Person;
+import projekt.Propertis.ConfigPath;
 
 /**
  * Kontroler do ppliku FXML
@@ -93,9 +99,6 @@ public class FactorWindowController implements Initializable {
         this.person = person;
         sw = new SymptomWindowController();
         cif = new CancerInFamillyController();
-        data = FXCollections.observableArrayList("Spożywanie alkoholu", "Otyłość", "Promieniowanie jonizujące", "Radioterapia", "Lampy solarium", "Palenie papierosów",
-                "Brak aktywności fizycznej", "Niewłaściwa dieta", "Brak naturalnych antyoksydantów",
-                "Menopauza + otyłość", "Brak błonnika", "Pole elektromagnetyczne", "Kontakt z azbestem");
         dataRight = FXCollections.observableArrayList();
     }
 
@@ -106,13 +109,16 @@ public class FactorWindowController implements Initializable {
         this.leftSelected = 0;
         sw = new SymptomWindowController();
         cif = new CancerInFamillyController();
-        data = FXCollections.observableArrayList("Spożywanie alkoholu", "Otyłość", "Promieniowanie jonizujące",
+       /* data = FXCollections.observableArrayList( "Otyłość", "Promieniowanie jonizujące",
                 "Radioterapia", "Lampy solarium", "Palenie papierosów",
                 "Brak aktywności fizycznej", "Niewłaściwa dieta", "Brak naturalnych antyoksydantów", "Menopauza + otyłość",
                 "Brak błonnika", "Pole elektromagnetyczne", "Kontakt z azbestem", "Wczesne współżycie seksualne","Wczesny wiek rodzenia"
         ,"Dieta bogata w tłuszcz","Częste spożywanie czerwonego mięsa","Spożywanie pokarmów smażonych","Spożywanie pokarmów grilowanch"
         ,"Doustna antykoncepcja","Pierwsza miesiączka poniżej 10 r.ż.","Późny wiek rodzenia","Wcześniejsze zachorowanie na raka piersi");
-        dataRight = FXCollections.observableArrayList();
+       */
+       data = FXCollections.observableArrayList();
+       dataRight = FXCollections.observableArrayList();
+        readData(ConfigPath.getFactorList());
         factors = new JFXListView<>();
         factors.setItems(data);
         addedFactor = new ListView<>(dataRight);
@@ -668,5 +674,41 @@ public class FactorWindowController implements Initializable {
             logger.log(Level.SEVERE, "Failed to create new Window.", e);
         }
     }
+ /**
+     ** Metoda, która odczytuje dane z pliku zewnętrznego i pozwala na
+     * zachowanie znakowania UTF-8
+     *
+     * @param path ścieżka dostępu do pliku
+     * @return ciąg znaków w pliku tekstowym
+     */
+    static String readInput(String path) {
+        StringBuilder buffer = new StringBuilder();
+        try {
+            FileInputStream fis = new FileInputStream(path);
+            InputStreamReader isr = new InputStreamReader(fis, "UTF8");
+            try (Reader in = new BufferedReader(isr)) {
+                int ch;
+                while ((ch = in.read()) > -1) {
+                    buffer.append((char) ch);
+                }
+            }
+            return buffer.toString();
+        } catch (IOException e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
 
+    /**
+     ** Metoda, która pozwala na odczytamnie danych
+     *
+     * @param path ścieżka dostępu do pliku tekstowego
+     */
+    public void readData(String path) {
+        String line = readInput(path);
+        StringTokenizer st = new StringTokenizer(line, ",");
+        while (st.hasMoreElements()) {
+            data.add(st.nextElement().toString());
+        }
+    }
 }

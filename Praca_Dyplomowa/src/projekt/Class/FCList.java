@@ -77,7 +77,8 @@ public class FCList implements ReadData {
     public String toString() {
         StringBuilder str = new StringBuilder();
         for (int i = 0; i < list.size(); i++) {
-            str.append(list.get(i).getFamily()).append(" ").append(list.get(i).getCancer()).append(" ").append(list.get(i).getAlians());
+          //  str.append(list.get(i).getFamily()).append(" ").append(list.get(i).getCancer()).append(" ").append(list.get(i).getAlians());
+          str.append("(slot ").append(list.get(i).getAlians()).append(")\n");
         }
         return str.toString();
     }

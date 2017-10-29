@@ -30,6 +30,7 @@
 (slot sz_miesiacza)
 (slot poz_w_rodzenia)
 (slot w_r_piersi)
+(slot bezdzietnosc)
 )
 
 (deftemplate Symptoms
@@ -53,6 +54,8 @@
 (slot kr_stolc)
 (slot sl_stolcu)
 (slot zm_tr_wypozniania)
+(slot wycz_guz_krok)
+(slot as_gr_krok)
 )
 
 (deftemplate FamillyCancer
@@ -63,11 +66,10 @@
 (slot brat_gru_krok)
 (slot brat_mozg)
 (slot brat_syjki_macic)
-(slot brat_pluc)
 (slot brat_trzustka)
 (slot brat_zoladka)
-(slot brat_macicy)
 (slot brat_krtani)
+(slot brat_jajnik)
 (slot siostra_pluc)
 (slot siostra_jelito)
 (slot siostra_piersi)
@@ -75,11 +77,10 @@
 (slot siostra_gru_krok)
 (slot siostra_mozg)
 (slot siostra_syjki_macic)
-(slot siostra_pluc)
 (slot siostra_trzustka)
 (slot siostra_zoladka)
-(slot siostra_macicy)
 (slot siostra_krtani)
+(slot siostra_jajnik)
 (slot ojciec_pluc)
 (slot ojciec_jelito)
 (slot ojciec_piersi)
@@ -87,11 +88,10 @@
 (slot ojciec_gru_krok)
 (slot ojciec_mozg)
 (slot ojciec_syjki_macic)
-(slot ojciec_pluc)
 (slot ojciec_trzustka)
 (slot ojciec_zoladka)
-(slot ojciec_macicy)
 (slot ojciec_krtani)
+(slot ojciec_jajnik)
 (slot matka_pluc)
 (slot matka_jelito)
 (slot matka_piersi)
@@ -99,11 +99,10 @@
 (slot matka_gru_krok)
 (slot matka_mozg)
 (slot matka_syjki_macic)
-(slot matka_pluc)
 (slot matka_trzustka)
 (slot matka_zoladka)
-(slot matka_macicy)
 (slot matka_krtani)
+(slot matka_jajnik)
 (slot dziadek_pluc)
 (slot dziadek_jelito)
 (slot dziadek_piersi)
@@ -111,11 +110,10 @@
 (slot dziadek_gru_krok)
 (slot dziadek_mozg)
 (slot dziadek_syjki_macic)
-(slot dziadek_pluc)
 (slot dziadek_trzustka)
 (slot dziadek_zoladka)
-(slot dziadek_macicy)
 (slot dziadek_krtani)
+(slot dziadek_jajnik)
 (slot babcia_pluc)
 (slot babcia_jelito)
 (slot babcia_piersi)
@@ -123,11 +121,10 @@
 (slot babcia_gru_krok)
 (slot babcia_mozg)
 (slot babcia_syjki_macic)
-(slot babcia_pluc)
 (slot babcia_trzustka)
 (slot babcia_zoladka)
-(slot babcia_macicy)
 (slot babcia_krtani)
+(slot babcia_jajnik)
 (slot wujek_pluc)
 (slot wujek_jelito)
 (slot wujek_piersi)
@@ -135,11 +132,10 @@
 (slot wujek_gru_krok)
 (slot wujek_mozg)
 (slot wujek_syjki_macic)
-(slot wujek_pluc)
 (slot wujek_trzustka)
 (slot wujek_zoladka)
-(slot wujek_macicy)
 (slot wujek_krtani)
+(slot wujek_jajnik)
 (slot ciotka_pluc)
 (slot ciotka_jelito)
 (slot ciotka_piersi)
@@ -147,14 +143,13 @@
 (slot ciotka_gru_krok)
 (slot ciotka_mozg)
 (slot ciotka_syjki_macic)
-(slot ciotka_pluc)
 (slot ciotka_trzustka)
 (slot ciotka_zoladka)
-(slot ciotka_macicy)
 (slot ciotka_krtani)
+(slot ciotka_jajnik)
 )
 
-
+; ############Reguły dotyczące raka płuc###########
 (defrule rulerp1
          (and (RiskFactor (pal_papierosow 1) ) (exists (or (Symptoms (goraczka 1)) (Symptoms(pokaslywanie 1)) (Symptoms(chudniecie 1))  (Symptoms(oslabienie 1)  ))))
 	=>
@@ -181,7 +176,8 @@
  =>
         (assert (Sum (+ 0 1)))
 )
- 
+
+; ###############Reguły dotyczące raka jelita grubego############### 
 (defrule rulerjg0
           (exists (or (FamillyCancer (brat_pluc 1)) (FamillyCancer(siostra_jelito 1)) (FamillyCancer(ojciec_jelito 1))  (FamillyCancer(matka_jelito 1)  )))
 	=>
@@ -212,7 +208,7 @@
 	 (printout t " Rak jelita grubego" crlf)
 )
 
-
+; ###############Reguły dotyczące raka piersi #####################
 ( defrule sm_cz2
 	( RiskFactor (dos_antykoncepcja ?ans1 )(sz_miesiacza ?ans2 )(poz_w_rodzenia ?ans3 ) (br_akt_fizycznej ?ans4 ) (w_r_piersi ?ans5 ) (sp_alkohol ?ans6 ) (menopazua_otylosc ?ans7 ) )
 	=>
@@ -230,6 +226,47 @@
 	=>
 	(printout t " Rak piersi"  crlf)
 )
+
+;############## Reguły dotyczące raka gruczołu krokowego#####################
+
+( defrule sm_cz3
+	( RiskFactor (br_akt_fizycznej ?ans1 )(cz_sp_czerw_mieso ?ans2 )(otylosc ?ans3 ) (pal_papierosow ?ans4 )  )
+	=>
+	(assert (Sum4 (+ ?ans1 ?ans2 ?ans3 ?ans4  )))
+)
+
+(defrule person2 
+	(Person ( age ?age ) )(test (> ?age 59))
+ =>
+        (assert (SumAge2 (+ 0 1)))
+)
+
+(defrule rulergk1
+          (exists (or (FamillyCancer (brat_gru_krok 1)) (FamillyCancer(siostra_gru_krok 1)) (FamillyCancer(ojciec_gru_krok 1))  (FamillyCancer(matka_gru_krok 1)  )))
+	=>
+	 (assert (SumFamilly2 (+ 0 1)))
+)
+
+(defrule rulergk2
+	(and (Sum4 ?sum4 ) (SumAge2 ?sumage2) (SumFamilly2 ?sumfamilly2))
+	=>
+	(assert (CancerGK (+ ?sum4  ?sumage2 ?sumfamilly2 )))
+)
+
+(defrule rulergk3
+	(CancerGK ?tmp )(test (> ?tmp 2))
+	=>
+	(printout t " Rak gruczołu krokowego"  crlf)
+)
+
+(defrule rulergk4
+         (exists (and (Symptoms(wycz_guz_krok 1)) (Symptoms(as_gr_krok 1))  ))
+	=>
+	 (printout t " Rak gruczołu krokowego"  crlf)
+)
+;rak żołądla
+
+; Rak jajników 
 
 (facts)
 (run)

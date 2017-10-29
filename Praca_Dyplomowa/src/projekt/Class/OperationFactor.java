@@ -59,6 +59,8 @@ public class OperationFactor {
         fact.add(new Factor("Późny wiek rodzenia", "/projekt/HTML/p_wiek_rodzenia.html", false, ""));
         //
         fact.add(new Factor("Wcześniejsze zachorowanie na raka piersi", "/projekt/HTML/w_rak_piersi.html", false, ""));
+         //
+        fact.add(new Factor("Bezdzietność", "/projekt/HTML/bezdzietnosc.html", false, ""));
     }
     
     

@@ -42,6 +42,7 @@ import javafx.stage.Screen;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 import projekt.Class.Person;
+import projekt.Propertis.ConfigPath;
 
 /**
  * FXML Controller class
@@ -93,7 +94,7 @@ public class SymptomWindowController implements Initializable {
         rec2 = Screen.getPrimary().getVisualBounds();
         w = 0.1;
         h = 0.1;
-        readData("src/projekt/Data/symptoms.txt");
+        readData(ConfigPath.getSymptomsList());
         symptoms.setItems(data);
         drawer.setSidePane(box);
         drawer.close();

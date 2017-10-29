@@ -22,3 +22,4 @@ Doustna antykoncepcja-dos_antykoncepcja;
 Pierwsza miesiączka poniżej 10 r.ż.-sz_miesiacza;
 Późny wiek rodzenia-poz_w_rodzenia;
 Wcześniejsze zachorowanie na raka piersi-w_r_piersi;
+Bezdzietność-bezdzietnosc;

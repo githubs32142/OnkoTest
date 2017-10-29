@@ -52,6 +52,7 @@ import projekt.Class.FCObject;
 import projekt.Class.JessEngine;
 import projekt.Class.TList;
 import projekt.Class.Person;
+import projekt.Propertis.ConfigPath;
 
 /**
  * FXML Controller class
@@ -192,15 +193,15 @@ public class SummaryWindowController implements Initializable {
         cnt.setWebView(view);
         String str = "";
         str= "( assert ( Person (age "+person.getAge()+")))";
-        TList f = new TList("src/projekt/Data/czynniki_ryzyka.txt");
+        TList f = new TList(ConfigPath.getFactorWithAlians());
         f.makeOperation(dataFactors);
         System.out.println(dataFactors.size());
         System.out.println(f.makeAssert("RiskFactor"));
-        TList f2 = new TList("src/projekt/Data/objawy.txt");
+        TList f2 = new TList(ConfigPath.getSymptomsWithAlians());
         f2.makeOperation(dataSymptoms);
         System.out.println(dataSymptoms.size());
         System.out.println(f2.makeAssert("Symptoms"));
-        FCList f3= new FCList("src/projekt/Data/rak_rodzina.txt");
+        FCList f3= new FCList(ConfigPath.getFamillyWithAlians());
         f3.makeOperation(cancerFamilly);
         System.out.println(dataSymptoms.size());
         System.out.println(f3.makeAssert("FamillyCancer"));
