@@ -240,37 +240,11 @@ public class DiagnoseWindowController implements Initializable {
 
         if (fileSel != null) {
             Document document = new Document();
-            createPdf(fileSel);
+            projekt.Class.SaveToPDF.createPdf(fileSel);
         }
     }
 
-    /**
-     ** Metoda, która tworzy plik pdf na podaną ścieżkę
-     *
-     * @param file ścieżka dostępu do pluku na którym ma być zapisaby plik pdf
-     * @throws IOException wyjątek wejścia/ wyjścia
-     * @throws DocumentException wyjatek podczas tworzenia dokumentu
-     */
-    public void createPdf(File file) throws IOException, DocumentException {
-        Document document = new Document();
-        String HTML = "src/projekt/HTML/Diagnoza/diagnoza.html";
-        String CSS = "src/projekt/HTML/Diagnoza/styl.css";
-        PdfWriter writer = PdfWriter.getInstance(document, new FileOutputStream(file));
-        writer.setInitialLeading(12.5f);
-        document.open();
-        CSSResolver cssResolver = new StyleAttrCSSResolver();
-        CssFile cssFile = XMLWorkerHelper.getCSS(new FileInputStream(CSS));
-        cssResolver.addCss(cssFile);
-        HtmlPipelineContext htmlContext = new HtmlPipelineContext(null);
-        htmlContext.setTagFactory(Tags.getHtmlTagProcessorFactory());
-        PdfWriterPipeline pdf = new PdfWriterPipeline(document, writer);
-        HtmlPipeline html = new HtmlPipeline(htmlContext, pdf);
-        CssResolverPipeline css = new CssResolverPipeline(cssResolver, html);
-        XMLWorker worker = new XMLWorker(css, true);
-        XMLParser p = new XMLParser(worker);
-        p.parse(new FileInputStream(HTML));
-        document.close();
-    }
+
 
     public WebView getWebView() {
         return webView;

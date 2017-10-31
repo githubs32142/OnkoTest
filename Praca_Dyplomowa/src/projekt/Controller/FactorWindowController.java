@@ -121,7 +121,7 @@ public class FactorWindowController implements Initializable {
        */
        data = FXCollections.observableArrayList();
        dataRight = FXCollections.observableArrayList();
-        readData(ConfigPath.getFactorList());
+        
         factors = new JFXListView<>();
         factors.setItems(data);
         addedFactor = new ListView<>(dataRight);
@@ -140,6 +140,7 @@ public class FactorWindowController implements Initializable {
         w = 0.1;
         h = 0.1;
         OperationFactor.initFactor(fact);
+        readData(ConfigPath.getFactorList());
         sort();
         webEngine = webHTML.getEngine();
        //webEngine.setUserStyleSheetLocation(urlFactor.toExternalForm());

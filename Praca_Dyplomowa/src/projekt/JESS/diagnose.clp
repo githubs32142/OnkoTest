@@ -56,6 +56,12 @@
 (slot zm_tr_wypozniania)
 (slot wycz_guz_krok)
 (slot as_gr_krok)
+(slot guz_w_piersi)
+(slot as_piersi)
+(slot n_do_miesa)
+(slot kr_mocz)
+(slot zm_skora)
+
 )
 
 (deftemplate FamillyCancer
@@ -264,7 +270,6 @@
 	=>
 	 (printout t "Rak gruczołu krokowego"  crlf)
 )
-;rak żołądla
 
 ; Rak jajników (nie wszystko)
 
@@ -285,7 +290,47 @@
 	=>
 	(assert (CancerJ (+ ?sumc3  ?sumage2 ?sumc4 )))
 )
+(defrule rulergk3
+	(CancerJ ?tmp )(test (> ?tmp 2))
+	=>
+	(printout t "Rak jajnika"  crlf)
+)
 
-; ###############Reguły dotyczące raka piersi #####################
+;rak żołądla
+
+( defrule sm_cz5
+	( RiskFactor (otylosc ?ans1 ) (pal_papierosow ?ans2 )  )
+	=>
+	(assert (Sumcz5 (+ ?ans1 ?ans2 )))
+)
+( defrule sm_cz6
+	( Symptoms (chudniecie ?ans1 ) (os_apetyt ?ans2 ) (n_do_miesa ?ans3 ) )
+	=>
+	(assert (Sumcz6 (+ ?ans1 ?ans2 ?ans3 )))
+)
+(defrule rulezz0
+	(Sumcz5 ?tmp )(test (> ?tmp 1))
+	=>
+	(assert (RuleZZ0 (+ 0 1)))
+)
+
+(defrule rulezz1
+	(Sumcz6 ?tmp )(test (> ?tmp 2))
+	=>
+	(assert (RuleZZ1 (+ 0 1)))
+)
+
+(defrule rulezz3
+	(and (Sumcz5 ?sumc5 ) (Sumcz6 ?sumc6) )
+	=>
+	(assert (CancerZZ (+ ?sumc5  ?sumc6  )))
+)
+(defrule rulergk3
+	(CancerZZ ?tmp )(test (> ?tmp 1))
+	=>
+	(printout t "Rak żołądka"  crlf)
+)
+
+
 (facts)
 (run)

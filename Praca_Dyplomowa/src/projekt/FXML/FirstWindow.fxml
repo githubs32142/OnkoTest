@@ -36,7 +36,7 @@
                         <Font name="Segoe UI Semilight Italic" size="22.0" />
                      </font>
                   </Label>
-                  <TextField fx:id="name" prefHeight="30.0" prefWidth="175.0" promptText="Podaj imię" text="Jonna">
+                  <TextField fx:id="name" prefHeight="30.0" prefWidth="175.0" promptText="Podaj imię">
                      <HBox.margin>
                         <Insets left="48.0" top="5.0" />
                      </HBox.margin>
@@ -50,7 +50,7 @@
                         <Font name="Segoe UI Semilight Italic" size="22.0" />
                      </font>
                   </Label>
-                  <TextField fx:id="surname" prefHeight="30.0" prefWidth="175.0" promptText="Podaj nazwisko" text="Kowalska">
+                  <TextField fx:id="surname" prefHeight="30.0" prefWidth="175.0" promptText="Podaj nazwisko">
                      <HBox.margin>
                         <Insets top="5.0" />
                      </HBox.margin>
@@ -64,7 +64,7 @@
                         <Font name="Segoe UI Semilight Italic" size="22.0" />
                      </font>
                   </Label>
-                  <TextField fx:id="weight" prefHeight="30.0" prefWidth="175.0" promptText="Podaj wagę w kg" text="80">
+                  <TextField fx:id="weight" prefHeight="30.0" prefWidth="175.0" promptText="Podaj wagę w kg">
                      <HBox.margin>
                         <Insets left="34.0" top="5.0" />
                      </HBox.margin>
@@ -78,7 +78,7 @@
                         <Font name="Segoe UI Semilight Italic" size="22.0" />
                      </font>
                   </Label>
-                  <TextField fx:id="height" prefHeight="30.0" prefWidth="175.0" promptText="Podaj wzrost w cm" text="175">
+                  <TextField fx:id="height" prefHeight="30.0" prefWidth="175.0" promptText="Podaj wzrost w cm">
                      <HBox.margin>
                         <Insets left="24.0" top="5.0" />
                      </HBox.margin>
@@ -92,7 +92,7 @@
                         <Font name="Segoe UI Semilight Italic" size="22.0" />
                      </font>
                   </Label>
-                  <TextField fx:id="age" prefHeight="30.0" prefWidth="175.0" promptText="Podaj wiek w latach" text="60">
+                  <TextField fx:id="age" prefHeight="30.0" prefWidth="175.0" promptText="Podaj wiek w latach">
                      <HBox.margin>
                         <Insets left="44.0" top="5.0" />
                      </HBox.margin>
