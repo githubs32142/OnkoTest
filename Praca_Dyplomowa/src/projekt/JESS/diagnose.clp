@@ -5,6 +5,12 @@
 (slot age)
 )
 
+(deftemplate Rakpluc
+(slot istnieje))
+
+(deftemplate Rakjelitagrubego
+(slot istnieje))
+
 (deftemplate RiskFactor
 (slot sp_alkohol)
 (slot otylosc)
@@ -159,18 +165,32 @@
 (defrule rulerp1
          (and (RiskFactor (pal_papierosow 1) ) (exists (or (Symptoms (goraczka 1)) (Symptoms(pokaslywanie 1)) (Symptoms(chudniecie 1))  (Symptoms(oslabienie 1)  ))))
 	=>
-	 (printout t "Rak płuc" crlf)
+	 (assert (Rakpluc (istnieje 1)))
 )
 (defrule rulerp2
          (and (RiskFactor (pal_papierosow 1) ) (exists (and (Symptoms(pokaslywanie 1)) (Symptoms(chudniecie 1))  )))
 	=>
-	 (printout t "Rak płuc" crlf)
+	 (assert (Rakpluc (istnieje 1)))
 )
 (defrule rulerp3
          (and (RiskFactor (pal_papierosow 1) ))
 	=>
-	 (printout t "Rak płuc" crlf)
+	(assert (Rakpluc (istnieje 1)))
 )
+
+(defrule rulerp4
+          (and (Symptoms (goraczka 1)) (Symptoms(pokaslywanie 1)) (Symptoms(chudniecie 1))  (Symptoms(oslabienie 1)  ))
+	=>
+	 (assert (Rakpluc (istnieje 1)))
+)
+(defrule RakPluc
+    (Rakpluc (istnieje 1))
+    =>
+    (printout t "Rak płuc"crlf )
+
+)
+
+; ###############Reguły dotyczące raka jelita grubego############### 
 
 ( defrule sm_cz
 	( RiskFactor (otylosc ?ans1 )(diet_w_tluszcze ?ans2 )(br_akt_fizycznej ?ans3 ) (cz_sp_czerw_mieso ?ans4 ) (spoz_pok_smazonych ?ans5 ) (spoz_pok_grill ?ans6 ))
@@ -183,7 +203,6 @@
         (assert (Sum (+ 0 1)))
 )
 
-; ###############Reguły dotyczące raka jelita grubego############### 
 (defrule rulerjg0
           (exists (or (FamillyCancer (brat_pluc 1)) (FamillyCancer(siostra_jelito 1)) (FamillyCancer(ojciec_jelito 1))  (FamillyCancer(matka_jelito 1)  )))
 	=>
@@ -200,19 +219,27 @@
 (defrule rulerjg2
 	(CancerJG ?tmp )(test (> ?tmp 2))
 	=>
-	(printout t "Rak jelita grubego"  crlf)
+	(assert (Rakjelitagrubego (istnieje 1)))
 )
 (defrule rulerjg3
          (and (Symptoms (zm_tr_wypozniania 1) ) (exists (or (Symptoms(kr_stolc 1)) (Symptoms(sl_stolcu 1))  )))
 	=>
-	 (printout t "Rak jelita grubego" crlf)
+	 (assert (Rakjelitagrubego (istnieje 1)))
 )
 
 (defrule rulerjg4
           (exists (and (Symptoms(kr_stolc 1)) (Symptoms(sl_stolcu 1))  ))
 	=>
-	 (printout t "Rak jelita grubego" crlf)
+	(assert (Rakjelitagrubego (istnieje 1)))
 )
+
+(defrule RakJelitaGrubego
+    (Rakjelitagrubego (istnieje 1))
+    =>
+    (printout t "Rak jelita grubego"crlf )
+
+)
+
 
 ; ###############Reguły dotyczące raka piersi #####################
 ( defrule sm_cz2
@@ -290,7 +317,7 @@
 	=>
 	(assert (CancerJ (+ ?sumc3  ?sumage2 ?sumc4 )))
 )
-(defrule rulergk3
+ (defrule rulergk3
 	(CancerJ ?tmp )(test (> ?tmp 2))
 	=>
 	(printout t "Rak jajnika"  crlf)
@@ -315,15 +342,15 @@
 )
 
 (defrule rulezz1
-	(Sumcz6 ?tmp )(test (> ?tmp 2))
+	(Sumcz6 ?tmp )(test (> ?tmp 1))
 	=>
 	(assert (RuleZZ1 (+ 0 1)))
 )
 
 (defrule rulezz3
-	(and (Sumcz5 ?sumc5 ) (Sumcz6 ?sumc6) )
+	(and (RuleZZ1 ?zz1 ) (RuleZZ0 ?zz0) )
 	=>
-	(assert (CancerZZ (+ ?sumc5  ?sumc6  )))
+	(assert (CancerZZ (+ ?zz1  ?zz0  )))
 )
 (defrule rulergk3
 	(CancerZZ ?tmp )(test (> ?tmp 1))

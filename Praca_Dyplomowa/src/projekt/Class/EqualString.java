@@ -39,5 +39,13 @@ public class EqualString {
         }
         return true;
     }
-
+    public static String removeChar(String s){
+        StringBuilder sTmp= new StringBuilder();
+        for(int i=0;i<s.length();i++){
+            if(((int)s.charAt(i)>64 && (int)s.charAt(i)<=90)|| ((int)s.charAt(i)>=97 && (int)s.charAt(i)<=122) ){
+                sTmp.append(s.charAt(i));
+            }
+        }
+        return sTmp.toString();
+    }
 }
