@@ -11,6 +11,12 @@
 (deftemplate Rakjelitagrubego
 (slot istnieje))
 
+(deftemplate Rakgruczolukrokowego
+(slot istnieje))
+
+(deftemplate Rakskory
+(slot istnieje))
+
 (deftemplate RiskFactor
 (slot sp_alkohol)
 (slot otylosc)
@@ -241,7 +247,7 @@
 )
 
 
-; ###############Reguły dotyczące raka piersi #####################
+; ###############Reguły dotyczące raka piersi(nie wszystko) #####################
 ( defrule sm_cz2
 	( RiskFactor (dos_antykoncepcja ?ans1 )(sz_miesiacza ?ans2 )(poz_w_rodzenia ?ans3 ) (br_akt_fizycznej ?ans4 ) (w_r_piersi ?ans5 ) (sp_alkohol ?ans6 ) (menopazua_otylosc ?ans7 ) )
 	=>
@@ -289,13 +295,20 @@
 (defrule rulergk3
 	(CancerGK ?tmp )(test (> ?tmp 2))
 	=>
-	(printout t "Rak gruczołu krokowego"  crlf)
+	(assert (Rakgruczolukrokowego (istnieje 1)))
 )
 
 (defrule rulergk4
          (exists (and (Symptoms(wycz_guz_krok 1)) (Symptoms(as_gr_krok 1))  ))
 	=>
-	 (printout t "Rak gruczołu krokowego"  crlf)
+	 (assert (Rakgruczolukrokowego (istnieje 1)))
+)
+
+(defrule RakGruczoluKrokowego
+    (Rakgruczolukrokowego (istnieje 1))
+    =>
+    (printout t "Rak gruczołu krokowego"crlf )
+
 )
 
 ; Rak jajników (nie wszystko)
@@ -317,7 +330,7 @@
 	=>
 	(assert (CancerJ (+ ?sumc3  ?sumage2 ?sumc4 )))
 )
- (defrule rulergk3
+(defrule rulerj1
 	(CancerJ ?tmp )(test (> ?tmp 2))
 	=>
 	(printout t "Rak jajnika"  crlf)
@@ -352,12 +365,38 @@
 	=>
 	(assert (CancerZZ (+ ?zz1  ?zz0  )))
 )
-(defrule rulergk3
+(defrule rulezz4
 	(CancerZZ ?tmp )(test (> ?tmp 1))
 	=>
 	(printout t "Rak żołądka"  crlf)
 )
+;########################Rak przewodu moczowego #############################
+(defrule rulerpm0
+         (and (RiskFactor (pal_papierosow 1)) (Symptoms(kr_mocz 1)) (Symptoms(oslabienie 1)) )
+	=>
+	 (printout t "Rak przewodu moczoweego"  crlf)
+)
 
+;########################Rak skóry #############################
+(defrule rulers0
+         (or (RiskFactor (lam_solarium 1)) (RiskFactor(prom_ultra 1))  )
+	=>
+	 (assert (Rakskory (istnieje 1)))
+)
 
+(defrule rulers1
+         (or  (Symptoms(zm_skora 1))  )
+	=>
+	 (assert (Rakskory (istnieje 1)))
+)
+
+(defrule RakSkory
+    (Rakgruczolukrokowego (istnieje 1))
+    =>
+    (printout t "Rak skóry"crlf )
+
+)
+
+; ##############
 (facts)
 (run)
