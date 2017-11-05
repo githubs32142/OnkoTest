@@ -14,7 +14,13 @@
 (deftemplate Rakgruczolukrokowego
 (slot istnieje))
 
+(deftemplate Rakpiersi
+(slot istnieje))
+
 (deftemplate Rakskory
+(slot istnieje))
+
+(deftemplate Rakjajnikow
 (slot istnieje))
 
 (deftemplate RiskFactor
@@ -73,7 +79,9 @@
 (slot n_do_miesa)
 (slot kr_mocz)
 (slot zm_skora)
-
+(slot sk_na_piersi)
+(slot wciek_brodawka)
+(slot niet_krwawienie)
 )
 
 (deftemplate FamillyCancer
@@ -210,7 +218,7 @@
 )
 
 (defrule rulerjg0
-          (exists (or (FamillyCancer (brat_pluc 1)) (FamillyCancer(siostra_jelito 1)) (FamillyCancer(ojciec_jelito 1))  (FamillyCancer(matka_jelito 1)  )))
+          (exists (or (FamillyCancer (brat_jelito 1)) (FamillyCancer(siostra_jelito 1)) (FamillyCancer(ojciec_jelito 1))  (FamillyCancer(matka_jelito 1)  )))
 	=>
 	 (assert (Sum2 (+ 0 1)))
 )
@@ -263,7 +271,19 @@
 (defrule rulerpp2
 	(CancerPP ?tmp )(test (> ?tmp 2))
 	=>
-	(printout t "Rak piersi"  crlf)
+	(assert (Rakpiersi (istnieje 1)))
+)
+(defrule rulerpp3
+          (exists (or (Symptoms (guz_w_piersi 1)) (Symptoms(as_piersi 1)) (Symptoms(sk_na_piersi 1))  (Symptoms(wciek_brodawka 1)  )))
+	=>
+	 (assert (Rakpiersi (istnieje 1)))
+)
+
+(defrule RakPiersi
+    (Rakpiersi (istnieje 1))
+    =>
+    (printout t "Rak piersi"crlf )
+
 )
 
 ;############## Reguły dotyczące raka gruczołu krokowego#####################
@@ -311,7 +331,7 @@
 
 )
 
-; Rak jajników (nie wszystko)
+; Rak jajników 
 
 ( defrule sm_cz3
 	( FamillyCancer (ciotka_jajnik ?ans1 )(babcia_jajnik ?ans2 )(matka_jajnik ?ans3 ) (siostra_jajnik ?ans4 ) )
@@ -333,10 +353,23 @@
 (defrule rulerj1
 	(CancerJ ?tmp )(test (> ?tmp 2))
 	=>
-	(printout t "Rak jajnika"  crlf)
+	(assert (Rakjajnikow (istnieje 1)))
 )
 
-;rak żołądla
+(defrule rulerj2
+	(and (Symptoms (niet_krwawienie 1)))
+	=>
+	(assert (Rakjajnikow (istnieje 1)))
+)
+
+(defrule RakJajnikow
+    (Rakjajnikow (istnieje 1))
+    =>
+    (printout t "Rak jajników"crlf )
+
+)
+
+;rak żołądla nie wszystko
 
 ( defrule sm_cz5
 	( RiskFactor (otylosc ?ans1 ) (pal_papierosow ?ans2 )  )

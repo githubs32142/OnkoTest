@@ -24,3 +24,6 @@ Aymetria piersi-as_piersi;
 Niechęć do spożywania mięsa-n_do_miesa;
 Krew w moczu-kr_mocz;
 Zmiany na skórze-zm_skora;
+"Skórka pomarańczowa" na piersi-sk_na_piersi;
+Wyciek z brodawki-wciek_brodawka;
+Nietypowe krwawienie z dróg rodnych poza krwawieniem miesiączkowym-niet_krwawienie;
