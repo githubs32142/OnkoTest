@@ -179,11 +179,13 @@ public class DiagnozeHTML {
      */
     private StringBuilder createFactor() {
         StringBuilder str = new StringBuilder();
-        str.append("<table>\n");
-        for (int i = 0; i < dataFactors.size(); i++) {
-            str.append("<tr> <td>").append(dataFactors.get(i)).append("</td></tr>\n");
+        if (dataFactors.size() > 0) {
+            str.append("<table>\n");
+            for (int i = 0; i < dataFactors.size(); i++) {
+                str.append("<tr> <td>").append(dataFactors.get(i)).append("</td></tr>\n");
+            }
+            str.append("</table>\n");
         }
-        str.append("</table>\n");
         return str;
     }
 
@@ -194,39 +196,46 @@ public class DiagnozeHTML {
      */
     private StringBuilder createSymptoms() {
         StringBuilder str = new StringBuilder();
-        str.append("<table>\n");
-        for (int i = 0; i < dataSymptoms.size(); i++) {
-            str.append("<tr> <td>").append(dataSymptoms.get(i)).append("</td></tr>\n");
+        if (dataSymptoms.size() > 0) {
+            str.append("<table>\n");
+            for (int i = 0; i < dataSymptoms.size(); i++) {
+                str.append("<tr> <td>").append(dataSymptoms.get(i)).append("</td></tr>\n");
+            }
+            str.append("</table>\n");
         }
-        str.append("</table>\n");
         return str;
     }
 
     private StringBuilder createCancerInFailly() {
         StringBuilder str = new StringBuilder();
-        str.append("<table>\n");
-        str.append("<tr> <td>Pokrewieństwo </td> <td>Rak w rodzienie </td></tr>\n");
-        for (int i = 0; i < cancerFamilly.size(); i++) {
-            str.append("<tr> <td>").append(cancerFamilly.get(i).getFamilly()).append("</td>\n <td> ").append(cancerFamilly.get(i).getCancer()).append("</td></tr>\n");
+        if (cancerFamilly.size() > 0) {
+            str.append("<table>\n");
+            str.append("<tr> <td>Pokrewieństwo </td> <td>Rak w rodzienie </td></tr>\n");
+            for (int i = 0; i < cancerFamilly.size(); i++) {
+                str.append("<tr> <td>").append(cancerFamilly.get(i).getFamilly()).append("</td>\n <td> ").append(cancerFamilly.get(i).getCancer()).append("</td></tr>\n");
+            }
+            str.append("</table>\n");
         }
-        str.append("</table>\n");
         return str;
     }
 
     private StringBuilder createDiagnose() {
         StringBuilder str = new StringBuilder();
-        str.append("<table>\n");
-        for (int i = 0; i < dianoseCut.size(); i++) {
-            str.append("<tr> <td>").append(dianoseCut.get(i)).append("</td></tr>\n");
+        if (dianoseCut.size() > 0) {
+            str.append("<table>\n");
+            for (int i = 0; i < dianoseCut.size(); i++) {
+                str.append("<tr> <td>").append(dianoseCut.get(i)).append("</td></tr>\n");
+            }
+            str.append("</table>\n");
+        } else {
+            str.append("-");
         }
-        str.append("</table>\n");
         return str;
     }
 
     public void setResultDiagnose(String resultDiagnose) {
         this.resultDiagnose = resultDiagnose;
         cutDiagnose();
-        removeDuplicate();
     }
 
     public void cutDiagnose() {
@@ -239,10 +248,6 @@ public class DiagnozeHTML {
                 tmp += resultDiagnose.charAt(i);
             }
         }
-    }
-
-    public void removeDuplicate() {
-       
     }
 
 }

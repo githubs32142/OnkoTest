@@ -191,12 +191,12 @@ public class CancerInFamillyController implements Initializable {
      */
     @FXML
     private void addToTable(ActionEvent event) {
-        if (cancerCombo.getSelectionModel().getSelectedIndex() >= 0 && famillyCombo.getSelectionModel().getSelectedIndex() >= 0) {
+        if (isSelFamillyAndCancer()) {
 
             if (data.isEmpty()) {
                 data.add(new CancerFamilly(cancerCombo.getSelectionModel().getSelectedItem(), famillyCombo.getSelectionModel().getSelectedItem()));
             } else {
-                if (data.get(0).getCancer().isEmpty()) {
+                if (dataCancerIsEmpty()) {
                     data.set(0, new CancerFamilly(cancerCombo.getSelectionModel().getSelectedItem(), famillyCombo.getSelectionModel().getSelectedItem()));
                 } else {
                     data.add(new CancerFamilly(cancerCombo.getSelectionModel().getSelectedItem(), famillyCombo.getSelectionModel().getSelectedItem()));
@@ -208,6 +208,14 @@ public class CancerInFamillyController implements Initializable {
             showOutputMessage("Nie można wprowadzić danych");
         }
 
+    }
+
+    private boolean dataCancerIsEmpty() {
+        return data.get(0).getCancer().isEmpty();
+    }
+
+    private boolean isSelFamillyAndCancer() {
+        return cancerCombo.getSelectionModel().getSelectedIndex() >= 0 && famillyCombo.getSelectionModel().getSelectedIndex() >= 0;
     }
 
     /**
@@ -374,12 +382,16 @@ public class CancerInFamillyController implements Initializable {
         Optional<ButtonType> result = alert.showAndWait();
         if (result.get() == buttonTypeYes) {
             index = table.getSelectionModel().getSelectedIndex();
-            if (index >= 0 && index < data.size()) {
+            if (selGoodRow()) {
                 data.remove(index);
             } else {
                 showOutputMessage("Nie zaznaczyłeś żadnego wiersza");
             }
         }
+    }
+
+    private boolean selGoodRow() {
+        return index >= 0 && index < data.size();
     }
 
     /**
@@ -394,6 +406,18 @@ public class CancerInFamillyController implements Initializable {
         SummaryWindowController cnt = new SummaryWindowController();
         Parent parent = load.load();
         cnt = load.getController();
+        addDataToOtherController(cnt);
+        cnt.setPerson(person);
+        Scene scene = new Scene(parent);
+        Stage primaryStage = new Stage();
+        primaryStage.setScene(scene);
+        primaryStage.initStyle(StageStyle.UNDECORATED);
+        primaryStage.show();
+        stage = (Stage) ((Node) (event.getSource())).getScene().getWindow();
+        stage.close();
+    }
+
+    private void addDataToOtherController(SummaryWindowController cnt) {
         for (int i = 0; i < factor.size(); i++) {
             cnt.dataFactors.add(factor.get(i));
         }
@@ -403,14 +427,6 @@ public class CancerInFamillyController implements Initializable {
         for (int i = 0; i < this.data.size(); i++) {
             cnt.cancerFamilly.add(this.data.get(i));
         }
-        cnt.setPerson(person);
-        Scene scene = new Scene(parent);
-        Stage primaryStage = new Stage();
-        primaryStage.setScene(scene);
-        primaryStage.initStyle(StageStyle.UNDECORATED);
-        primaryStage.show();
-        stage = (Stage) ((Node) (event.getSource())).getScene().getWindow();
-        stage.close();
     }
 
     /**

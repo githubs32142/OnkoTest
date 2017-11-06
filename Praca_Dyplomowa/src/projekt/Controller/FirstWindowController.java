@@ -172,7 +172,7 @@ public class FirstWindowController implements Initializable {
         int h = 0;
         int a = 0;
         if (mail) {
-            if (!surname.getText().isEmpty() && !sex.getValue().isEmpty()) {
+            if (!isEmptySurname() && !isEmptySex()) {
                 try {
                     if (CheckReg.checkHeightCent(height.getText()) || CheckReg.checkHeightMetr(height.getText())) {
                         w = Double.valueOf(height.getText());
@@ -235,7 +235,7 @@ public class FirstWindowController implements Initializable {
                 showOutputMessage("Wypełnij pola które nie zostały jeszcze uzupełnione");
             }
         } else {
-            if (!name.getText().isEmpty() && !surname.getText().isEmpty() && !sex.getValue().isEmpty()) {
+            if (!isEmptyName() && !isEmptySurname() && !isEmptySex()) {
                 try {
                     if (CheckReg.checkWord(name.getText()) && CheckReg.checkWord(surname.getText())) {
                         if (CheckReg.checkHeightCent(height.getText()) || CheckReg.checkHeightMetr(height.getText())) {
@@ -300,6 +300,18 @@ public class FirstWindowController implements Initializable {
             }
         }
 
+    }
+
+    private boolean isEmptyName() {
+        return name.getText().isEmpty();
+    }
+
+    private boolean isEmptySex() {
+        return sex.getValue().isEmpty();
+    }
+
+    private boolean isEmptySurname() {
+        return surname.getText().isEmpty();
     }
 
     /**

@@ -112,13 +112,6 @@ public class FactorWindowController implements Initializable {
         this.leftSelected = 0;
         sw = new SymptomWindowController();
         cif = new CancerInFamillyController();
-       /* data = FXCollections.observableArrayList( "Otyłość", "Promieniowanie jonizujące",
-                "Radioterapia", "Lampy solarium", "Palenie papierosów",
-                "Brak aktywności fizycznej", "Niewłaściwa dieta", "Brak naturalnych antyoksydantów", "Menopauza + otyłość",
-                "Brak błonnika", "Pole elektromagnetyczne", "Kontakt z azbestem", "Wczesne współżycie seksualne","Wczesny wiek rodzenia"
-        ,"Dieta bogata w tłuszcz","Częste spożywanie czerwonego mięsa","Spożywanie pokarmów smażonych","Spożywanie pokarmów grilowanch"
-        ,"Doustna antykoncepcja","Pierwsza miesiączka poniżej 10 r.ż.","Późny wiek rodzenia","Wcześniejsze zachorowanie na raka piersi");
-       */
        data = FXCollections.observableArrayList();
        dataRight = FXCollections.observableArrayList();
         
@@ -143,7 +136,6 @@ public class FactorWindowController implements Initializable {
         readData(ConfigPath.getFactorList());
         sort();
         webEngine = webHTML.getEngine();
-       //webEngine.setUserStyleSheetLocation(urlFactor.toExternalForm());
         factors.setItems(data);
         test.setVisible(false);
         index = -1;
@@ -172,7 +164,6 @@ public class FactorWindowController implements Initializable {
                 yOffset = event.getSceneY();
             }
         });
-        //set mouse drag
         mainPane.setOnMouseDragged(new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent event) {
@@ -194,16 +185,24 @@ public class FactorWindowController implements Initializable {
         String clickedFact = factors.getItems().get(factors.getSelectionModel().getSelectedIndex());
         index = ifFact(clickedFact);
         System.out.println(clickedFact);
-        if (index >= 0) {
+        if (checkOnFact()) {
             leftSelected = factors.getSelectionModel().getSelectedIndex();
             final URL urlFactor = getClass().getResource(fact.get(index).getUrlHTML());
             webEngine.load(urlFactor.toExternalForm());
-            if (fact.get(index).isTest()) {
+            if (factHaveTest()) {
                 test.setVisible(true);
             } else {
                 test.setVisible(false);
             }
         }
+    }
+
+    private boolean factHaveTest() {
+        return fact.get(index).isTest();
+    }
+
+    private boolean checkOnFact() {
+        return index >= 0;
     }
 
     /**
@@ -229,8 +228,8 @@ public class FactorWindowController implements Initializable {
      */
     @FXML
     private void makeTest(ActionEvent event) {
-        if (index >= 0) {
-            if (fact.get(index).isTest()) {
+        if (checkOnFact()) {
+            if (factHaveTest()) {
                 FXMLLoader load = new FXMLLoader(this.getClass().getResource(fact.get(index).getUrlTest()));
                 Parent parent = null;
                 try {
@@ -242,54 +241,54 @@ public class FactorWindowController implements Initializable {
                 Stage primaryStage = new Stage();
                 primaryStage.setScene(scene);
                 primaryStage.setResizable(false);
-                if (fact.get(index).getFactor().equals("Spożywanie alkoholu")) {
+                if ("Spożywanie alkoholu".equals(fact.get(index).getFactor())) {
                     AuditTest cnt = new AuditTest();
                     cnt = load.getController();
                     cnt.setWindow(this);
                 }
-                if (fact.get(index).getFactor().equals("Palenie papierosów")) {
+                if ("Palenie papierosów".equals(fact.get(index).getFactor())) {
                     SmokingTestController cnt = new SmokingTestController();
                     cnt = load.getController();
                     cnt.setWindow(this);
                 }
-                if (fact.get(index).getFactor().equals("Radioterapia")) {
+                if ("Radioterapia".equals(fact.get(index).getFactor())) {
                     RadiotherapyTestController cnt = new RadiotherapyTestController();
                     cnt = load.getController();
                     cnt.setWindow(this);
                 }
-                if (fact.get(index).getFactor().equals("Promieniowanie jonizujące")) {
+                if ("Promieniowanie jonizujące".equals(fact.get(index).getFactor())) {
                     IonizingRadiationTestController cnt = new IonizingRadiationTestController();
                     cnt = load.getController();
                     cnt.setWindow(this);
                 }
-                if (fact.get(index).getFactor().equals("Menopauza + otyłość")) {
+                if ("Menopauza + otyłość".equals(fact.get(index).getFactor())) {
                     MenopauseTestController cnt = new MenopauseTestController();
                     cnt = load.getController();
                     cnt.setWindow(this);
                 }
-                if (fact.get(index).getFactor().equals("Lampy solarium")) {
+                if ("Lampy solarium".equals(fact.get(index).getFactor())) {
                     SolariumTestController cnt = new SolariumTestController();
                     cnt = load.getController();
                     cnt.setWindow(this);
                 }
-                if (fact.get(index).getFactor().equals("Brak błonnika")) {
+                if ("Brak błonnika".equals(fact.get(index).getFactor())) {
                     FibreTest cnt = new FibreTest();
                     cnt = load.getController();
                     cnt.setWindow(this);
                 }//azbest
-                if (fact.get(index).getFactor().equals("Kontakt z azbestem")) {
+                if ("Kontakt z azbestem".equals(fact.get(index).getFactor())) {
                     AsbestosTestController cnt = new AsbestosTestController();
                     cnt = load.getController();
                     primaryStage.initStyle(StageStyle.UNDECORATED);
                     primaryStage.setResizable(true);
                     cnt.setWindow(this);
                 }
-                if (fact.get(index).getFactor().equals("Wczesne współżycie seksualne")) {
+                if ("Wczesne współżycie seksualne".equals(fact.get(index).getFactor())) {
                     EarlyChAgeController cnt = new EarlyChAgeController();
                     cnt = load.getController();
                     cnt.setWindow(this);
                 }
-                if (fact.get(index).getFactor().equals("Wczesny wiek rodzenia")) {
+                if ("Wczesny wiek rodzenia".equals(fact.get(index).getFactor())) {
                     EarlyBabeController cnt = new EarlyBabeController();
                     cnt = load.getController();
                     cnt.setWindow(this);
@@ -352,9 +351,7 @@ public class FactorWindowController implements Initializable {
         cnt = load.getController();
         cnt.setPerson(person);
         cnt.setFactor(dataRight);
-        for (int i = 0; i < sw.dataRight.size(); i++) {
-            cnt.changeSymptomToRight(sw.dataRight.get(i));
-        }
+        loadDataToAnotherController(cnt);
         cnt.setCancerInFamillyController(cif);
         Scene scene = new Scene(parent);
         Stage primaryStage = new Stage();
@@ -363,6 +360,12 @@ public class FactorWindowController implements Initializable {
         primaryStage.show();
         stage = (Stage) ((Node) (event.getSource())).getScene().getWindow();
         stage.close();
+    }
+
+    private void loadDataToAnotherController(SymptomWindowController cnt) {
+        for (int i = 0; i < sw.dataRight.size(); i++) {
+            cnt.changeSymptomToRight(sw.dataRight.get(i));
+        }
     }
 
     /**
@@ -651,7 +654,7 @@ public class FactorWindowController implements Initializable {
             Parent parent = load.load();
             cnt = load.getController();
             cnt.setPerson(person);
-            if (person.getName().isEmpty()) {
+            if (isEmptyNamePerson()) {
                 cnt.lblname.setVisible(false);
                 cnt.name.setVisible(false);
                 cnt.lblsurname.setText("E-mail:");
@@ -676,6 +679,10 @@ public class FactorWindowController implements Initializable {
             Logger logger = Logger.getLogger(getClass().getName());
             logger.log(Level.SEVERE, "Failed to create new Window.", e);
         }
+    }
+
+    private boolean isEmptyNamePerson() {
+        return person.getName().isEmpty();
     }
  /**
      ** Metoda, która odczytuje dane z pliku zewnętrznego i pozwala na

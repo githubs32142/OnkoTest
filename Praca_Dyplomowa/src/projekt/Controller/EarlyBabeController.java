@@ -119,11 +119,11 @@ public class EarlyBabeController implements Initializable {
             engine.run();
             result = o.toString();
             engine.clear();
-            if (result == null ? "" == null : result.equals("")) {
+            if (isEmpty(result)) {
                 result = "Brak diagnozy";
             }
             for (int i = 0; i < result.length(); i++) {
-                if (result.charAt(i) == '1') {
+                if (isFactor(result, i)) {
                     add = true;
                 } else {
                     text.append(result.charAt(i));
@@ -137,6 +137,14 @@ public class EarlyBabeController implements Initializable {
         } catch (JessException ex) {
             Logger.getLogger(EarlyBabeController.class.getName()).log(Level.SEVERE, null, ex);
         }
+    }
+
+    private static boolean isFactor(String result, int i) {
+        return result.charAt(i) == '1';
+    }
+
+    private static boolean isEmpty(String result) {
+        return result == null ? "" == null : result.equals("");
     }
     
 }

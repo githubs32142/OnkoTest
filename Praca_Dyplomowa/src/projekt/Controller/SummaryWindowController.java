@@ -197,7 +197,6 @@ public class SummaryWindowController implements Initializable {
         } catch (JessException ex) {
             Logger.getLogger(SummaryWindowController.class.getName()).log(Level.SEVERE, null, ex);
         }
-        System.out.println(s);
         html.setResultDiagnose(s);
                 html.parseHTML();
         cnt.setString(html.text);

@@ -196,10 +196,10 @@ public class AuditTest implements Initializable {
                 result = "Brak diagnozy";
             }
             for (int i = 0; i < result.length(); i++) {
-                if (result.charAt(i) == 10) {
+                if (isNewLine(result, i)) {
                     text.append("\n");
                 }
-                if (result.charAt(i) == '1') {
+                if (isFactor(result, i)) {
                     add = true;
                 } else {
                     text.append(result.charAt(i));
@@ -214,6 +214,14 @@ public class AuditTest implements Initializable {
             Logger.getLogger(AuditTest.class.getName()).log(Level.SEVERE, null, ex);
         }
 
+    }
+
+    private static boolean isFactor(String result, int i) {
+        return result.charAt(i) == '1';
+    }
+
+    private static boolean isNewLine(String result, int i) {
+        return result.charAt(i) == 10;
     }
 
     /**

@@ -178,15 +178,14 @@ public class FibreTest implements Initializable {
             engine.run();
             result = o.toString();
             engine.clear();
-            System.out.println(result);
-            if (result == null ? "" == null : result.equals("")) {
+            if (isEmptyResult(result)) {
                 result = "Brak diagnozy";
             }
                 for(int i=0;i<result.length();i++){
-                if(result.charAt(i)==10){
+                if(isNewLine(result, i)){
                         text.append("\n");
                     }
-                if(result.charAt(i)=='1'){
+                if(isFactor(result, i)){
                     add=true;
                 }
                 else{
@@ -204,9 +203,21 @@ public class FibreTest implements Initializable {
  
     }
 
+    private static boolean isNewLine(String result, int i) {
+        return result.charAt(i)==10;
+    }
+
+    private static boolean isFactor(String result, int i) {
+        return result.charAt(i)=='1';
+    }
+
+    private static boolean isEmptyResult(String result) {
+        return result == null ? "" == null : result.equals("");
+    }
+
     @FXML
     private void removeFibre(ActionEvent event) {
-        if(index<addData.size()){
+        if(contains()){
             addData.remove(index);
             addFibre.remove(index);
             addedProduct.setItems(addData);
@@ -227,12 +238,16 @@ public class FibreTest implements Initializable {
     @FXML
     private void remove(ActionEvent event) {
         index= addedProduct.getSelectionModel().getSelectedIndex();    
-        if(index<addData.size()){
+        if(contains()){
             addData.remove(index);
             addFibre.remove(index);
             addedProduct.setItems(addData);
             sum.setText("Suma: "+addFibre.getSumFibre());
         }
+    }
+
+    private boolean contains() {
+        return index<addData.size();
     }
         /**
      ** Metoda, która ustawia kontroler klasy głownej
