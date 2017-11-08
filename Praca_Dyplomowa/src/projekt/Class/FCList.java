@@ -46,7 +46,10 @@ public class FCList implements ReadData {
             return null;
         }
     }
-
+/**
+ ** Metoda, która odczytuje dane z pliku txt. 
+ * @param path 
+ */
     @Override
     public void readData(String path) {
         list.clear();
