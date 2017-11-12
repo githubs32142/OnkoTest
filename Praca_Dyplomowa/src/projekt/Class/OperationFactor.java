@@ -26,7 +26,7 @@ public class OperationFactor {
         //  da się zrobić
         fact.add(new Factor("Brak aktywności fizycznej", "/projekt/HTML/aktywnosc_fizyczna.html", false, ""));
         // Diet bez reguł//
-        fact.add(new Factor("Niewłaściwa dieta", "/projekt/HTML/brak_owocow.html", true, "/projekt/FXML/Diet.fxml"));
+        fact.add(new Factor("Niewłaściwa dieta", "/projekt/HTML/brak_owocow.html", false, "/projekt/FXML/Diet.fxml"));
         //
         fact.add(new Factor("Brak naturalnych antyoksydantów", "/projekt/HTML/brak_naturalnych_antyoksydantow.html", false, ""));
         // Menopause 

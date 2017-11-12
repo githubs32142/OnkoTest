@@ -23,7 +23,7 @@
 (defrule rule2
 	(Sum ?sum )(test (= ?sum 0))
 	=>
-    ( printout t "Brak diagnozy." crlf)
+    ( printout t "Brak zagrożenia czynnikiem ryzyka." crlf)
 )
 (facts)
 (run)

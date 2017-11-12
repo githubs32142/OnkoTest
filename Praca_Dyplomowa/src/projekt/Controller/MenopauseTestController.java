@@ -19,6 +19,7 @@ import javafx.scene.Node;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.ProgressBar;
 import javafx.scene.control.RadioButton;
 import javafx.scene.control.ToggleGroup;
 import javafx.stage.Stage;
@@ -52,6 +53,10 @@ public class MenopauseTestController implements Initializable {
     List<String> a4List = new ArrayList<>();
     List<String> a5List = new ArrayList<>();// lista odpowiedzi na 5 pytanie
     List<Integer> pList = new ArrayList<>();// ilość punktów przyznanych za każdą odpowiedź
+    @FXML
+    private ProgressBar progres;
+    @FXML
+    private Label text;
 
     /**
      * Initializes the controller class.
@@ -77,6 +82,8 @@ public class MenopauseTestController implements Initializable {
         answer1.setText(a1List.get(0));
         answer2.setText(a2List.get(0));
         answer1.setSelected(true);
+        text.setText("Krok " + (index + 1) + "/" + pList.size());
+        progres.setProgress(((index + 1) / (double) pList.size()));
     }
 
     /**
@@ -106,8 +113,9 @@ public class MenopauseTestController implements Initializable {
      */
     @FXML
     private void next(ActionEvent event) {
-        if (index <= 4) {
+        if (index < 4) {
             index++;
+
         }
         if (index == 4) {
             makeAllDiagnose();
@@ -119,6 +127,8 @@ public class MenopauseTestController implements Initializable {
             if (index == 3) {
                 next.setText("Zakończ");
             }
+            text.setText("Krok " + (index + 1) + "/" + pList.size());
+            progres.setProgress(((index + 1) / (double) pList.size()));
             question.setText(qList.get(index));
             answer1.setText(a1List.get(index));
             answer2.setText(a2List.get(index));
@@ -145,6 +155,8 @@ public class MenopauseTestController implements Initializable {
             question.setText(qList.get(index));
             answer1.setText(a1List.get(index));
             answer2.setText(a2List.get(index));
+            text.setText("Krok " + (index + 1) + "/" + pList.size());
+            progres.setProgress(((index + 1) / pList.size()));
             if (pList.get(index) == 0) {
                 answer1.setSelected(true);
             }
@@ -159,7 +171,6 @@ public class MenopauseTestController implements Initializable {
      *
      * @param event obsługa zdarzenia
      */
-    @FXML
     private void closeWindow(ActionEvent event) {
         Stage stage;
         stage = (Stage) ((Node) (event.getSource())).getScene().getWindow();
@@ -222,6 +233,7 @@ public class MenopauseTestController implements Initializable {
         answer2.setText(a2List.get(getIndex()));
 
     }
+
     /**
      ** Metoda, która wykonuje diagnoze
      *
@@ -262,6 +274,7 @@ public class MenopauseTestController implements Initializable {
         }
 
     }
+
     /**
      ** Metoda, która ustawia kontroler klasy głownej
      *
