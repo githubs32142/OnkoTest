@@ -572,9 +572,6 @@
  *                                                                             *
  ******************************************************************************/
 
-.text-field{
-	-fx-skin: "projekt.style.MetroTextFieldSkin";
-}
 
 .text-input{
     -fx-background-radius: 0, 0;
@@ -889,7 +886,6 @@
  ******************************************************************************/
  
 .list-spinner { 
-    -fx-skin: "jfxtras.labs.internal.scene.control.skin.ListSpinnerCaspianSkin";
     -fx-background-color: #f0f0f0;
     -fx-background-insets: 0 0 0 0;
     -fx-background-radius: 0;

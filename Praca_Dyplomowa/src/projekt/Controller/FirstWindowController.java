@@ -117,7 +117,7 @@ public class FirstWindowController implements Initializable {
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        Platform.runLater(() -> {
+     /*   Platform.runLater(() -> {
             new FadeInRightTransition(name).play();
             new FadeInRightTransition(surname).play();
             new FadeInRightTransition(weight).play();
@@ -135,7 +135,7 @@ public class FirstWindowController implements Initializable {
             new FadeInUpTransition(close).play();
             new FadeInUpTransition(height).play();
             new FadeInUpTransition(eMail).play();
-        });
+        });*/
         sex.setItems(sexList);
         sex.getSelectionModel().selectFirst();
         root.setOnMousePressed(new EventHandler<MouseEvent>() {

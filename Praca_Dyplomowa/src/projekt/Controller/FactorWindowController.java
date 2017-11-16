@@ -109,15 +109,12 @@ public class FactorWindowController implements Initializable {
      ** Konstruktor bezparametrowy
      */
     public FactorWindowController() {
-        this.leftSelected = 0;
-        sw = new SymptomWindowController();
-        cif = new CancerInFamillyController();
+       this.leftSelected = 0;
+       sw = new SymptomWindowController();
+       cif = new CancerInFamillyController();
        data = FXCollections.observableArrayList();
        dataRight = FXCollections.observableArrayList();
-        
-        factors = new JFXListView<>();
-        factors.setItems(data);
-        addedFactor = new ListView<>(dataRight);
+
     }
 
     /**
@@ -173,6 +170,10 @@ public class FactorWindowController implements Initializable {
                 stage.setY(event.getScreenY() - yOffset);
             }
         });
+                
+        factors = new JFXListView<>();
+        factors.setItems(data);
+        addedFactor = new ListView<>(dataRight);
     }
 
     /**

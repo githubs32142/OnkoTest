@@ -584,9 +584,6 @@
  *                                                                             *
  ******************************************************************************/
 
-.text-field{
-    -fx-skin: "projekt.style.MetroTextFieldSkin";
-}
 
 .text-input{
     -fx-background-radius: 0, 0;
@@ -659,9 +656,6 @@
  *                                                                             *
  ******************************************************************************/
 
-.password-field {
-    -fx-skin: "projekt.style.MetroPasswordFieldSkin";
-}
 
 .password-field > .right-button > .right-button-graphic {
     -fx-shape            : "M307.688,399.564c0,1.484-1.203,2.688-2.688,2.688c-1.484,0-2.688-1.203-2.688-2.688s1.203-2.688,2.688-2.688C306.484,396.876,307.688,398.08,307.688,399.564z M297.5,399h2.5c0,0,1.063-4,5-4c3.688,0,5,4,5,4h2.5c0,0-2.063-6.5-7.5-6.5C299,392.5,297.5,399,297.5,399z";
@@ -922,7 +916,6 @@
  ******************************************************************************/
  
 .list-spinner { 
-    -fx-skin: "jfxtras.labs.internal.scene.control.skin.ListSpinnerCaspianSkin";
     -fx-background-color: #f0f0f0;
     -fx-background-insets: 0 0 0 0;
     -fx-background-radius: 0;
