@@ -95,7 +95,7 @@ public class CancerInFamillyController implements Initializable {
         listCancer = FXCollections.observableArrayList("Rak płuc", "Rak jelita grubrgo", "Rak piersi", "Rak jąder", "Rak gruczołu krokowego", "Guz mózgu", "Rak szyjki macicy", "Rak płuc", "Rak trzustki", "Rak żołądka", "Rak macicy", "Rak krtani","Rak jajnika");
         listFamilly = FXCollections.observableArrayList("Brat", "Siostra", "Ojciec", "Matka", "Dziadek", "Babcia", "Wujek", "Ciotka");
         cancer = new TableColumn("Rak w rodzinie");
-        cancer.setMinWidth(280);
+        cancer.setMinWidth(300);
         cancer.setCellValueFactory(
                 new PropertyValueFactory<>("cancer"));
         familly = new TableColumn("Rodzina ");
@@ -107,7 +107,7 @@ public class CancerInFamillyController implements Initializable {
         famillyCombo.setItems(listFamilly);
         cancerCombo.setItems(listCancer);
         index = -1;
-        data.add(new CancerFamilly("", ""));
+        addIfEmpty();
         table.setItems(data);
         drawer.setSidePane(box);
         drawer.close();
@@ -336,7 +336,13 @@ public class CancerInFamillyController implements Initializable {
      * @param cf rak w rodzinie
      */
     public void addCancer(CancerFamilly cf) {
-        data.add(cf);
+        if(data.size()==1 && data.get(0).getCancer().isEmpty()){
+            data.set(0, cf);
+        }
+        else{
+            data.add(cf);
+        }
+        
     }
 
     /**
@@ -384,9 +390,16 @@ public class CancerInFamillyController implements Initializable {
             index = table.getSelectionModel().getSelectedIndex();
             if (selGoodRow()) {
                 data.remove(index);
+                addIfEmpty();
             } else {
                 showOutputMessage("Nie zaznaczyłeś żadnego wiersza");
             }
+        }
+    }
+
+    private void addIfEmpty() {
+        if(data.isEmpty()){
+            data.add(new CancerFamilly("", ""));
         }
     }
 

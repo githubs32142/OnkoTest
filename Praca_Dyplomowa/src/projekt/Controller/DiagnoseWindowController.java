@@ -2,29 +2,14 @@ package projekt.Controller;
 
 import com.itextpdf.text.Document;
 import com.itextpdf.text.DocumentException;
-import com.itextpdf.text.pdf.PdfWriter;
-import com.itextpdf.tool.xml.XMLWorker;
-import com.itextpdf.tool.xml.XMLWorkerHelper;
-import com.itextpdf.tool.xml.css.CssFile;
-import com.itextpdf.tool.xml.css.StyleAttrCSSResolver;
-import com.itextpdf.tool.xml.html.Tags;
-import com.itextpdf.tool.xml.parser.XMLParser;
-import com.itextpdf.tool.xml.pipeline.css.CSSResolver;
-import com.itextpdf.tool.xml.pipeline.css.CssResolverPipeline;
-import com.itextpdf.tool.xml.pipeline.end.PdfWriterPipeline;
-import com.itextpdf.tool.xml.pipeline.html.HtmlPipeline;
-import com.itextpdf.tool.xml.pipeline.html.HtmlPipelineContext;
 import com.jfoenix.controls.JFXDrawer;
 import com.jfoenix.controls.JFXHamburger;
 import com.jfoenix.transitions.hamburger.HamburgerBackArrowBasicTransition;
 import java.io.File;
-import java.io.FileInputStream;
 import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
-import javafx.animation.FadeTransition;
 import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -46,7 +31,6 @@ import javafx.stage.FileChooser;
 import javafx.stage.FileChooser.ExtensionFilter;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
-import javafx.util.Duration;
 import projekt.Class.CancerFamilly;
 import projekt.Class.Person;
 
@@ -68,8 +52,6 @@ public class DiagnoseWindowController implements Initializable {
     Double w, h;
     @FXML
     private WebView webView;
-    @FXML
-    private Button btnLogout;
     @FXML
     private JFXHamburger hamburger;
     @FXML
@@ -219,9 +201,6 @@ public class DiagnoseWindowController implements Initializable {
         this.person = person;
     }
 
-    @FXML
-    private void undoClicked(ActionEvent event) {
-    }
 
     /**
      ** Metoda, która pozwala na zapisa wyniku diagnozy do pliku pdf
@@ -264,6 +243,23 @@ public class DiagnoseWindowController implements Initializable {
         stage.close();
         Stage primaryStage= new Stage();
         FXMLLoader load = new FXMLLoader(this.getClass().getResource("/projekt/FXML/FirstWindow.fxml"));
+                Parent parent = null;
+                try {
+                    parent = load.load();
+                } catch (IOException ex) {
+                    System.err.println(ex.getMessage());
+                }
+                Scene scene = new Scene(parent);
+                primaryStage.setScene(scene);
+                primaryStage.setResizable(false);
+                primaryStage.initStyle(StageStyle.UNDECORATED);
+                primaryStage.show();
+    }
+
+    @FXML
+    private void newAboutWindow(ActionEvent event) {
+        Stage primaryStage= new Stage();
+        FXMLLoader load = new FXMLLoader(this.getClass().getResource("/projekt/FXML/About.fxml"));
                 Parent parent = null;
                 try {
                     parent = load.load();

@@ -117,7 +117,7 @@ public class FirstWindowController implements Initializable {
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-     /*   Platform.runLater(() -> {
+        Platform.runLater(() -> {
             new FadeInRightTransition(name).play();
             new FadeInRightTransition(surname).play();
             new FadeInRightTransition(weight).play();
@@ -135,7 +135,7 @@ public class FirstWindowController implements Initializable {
             new FadeInUpTransition(close).play();
             new FadeInUpTransition(height).play();
             new FadeInUpTransition(eMail).play();
-        });*/
+        });
         sex.setItems(sexList);
         sex.getSelectionModel().selectFirst();
         root.setOnMousePressed(new EventHandler<MouseEvent>() {
@@ -156,7 +156,7 @@ public class FirstWindowController implements Initializable {
             }
         });
         new TTFirstWindnow(this);
-    
+
     }
 
     /**
@@ -182,21 +182,21 @@ public class FirstWindowController implements Initializable {
                         h = w.intValue();
                         w = 0.0;
                     } else {
-                        showOutputMessage("Nie poprawnie wprowadzono dane na temat wzrostu.\nWzrost podajemy w centymertrach!");
+                        showOutputMessage("Niepoprawnie wprowadzono dane na temat wzrostu.\nWzrost podajemy w centymertrach!");
                         return;
                     }
 
                     if (CheckReg.checkWeight(weight.getText()) || CheckReg.checkWeight2(weight.getText())) {
                         w = Double.valueOf(weight.getText());
                     } else {
-                        showOutputMessage("Nie poprawnie wprowadzono dane na temat wagi.\nWagę podajemy w kilogramach!");
+                        showOutputMessage("Niepoprawnie wprowadzono dane na temat wagi.\nWagę podajemy w kilogramach!");
                         return;
                     }
 
                     if (CheckReg.checkAge(age.getText())) {
                         a = Integer.parseInt(age.getText());
                     } else {
-                        showOutputMessage("Nie poprawnie wprowadzono dane na temat wieku.\nWiek podajemy w latach!");
+                        showOutputMessage("Niepoprawnie wprowadzono dane na temat wieku.\nWiek podajemy w latach!");
                         return;
                     }
 
@@ -229,7 +229,7 @@ public class FirstWindowController implements Initializable {
                         showOutputMessage("Wprowadzony adres e-mail jest nieprawidłowy.\nPrzkładowy poprawny adres e-mail: jan_kowalski@email.com");
                     }
                 } catch (IOException | NumberFormatException e) {
-                    showOutputMessage("Nie poprawnie wprowadzono dane na temat wagi.\nWagę podajemy w kilogramach!");
+                    showOutputMessage("Niepoprawnie wprowadzono dane na temat wagi.\nWagę podajemy w kilogramach!");
                 }
             } else {
                 showOutputMessage("Wypełnij pola które nie zostały jeszcze uzupełnione");
@@ -246,21 +246,21 @@ public class FirstWindowController implements Initializable {
                             h = w.intValue();
                             w = 0.0;
                         } else {
-                            showOutputMessage("Nie poprawnie wprowadzono dane na temat wzrostu.\nWzrost podajemy w centymertrach!");
+                            showOutputMessage("Niepoprawnie wprowadzono dane na temat wzrostu.\nWzrost podajemy w centymertrach!");
                             return;
                         }
 
                         if (CheckReg.checkWeight(weight.getText()) || CheckReg.checkWeight2(weight.getText())) {
                             w = Double.valueOf(weight.getText());
                         } else {
-                            showOutputMessage("Nie poprawnie wprowadzono dane na temat wagi.\nWagę podajemy w kilogramach!");
+                            showOutputMessage("Niepoprawnie wprowadzono dane na temat wagi.\nWagę podajemy w kilogramach!");
                             return;
                         }
 
                         if (CheckReg.checkAge(age.getText())) {
                             a = Integer.parseInt(age.getText());
                         } else {
-                            showOutputMessage("Nie poprawnie wprowadzono dane na temat wieku.\nWiek podajemy w latach!");
+                            showOutputMessage("Niepoprawnie wprowadzono dane na temat wieku.\nWiek podajemy w latach!");
                             return;
                         }
 
@@ -290,7 +290,7 @@ public class FirstWindowController implements Initializable {
                         stage = (Stage) ((Node) (event.getSource())).getScene().getWindow();
                         stage.close();
                     } else {
-                        showOutputMessage("Nie poprawnie wprowadzono imie i/lub nazwisko.\nKażde imię i nazwisko powinno zaczynać się od dużej litery\nPrzykład prawidłowego imienia: Jan \nPrzykład prawidłowego nazwiska: Nowak");
+                        showOutputMessage("Niepoprawnie wprowadzono imie i/lub nazwisko.\nKażde imię i nazwisko powinno zaczynać się od dużej litery\nPrzykład prawidłowego imienia: Jan \nPrzykład prawidłowego nazwiska: Nowak");
                     }
                 } catch (IOException | NumberFormatException e) {
                     showOutputMessage(e.toString());
@@ -474,6 +474,5 @@ public class FirstWindowController implements Initializable {
     public void setWeight(TextField weight) {
         this.weight = weight;
     }
-    
 
 }

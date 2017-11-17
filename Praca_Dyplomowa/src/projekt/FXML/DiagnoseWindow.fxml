@@ -64,6 +64,11 @@
                                         <Cursor fx:constant="HAND" />
                                     </cursor>
                                 </Button>
+                        <Button mnemonicParsing="false" onAction="#newAboutWindow" prefHeight="44.0" prefWidth="144.0" styleClass="btn" text="O autorze">
+                           <cursor>
+                              <Cursor fx:constant="HAND" />
+                           </cursor>
+                        </Button>
                             </children>
                         </VBox>
                     </children>

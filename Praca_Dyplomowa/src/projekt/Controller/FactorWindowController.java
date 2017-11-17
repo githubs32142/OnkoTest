@@ -171,9 +171,8 @@ public class FactorWindowController implements Initializable {
             }
         });
                 
-        factors = new JFXListView<>();
         factors.setItems(data);
-        addedFactor = new ListView<>(dataRight);
+        addedFactor.setItems(dataRight);
     }
 
     /**
