@@ -24,6 +24,8 @@ public class Person {
         this.sex = sex;
         double tmp = height;
         bmi = weight / (((tmp / 100) * (tmp / 100)));
+        double roundOff = Math.round(bmi * 100.0) / 100.0;
+        bmi=roundOff;
         this.height = height;
         email = "";
     }

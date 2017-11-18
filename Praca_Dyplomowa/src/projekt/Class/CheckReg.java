@@ -64,9 +64,9 @@ public class CheckReg {
      * 210 zwróci prawdę <br/>
      */
     public static boolean checkHeightCent(String word) {
-        Pattern p = Pattern.compile("[1-9]{1}[0-9]{1,2}");
+        Pattern p = Pattern.compile("[1-2]{1}[0-9]{1,2}|[1-9]{1}[0-9]{1}");
         Matcher matcher = p.matcher(word);
-        return matcher.matches(); //zwraca true lub false
+        return matcher.matches(); //zwraca true lub falSse
     }
 
     /**
@@ -79,7 +79,7 @@ public class CheckReg {
      * 210.213 zwróci prawdę
      */
     public static boolean checkWeight(String word) {
-        Pattern p = Pattern.compile("[1-9]{1}[0-9]{1,2}[.]{1}[0-9]*");
+        Pattern p = Pattern.compile("[1-9]{1}[0-9]{1}[.]{1}[0-9]*|[1-3]{1}[0-9]{1,2}[.]{1}[0-9]*");
         Matcher matcher = p.matcher(word);
         return matcher.matches(); //zwraca true lub false
     }
@@ -103,7 +103,7 @@ public class CheckReg {
      * @return prawdę jeżeli wage podano poprawnie
      */
     public static boolean checkAge(String word) {
-        Pattern p = Pattern.compile("[1-9]{1}|[1-9]{1}[0-9]{1,2}");
+        Pattern p = Pattern.compile("[1-9]{1}|[1-9]{1}[0-9]{1}|[1]{1}[0-4]{1}[0-9]{1}");
         Matcher matcher = p.matcher(word);
         
         return matcher.matches(); //zwraca true lub false

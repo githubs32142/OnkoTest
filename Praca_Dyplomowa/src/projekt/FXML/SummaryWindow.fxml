@@ -49,7 +49,7 @@
                 <Cursor fx:constant="DEFAULT" />
             </cursor>
         </TableView>
-        <Label layoutX="353.0" layoutY="323.0" prefHeight="30.0" prefWidth="173.0" styleClass="lbl2" text="Rak w rodzinie:" AnchorPane.leftAnchor="353.0" AnchorPane.rightAnchor="374.0" AnchorPane.topAnchor="323.0" />
+        <Label layoutX="386.0" layoutY="343.0" prefHeight="30.0" prefWidth="173.0" styleClass="lbl2" text="Rak w rodzinie:" AnchorPane.leftAnchor="386.0" AnchorPane.rightAnchor="341.0" AnchorPane.topAnchor="343.0" />
         <Button layoutX="64.0" layoutY="323.0" mnemonicParsing="false" onAction="#backToFactor" prefHeight="29.0" prefWidth="117.0" styleClass="btn" text="&lt;&lt;  Powrót " AnchorPane.bottomAnchor="298.0" AnchorPane.leftAnchor="64.0">
             <cursor>
                 <Cursor fx:constant="HAND" />
