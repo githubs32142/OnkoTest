@@ -37,14 +37,13 @@ public class TList implements ReadData, Operation {
             FileInputStream fis = new FileInputStream(path);
             InputStreamReader isr = new InputStreamReader(fis, "UTF8");
             try (Reader in = new BufferedReader(isr)) {
-                int ch;
-                while ((ch = in.read()) > -1) {
-                    buffer.append((char) ch);
+                int charSymbol;
+                while ((charSymbol = in.read()) > -1) {
+                    buffer.append((char) charSymbol);
                 }
             }
             return buffer.toString();
         } catch (IOException e) {
-            e.printStackTrace();
             return null;
         }
     }
@@ -54,18 +53,28 @@ public class TList implements ReadData, Operation {
         listRiskFactor.clear();
         String line = readInput(path);
         StringTokenizer st = new StringTokenizer(line, "-;");
-        boolean count = true;
+        boolean addNewObject = true;
         while (st.hasMoreElements()) {
-            if (count) {
-                listRiskFactor.add(new TObject());
-                listRiskFactor.get(listRiskFactor.size() - 1).setFactor(st.nextElement().toString());
+            if (addNewObject) {
+                addNewObject();
+                addFullName(st);
             } else {
-                listRiskFactor.get(listRiskFactor.size() - 1).setAlias(st.nextElement().toString());
-                // System.out.println(listRiskFactor.get(listRiskFactor.size() - 1).getAlias());
-                //  System.out.println(st.nextElement().toString());
+                addAlias(st);
             }
-            count = !count;
+            addNewObject = !addNewObject;
         }
+    }
+
+    private void addNewObject() {
+        listRiskFactor.add(new TObject());
+    }
+
+    private void addAlias(StringTokenizer st) {
+        listRiskFactor.get(listRiskFactor.size() - 1).setAlias(st.nextElement().toString());
+    }
+
+    private void addFullName(StringTokenizer st) {
+        listRiskFactor.get(listRiskFactor.size() - 1).setFactor(st.nextElement().toString());
     }
 
     @Override
@@ -90,7 +99,6 @@ public class TList implements ReadData, Operation {
 
     @Override
     public String makeAssert(String s) {
-
         StringBuilder str = new StringBuilder();
         str.append("( assert ( ").append(s);
         for (int i = 0; i < listRiskFactor.size(); i++) {

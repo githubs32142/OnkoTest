@@ -46,10 +46,12 @@ public class FCList implements ReadData {
             return null;
         }
     }
-/**
- ** Metoda, która odczytuje dane z pliku txt. 
- * @param path 
- */
+
+    /**
+     ** Metoda, która odczytuje dane z pliku txt.
+     *
+     * @param path
+     */
     @Override
     public void readData(String path) {
         list.clear();
@@ -80,8 +82,8 @@ public class FCList implements ReadData {
     public String toString() {
         StringBuilder str = new StringBuilder();
         for (int i = 0; i < list.size(); i++) {
-          //  str.append(list.get(i).getFamily()).append(" ").append(list.get(i).getCancer()).append(" ").append(list.get(i).getAlians());
-          str.append("(slot ").append(list.get(i).getAlians()).append(")\n");
+            //  str.append(list.get(i).getFamily()).append(" ").append(list.get(i).getCancer()).append(" ").append(list.get(i).getAlians());
+            str.append("(slot ").append(list.get(i).getAlians()).append(")\n");
         }
         return str.toString();
     }
@@ -108,14 +110,16 @@ public class FCList implements ReadData {
     public void makeOperation(List<CancerFamilly> list) {
         int tmp = 0;
         for (int i = 0; i < this.list.size(); i++) {
+            tmp = 0;
             for (int j = 0; j < list.size(); j++) {
                 if (EqualString.equals(this.list.get(i).getCancer(), list.get(j).getCancer()) && EqualString.equals(this.list.get(i).getFamily(), list.get(j).getFamilly())) {
-                    this.list.get(i).setAdded(true);
+                    tmp++;
+
                 }
-                tmp++;
+
             }
+            this.list.get(i).setAdded(tmp);
         }
-        System.out.println("ilość operacji " + tmp);
     }
 
     public int size() {

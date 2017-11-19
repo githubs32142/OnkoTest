@@ -18,6 +18,7 @@ Chudnięcie-chudniecie;
 Krew w stolcu-kr_stolc;
 Śluz w stolcu-sl_stolcu;
 Zmiana trybu wypróżniania(zaparcia lub biegunka)-zm_tr_wypozniania;
+Wyczuwalne guzki w gruczole krokowym-wycz_guz_krok;
 Aymetria gruczołu krokowego-as_gr_krok;
 Wyczuwalne guzki w piersi-guz_w_piersi;
 Aymetria piersi-as_piersi;

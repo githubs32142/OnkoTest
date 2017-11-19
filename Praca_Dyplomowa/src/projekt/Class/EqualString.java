@@ -18,12 +18,12 @@ public class EqualString {
         StringBuilder sTmp= new StringBuilder();
         StringBuilder s2Tmp=new StringBuilder();
         for(int i=0;i<s.length();i++){
-            if(((int)s.charAt(i)>64 && (int)s.charAt(i)<=90)|| ((int)s.charAt(i)>=97 && (int)s.charAt(i)<=122) ){
+            if(containsSign(s, i) ){
                 sTmp.append(s.charAt(i));
             }
         }
         for(int i=0;i<s2.length();i++){
-            if(((int)s2.charAt(i)>64 && (int)s2.charAt(i)<=90)|| ((int)s2.charAt(i)>=97 && (int)s2.charAt(i)<=122) ){
+            if(containsSign(s2, i) ){
                 s2Tmp.append(s2.charAt(i));
             }
         }
@@ -32,17 +32,25 @@ public class EqualString {
         }
         else{
             for(int i=0;i<sTmp.length();i++){
-                if(sTmp.charAt(i)!=s2Tmp.charAt(i)){
+                if(isOtherSign(sTmp, i, s2Tmp)){
                     return false;
                 }
             }
         }
         return true;
     }
+
+    private static boolean isOtherSign(StringBuilder sTmp, int i, StringBuilder s2Tmp) {
+        return sTmp.charAt(i)!=s2Tmp.charAt(i);
+    }
+
+    private static boolean containsSign(String s, int i) {
+        return ((int)s.charAt(i)>64 && (int)s.charAt(i)<=90)|| ((int)s.charAt(i)>=97 && (int)s.charAt(i)<=122);
+    }
     public static String removeChar(String s){
         StringBuilder sTmp= new StringBuilder();
         for(int i=0;i<s.length();i++){
-            if(((int)s.charAt(i)>64 && (int)s.charAt(i)<=90)|| ((int)s.charAt(i)>=97 && (int)s.charAt(i)<=122) ){
+            if(containsSign(s, i) ){
                 sTmp.append(s.charAt(i));
             }
         }

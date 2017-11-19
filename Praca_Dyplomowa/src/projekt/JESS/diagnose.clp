@@ -11,7 +11,7 @@
 (deftemplate Rakjelitagrubego
 (slot istnieje))
 
-(deftemplate Rakgruczolukrokowego
+(deftemplate Rakgruczolukrokowy
 (slot istnieje))
 
 (deftemplate Rakpiersi
@@ -53,7 +53,6 @@
 (slot w_r_piersi)
 (slot bezdzietnosc)
 )
-
 (deftemplate Symptoms
 (slot goraczka)
 (slot oslabienie)
@@ -178,29 +177,31 @@
 (slot ciotka_jajnik)
 )
 
-; ############Reguły dotycz±ce raka płuc###########
-(defrule rulerp1
+
+
+; ############Reguły dotyczące raka płuc###########
+(defrule cancerp00
          (and (RiskFactor (pal_papierosow 1) ) (exists (or (Symptoms (goraczka 1)) (Symptoms(pokaslywanie 1)) (Symptoms(chudniecie 1))  (Symptoms(oslabienie 1)  ))))
 	=>
 	 (assert (Rakpluc (istnieje 1)))
 )
-(defrule rulerp2
+(defrule cancerp01
          (and (RiskFactor (pal_papierosow 1) ) (exists (and (Symptoms(pokaslywanie 1)) (Symptoms(chudniecie 1))  )))
 	=>
 	 (assert (Rakpluc (istnieje 1)))
 )
-(defrule rulerp3
+(defrule cancerp02
          (and (RiskFactor (pal_papierosow 1) ))
 	=>
 	(assert (Rakpluc (istnieje 1)))
 )
 
-(defrule rulerp4
+(defrule cancerp03
           (and (Symptoms (goraczka 1)) (Symptoms(pokaslywanie 1)) (Symptoms(chudniecie 1))  (Symptoms(oslabienie 1)  ))
 	=>
 	 (assert (Rakpluc (istnieje 1)))
 )
-(defrule RakPluc
+(defrule cancerp04
     (Rakpluc (istnieje 1))
     =>
     (printout t "Prawdopodobieństwo ryzyka raka płuc. Zalecenia:Wykonać badanie RTG lub TK klatki piersiowej"crlf )
@@ -209,130 +210,256 @@
 
 ; ###############Reguły dotycz±ce raka jelita grubego###############
 
-( defrule sm_cz
+(defrule cancerjg00
 	( RiskFactor (otylosc ?ans1 )(diet_w_tluszcze ?ans2 )(br_akt_fizycznej ?ans3 ) (cz_sp_czerw_mieso ?ans4 ) (spoz_pok_smazonych ?ans5 ) (spoz_pok_grill ?ans6 ))
 	=>
-	(assert (Sum6 (+ ?ans1 ?ans2 ?ans3 ?ans4 ?ans5 ?ans6 )))
+	(assert (Sumcjg (+ ?ans1 ?ans2 ?ans3 ?ans4 ?ans5 ?ans6 )))
 )
-(defrule person1
+
+(defrule cancerjg01
+	(Sumcjg ?tmp )(test (> ?tmp 2))
+	=>
+	(assert (Rakjelitagrubego (istnieje 1)))
+)
+
+
+(defrule cancerjg02
 	(Person ( age ?age ) )(test (> ?age 49))
  =>
         (assert (Sum (+ 0 1)))
 )
 
-(defrule rulerjg0
-          (exists (or (FamillyCancer (brat_jelito 1)) (FamillyCancer(siostra_jelito 1)) (FamillyCancer(ojciec_jelito 1))  (FamillyCancer(matka_jelito 1)  )))
+(defrule cancerjg03
+	(and (Sumcjg ?sum6 ) (Sum ?sum))
 	=>
-	 (assert (Sum2 (+ 0 1)))
+	(assert (Sumcjg01 (+ ?sum6  ?sum )))
 )
 
-(defrule rulerjg8
+(defrule cancerjg04
+	(Sumcjg01 ?tmp )(test (> ?tmp 2))
+	=>
+	(assert (Rakjelitagrubego (istnieje 1)))
+)
+
+(defrule cancerjg05
+	( FamillyCancer (brat_jelito ?ans1 )(siostra_jelito ?ans2 )(ojciec_jelito ?ans3 ) (matka_jelito ?ans4 ) )
+	=>
+	(assert (SumJGG (+ ?ans1 ?ans2 ?ans3 ?ans4  )))
+)
+
+(defrule cancerjg06
+	(SumJGG  ?tmp )(test (> ?tmp 0))
+ =>
+        (assert (Sum2 (+ 0 1)))
+)
+
+(defrule cancerjg07
+	(and (Sumcjg ?sum6 ) (Sum2 ?sum2))
+	=>
+	(assert (Sumcjg02 (+ ?sum6  ?sum2 )))
+)
+
+(defrule cancerjg08
+	(Sumcjg02 ?tmp )(test (> ?tmp 2))
+	=>
+	(assert (Rakjelitagrubego (istnieje 1)))
+)
+
+(defrule cancerjg09
+	(and (Sumcjg ?sum6 ) (Sum ?sum) (Sum2 ?sum2) )
+	=>
+	(assert (Sumcjg03 (+ ?sum6  ?sum ?sum2 )))
+)
+
+(defrule cancerjg10
+	(Sumcjg03 ?tmp )(test (> ?tmp 2))
+	=>
+	(assert (Rakjelitagrubego (istnieje 1)))
+)
+
+(defrule cancerjg11
  (or( and (or (FamillyCancer (brat_jelito 1))(FamillyCancer (siostra_jelito 1))) (or (FamillyCancer (ojciec_jelito 1))(FamillyCancer (matka_jelito 1))))( and (or (FamillyCancer (ojciec_jelito 1))(FamillyCancer (matka_jelito 1))) (or (FamillyCancer (dziadek_jelito 1))(FamillyCancer (babcia_jelito 1)))) )
 	=>
 	 (assert (Sum2Pok (+ 0 1)))
 )
-
-(defrule rulerjg1
-	(and (Sum6 ?sum6 ) (Sum ?sum) (Sum2 ?sum2) (Sum2Pok ?sum2p))
+(defrule cancerjg12
+	(and (Sumcjg ?sum6 ) (Sum2Pok ?s2p) )
 	=>
-	(assert (CancerJG (+ ?sum6  ?sum ?sum2 ?sum2p)))
+	(assert (Sumcjg04 (+ ?sum6  ?s2p )))
 )
 
-(defrule rulerjg2
-	(CancerJG ?tmp )(test (> ?tmp 2))
+(defrule cancerjg13
+	(Sumcjg04 ?tmp )(test (> ?tmp 2))
+	=>
+	(assert (Rakjelitagrubego (istnieje 1))) 
+)
+
+(defrule cancerjg14
+	(and (Sumcjg ?sum6 ) (Sum ?sum) (Sum2Pok ?s2p) )
+	=>
+	(assert (Sumcjg05 (+ ?sum6 ?sum  ?s2p )))
+)
+
+(defrule cancerjg15
+	(Sumcjg05 ?tmp )(test (> ?tmp 2))
+	=>
+	(assert (Rakjelitagrubego (istnieje 1))) 
+)
+(defrule cancerjg16
+	(and (Sumcjg ?sum6 ) (Sum2 ?sum2) (Sum2Pok ?s2p) )
+	=>
+	(assert (Sumcjg06 (+ ?sum6 ?sum2  ?s2p )))
+)
+
+(defrule cancerjg17
+	(Sumcjg06 ?tmp )(test (> ?tmp 2))
+	=>
+	(assert (Rakjelitagrubego (istnieje 1))) 
+)
+
+(defrule cancerjg18
+	(and (Sumcjg ?sum6 ) (Sum ?sum) (Sum2 ?sum2) (Sum2Pok ?sum2p))
+	=>
+	(assert (Sumcjg07 (+ ?sum6  ?sum ?sum2 ?sum2p)))
+)
+
+(defrule cancerjg19
+	(Sumcjg07 ?tmp )(test (> ?tmp 2))
 	=>
 	(assert (Rakjelitagrubego (istnieje 1)))
 )
-(defrule rulerjg3
+(defrule cancerjg20
          (and (Symptoms (zm_tr_wypozniania 1) ) (exists (or (Symptoms(kr_stolc 1)) (Symptoms(sl_stolcu 1))  )))
 	=>
 	 (assert (Rakjelitagrubego (istnieje 1)))
 )
 
-(defrule rulerjg4
+(defrule cancerjg21
           (exists (and (Symptoms(kr_stolc 1)) (Symptoms(sl_stolcu 1))  ))
 	=>
 	(assert (Rakjelitagrubego (istnieje 1)))
 )
 
-(defrule RakJelitaGrubego
+(defrule cancerjg22
     (Rakjelitagrubego (istnieje 1))
     =>
-    (printout t "Prawdopodobieństwo zachorowania na raka jelita grubego. Zalecenia: Wykonać kolonoskopie, badanie kału na krew utajon±, sigmoidoskopia. "crlf )
+    (printout t "Prawdopodobieństwo zachorowania na raka jelita grubego. Zalecenia: Wykonać kolonoskopie, badanie kału na krew utajoną, sigmoidoskopia. "crlf )
 
 )
 
-; ###############Reguły dotycz±ce raka piersi(nie wszystko) #####################
-( defrule sm_cz2
+; ###############Reguły dotyczące raka piersi #####################
+(defrule cancerpp00
 	( RiskFactor (dos_antykoncepcja ?ans1 )(sz_miesiacza ?ans2 )(poz_w_rodzenia ?ans3 ) (br_akt_fizycznej ?ans4 ) (w_r_piersi ?ans5 ) (sp_alkohol ?ans6 ) (menopazua_otylosc ?ans7 ) )
 	=>
-	(assert (Sum7 (+ ?ans1 ?ans2 ?ans3 ?ans4 ?ans5 ?ans6 ?ans7 )))
+	(assert (Sumpp00 (+ ?ans1 ?ans2 ?ans3 ?ans4 ?ans5 ?ans6 ?ans7 )))
 )
 
-(defrule rulerpp1
-	(and (Sum7 ?sum7 ) (Sum ?sum) )
-	=>
-	(assert (CancerPP (+ ?sum7  ?sum  )))
-)
-
-(defrule rulerpp2
-	(CancerPP ?tmp )(test (> ?tmp 2))
+(defrule cancerpp01
+	(Sumpp00 ?tmp )(test (> ?tmp 2))
 	=>
 	(assert (Rakpiersi (istnieje 1)))
 )
-(defrule rulerpp3
+
+(defrule cancerpp02
+	(and (Sumpp00 ?sumpp ) (Sum ?sum) )
+	=>
+	(assert (Sumpp01 (+ ?sumpp  ?sum  )))
+)
+
+(defrule cancerpp03
+	(Sumpp00 ?tmp )(test (> ?tmp 2))
+	=>
+	(assert (Rakpiersi (istnieje 1)))
+)
+
+(defrule cancerpp04
           (exists (or (Symptoms (guz_w_piersi 1)) (Symptoms(as_piersi 1)) (Symptoms(sk_na_piersi 1))  (Symptoms(wciek_brodawka 1)  )))
 	=>
 	 (assert (Rakpiersi (istnieje 1)))
 )
 
-(defrule RakPiersi
+(defrule cancerpp05
     (Rakpiersi (istnieje 1))
     =>
     (printout t "Istnieje ryzyko zachorowania na raka piersi. Zalecienia: Wykonć badanie USG piersi, resonans magnetyczny, oznaczenie markera CA-125."crlf )
 
 )
 
-;############## Reguły dotycz±ce raka gruczołu krokowego#####################
+;############## Reguły dotyczące raka gruczołu krokowego#####################
 
-( defrule sm_cz3
+(defrule cancergk00
 	( RiskFactor (br_akt_fizycznej ?ans1 )(cz_sp_czerw_mieso ?ans2 )(otylosc ?ans3 ) (pal_papierosow ?ans4 )  )
 	=>
-	(assert (Sum4 (+ ?ans1 ?ans2 ?ans3 ?ans4  )))
+	(assert (Sum9 (+ ?ans1 ?ans2 ?ans3 ?ans4  )))
 )
 
-(defrule person2
+(defrule cancergk01
 	(Person ( age ?age ) )(test (> ?age 59))
  =>
         (assert (SumAge2 (+ 0 1)))
 )
 
-(defrule rulergk1
-          (exists (or (FamillyCancer (brat_gru_krok 1)) (FamillyCancer(siostra_gru_krok 1)) (FamillyCancer(ojciec_gru_krok 1))  (FamillyCancer(matka_gru_krok 1)  )))
-	=>
-	 (assert (SumFamilly2 (+ 0 1)))
+(defrule cancergk02
+	(Sum9  ?sm99 )(test (> ?sm99 2))
+ =>
+        (assert (Rakgruczolukrokowy (istnieje 1)))
 )
 
-(defrule rulergk2
-	(and (Sum4 ?sum4 ) (SumAge2 ?sumage2) (SumFamilly2 ?sumfamilly2))
-	=>
-	(assert (CancerGK (+ ?sum4  ?sumage2 ?sumfamilly2 )))
+(defrule cancergk03
+	(Sum9 ?s99 ) (SumAge2 ?sag2)
+ =>
+        (assert (sumcgk02 (+ ?s99  ?sag2)))
+)
+(defrule cancergk04
+	(sumcgk02  ?smgk )(test (> ?smgk 2))
+ =>
+        (assert (Rakgruczolukrokowy (istnieje 1)))
 )
 
-(defrule rulergk3
-	(CancerGK ?tmp )(test (> ?tmp 2))
+(defrule cancergk05
+	( FamillyCancer (brat_gru_krok ?ans1 )(ojciec_gru_krok ?ans2 ) )
 	=>
-	(assert (Rakgruczolukrokowego (istnieje 1)))
+	(assert (SumGK (+ ?ans1 ?ans2   )))
 )
 
-(defrule rulergk4
-         (exists (and (Symptoms(wycz_guz_krok 1)) (Symptoms(as_gr_krok 1))  ))
-	=>
-	 (assert (Rakgruczolukrokowego (istnieje 1)))
+(defrule cancergk06
+	(SumGK  ?sgk )(test (> ?sgk 0))
+ =>
+        (assert (SumFamilly2 (+ 0 1)))
+		
 )
 
-(defrule RakGruczoluKrokowego
-    (Rakgruczolukrokowego (istnieje 1))
+(defrule cancergk07
+	(Sum9 ?s9a ) (SumFamilly2 ?sfmc)
+ =>
+        (assert (sumcgk03 (+ ?s9a  ?sfmc)))
+)
+(defrule cancergk08
+	(sumcgk03  ?smgk3 )(test (> ?smgk3 2))
+ =>
+        (assert (Rakgruczolukrokowy (istnieje 1)))
+)
+
+(defrule cancergk09
+	 (Sum9 ?su9 ) (SumAge2 ?sumage2) (SumFamilly2 ?sf2)
+	=>
+	(assert (cancerc (+ ?su9  ?sumage2 ?sf2 )))
+)
+
+(defrule cancergk10
+	(cancerc ?as )(test (> ?as 0))
+	=>
+	(assert (Rakgruczolukrokowy (istnieje 1)))
+)
+
+(defrule cancergk11
+        (and (Symptoms(wycz_guz_krok 1)) (Symptoms(as_gr_krok 1))  )
+	=>
+	 (assert (Rakgruczolukrokowy (istnieje 1)))
+)
+
+(defrule cancergk12
+     (Rakgruczolukrokowy (istnieje 1))
     =>
     (printout t "Potencjalne zagrożenie raka gruczołu krokowego. Zalecenia: badanie palpacyjne, markery PSA. "crlf )
 
@@ -340,117 +467,132 @@
 
 ; Rak jajników
 
-( defrule sm_cz3
+(defrule cancerj00
 	( FamillyCancer (ciotka_jajnik ?ans1 )(babcia_jajnik ?ans2 )(matka_jajnik ?ans3 ) (siostra_jajnik ?ans4 ) )
 	=>
-	(assert (Sum_cz3 (+ ?ans1 ?ans2 ?ans3 ?ans4)))
+	(assert (Sumj00 (+ ?ans1 ?ans2 ?ans3 ?ans4)))
 )
 
-( defrule sm_cz4
+(defrule cancerj01
+	(Sumj00 ?tmp )(test (> ?tmp 1))
+	=>
+	(assert (Sumj02 (+ 0 1)))
+)
+
+(defrule cancerj02
 	( RiskFactor (bezdzietnosc ?ans1 )(otylosc ?ans2 ) )
 	=>
-	(assert (Sum_cz4 (+ ?ans1 ?ans2 )))
+	(assert (Sumj01 (+ ?ans1 ?ans2 )))
 )
 
-(defrule rulergk3
-	(Sum_cz3 ?tmp )(test (> ?tmp 1))
+(defrule cancerj03
+	(and (Sumj01 ?sumj1 ) (Sumj02 ?sumj2) )
 	=>
-	(assert (CancerP0 (+ 0 1)))
+	(assert (Sumj03 (+ ?sumj1  ?sumj2)))
 )
 
-(defrule rulerj0
-	(and (CancerP0 ?p0 ) (SumAge2 ?sumage2) (Sum_cz4 ?sumc4))
-	=>
-	(assert (CancerJ (+ ?p0  ?sumage2 ?sumc4 )))
-)
-(defrule rulerj1
-	(CancerJ ?tmp )(test (> ?tmp 2))
+(defrule cancerj04
+	(Sumj03 ?tmp )(test (> ?tmp 2))
 	=>
 	(assert (Rakjajnikow (istnieje 1)))
 )
 
-(defrule rulerj2
+
+(defrule cancerj05
+	(and (Sumj01 ?sumj1 ) (SumAge2 ?sumage2) (Sumj02 ?sumj2))
+	=>
+	(assert (Sumj04 (+ sumj1  ?sumage2 ?sumj2 )))
+)
+
+(defrule cancerj06
+	(Sumj04 ?tmp )(test (> ?tmp 2))
+	=>
+	(assert (Rakjajnikow (istnieje 1)))
+)
+
+
+(defrule cancerj07
 	(and (Symptoms (niet_krwawienie 1)))
 	=>
 	(assert (Rakjajnikow (istnieje 1)))
 )
 
-(defrule RakJajnikow
+(defrule cancerj08
     (Rakjajnikow (istnieje 1))
     =>
     (printout t "Prawdopodobienstwo ryzyka raka jajnika. Zalecenia: badanie cytologiczne, USG przezpochwowe, markey CA-125."crlf )
 
 )
 
-;rak żoł±dla nie wszystko
+;rak żołądla nie wszystko
 
-( defrule sm_cz5
+(defrule cancerz00
 	( RiskFactor (otylosc ?ans1 ) (pal_papierosow ?ans2 )  )
 	=>
 	(assert (Sumcz5 (+ ?ans1 ?ans2 )))
 )
-( defrule sm_cz6
+(defrule cancerz01
 	( Symptoms (chudniecie ?ans1 ) (os_apetyt ?ans2 ) (n_do_miesa ?ans3 ) )
 	=>
 	(assert (Sumcz6 (+ ?ans1 ?ans2 ?ans3 )))
 )
-(defrule rulezz0
+(defrule cancerz02
 	(Sumcz5 ?tmp )(test (> ?tmp 1))
 	=>
 	(assert (RuleZZ0 (+ 0 1)))
 )
 
-(defrule rulezz1
+(defrule cancerz03
 	(Sumcz6 ?tmp )(test (> ?tmp 1))
 	=>
 	(assert (RuleZZ1 (+ 0 1)))
 )
 
-(defrule rulezz3
+(defrule cancerz04
 	(and (RuleZZ1 ?zz1 ) (RuleZZ0 ?zz0) )
 	=>
 	(assert (CancerZZ (+ ?zz1  ?zz0  )))
 )
-(defrule rulezz5
+(defrule cancerz05
 	(and (or( RiskFactor (otylosc 1 )) ( RiskFactor (pal_papierosow 1) ) )(and ( Symptoms (chudniecie 1 )) ( Symptoms (os_apetyt 1 )) ( Symptoms (n_do_miesa 1 )) ))
 	=>
 	(assert (Rakzoloadka (istnieje 1)))
 )
 
-(defrule rulezz4
+(defrule cancerz06
 	(CancerZZ ?tmp )(test (> ?tmp 1))
 	=>
 	(assert (Rakzoloadka (istnieje 1)))
 )
 
-(defrule RakZoloadka
-    (Rakgruczolukrokowego (istnieje 1))
+(defrule cancerz07
+    (Rakzoloadka (istnieje 1))
     =>
-    (printout t "Potencjalne zagrożenie rakiem zoł±kda. Zalecenia: badanie endoskopowe. "crlf )
+    (printout t "Potencjalne zagrożenie rakiem żołąkda. Zalecenia: badanie endoskopowe. "crlf )
 
 )
 
-;########################Rak przewodu moczowego #############################
-(defrule rulerpm0
+;########################Rak pęcherza moczoweego #############################
+(defrule cancerpm00
          (and (RiskFactor (pal_papierosow 1)) (Symptoms(kr_mocz 1)) (Symptoms(oslabienie 1)) )
 	=>
 	 (printout t "Potencjalne zagrożenie rakiem pęcherza moczoweego. Zalecenia: badanie USG oraz badania cytologiczne"  crlf)
 )
 
 ;########################Rak skóry #############################
-(defrule rulers0
+(defrule cancers00
          (or (RiskFactor (lam_solarium 1)) (RiskFactor(prom_ultra 1))  )
 	=>
 	 (assert (Rakskory (istnieje 1)))
 )
 
-(defrule rulers1
+(defrule cancers01
          (or  (Symptoms(zm_skora 1))  )
 	=>
 	 (assert (Rakskory (istnieje 1)))
 )
 
-(defrule RakSkory
+(defrule cancers02
     (Rakskory (istnieje 1))
     =>
     (printout t "Potencjalne zagrożenie raka skóry. Zalecenia: badanie deroskopem "crlf )
