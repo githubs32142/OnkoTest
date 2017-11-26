@@ -106,10 +106,50 @@ public class DiagnozeHTML {
      */
     public void parseHTML() {
         StringBuilder str = new StringBuilder();
-        // str.append("<!DOCTYPE html>\n");
+        textCss.append("<html>\n");
+        parsePersonData(str);
+        parseRiskFactorData(str);
+        parseSymptomsData(str);
+        parseCancerInFamillyData(str);
+        createDiagnoseData(str);
+        psrseUsingCss(str);
+    }
+
+    private void createDiagnoseData(StringBuilder str) {
+        str.append("<table>\n");
+        str.append("<tr> <td><h1> Wykryte zagrożenia:</h1></td> </tr>\n");
+        str.append("</table>");
+        str.append(createDiagnose());
+        str.append("</body>\n");
+        str.append("</html>\n");
+    }
+
+    private void parseCancerInFamillyData(StringBuilder str) {
+        str.append("<table>\n");
+        str.append("<tr> <td><h1> Nowotwór w rodzinie:</h1></td> </tr>\n");
+        str.append("</table>");
+        str.append(createCancerInFailly());
+        str.append("<br/>\n");
+    }
+
+    private void parseSymptomsData(StringBuilder str) {
+        str.append("<table>\n");
+        str.append("<tr> <td><h1> Symptomy które wystąpiły w przeciągu 3 miesięcy:</h1></td> </tr>\n");
+        str.append("</table>");
+        str.append(createSymptoms());
+        str.append("<br/>\n");
+    }
+
+    private void parseRiskFactorData(StringBuilder str) {
+        str.append("<table>\n");
+        str.append("<tr > <td><h1> Czynniki ryzyka:</h1></td> </tr>\n");
+        str.append("</table>");
+        str.append(createFactor());
+        str.append("<br/>\n");
+    }
+
+    private void parsePersonData(StringBuilder str) {
         str.append("<html>\n");
-        textCss.append(str);
-        // str.append("<link rel=\"stylesheet\" type=\"text/css\" href=\"styl.css\"c=r_963\" /> \n");
         str.append("<meta charset=\"utf-8\"/>\n");
         str.append("<body>\n");
         str.append("<table>\n");
@@ -117,28 +157,9 @@ public class DiagnozeHTML {
         str.append("</table>");
         str.append(makePersonInTable());
         str.append("<br/>\n");
-        str.append("<table>\n");
-        str.append("<tr > <td><h1> Czynniki ryzyka:</h1></td> </tr>\n");
-        str.append("</table>");
-        str.append(createFactor());
-        str.append("<br/>\n");
-        str.append("<table>\n");
-        str.append("<tr> <td><h1> Symptomy które wystąpiły w przeciągu 3 miesięcy:</h1></td> </tr>\n");
-        str.append("</table>");
-        str.append(createSymptoms());
-        str.append("<br/>\n");
-        str.append("<table>\n");
-        str.append("<tr> <td><h1> Nowotwór w rodzinie:</h1></td> </tr>\n");
-        str.append("</table>");
-        str.append(createCancerInFailly());
-        // C(
-        str.append("<br/>\n");
-        str.append("<table>\n");
-        str.append("<tr> <td><h1> Wykryte zagrożenia:</h1></td> </tr>\n");
-        str.append("</table>");
-        str.append(createDiagnose());
-        str.append("</body>\n");
-        str.append("</html>\n");
+    }
+
+    private void psrseUsingCss(StringBuilder str) {
         text = str;
         textCss.append("<meta charset=\"utf-8\"/>\n");
         textCss.append("<body>\n");
@@ -157,19 +178,8 @@ public class DiagnozeHTML {
         textCss.append("<tr> <td><h1> Symptomy które wystąpiły w przeciągu 3 miesięcy:</h1></td> </tr>\n");
         textCss.append("</table>");
         textCss.append(createSymptoms());
-        textCss.append("<table>\n");
-        textCss.append("<tr> <td><h1> Nowotwór w rodzinie:</h1></td> </tr>\n");
-        textCss.append("</table>");
-        textCss.append(createCancerInFailly());
-        // C(
-        textCss.append("<br/>\n");
-        textCss.append("<table>\n");
-        textCss.append("<tr> <td><h1> Wykryte zagrożenia:</h1></td> </tr>\n");
-        textCss.append("</table>");
-        textCss.append(createDiagnose());
-        textCss.append("</body>\n");
-        textCss.append("</html>\n");
-
+        parseCancerInFamillyData(textCss);
+        createDiagnoseData(textCss);
     }
 
     /**

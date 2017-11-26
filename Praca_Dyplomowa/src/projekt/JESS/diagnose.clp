@@ -204,7 +204,7 @@
 (defrule cancerp04
     (Rakpluc (istnieje 1))
     =>
-    (printout t "Prawdopodobieństwo ryzyka raka płuc. Zalecenia:Wykonać badanie RTG lub TK klatki piersiowej"crlf )
+    (printout t "Istnieje prawdopodobieństwo zachorowania na raka płuc. Zalecenia:Wykonać badanie RTG lub TK klatki piersiowej"crlf )
 
 )
 
@@ -278,7 +278,10 @@
 )
 
 (defrule cancerjg11
- (or( and (or (FamillyCancer (brat_jelito 1))(FamillyCancer (siostra_jelito 1))) (or (FamillyCancer (ojciec_jelito 1))(FamillyCancer (matka_jelito 1))))( and (or (FamillyCancer (ojciec_jelito 1))(FamillyCancer (matka_jelito 1))) (or (FamillyCancer (dziadek_jelito 1))(FamillyCancer (babcia_jelito 1)))) )
+ (or( and (or (FamillyCancer (brat_jelito 1))(FamillyCancer (siostra_jelito 1))) 
+ (or (FamillyCancer (ojciec_jelito 1))(FamillyCancer (matka_jelito 1))))
+ ( and (or (FamillyCancer (ojciec_jelito 1))(FamillyCancer (matka_jelito 1))) 
+ (or (FamillyCancer (dziadek_jelito 1))(FamillyCancer (babcia_jelito 1)))) )
 	=>
 	 (assert (Sum2Pok (+ 0 1)))
 )
@@ -367,7 +370,7 @@
 )
 
 (defrule cancerpp03
-	(Sumpp00 ?tmp )(test (> ?tmp 2))
+	(Sumpp01 ?tmp )(test (> ?tmp 2))
 	=>
 	(assert (Rakpiersi (istnieje 1)))
 )

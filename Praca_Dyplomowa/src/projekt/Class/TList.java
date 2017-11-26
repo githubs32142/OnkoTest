@@ -21,7 +21,7 @@ import projekt.Interface.*;
  */
 public class TList implements ReadData, Operation {
 
-    private List<TObject> listRiskFactor = new ArrayList<>();
+    private List<TObject> listObject = new ArrayList<>();
 
     public TList() {
     }
@@ -50,7 +50,7 @@ public class TList implements ReadData, Operation {
 
     @Override
     public void readData(String path) {
-        listRiskFactor.clear();
+        listObject.clear();
         String line = readInput(path);
         StringTokenizer st = new StringTokenizer(line, "-;");
         boolean addNewObject = true;
@@ -66,22 +66,22 @@ public class TList implements ReadData, Operation {
     }
 
     private void addNewObject() {
-        listRiskFactor.add(new TObject());
+        listObject.add(new TObject());
     }
 
     private void addAlias(StringTokenizer st) {
-        listRiskFactor.get(listRiskFactor.size() - 1).setAlias(st.nextElement().toString());
+        listObject.get(listObject.size() - 1).setAlias(st.nextElement().toString());
     }
 
     private void addFullName(StringTokenizer st) {
-        listRiskFactor.get(listRiskFactor.size() - 1).setFactor(st.nextElement().toString());
+        listObject.get(listObject.size() - 1).setFactor(st.nextElement().toString());
     }
 
     @Override
     public String toString() {
         StringBuilder str = new StringBuilder();
-        for (int i = 0; i < listRiskFactor.size(); i++) {
-            str.append(listRiskFactor.get(i).getAlias()).append("\n");
+        for (int i = 0; i < listObject.size(); i++) {
+            str.append(listObject.get(i).getAlias()).append("\n");
         }
         return str.toString();
 
@@ -89,20 +89,27 @@ public class TList implements ReadData, Operation {
 
     @Override
     public boolean contains(String s) {
-        for (int i = 0; i < listRiskFactor.size(); i++) {
-            if (listRiskFactor.get(i).getFactor().equals(s)) {
+        for (int i = 0; i < listObject.size(); i++) {
+            if (listObject.get(i).getFactor().equals(s)) {
                 return true;
             }
         }
         return false;
     }
-
+/**
+ ** Metoda, która przesyła strumień danych do systemu ekspertowego 
+ * @param s- Nazwa szablonu
+ * @return strumień danych w postaci łańcucha znaków
+ */
     @Override
     public String makeAssert(String s) {
         StringBuilder str = new StringBuilder();
         str.append("( assert ( ").append(s);
-        for (int i = 0; i < listRiskFactor.size(); i++) {
-            str.append("( ").append(listRiskFactor.get(i).getAlias()).append(" ").append(listRiskFactor.get(i).getAddedString()).append(" ) ");
+        for (int i = 0; i < listObject.size(); i++) {
+            str.append("( ").append(listObject.get(i).getAlias())
+               .append(" ")
+               .append(listObject.get(i).getAddedString())
+               .append(" ) ");
         }
         str.append(") )");
         return str.toString();
@@ -110,10 +117,10 @@ public class TList implements ReadData, Operation {
 
     @Override
     public void makeOperation(List<String> list) {
-        for (int i = 0; i < listRiskFactor.size(); i++) {
+        for (int i = 0; i < listObject.size(); i++) {
             for (int j = 0; j < list.size(); j++) {
-                if (EqualString.equals(listRiskFactor.get(i).getFactor(), list.get(j))) {
-                    listRiskFactor.get(i).setIsAdded(true);
+                if (EqualString.equals(listObject.get(i).getFactor(), list.get(j))) {
+                    listObject.get(i).setIsAdded(true);
                 }
             }
         }

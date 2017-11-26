@@ -14,11 +14,13 @@ import javafx.scene.Node;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.ProgressBar;
 import javafx.scene.control.RadioButton;
 import javafx.scene.control.ToggleGroup;
 import javafx.stage.Stage;
 import jess.JessException;
 import jess.Rete;
+import org.controlsfx.control.Notifications;
 
 /**
  * FXML Controller class
@@ -51,6 +53,10 @@ public class SmokingTestController implements Initializable {
     List<String> a4List = new ArrayList<>();
     List<String> a5List = new ArrayList<>();// lista odpowiedzi na 5 pytanie
     List<Integer> pList = new ArrayList<>();// ilość punktów przyznanych za każdą odpowiedź
+    @FXML
+    private ProgressBar progres;
+    @FXML
+    private Label text;
 
     public SmokingTestController() {
     }
@@ -101,6 +107,8 @@ public class SmokingTestController implements Initializable {
         answer3.setText(a3List.get(0));
         answer4.setText(a4List.get(0));
         answer1.setSelected(true);
+        text.setText("Krok " + (index + 1) + "/" + pList.size());
+        progres.setProgress(((index + 1) / (double) pList.size()));
     }
 
     @FXML
@@ -127,6 +135,8 @@ public class SmokingTestController implements Initializable {
     private void next(ActionEvent event) {
         if (index <= 6) {
             index++;
+            text.setText("Krok " + (index + 1) + "/" + pList.size());
+            progres.setProgress(((index + 1) / (double) pList.size()));
         }
         if (index == 6) {
             // koniec
@@ -177,6 +187,8 @@ public class SmokingTestController implements Initializable {
     private void back(ActionEvent event) {
         if (index > 0) {
             index--;
+            text.setText("Krok " + (index + 1) + "/" + pList.size());
+            progres.setProgress(((index + 1) / pList.size()));
         }
         if (index >= 0) {
             question.setText(qList.get(index));
@@ -287,6 +299,10 @@ public class SmokingTestController implements Initializable {
             }
             if (add) {
                 window.changeFactToRight("Palenie papierosów");
+                Notifications.create()
+                        .title("OnkoTest")
+                        .text("Podany czynnik ryzyka został dodany automatycznie.")
+                        .showInformation();
             }
             showOutputMessage(text.toString());
 

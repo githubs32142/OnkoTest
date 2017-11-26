@@ -20,6 +20,7 @@ import javafx.scene.control.ToggleGroup;
 import javafx.stage.Stage;
 import jess.JessException;
 import jess.Rete;
+import org.controlsfx.control.Notifications;
 
 /**
  * FXML Controller class
@@ -245,6 +246,10 @@ public class IonizingRadiationTestController implements Initializable {
             }
             if (add) {
                 window.changeFactToRight("Promieniowanie jonizujące");
+                Notifications.create()
+                        .title("OnkoTest")
+                        .text("Podany czynnik ryzyka został dodany automatycznie.")
+                        .showInformation();
             }
             showOutputMessage(text.toString());
 

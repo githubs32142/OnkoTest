@@ -24,6 +24,7 @@ import javafx.scene.control.ToggleGroup;
 import javafx.stage.Stage;
 import jess.JessException;
 import jess.Rete;
+import org.controlsfx.control.Notifications;
 
 /**
  * FXML Controller class
@@ -173,6 +174,10 @@ public class RadiotherapyTestController implements Initializable {
             }
             if (add) {
                 window.changeFactToRight("Radioterapia");
+                Notifications.create()
+                        .title("OnkoTest")
+                        .text("Podany czynnik ryzyka został dodany automatycznie.")
+                        .showInformation();
             }
             showOutputMessage(text.toString());
 

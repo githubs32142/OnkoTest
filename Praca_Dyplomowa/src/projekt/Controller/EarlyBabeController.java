@@ -22,6 +22,7 @@ import javafx.scene.control.ToggleGroup;
 import javafx.stage.Stage;
 import jess.JessException;
 import jess.Rete;
+import org.controlsfx.control.Notifications;
 
 /**
  * FXML Controller class
@@ -131,6 +132,10 @@ public class EarlyBabeController implements Initializable {
             }
             if (add) {
                 window.changeFactToRight("Wczesny wiek rodzenia");
+                Notifications.create()
+                        .title("OnkoTest")
+                        .text("Podany czynnik ryzyka został dodany automatycznie.")
+                        .showInformation();
             }
             showOutputMessage(text.toString());
 
@@ -146,5 +151,5 @@ public class EarlyBabeController implements Initializable {
     private static boolean isEmpty(String result) {
         return result == null ? "" == null : result.equals("");
     }
-    
+
 }

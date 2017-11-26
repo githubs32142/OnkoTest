@@ -10,9 +10,14 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.Reader;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.StringTokenizer;
+import javafx.scene.control.Alert;
+import org.controlsfx.control.Notifications;
 import projekt.Interface.Operation;
 import projekt.Interface.ReadData;
 
@@ -26,6 +31,9 @@ public class FCList implements ReadData {
 
     public FCList(String path) {
         readData(path);
+    }
+
+    public FCList() {
     }
 
     @Override
@@ -42,8 +50,7 @@ public class FCList implements ReadData {
             }
             return buffer.toString();
         } catch (IOException e) {
-            e.printStackTrace();
-            return null;
+            return "";
         }
     }
 
@@ -56,25 +63,30 @@ public class FCList implements ReadData {
     public void readData(String path) {
         list.clear();
         String line = readInput(path);
-        StringTokenizer st = new StringTokenizer(line, "-;:");
-        int count = 0;
-        while (st.hasMoreElements()) {
-            switch (count % 3) {
-                case 0: {
-                    list.add(new FCObject());
-                    list.get(list.size() - 1).setFamily(st.nextElement().toString());
+        if (!"".equals(line)) {
+            StringTokenizer st = new StringTokenizer(line, "-;:");
+            int count = 0;
+            while (st.hasMoreElements()) {
+                switch (count % 3) {
+                    case 0: {
+                        list.add(new FCObject());
+                        list.get(list.size() - 1).setFamily(st.nextElement().toString());
+                    }
+                    break;
+                    case 1: {
+                        list.get(list.size() - 1).setCancer(st.nextElement().toString());
+                    }
+                    break;
+                    case 2: {
+                        list.get(list.size() - 1).setAlians(st.nextElement().toString());
+                    }
+                    break;
                 }
-                break;
-                case 1: {
-                    list.get(list.size() - 1).setCancer(st.nextElement().toString());
-                }
-                break;
-                case 2: {
-                    list.get(list.size() - 1).setAlians(st.nextElement().toString());
-                }
-                break;
+                count++;
             }
-            count++;
+        } else {
+            showOutputMessage("Błąd! brak ścieżki dostępu.\nProgram zostanie zamknięty");
+            System.exit(1);
         }
     }
 
@@ -97,6 +109,12 @@ public class FCList implements ReadData {
         return false;
     }
 
+    /**
+     ** Metoda, która przesyła strumień danych do systemu ekspertowego
+     *
+     * @param s- Nazwa szablonu
+     * @return strumień danych w postaci łańcucha znaków
+     */
     public String makeAssert(String s) {
         StringBuilder str = new StringBuilder();
         str.append("( assert ( ").append(s);
@@ -108,13 +126,12 @@ public class FCList implements ReadData {
     }
 
     public void makeOperation(List<CancerFamilly> list) {
-        int tmp = 0;
+        int tmp;
         for (int i = 0; i < this.list.size(); i++) {
             tmp = 0;
             for (int j = 0; j < list.size(); j++) {
-                if (EqualString.equals(this.list.get(i).getCancer(), list.get(j).getCancer()) && EqualString.equals(this.list.get(i).getFamily(), list.get(j).getFamilly())) {
+                if (isTheSameCancer(i, list, j) && isTheSameFamilly(i, list, j)) {
                     tmp++;
-
                 }
 
             }
@@ -122,12 +139,40 @@ public class FCList implements ReadData {
         }
     }
 
+    private boolean isTheSameFamilly(int i, List<CancerFamilly> list1, int j) {
+        return EqualString.equals(this.list.get(i).getFamily(), list1.get(j).getFamilly());
+    }
+
+    private boolean isTheSameCancer(int i, List<CancerFamilly> list1, int j) {
+        return EqualString.equals(this.list.get(i).getCancer(), list1.get(j).getCancer());
+    }
+
+    /**
+     ** Metoda która zwraca ilość elementów na liście
+     *
+     * @return ilość elementów listy
+     */
     public int size() {
         return this.list.size();
     }
 
     public String getAlias(int i) {
-        return list.get(i).getAlians();
+        if (i >= 0 && i < list.size()) {
+            return list.get(i).getAlians();
+        }
+        return "";
     }
 
+    /**
+     ** wyświetla KOMUNIKAT O BŁĘDZIE
+     *
+     * @param message treść komunikatu o błędzie
+     */
+    public void showOutputMessage(String message) {
+        Alert alert = new Alert(Alert.AlertType.ERROR);
+        alert.setTitle("Błąd");
+        alert.setHeaderText("Treść błędu");
+        alert.setContentText(message);
+        alert.showAndWait();
+    }
 }

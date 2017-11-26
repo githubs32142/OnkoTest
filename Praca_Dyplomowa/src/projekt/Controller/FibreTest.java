@@ -26,6 +26,7 @@ import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 import jess.JessException;
 import jess.Rete;
+import org.controlsfx.control.Notifications;
 import projekt.Class.ListFibre;
 
 /**
@@ -34,13 +35,14 @@ import projekt.Class.ListFibre;
  * @author Admin
  */
 public class FibreTest implements Initializable {
+
     private FactorWindowController window;
     int index;
     ListFibre listFibre;
     ListFibre addFibre;
     ObservableList<String> data = FXCollections.observableArrayList();
     ObservableList<String> addData = FXCollections.observableArrayList();
-    ObservableList<String> optionSort =  FXCollections.observableArrayList();
+    ObservableList<String> optionSort = FXCollections.observableArrayList();
     @FXML
     private ListView<String> product;
     @FXML
@@ -55,6 +57,7 @@ public class FibreTest implements Initializable {
     private Button removeButton;
     @FXML
     private Label sum;
+
     /**
      *
      * Inicjalizacja kontriolera
@@ -64,10 +67,10 @@ public class FibreTest implements Initializable {
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        listFibre= new  ListFibre();
-        addFibre= new ListFibre();
+        listFibre = new ListFibre();
+        addFibre = new ListFibre();
         listFibre.readData("src/projekt/Data/fibre2.txt");
-        for(int i=0;i<listFibre.size();i++){
+        for (int i = 0; i < listFibre.size(); i++) {
             data.add(listFibre.getFibre(i).toString());
         }
         product.setItems(data);
@@ -77,12 +80,12 @@ public class FibreTest implements Initializable {
         optionSort.add("Według wartości błonnika malejąco");
         sort.setItems(optionSort);
         removeButton.setVisible(false);
-    }    
+    }
 
     @FXML
     private void productClicked(MouseEvent event) {
         index = product.getSelectionModel().getSelectedIndex();
-        if(index>=0){
+        if (index >= 0) {
             weight.setText(String.valueOf(listFibre.getWeight(index)));
             productName.setText(listFibre.getNameProduct(index));
         }
@@ -91,13 +94,14 @@ public class FibreTest implements Initializable {
 
     @FXML
     private void add(ActionEvent event) {
-        index= listFibre.searchProduct(productName.getText());
+        index = listFibre.searchProduct(productName.getText());
         addFibre.addFibre(listFibre.getFibre(index));
-        addFibre.setWeight(addFibre.size()-1, Double.parseDouble(weight.getText()));
-        addData.add(addFibre.getFibre(addFibre.size()-1).toString());
+        addFibre.setWeight(addFibre.size() - 1, Double.parseDouble(weight.getText()));
+        addData.add(addFibre.getFibre(addFibre.size() - 1).toString());
         addedProduct.setItems(addData);
-        sum.setText("Suma: "+addFibre.getSumFibre());
+        sum.setText("Suma: " + addFibre.getSumFibre());
     }
+
     /**
      ** Metoda, która zwraca index
      *
@@ -115,15 +119,17 @@ public class FibreTest implements Initializable {
     public void setIndex(int index) {
         this.index = index;
     }
+
     /**
-     ** Metoda, która sortuje produkty znajdujące   
+     ** Metoda, która sortuje produkty znajdujące
+     *
      * @param event obsługa zdarzenia
      */
     @FXML
     private void sortProduct(ActionEvent event) {
-        listFibre.sort(sort.getSelectionModel().getSelectedIndex()+1);
+        listFibre.sort(sort.getSelectionModel().getSelectedIndex() + 1);
         data.clear();
-        for(int i=0;i<listFibre.size();i++){
+        for (int i = 0; i < listFibre.size(); i++) {
             data.add(listFibre.getFibre(i).toString());
         }
         product.setItems(data);
@@ -131,42 +137,50 @@ public class FibreTest implements Initializable {
 
     @FXML
     private void closeWindow(MouseEvent event) {
-                Stage stage;
-                stage = (Stage) ((Node)(event.getSource())).getScene().getWindow();
-                stage.close();
+        Stage stage;
+        stage = (Stage) ((Node) (event.getSource())).getScene().getWindow();
+        stage.close();
     }
-/**
- ** Metoda, która wykonuje test  
- * @param event obsługa zdarzenia
- */
+
+    /**
+     ** Metoda, która wykonuje test
+     *
+     * @param event obsługa zdarzenia
+     */
     @FXML
     private void makeTest(ActionEvent event) {
         makeDiagnostic(toString());
     }
+
     /**
-     ** wyświetla wyniki diagnozy  
+     ** wyświetla wyniki diagnozy
+     *
      * @param message rezultat diagnozy
      */
-    public void showOutputMessage(String message){
+    public void showOutputMessage(String message) {
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
         alert.setTitle("Wynik diagnozy");
         alert.setHeaderText("Otrzymane rezulataty");
         alert.setContentText(message);
         alert.showAndWait();
     }
-        /**
-     ** Metoda ktora zwraca w postaci ciągu znaków wyrażenie które będzie potrzebne wykonania wniskowania 
+
+    /**
+     ** Metoda ktora zwraca w postaci ciągu znaków wyrażenie które będzie
+     * potrzebne wykonania wniskowania
+     *
      * @rerurn wyrażenie potrzebne do wykonania wniskowania
      */
     @Override
-    public String toString(){
-        StringBuilder tmp= new StringBuilder("( assert ( Point ( sum ");
+    public String toString() {
+        StringBuilder tmp = new StringBuilder("( assert ( Point ( sum ");
         tmp.append(addFibre.getSumFibre()).append(" ) ) )");
         return tmp.toString();
     }
-        public void makeDiagnostic(String s){
-        boolean add=false;
-        StringBuilder text= new StringBuilder();
+
+    public void makeDiagnostic(String s) {
+        boolean add = false;
+        StringBuilder text = new StringBuilder();
         try {
             Rete engine = new Rete();
             engine.reset();
@@ -181,34 +195,37 @@ public class FibreTest implements Initializable {
             if (isEmptyResult(result)) {
                 result = "Brak diagnozy";
             }
-                for(int i=0;i<result.length();i++){
-                if(isNewLine(result, i)){
-                        text.append("\n");
-                    }
-                if(isFactor(result, i)){
-                    add=true;
+            for (int i = 0; i < result.length(); i++) {
+                if (isNewLine(result, i)) {
+                    text.append("\n");
                 }
-                else{
+                if (isFactor(result, i)) {
+                    add = true;
+                } else {
                     text.append(result.charAt(i));
                 }
-                }
-                if(add){
+            }
+            if (add) {
                 window.changeFactToRight("Brak błonnika");
-                }
+                Notifications.create()
+                        .title("OnkoTest")
+                        .text("Podany czynnik ryzyka został dodany automatycznie.")
+                        .showInformation();
+            }
             showOutputMessage(text.toString());
 
         } catch (JessException ex) {
             Logger.getLogger(FibreTest.class.getName()).log(Level.SEVERE, null, ex);
         }
- 
+
     }
 
     private static boolean isNewLine(String result, int i) {
-        return result.charAt(i)==10;
+        return result.charAt(i) == 10;
     }
 
     private static boolean isFactor(String result, int i) {
-        return result.charAt(i)=='1';
+        return result.charAt(i) == '1';
     }
 
     private static boolean isEmptyResult(String result) {
@@ -217,44 +234,47 @@ public class FibreTest implements Initializable {
 
     @FXML
     private void removeFibre(ActionEvent event) {
-        if(contains()){
+        if (contains()) {
             addData.remove(index);
             addFibre.remove(index);
             addedProduct.setItems(addData);
-            sum.setText("Suma: "+addFibre.getSumFibre());
+            sum.setText("Suma: " + addFibre.getSumFibre());
         }
-        
+
     }
-    
+
     @FXML
     private void addedProductClicked(MouseEvent event) {
         removeButton.setVisible(true);
-        index= addedProduct.getSelectionModel().getSelectedIndex();
+        index = addedProduct.getSelectionModel().getSelectedIndex();
     }
-/**
- ** Metoda, która usuwa zaznaczony element z listy składników 
- * @param event obsługa zdarzenia
- */
+
+    /**
+     ** Metoda, która usuwa zaznaczony element z listy składników
+     *
+     * @param event obsługa zdarzenia
+     */
     @FXML
     private void remove(ActionEvent event) {
-        index= addedProduct.getSelectionModel().getSelectedIndex();    
-        if(contains()){
+        index = addedProduct.getSelectionModel().getSelectedIndex();
+        if (contains()) {
             addData.remove(index);
             addFibre.remove(index);
             addedProduct.setItems(addData);
-            sum.setText("Suma: "+addFibre.getSumFibre());
+            sum.setText("Suma: " + addFibre.getSumFibre());
         }
     }
 
     private boolean contains() {
-        return index<addData.size();
+        return index < addData.size();
     }
-        /**
+
+    /**
      ** Metoda, która ustawia kontroler klasy głownej
      *
      * @param window kontroler klasy głównej
      */
-        public void setWindow(FactorWindowController window) {
+    public void setWindow(FactorWindowController window) {
         this.window = window;
     }
 }

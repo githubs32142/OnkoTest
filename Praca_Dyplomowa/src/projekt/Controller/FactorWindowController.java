@@ -6,9 +6,11 @@ import com.jfoenix.controls.JFXListView;
 import com.jfoenix.transitions.hamburger.HamburgerBasicCloseTransition;
 import java.io.BufferedReader;
 import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.Reader;
+import java.io.UnsupportedEncodingException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -16,6 +18,7 @@ import java.util.Comparator;
 import java.util.List;
 import java.util.ResourceBundle;
 import java.util.StringTokenizer;
+import java.util.function.Consumer;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javafx.application.Platform;
@@ -58,6 +61,7 @@ import projekt.Propertis.ConfigPath;
  * @author Andrzej Kierepka
  */
 public class FactorWindowController implements Initializable {
+    
     private double xOffset = 0;
     private double yOffset = 0;
     private int leftSelected, rightSeleted = 0;
@@ -91,7 +95,6 @@ public class FactorWindowController implements Initializable {
     @FXML
     private WebView webHTML;
 
-
     /**
      ** Konstruktor w którym podajemy instancje klasy Person
      *
@@ -109,12 +112,12 @@ public class FactorWindowController implements Initializable {
      ** Konstruktor bezparametrowy
      */
     public FactorWindowController() {
-       this.leftSelected = 0;
-       sw = new SymptomWindowController();
-       cif = new CancerInFamillyController();
-       data = FXCollections.observableArrayList();
-       dataRight = FXCollections.observableArrayList();
-
+        this.leftSelected = 0;
+        sw = new SymptomWindowController();
+        cif = new CancerInFamillyController();
+        data = FXCollections.observableArrayList();
+        dataRight = FXCollections.observableArrayList();
+        
     }
 
     /**
@@ -130,7 +133,13 @@ public class FactorWindowController implements Initializable {
         w = 0.1;
         h = 0.1;
         OperationFactor.initFactor(fact);
-        readData(ConfigPath.getFactorList());
+        try {
+           // readData("");
+            readData(ConfigPath.getFactorList());
+        } catch (IOException ex) {
+            showOutputMessage("Błąd! Brak pliku konfiguracyjnego!\nZłoś się do twórcy programu");
+            System.exit(1);
+        }
         sort();
         webEngine = webHTML.getEngine();
         factors.setItems(data);
@@ -145,7 +154,7 @@ public class FactorWindowController implements Initializable {
             public void handle(MouseEvent e) {
                 transition.setRate(transition.getRate() * -1);
                 transition.play();
-
+                
                 if (drawer.isShown()) {
                     drawer.close();
                 } else {
@@ -170,7 +179,7 @@ public class FactorWindowController implements Initializable {
                 stage.setY(event.getScreenY() - yOffset);
             }
         });
-                
+        
         factors.setItems(data);
         addedFactor.setItems(dataRight);
     }
@@ -183,8 +192,8 @@ public class FactorWindowController implements Initializable {
     @FXML
     private void factorClicked(MouseEvent event) {
         String clickedFact = factors.getItems().get(factors.getSelectionModel().getSelectedIndex());
-        index = ifFact(clickedFact);
         System.out.println(clickedFact);
+        index = ifFact(clickedFact);
         if (checkOnFact()) {
             leftSelected = factors.getSelectionModel().getSelectedIndex();
             final URL urlFactor = getClass().getResource(fact.get(index).getUrlHTML());
@@ -196,13 +205,13 @@ public class FactorWindowController implements Initializable {
             }
         }
     }
-
+    
     private boolean factHaveTest() {
         return fact.get(index).isTest();
     }
-
+    
     private boolean checkOnFact() {
-        return index >= 0;
+        return index >= 0 && index < fact.size();
     }
 
     /**
@@ -297,7 +306,7 @@ public class FactorWindowController implements Initializable {
                 //primaryStage.initStyle(StageStyle.UNDECORATED);
 
                 primaryStage.show();
-
+                
             }
         }
     }
@@ -310,7 +319,7 @@ public class FactorWindowController implements Initializable {
      */
     public void changeFactToRight(String fact) {
         for (int i = 0; i < data.size(); i++) {
-            if (data.get(i).equals(fact)) {
+            if (EqualString.equals(data.get(i), fact)) {
                 dataRight.add(fact);
                 data.remove(i);
                 factors.setItems(data);
@@ -341,27 +350,30 @@ public class FactorWindowController implements Initializable {
      ** Metoda, która powoduje perzejście do kolejnego okna
      *
      * @param event
-     * @throws IOException
      */
     @FXML
-    private void nextWindow(ActionEvent event) throws IOException {
-        FXMLLoader load = new FXMLLoader(this.getClass().getResource("/projekt/FXML/SymptomWindow.fxml"));
-        SymptomWindowController cnt = new SymptomWindowController();
-        Parent parent = load.load();
-        cnt = load.getController();
-        cnt.setPerson(person);
-        cnt.setFactor(dataRight);
-        loadDataToAnotherController(cnt);
-        cnt.setCancerInFamillyController(cif);
-        Scene scene = new Scene(parent);
-        Stage primaryStage = new Stage();
-        primaryStage.initStyle(StageStyle.UNDECORATED);
-        primaryStage.setScene(scene);
-        primaryStage.show();
-        stage = (Stage) ((Node) (event.getSource())).getScene().getWindow();
-        stage.close();
+    private void nextWindow(ActionEvent event) {
+        try {
+            FXMLLoader load = new FXMLLoader(this.getClass().getResource("/projekt/FXML/SymptomWindow.fxml"));
+            SymptomWindowController cnt = new SymptomWindowController();
+            Parent parent = load.load();
+            cnt = load.getController();
+            cnt.setPerson(person);
+            cnt.setFactor(dataRight);
+            loadDataToAnotherController(cnt);
+            cnt.setCancerInFamillyController(cif);
+            Scene scene = new Scene(parent);
+            Stage primaryStage = new Stage();
+            primaryStage.initStyle(StageStyle.UNDECORATED);
+            primaryStage.setScene(scene);
+            primaryStage.show();
+            stage = (Stage) ((Node) (event.getSource())).getScene().getWindow();
+            stage.close();
+        } catch (IOException e) {
+            showOutputMessage("Nie można przejść do następnego okna.\nSkontaktuj się z twórcą programu");
+        }
     }
-
+    
     private void loadDataToAnotherController(SymptomWindowController cnt) {
         for (int i = 0; i < sw.dataRight.size(); i++) {
             cnt.changeSymptomToRight(sw.dataRight.get(i));
@@ -493,7 +505,7 @@ public class FactorWindowController implements Initializable {
      */
     public void setPerson(Person person) {
         this.person = person;
-
+        
     }
 
     /**
@@ -550,9 +562,9 @@ public class FactorWindowController implements Initializable {
                 stage.centerOnScreen();
             } else {
                 stage.setMaximized(false);
-
+                
             }
-
+            
         } else {
             stage.setMaximized(true);
             stage.setHeight(rec2.getHeight());
@@ -648,7 +660,7 @@ public class FactorWindowController implements Initializable {
     @FXML
     private void undoClick(ActionEvent event) {
         try {
-
+            
             FXMLLoader load = new FXMLLoader(this.getClass().getResource("/projekt/FXML/FirstWindow.fxml"));
             FirstWindowController cnt = new FirstWindowController();
             Parent parent = load.load();
@@ -680,48 +692,50 @@ public class FactorWindowController implements Initializable {
             logger.log(Level.SEVERE, "Failed to create new Window.", e);
         }
     }
-
+    
     private boolean isEmptyNamePerson() {
         return person.getName().isEmpty();
     }
- /**
+
+    /**
      ** Metoda, która odczytuje dane z pliku zewnętrznego i pozwala na
      * zachowanie znakowania UTF-8
      *
      * @param path ścieżka dostępu do pliku
      * @return ciąg znaków w pliku tekstowym
      */
-    static String readInput(String path) {
+    static String readInput(String path) throws FileNotFoundException, UnsupportedEncodingException, IOException {
         StringBuilder buffer = new StringBuilder();
-        try {
-            FileInputStream fis = new FileInputStream(path);
-            InputStreamReader isr = new InputStreamReader(fis, "UTF8");
-            try (Reader in = new BufferedReader(isr)) {
-                int ch;
-                while ((ch = in.read()) > -1) {
-                    buffer.append((char) ch);
-                }
-            }
-            return buffer.toString();
-        } catch (IOException e) {
-            e.printStackTrace();
-            return null;
+        FileInputStream fis = new FileInputStream(path);
+        InputStreamReader isr = new InputStreamReader(fis, "UTF8");
+        Reader in = new BufferedReader(isr);
+        int ch;
+        while ((ch = in.read()) > -1) {
+            buffer.append((char) ch);
         }
+        return buffer.toString();
     }
 
     /**
      ** Metoda, która pozwala na odczytamnie danych
      *
      * @param path ścieżka dostępu do pliku tekstowego
+     * @throws java.io.FileNotFoundException
+     * @throws java.io.UnsupportedEncodingException
      */
-    public void readData(String path) {
+    public void readData(String path) throws FileNotFoundException, UnsupportedEncodingException, IOException {
         String line = readInput(path);
         StringTokenizer st = new StringTokenizer(line, ",");
         while (st.hasMoreElements()) {
             data.add(st.nextElement().toString());
         }
     }
-    private void sort(){
-        Collections.sort(data, (String t, String t1) -> t1.compareTo(t)); 
+
+    /**
+     ** Metoda, która sortuje kolekcje
+     */
+    private void sort() {
+        Collections.sort(data, (String t, String t1) -> t.compareTo(t1));
     }
+    
 }

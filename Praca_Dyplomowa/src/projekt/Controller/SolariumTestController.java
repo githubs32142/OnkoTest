@@ -20,6 +20,7 @@ import javafx.scene.control.ToggleGroup;
 import javafx.stage.Stage;
 import jess.JessException;
 import jess.Rete;
+import org.controlsfx.control.Notifications;
 
 /**
  * FXML Controller clas
@@ -255,6 +256,7 @@ public class SolariumTestController implements Initializable {
     /**
      ** Metoda ktora zwraca w postaci ciągu znaków wyrażenie które będzie
      * potrzebne wykonania wniskowania
+     *
      * @rerurn wyrażenie potrzebne do wykonania wniskowania
      */
     @Override
@@ -332,6 +334,10 @@ public class SolariumTestController implements Initializable {
             }
             if (add) {
                 window.changeFactToRight("Lampy solarium");
+                Notifications.create()
+                        .title("OnkoTest")
+                        .text("Podany czynnik ryzyka został dodany automatycznie.")
+                        .showInformation();
             }
             showOutputMessage(text.toString());
 

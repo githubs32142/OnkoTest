@@ -163,7 +163,7 @@ public class SummaryWindowController implements Initializable {
      */
     @FXML
     private void nextWindow(ActionEvent event) throws IOException {
-        String s="";
+        String s = "";
         FXMLLoader load = new FXMLLoader(this.getClass().getResource("/projekt/FXML/DiagnoseWindow.fxml"));
         DiagnoseWindowController cnt = new DiagnoseWindowController();
         Parent parent = load.load();
@@ -175,41 +175,37 @@ public class SummaryWindowController implements Initializable {
         DiagnozeHTML html = new DiagnozeHTML(cancerFamilly, person, dataFactors, dataSymptoms);
 
         //view.getEngine().load(urlFile.toExternalForm());
-
         String str = "";
-        str= "( assert ( Person (age "+person.getAge()+")))";
+        str = "( assert ( Person (age " + person.getAge() + ")))";
         TList f = new TList(ConfigPath.getFactorWithAlians());
         f.makeOperation(dataFactors);
-        System.out.println(dataFactors.size());
-        System.out.println(f.makeAssert("RiskFactor"));
         TList f2 = new TList(ConfigPath.getSymptomsWithAlians());
         f2.makeOperation(dataSymptoms);
-        System.out.println(dataSymptoms.size());
-        System.out.println(f2.makeAssert("Symptoms"));
-        FCList f3= new FCList(ConfigPath.getFamillyWithAlians());
+        FCList f3 = new FCList(ConfigPath.getFamillyWithAlians());
         f3.makeOperation(cancerFamilly);
-        System.out.println(dataSymptoms.size());
-        System.out.println(f3.makeAssert("FamillyCancer"));
         try {
-        s=    JessEngine.queryInferenceEngine(str+" "+f.makeAssert("RiskFactor")+" "
-                    +f2.makeAssert("Symptoms")+" "+ f3.makeAssert("FamillyCancer"));
-        
+            s = JessEngine.queryInferenceEngine(str + " " + f.makeAssert("RiskFactor") + " "
+                    + f2.makeAssert("Symptoms") + " " + f3.makeAssert("FamillyCancer"));
+
         } catch (JessException ex) {
             Logger.getLogger(SummaryWindowController.class.getName()).log(Level.SEVERE, null, ex);
         }
         html.setResultDiagnose(s);
-                html.parseHTML();
+        html.parseHTML();
         cnt.setString(html.text);
         WebView view = cnt.getWebView();
         try {
-            OutputStreamWriter outputStreamWriter = new OutputStreamWriter(new FileOutputStream(new File("src/projekt/HTML/Diagnoza/diagnoza.html")), Charset.forName("UTF-8"));
+            OutputStreamWriter outputStreamWriter
+                    = new OutputStreamWriter(
+                            new FileOutputStream(
+                                    new File("src/projekt/HTML/Diagnoza/diagnoza.html")), Charset.forName("UTF-8"));
             PrintWriter out = new PrintWriter(outputStreamWriter);
             out.write(html.text.toString());
             out.close();
         } catch (FileNotFoundException ex) {
             System.out.println(ex.getMessage());
         }
-         view.getEngine().loadContent(html.textCss.toString());
+        view.getEngine().loadContent(html.textCss.toString());
         Scene scene = new Scene(parent);
         Stage primaryStage = new Stage();
         primaryStage.setScene(scene);
@@ -221,8 +217,8 @@ public class SummaryWindowController implements Initializable {
     }
 
     /**
-     ** Metoda, która powoduje, że formulrz rozciąga się na cały ekran
-     *3
+     ** Metoda, która powoduje, że formulrz rozciąga się na cały ekran 3
+     *
      * @param event obsługa zdarzenia
      */
     @FXML
@@ -410,4 +406,5 @@ public class SummaryWindowController implements Initializable {
         stage = (Stage) ((Node) (event.getSource())).getScene().getWindow();
         stage.close();
     }
+
 }

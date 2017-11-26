@@ -21,6 +21,7 @@ import javafx.scene.control.ToggleGroup;
 import javafx.stage.Stage;
 import jess.JessException;
 import jess.Rete;
+import org.controlsfx.control.Notifications;
 
 /**
  * FXML Controller class
@@ -207,6 +208,10 @@ public class AuditTest implements Initializable {
             }
             if (add) {
                 window.changeFactToRight("Spożywanie alkoholu");
+               Notifications.create()
+              .title("OnkoTest")
+              .text("Podany czynnik ryzyka został dodany automatycznie.")
+              .showInformation();
             }
             showOutputMessage(text.toString());
 
@@ -254,6 +259,7 @@ public class AuditTest implements Initializable {
             Stage stage;
             stage = (Stage) ((Node) (event.getSource())).getScene().getWindow();
             stage.close();
+
         }
         question.setText(qList.get(getIndex()));
         answer1.setText(a1List.get(getIndex()));

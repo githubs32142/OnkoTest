@@ -9,7 +9,7 @@ package projekt.Class;
 
 public class EqualString {
     /**
-     ** Metoda porównująca dwa łańcuchy znaków pomija uwzgledniając jedynie znaki ASCI.  
+     ** Metoda porównująca dwa łańcuchy znaków  uwzgledniając jedynie znaki w kodzie ASCI.  
      * @param s łańcuch znaków
      * @param s2 łańcuch znaków
      * @return true jezeli oba znaki są takie same
@@ -27,7 +27,7 @@ public class EqualString {
                 s2Tmp.append(s2.charAt(i));
             }
         }
-        if(s2Tmp.length()!=sTmp.length()){
+        if(isOtherLenght(s2Tmp, sTmp)){
             return false;
         }
         else{
@@ -38,6 +38,10 @@ public class EqualString {
             }
         }
         return true;
+    }
+
+    private static boolean isOtherLenght(StringBuilder s2Tmp, StringBuilder sTmp) {
+        return s2Tmp.length()!=sTmp.length();
     }
 
     private static boolean isOtherSign(StringBuilder sTmp, int i, StringBuilder s2Tmp) {

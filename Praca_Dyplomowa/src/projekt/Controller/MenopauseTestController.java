@@ -25,6 +25,7 @@ import javafx.scene.control.ToggleGroup;
 import javafx.stage.Stage;
 import jess.JessException;
 import jess.Rete;
+import org.controlsfx.control.Notifications;
 
 /**
  * Klasa będąca kontrolerem pliku FXML
@@ -266,6 +267,10 @@ public class MenopauseTestController implements Initializable {
             }
             if (add) {
                 window.changeFactToRight("Menopauza + otyłość");
+                Notifications.create()
+                        .title("OnkoTest")
+                        .text("Podany czynnik ryzyka został dodany automatycznie.")
+                        .showInformation();
             }
             showOutputMessage(text.toString());
 

@@ -24,6 +24,7 @@ import javafx.stage.Screen;
 import javafx.stage.Stage;
 import jess.JessException;
 import jess.Rete;
+import org.controlsfx.control.Notifications;
 
 /**
  ** Klasa kontrolera, który obsługuje test na zagrożenie azbestem
@@ -314,6 +315,10 @@ public class AsbestosTestController implements Initializable {
             }
             if (add) {
                 window.changeFactToRight("Kontakt z azbestem");
+                Notifications.create()
+                        .title("OnkoTest")
+                        .text("Podany czynnik ryzyka został dodany automatycznie.")
+                        .showInformation();
             }
             showOutputMessage(text.toString());
 

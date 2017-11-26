@@ -24,6 +24,7 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
+import org.controlsfx.control.Notifications;
 import projekt.Class.CheckReg;
 import projekt.Class.FCList;
 import projekt.Class.TList;
@@ -209,6 +210,10 @@ public class FirstWindowController implements Initializable {
                         cnt.setPerson(p);
                         if (p.getBmi() > 25) {
                             cnt.changeFactToRight("Otyłość");
+                            Notifications.create()
+                                    .title("OnkoTest")
+                                    .text("Drogi użytkowniku, Twoje bmi wynosi:" + p.getBmi() + ".\n Twoje BMI mówi, że jesteś osobą otyłą.")
+                                    .showInformation();
                         }
                         for (int i = 0; i < fwc.dataRight.size(); i++) {
                             cnt.changeFactToRight(fwc.dataRight.get(i));
@@ -272,6 +277,7 @@ public class FirstWindowController implements Initializable {
                         cnt.setPerson(p);
                         if (p.getBmi() > 25) {
                             cnt.changeFactToRight("Otyłość");
+
                         }
                         for (int i = 0; i < fwc.dataRight.size(); i++) {
                             cnt.changeFactToRight(fwc.dataRight.get(i));
@@ -289,6 +295,12 @@ public class FirstWindowController implements Initializable {
                         Stage stage;
                         stage = (Stage) ((Node) (event.getSource())).getScene().getWindow();
                         stage.close();
+                        if (p.getBmi() > 25) {
+                            Notifications.create()
+                                    .title("OnkoTest")
+                                    .text("Drogi użytkowniku, Twoje bmi wynosi:" + p.getBmi() + ".\n Twoje BMI mówi, że jesteś osobą otyłą.")
+                                    .showInformation();
+                        }
                     } else {
                         showOutputMessage("Niepoprawnie wprowadzono imie i/lub nazwisko.\nKażde imię i nazwisko powinno zaczynać się od dużej litery\nPrzykład prawidłowego imienia: Jan \nPrzykład prawidłowego nazwiska: Nowak");
                     }
