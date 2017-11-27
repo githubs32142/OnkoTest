@@ -23,33 +23,53 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.nio.file.Path;
+import javafx.scene.control.Alert;
 
 public class SaveToPDF {
-        /**
+
+    /**
      ** Metoda, która tworzy plik pdf na podaną ścieżkę
      *
      * @param file ścieżka dostępu do pluku na którym ma być zapisaby plik pdf
-     * @throws IOException wyjątek wejścia/ wyjścia
-     * @throws DocumentException wyjatek podczas tworzenia dokumentu
      */
-    public static void createPdf(File file) throws IOException, DocumentException {
-        Document document = new Document();
-        String HTML = "src/projekt/HTML/Diagnoza/diagnoza.html";
-        String CSS = "src/projekt/HTML/Diagnoza/styl.css";
-        PdfWriter writer = PdfWriter.getInstance(document, new FileOutputStream(file));
-        writer.setInitialLeading(12.5f);
-        document.open();
-        CSSResolver cssResolver = new StyleAttrCSSResolver();
-        CssFile cssFile = XMLWorkerHelper.getCSS(new FileInputStream(CSS));
-        cssResolver.addCss(cssFile);
-        HtmlPipelineContext htmlContext = new HtmlPipelineContext(null);
-        htmlContext.setTagFactory(Tags.getHtmlTagProcessorFactory());
-        PdfWriterPipeline pdf = new PdfWriterPipeline(document, writer);
-        HtmlPipeline html = new HtmlPipeline(htmlContext, pdf);
-        CssResolverPipeline css = new CssResolverPipeline(cssResolver, html);
-        XMLWorker worker = new XMLWorker(css, true);
-        XMLParser p = new XMLParser(worker);
-        p.parse(new FileInputStream(HTML));
-        document.close();
+    public static void createPdf(File file) {
+        try {
+            Document document = new Document();
+            String HTML = "src/projekt/HTML/Diagnoza/diagnoza.html";
+            String CSS = "src/projekt/HTML/Diagnoza/styl.css";
+            PdfWriter writer = PdfWriter.getInstance(document, new FileOutputStream(file));
+            writer.setInitialLeading(12.5f);
+            document.open();
+            CSSResolver cssResolver = new StyleAttrCSSResolver();
+            CssFile cssFile = XMLWorkerHelper.getCSS(new FileInputStream(CSS));
+            cssResolver.addCss(cssFile);
+            HtmlPipelineContext htmlContext = new HtmlPipelineContext(null);
+            htmlContext.setTagFactory(Tags.getHtmlTagProcessorFactory());
+            PdfWriterPipeline pdf = new PdfWriterPipeline(document, writer);
+            HtmlPipeline html = new HtmlPipeline(htmlContext, pdf);
+            CssResolverPipeline css = new CssResolverPipeline(cssResolver, html);
+            XMLWorker worker = new XMLWorker(css, true);
+            XMLParser p = new XMLParser(worker);
+            p.parse(new FileInputStream(HTML));
+            document.close();
+        } catch (Exception e) {
+            //showOutputMessage("Zapis do pliku nie jest możliwy. Program zostanie zamknięty");
+           // System.exit(1);
+        }
+
+    }
+
+    /**
+     ** wyświetla KOMUNIKAT O BŁĘDZIE
+     *
+     * @param message treść komunikatu o błędzie
+     */
+    public static void showOutputMessage(String message) {
+        Alert alert = new Alert(Alert.AlertType.ERROR);
+        alert.setTitle("Błąd");
+        alert.setHeaderText("Treść błędu");
+        alert.setContentText(message);
+        alert.showAndWait();
     }
 }

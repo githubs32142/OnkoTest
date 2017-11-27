@@ -13,6 +13,7 @@ import java.io.Reader;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.StringTokenizer;
+import javafx.scene.control.Alert;
 import projekt.Interface.*;
 
 /**
@@ -37,14 +38,14 @@ public class TList implements ReadData, Operation {
             FileInputStream fis = new FileInputStream(path);
             InputStreamReader isr = new InputStreamReader(fis, "UTF8");
             try (Reader in = new BufferedReader(isr)) {
-                int charSymbol;
-                while ((charSymbol = in.read()) > -1) {
-                    buffer.append((char) charSymbol);
+                int ch;
+                while ((ch = in.read()) > -1) {
+                    buffer.append((char) ch);
                 }
             }
             return buffer.toString();
         } catch (IOException e) {
-            return null;
+            return "";
         }
     }
 
@@ -52,16 +53,21 @@ public class TList implements ReadData, Operation {
     public void readData(String path) {
         listObject.clear();
         String line = readInput(path);
-        StringTokenizer st = new StringTokenizer(line, "-;");
-        boolean addNewObject = true;
-        while (st.hasMoreElements()) {
-            if (addNewObject) {
-                addNewObject();
-                addFullName(st);
-            } else {
-                addAlias(st);
+        if (!"".equals(line)) {
+            StringTokenizer st = new StringTokenizer(line, "-;");
+            boolean addNewObject = true;
+            while (st.hasMoreElements()) {
+                if (addNewObject) {
+                    addNewObject();
+                    addFullName(st);
+                } else {
+                    addAlias(st);
+                }
+                addNewObject = !addNewObject;
             }
-            addNewObject = !addNewObject;
+        } else {
+           showOutputMessage("Błąd! brak ścieżki dostępu.\nProgram zostanie zamknięty");
+            System.exit(1);
         }
     }
 
@@ -96,20 +102,22 @@ public class TList implements ReadData, Operation {
         }
         return false;
     }
-/**
- ** Metoda, która przesyła strumień danych do systemu ekspertowego 
- * @param s- Nazwa szablonu
- * @return strumień danych w postaci łańcucha znaków
- */
+
+    /**
+     ** Metoda, która przesyła strumień danych do systemu ekspertowego
+     *
+     * @param s- Nazwa szablonu
+     * @return strumień danych w postaci łańcucha znaków
+     */
     @Override
     public String makeAssert(String s) {
         StringBuilder str = new StringBuilder();
         str.append("( assert ( ").append(s);
         for (int i = 0; i < listObject.size(); i++) {
             str.append("( ").append(listObject.get(i).getAlias())
-               .append(" ")
-               .append(listObject.get(i).getAddedString())
-               .append(" ) ");
+                    .append(" ")
+                    .append(listObject.get(i).getAddedString())
+                    .append(" ) ");
         }
         str.append(") )");
         return str.toString();
@@ -126,4 +134,15 @@ public class TList implements ReadData, Operation {
         }
     }
 
+    public void showOutputMessage(String message) {
+        Alert alert = new Alert(Alert.AlertType.ERROR);
+        alert.setTitle("Błąd");
+        alert.setHeaderText("Treść błędu");
+        alert.setContentText(message);
+        alert.showAndWait();
+    }
+
+    public int size() {
+        return listObject.size();
+    }
 }

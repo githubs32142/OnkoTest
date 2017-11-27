@@ -47,7 +47,7 @@ public class CheckRegTest {
         boolean expResult = false;
         boolean result = CheckReg.checkEmail(mail);
         assertEquals(expResult, result);
-        System.out.println("Test zakończony pozytywnie. Oczekiwany wynik false");
+        System.out.println("Test zakończony pozytywnie. Otrzymany wynik false");
     }
 
     @Test
@@ -57,7 +57,7 @@ public class CheckRegTest {
         boolean expResult = false;
         boolean result = CheckReg.checkEmail(mail);
         assertEquals(expResult, result);
-        System.out.println("Test zakończony pozytywnie. Oczekiwany wynik false");
+        System.out.println("Test zakończony pozytywnie. Otrzymany wynik false");
     }
 
     @Test
@@ -67,7 +67,7 @@ public class CheckRegTest {
         boolean expResult = true;
         boolean result = CheckReg.checkEmail(mail);
         assertEquals(expResult, result);
-        System.out.println("Test zakończony pozytywnie. Oczekiwany wynik true");
+        System.out.println("Test zakończony pozytywnie. Otrzymany wynik true");
     }
 
     /**
@@ -80,7 +80,7 @@ public class CheckRegTest {
         boolean expResult = false;
         boolean result = CheckReg.checkHeightCent(word);
         assertEquals(expResult, result);
-        System.out.println("Test zakończony pozytywnie. Oczekiwany wynik false");
+        System.out.println("Test zakończony pozytywnie. Otrzymany wynik false");
     }
 
     @Test
@@ -90,7 +90,7 @@ public class CheckRegTest {
         boolean expResult = true;
         boolean result = CheckReg.checkHeightCent(word);
         assertEquals(expResult, result);
-        System.out.println("Test zakończony pozytywnie. Oczekiwany wynik true");
+        System.out.println("Test zakończony pozytywnie. Otrzymany wynik true");
     }
 
     @Test
@@ -100,7 +100,7 @@ public class CheckRegTest {
         boolean expResult = true;
         boolean result = CheckReg.checkHeightCent(word);
         assertEquals(expResult, result);
-        System.out.println("Test zakończony pozytywnie. Oczekiwany wynik true");
+        System.out.println("Test zakończony pozytywnie. Otrzymany wynik true");
     }
 
     @Test
@@ -110,7 +110,7 @@ public class CheckRegTest {
         boolean expResult = true;
         boolean result = CheckReg.checkHeightCent(word);
         assertEquals(expResult, result);
-        System.out.println("Test zakończony pozytywnie. Oczekiwany wynik true");
+        System.out.println("Test zakończony pozytywnie. Otrzymany wynik true");
     }
 
     @Test
@@ -120,7 +120,7 @@ public class CheckRegTest {
         boolean expResult = false;
         boolean result = CheckReg.checkHeightCent(word);
         assertEquals(expResult, result);
-        System.out.println("Test zakończony pozytywnie. Oczekiwany wynik false");
+        System.out.println("Test zakończony pozytywnie. Otrzymany wynik false");
     }
 
     /**
@@ -133,7 +133,7 @@ public class CheckRegTest {
         boolean expResult = true;
         boolean result = CheckReg.checkWeight(word);
         assertEquals(expResult, result);
-        System.out.println("Test zakończony pozytywnie. Oczekiwany wynik true");
+        System.out.println("Test zakończony pozytywnie. Otrzymany wynik true");
     }
 
     @Test
@@ -143,7 +143,7 @@ public class CheckRegTest {
         boolean expResult = true;
         boolean result = CheckReg.checkWeight(word);
         assertEquals(expResult, result);
-        System.out.println("Test zakończony pozytywnie. Oczekiwany wynik true");
+        System.out.println("Test zakończony pozytywnie. Otrzymany wynik true");
     }
 
     @Test
@@ -153,7 +153,7 @@ public class CheckRegTest {
         boolean expResult = false;
         boolean result = CheckReg.checkWeight(word);
         assertEquals(expResult, result);
-        System.out.println("Test zakończony pozytywnie. Oczekiwany wynik false");
+        System.out.println("Test zakończony pozytywnie. Otrzymany wynik false");
     }
 
     @Test
@@ -163,16 +163,17 @@ public class CheckRegTest {
         boolean expResult = false;
         boolean result = CheckReg.checkAge(word);
         assertEquals(expResult, result);
-        System.out.println("Test zakończony pozytywnie. Oczekiwany wynik false");
+        System.out.println("Test zakończony pozytywnie. Otrzymany wynik false");
     }
-        @Test
+
+    @Test
     public void testCheckAge2() {
         System.out.println("Sprawdzenie wieku w latach: 149");
         String word = "149";
         boolean expResult = true;
         boolean result = CheckReg.checkAge(word);
         assertEquals(expResult, result);
-        System.out.println("Test zakończony pozytywnie. Oczekiwany wynik true");
+        System.out.println("Test zakończony pozytywnie. Otrzymany wynik true");
     }
 
 }
