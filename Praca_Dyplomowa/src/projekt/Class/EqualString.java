@@ -17,6 +17,7 @@ public class EqualString {
     public static boolean equals(String s, String s2){
         StringBuilder sTmp= new StringBuilder();
         StringBuilder s2Tmp=new StringBuilder();
+        System.out.println(s+"-"+s2);
         for(int i=0;i<s.length();i++){
             if(containsSign(s, i) ){
                 sTmp.append(s.charAt(i));

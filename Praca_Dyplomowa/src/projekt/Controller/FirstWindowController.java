@@ -298,8 +298,9 @@ public class FirstWindowController implements Initializable {
                         if (p.getBmi() > 25) {
                             Notifications.create()
                                     .title("OnkoTest")
-                                    .text("Drogi użytkowniku, Twoje bmi wynosi:" + p.getBmi() + ".\n Twoje BMI mówi, że jesteś osobą otyłą.")
-                                    .showInformation();
+                                    .text("Drogi użytkowniku, Twoje bmi wynosi: " + p.getBmi() + ".\n Twoje BMI mówi, że jesteś osobą otyłą.")
+                                    .darkStyle()
+                                    .showWarning();
                         }
                     } else {
                         showOutputMessage("Niepoprawnie wprowadzono imie i/lub nazwisko.\nKażde imię i nazwisko powinno zaczynać się od dużej litery\nPrzykład prawidłowego imienia: Jan \nPrzykład prawidłowego nazwiska: Nowak");

@@ -196,6 +196,7 @@ public class FactorWindowController implements Initializable {
         index = ifFact(clickedFact);
         if (checkOnFact()) {
             leftSelected = factors.getSelectionModel().getSelectedIndex();
+            System.out.println(fact.get(index).getUrlHTML());
             final URL urlFactor = getClass().getResource(fact.get(index).getUrlHTML());
             webEngine.load(urlFactor.toExternalForm());
             if (factHaveTest()) {
@@ -223,6 +224,7 @@ public class FactorWindowController implements Initializable {
      */
     public int ifFact(String facts) {
         for (int i = 0; i < fact.size(); i++) {
+            
             if (EqualString.equals(fact.get(i).getFactor(), facts)) {
                 return i;
             }

@@ -32,7 +32,7 @@ public class OperationFactor {
         // Menopause 
         fact.add(new Factor("Menopauza + otyłość", "/projekt/HTML/wzrost_bmi.html", true, "/projekt/FXML/Menopause.fxml"));
         // Fibre
-        fact.add(new Factor("Brak błonnika", "/projekt/HTML/brak_naturalnych_antyoksydantow.html", true, "/projekt/FXML/Fibre.fxml"));
+        fact.add(new Factor("Brak błonnika", "/projekt/HTML/brak_blonnika.html", true, "/projekt/FXML/Fibre.fxml"));
         // 
         fact.add(new Factor("Pole elektromagnetyczne", "/projekt/HTML/pole_elektromagnetyczne.html", false, "/projekt/FXML/Fibre.fxml"));
         //
@@ -44,7 +44,7 @@ public class OperationFactor {
                 //Wczesne współżycie  EarlyChAgeController
         fact.add(new Factor("Wczesny wiek rodzenia", "/projekt/HTML/wczesne_dziecko.html", true, "/projekt/FXML/EarlyBabe.fxml"));
         //
-        fact.add(new Factor("Dieta bogata w tłuszcze", "/projekt/HTML/dieta_w_tluszcze.html", false, ""));
+        fact.add(new Factor("Dieta bogata w tłuszcz", "/projekt/HTML/dieta_w_tluszcze.html", false, ""));
         //
         fact.add(new Factor("Częste spożywanie czerwonego mięsa", "/projekt/HTML/spoz_cz_miesa.html", false, ""));
         //
