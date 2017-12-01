@@ -502,9 +502,9 @@
 
 
 (defrule cancerj05
-	(and (Sumj01 ?sumj1 ) (SumAge2 ?sumage2) (Sumj02 ?sumj2))
+	(and (SumAge2 ?sumage2) (Sumj03 ?sumj3))
 	=>
-	(assert (Sumj04 (+ sumj1  ?sumage2 ?sumj2 )))
+	(assert (Sumj04 (+   ?sumage2 ?sumj3 )))
 )
 
 (defrule cancerj06
