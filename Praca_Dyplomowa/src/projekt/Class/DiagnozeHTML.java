@@ -76,16 +76,16 @@ public class DiagnozeHTML {
         if (person.getEmail().isEmpty()) {
             str.append("<tr><td>Imię</td> <td>").append(person.getName()).append("</td></tr>\n");
             str.append("<tr > <td>Nazwisko</td> <td>").append(person.getSurName()).append("</td></tr>\n");
-            str.append("<tr > <td>Wiek</td> <td>").append(person.getAge()).append("</td></tr>\n");
-            str.append("<tr > <td>Wzrost</td> <td>").append(person.getHeight()).append("</td></tr>\n");
-            str.append("<tr > <td>Waga</td> <td>").append(person.getWeight()).append("</td></tr>\n");
+            str.append("<tr > <td>Wiek</td> <td>").append(person.getAge()).append(" lat</td></tr>\n");
+            str.append("<tr > <td>Wzrost</td> <td>").append(person.getHeight()).append(" cm</td></tr>\n");
+            str.append("<tr > <td>Waga</td> <td>").append(person.getWeight()).append(" kg</td></tr>\n");
             str.append("<tr > <td>Płeć:</td> <td>").append(person.getSex()).append("</td></tr>\n");
             str.append("<tr ><td>BMI:</td> <td>").append(person.getBmi()).append("</td></tr>\n");
         } else {
             str.append("<tr > <td>E-mail</td> <td>").append(person.getEmail()).append("</td></tr>\n");
-            str.append("<tr > <td>Wiek</td> <td>").append(person.getAge()).append("</td></tr>\n");
-            str.append("<tr > <td>Wzrost</td> <td>").append(person.getHeight()).append("</td></tr>\n");
-            str.append("<tr > <td>Waga</td> <td>").append(person.getWeight()).append("</td></tr>\n");
+            str.append("<tr > <td>Wiek</td> <td>").append(person.getAge()).append(" lat</td></tr>\n");
+            str.append("<tr > <td>Wzrost</td> <td>").append(person.getHeight()).append(" cm</td></tr>\n");
+            str.append("<tr > <td>Waga</td> <td>").append(person.getWeight()).append(" kg</td></tr>\n");
             str.append("<tr > <td>Płeć:</td> <td>").append(person.getSex()).append("</td></tr>\n");
             str.append("<tr ><td>BMI:</td> <td>").append(person.getBmi()).append("</td></tr>\n");
         }
