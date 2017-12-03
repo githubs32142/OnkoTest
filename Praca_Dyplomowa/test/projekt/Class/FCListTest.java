@@ -5,7 +5,6 @@
  */
 package projekt.Class;
 
-import java.util.List;
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
@@ -49,7 +48,6 @@ public class FCListTest {
         String expResult = "";
         String result = instance.readInput(path);
         assertEquals(expResult, result);
-        System.out.println("Poprawne zachowanie programu");
     }
 
     @Test
@@ -60,7 +58,6 @@ public class FCListTest {
         instance.readData(path);
         int expResult = 0;
         assertNotNull(instance.list);
-        System.out.println("Poprawne zachowanie programu");
     }
 
     @Test
@@ -69,7 +66,6 @@ public class FCListTest {
         String path = "";
         FCList instance = new FCList();
         instance.getAlias(50);
-        System.out.println("Poprawne zachowanie programu");
 
     }
 

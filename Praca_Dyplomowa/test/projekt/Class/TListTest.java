@@ -5,7 +5,6 @@
  */
 package projekt.Class;
 
-import java.util.List;
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
@@ -49,7 +48,6 @@ public class TListTest {
         String expResult = "";
         String result = instance.readInput(path);
         assertEquals(expResult, result);
-        System.out.println("Poprawne zachowanie programu");
     }
 
     @Test
@@ -60,7 +58,6 @@ public class TListTest {
         instance.readData(path);
         int expResult = 0;
         assertNotNull(instance.size());
-        System.out.println("Poprawne zachowanie programu");
     }
 
 }

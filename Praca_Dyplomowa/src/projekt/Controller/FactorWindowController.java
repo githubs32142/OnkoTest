@@ -18,7 +18,6 @@ import java.util.Comparator;
 import java.util.List;
 import java.util.ResourceBundle;
 import java.util.StringTokenizer;
-import java.util.function.Consumer;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javafx.application.Platform;
@@ -61,7 +60,7 @@ import projekt.Propertis.ConfigPath;
  * @author Andrzej Kierepka
  */
 public class FactorWindowController implements Initializable {
-    
+
     private double xOffset = 0;
     private double yOffset = 0;
     private int leftSelected, rightSeleted = 0;
@@ -117,7 +116,7 @@ public class FactorWindowController implements Initializable {
         cif = new CancerInFamillyController();
         data = FXCollections.observableArrayList();
         dataRight = FXCollections.observableArrayList();
-        
+
     }
 
     /**
@@ -134,7 +133,7 @@ public class FactorWindowController implements Initializable {
         h = 0.1;
         OperationFactor.initFactor(fact);
         try {
-           // readData("");
+            // readData("");
             readData(ConfigPath.getFactorList());
         } catch (IOException ex) {
             showOutputMessage("Błąd! Brak pliku konfiguracyjnego!\nZłoś się do twórcy programu");
@@ -154,7 +153,7 @@ public class FactorWindowController implements Initializable {
             public void handle(MouseEvent e) {
                 transition.setRate(transition.getRate() * -1);
                 transition.play();
-                
+
                 if (drawer.isShown()) {
                     drawer.close();
                 } else {
@@ -179,7 +178,7 @@ public class FactorWindowController implements Initializable {
                 stage.setY(event.getScreenY() - yOffset);
             }
         });
-        
+
         factors.setItems(data);
         addedFactor.setItems(dataRight);
     }
@@ -192,11 +191,9 @@ public class FactorWindowController implements Initializable {
     @FXML
     private void factorClicked(MouseEvent event) {
         String clickedFact = factors.getItems().get(factors.getSelectionModel().getSelectedIndex());
-        System.out.println(clickedFact);
         index = ifFact(clickedFact);
         if (checkOnFact()) {
             leftSelected = factors.getSelectionModel().getSelectedIndex();
-            System.out.println(fact.get(index).getUrlHTML());
             final URL urlFactor = getClass().getResource(fact.get(index).getUrlHTML());
             webEngine.load(urlFactor.toExternalForm());
             if (factHaveTest()) {
@@ -206,11 +203,11 @@ public class FactorWindowController implements Initializable {
             }
         }
     }
-    
+
     private boolean factHaveTest() {
         return fact.get(index).isTest();
     }
-    
+
     private boolean checkOnFact() {
         return index >= 0 && index < fact.size();
     }
@@ -224,7 +221,7 @@ public class FactorWindowController implements Initializable {
      */
     public int ifFact(String facts) {
         for (int i = 0; i < fact.size(); i++) {
-            
+
             if (EqualString.equals(fact.get(i).getFactor(), facts)) {
                 return i;
             }
@@ -308,7 +305,7 @@ public class FactorWindowController implements Initializable {
                 //primaryStage.initStyle(StageStyle.UNDECORATED);
 
                 primaryStage.show();
-                
+
             }
         }
     }
@@ -375,7 +372,7 @@ public class FactorWindowController implements Initializable {
             showOutputMessage("Nie można przejść do następnego okna.\nSkontaktuj się z twórcą programu");
         }
     }
-    
+
     private void loadDataToAnotherController(SymptomWindowController cnt) {
         for (int i = 0; i < sw.dataRight.size(); i++) {
             cnt.changeSymptomToRight(sw.dataRight.get(i));
@@ -507,7 +504,7 @@ public class FactorWindowController implements Initializable {
      */
     public void setPerson(Person person) {
         this.person = person;
-        
+
     }
 
     /**
@@ -564,9 +561,9 @@ public class FactorWindowController implements Initializable {
                 stage.centerOnScreen();
             } else {
                 stage.setMaximized(false);
-                
+
             }
-            
+
         } else {
             stage.setMaximized(true);
             stage.setHeight(rec2.getHeight());
@@ -662,7 +659,7 @@ public class FactorWindowController implements Initializable {
     @FXML
     private void undoClick(ActionEvent event) {
         try {
-            
+
             FXMLLoader load = new FXMLLoader(this.getClass().getResource("/projekt/FXML/FirstWindow.fxml"));
             FirstWindowController cnt = new FirstWindowController();
             Parent parent = load.load();
@@ -694,7 +691,7 @@ public class FactorWindowController implements Initializable {
             logger.log(Level.SEVERE, "Failed to create new Window.", e);
         }
     }
-    
+
     private boolean isEmptyNamePerson() {
         return person.getName().isEmpty();
     }
@@ -737,7 +734,7 @@ public class FactorWindowController implements Initializable {
      ** Metoda, która sortuje kolekcje
      */
     private void sort() {
-        Collections.sort(data, (String t, String t1) -> t.compareTo(t1));
+        Collections.sort(data, ( t,  t1) -> EqualString.removeChar(t).compareTo(EqualString.removeChar(t1)));
     }
-    
+
 }

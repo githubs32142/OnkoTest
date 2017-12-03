@@ -27,7 +27,6 @@ public class TObject {
     }
 
     public void setFactor(String factor) {
-        System.out.println(factor+ " "+factor.length() );
         this.factor = factor;
     }
 

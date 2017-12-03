@@ -1,12 +1,7 @@
 package projekt.Class;
 
 import java.util.ArrayList;
-import java.util.Collection;
-import static java.util.Collections.list;
-import java.util.HashSet;
 import java.util.List;
-import java.util.function.Consumer;
-import java.util.stream.Collectors;
 import javafx.collections.ObservableList;
 
 /**

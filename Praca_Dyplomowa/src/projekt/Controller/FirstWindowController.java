@@ -26,8 +26,6 @@ import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 import org.controlsfx.control.Notifications;
 import projekt.Class.CheckReg;
-import projekt.Class.FCList;
-import projekt.Class.TList;
 import projekt.Class.Person;
 import projekt.ToolTip.TTFirstWindnow;
 import projekt.animations.FadeInLeftTransition;

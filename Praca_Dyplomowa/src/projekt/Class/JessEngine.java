@@ -23,7 +23,6 @@ public class JessEngine {
         StringWriter o = new StringWriter();
         engine.addOutputRouter("t", o);
         String result = "";
-        System.out.println(s);
         // Load the pricing rules
         engine.batch("projekt/JESS/diagnose.clp");
         engine.eval(s);

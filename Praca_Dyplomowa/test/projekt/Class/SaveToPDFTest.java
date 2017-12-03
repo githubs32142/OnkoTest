@@ -11,7 +11,6 @@ import org.junit.AfterClass;
 import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
-import static org.junit.Assert.*;
 
 /**
  *
@@ -49,7 +48,6 @@ public class SaveToPDFTest {
         File file = new File("1.pdf");
         SaveToPDF.createPdf(file);
         // TODO review the generated test code and remove the default call to fail.
-        System.out.println("Prawidłowe zachowanie aplikacji.");
     }
 
     @Test
@@ -58,7 +56,6 @@ public class SaveToPDFTest {
         File file = new File("");
         SaveToPDF.createPdf(file);
         // TODO review the generated test code and remove the default call to fail.
-        System.out.println("Prawidłowe zachowanie apliacji");
     }
 
 }

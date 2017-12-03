@@ -11,9 +11,6 @@ import javafx.scene.Scene;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 import javafx.util.Duration;
-import projekt.Class.FCList;
-import projekt.Class.TList;
-import projekt.Propertis.ConfigPath;
 
 /**
  ** Klasa która powoduje uruchomienie programu
@@ -81,7 +78,6 @@ public class RunClass extends Application {
                 try {
                     parent = load.load();
                 } catch (IOException ex) {
-                    System.err.println(ex.getMessage());
                 }
                 Scene scene = new Scene(parent);
                 FadeTransition fin = new FadeTransition(Duration.seconds(5), parent);

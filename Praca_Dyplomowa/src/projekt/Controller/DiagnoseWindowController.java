@@ -22,7 +22,6 @@ import javafx.geometry.Rectangle2D;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.web.WebEngine;
@@ -247,7 +246,6 @@ public class DiagnoseWindowController implements Initializable {
                 try {
                     parent = load.load();
                 } catch (IOException ex) {
-                    System.err.println(ex.getMessage());
                 }
                 Scene scene = new Scene(parent);
                 primaryStage.setScene(scene);
@@ -264,7 +262,6 @@ public class DiagnoseWindowController implements Initializable {
                 try {
                     parent = load.load();
                 } catch (IOException ex) {
-                    System.err.println(ex.getMessage());
                 }
                 Scene scene = new Scene(parent);
                 primaryStage.setScene(scene);

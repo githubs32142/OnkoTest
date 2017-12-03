@@ -48,7 +48,6 @@ import jess.JessException;
 import projekt.Class.CancerFamilly;
 import projekt.Class.DiagnozeHTML;
 import projekt.Class.FCList;
-import projekt.Class.FCObject;
 import projekt.Class.JessEngine;
 import projekt.Class.TList;
 import projekt.Class.Person;
@@ -203,7 +202,6 @@ public class SummaryWindowController implements Initializable {
             out.write(html.text.toString());
             out.close();
         } catch (FileNotFoundException ex) {
-            System.out.println(ex.getMessage());
         }
         view.getEngine().loadContent(html.textCss.toString());
         Scene scene = new Scene(parent);

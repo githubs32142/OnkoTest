@@ -6,7 +6,6 @@
 package projekt.Class;
 
 import com.itextpdf.text.Document;
-import com.itextpdf.text.DocumentException;
 import com.itextpdf.text.pdf.PdfWriter;
 import com.itextpdf.tool.xml.XMLWorker;
 import com.itextpdf.tool.xml.XMLWorkerHelper;
@@ -22,8 +21,6 @@ import com.itextpdf.tool.xml.pipeline.html.HtmlPipelineContext;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
-import java.io.IOException;
-import java.nio.file.Path;
 import javafx.scene.control.Alert;
 
 public class SaveToPDF {

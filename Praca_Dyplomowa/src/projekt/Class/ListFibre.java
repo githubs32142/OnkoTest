@@ -203,7 +203,6 @@ public class ListFibre {
         if (index >= 0 && index < listFibre.size()) {
             listFibre.remove(index);
         } else {
-            System.err.println("Błąd nie właściwy index");
         }
     }
 }

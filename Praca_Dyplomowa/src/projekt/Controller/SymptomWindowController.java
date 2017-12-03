@@ -42,6 +42,7 @@ import javafx.scene.layout.VBox;
 import javafx.stage.Screen;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
+import projekt.Class.EqualString;
 import projekt.Class.Person;
 import projekt.Propertis.ConfigPath;
 
@@ -133,6 +134,7 @@ public class SymptomWindowController implements Initializable {
                 stage.setY(event.getScreenY() - yOffset);
             }
         });
+        sort();
     }
 
     /**
@@ -533,6 +535,12 @@ public class SymptomWindowController implements Initializable {
         } catch (Exception e) {
             showOutputMessage("Nie zaznaczyłeś wiersza");
         }
+    }
+    /**
+     ** Metoda, która sortuje kolekcje
+     */
+    private void sort() {
+        Collections.sort(data, ( t,  t1) -> EqualString.removeChar(t).compareTo(EqualString.removeChar(t1)));
     }
 
 }
